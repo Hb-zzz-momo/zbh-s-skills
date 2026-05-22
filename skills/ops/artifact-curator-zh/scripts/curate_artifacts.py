@@ -24,6 +24,8 @@ SKILL_PREFIX_RE = re.compile(
     re.IGNORECASE,
 )
 LEGACY_FLAT_FIRST = re.compile(r"^\d{8}_\d{6}_")
+DATE_PREFIX_RE = re.compile(r"^\d{8}_\d{6}_")
+DATE_SUFFIX_RE = re.compile(r"[_-]\d{8}_\d{6}$")
 
 
 def parse_args() -> argparse.Namespace:
@@ -111,7 +113,8 @@ def detect_version(text: str) -> str:
 
 def topic_key(path: Path) -> str:
     stem = path.stem
-    stem = re.sub(r"^\d{8}_\d{6}_", "", stem)
+    stem = DATE_PREFIX_RE.sub("", stem)
+    stem = DATE_SUFFIX_RE.sub("", stem)
     stem = SKILL_PREFIX_RE.sub("", stem)
     stem = re.sub(r"[_-]run\d+$", "", stem, flags=re.IGNORECASE)
     stem = re.sub(r"[_-]seed\d+$", "", stem, flags=re.IGNORECASE)
@@ -143,7 +146,8 @@ def delivery_topic_key(path: Path, rel: str) -> str:
     if bucket == "legacy-flat":
         return topic_key(path)
     if len(parts) >= 4:
-        run = re.sub(r"^\d{8}_\d{6}_", "", parts[2])
+        run = DATE_PREFIX_RE.sub("", parts[2])
+        run = DATE_SUFFIX_RE.sub("", run)
         return f"{bucket}/{run.lower()}"
     if len(parts) == 3:
         return f"{bucket}/{topic_key(path)}"

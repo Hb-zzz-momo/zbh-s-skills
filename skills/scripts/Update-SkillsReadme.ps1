@@ -256,7 +256,8 @@ foreach ($scenario in $scenarioOrder) {
 [void]$L.Add('1. **Self-iteration mode** - give feedback after use to trigger optimization')
 [void]$L.Add('2. **YAML frontmatter** - standard name / description fields')
 [void]$L.Add('3. **Markdown deliverable** - substantial skill outputs must also be written to Markdown file(s) or a dedicated output folder in the current workspace')
-[void]$L.Add('4. **Line limit** - every SKILL.md < 500 lines')
+[void]$L.Add('4. **Skill-output naming** - new outputs go under ``skill-outputs/<skill-name>/`` and use Chinese topic names with the date/time suffix, for example ``阶段审计报告_YYYYMMDD_HHMMSS.md``; do not repeat the skill name in the file or folder name')
+[void]$L.Add('5. **Line limit** - every SKILL.md < 500 lines')
 [void]$L.Add('')
 
 # --- directory tree ---
