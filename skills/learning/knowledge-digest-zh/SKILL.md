@@ -13,7 +13,7 @@ description: '全面知识总结技能：全局可用，在任务完成后提炼
 
 1. 使用本技能完成正式输出时，除聊天中的简要说明外，必须在当前工作区新建一个**总结文件夹**保存完整结果。
 2. 默认保存位置为当前工作区 `skill-outputs/knowledge-digest-zh/`（与 `artifact-curator-zh` 按技能分子目录的规范一致；历史写在 `skill-outputs/` 根下的交付为 **legacy-flat**，兼容并存）。若该子目录不存在须先创建。
-3. 默认在上述目录下新建子文件夹，名格式为 `YYYYMMDD_HHMMSS_knowledge-digest-zh_主题/`；若主题不明确，使用 `result`。
+3. 默认在上述目录下新建子文件夹，名格式为 `中文主题_YYYYMMDD_HHMMSS/`（文件夹名不再重复 skill 名）；若主题不明确，使用 `学习总结_YYYYMMDD_HHMMSS/`。
 4. 总结文件夹至少包含 `README.md`，深度总结还应包含 `知识总结.md`、`自测题.md` 和 `可复用工作流.md`。
 5. `README.md` 必须说明本次总结主题、包含文件、阅读顺序和一句话收获。
 6. Markdown 内容必须包含完整知识总结、核心知识点、小白举例、工作流方法论、AI 协作技巧与自测内容（如有）。
@@ -25,7 +25,7 @@ description: '全面知识总结技能：全局可用，在任务完成后提炼
 ### 模式A 默认结构
 
 ```text
-skill-outputs/knowledge-digest-zh/YYYYMMDD_HHMMSS_knowledge-digest-zh_主题/
+skill-outputs/knowledge-digest-zh/中文主题_YYYYMMDD_HHMMSS/
   README.md
   学习摘要.md
 ```
@@ -33,7 +33,7 @@ skill-outputs/knowledge-digest-zh/YYYYMMDD_HHMMSS_knowledge-digest-zh_主题/
 ### 模式B 默认结构
 
 ```text
-skill-outputs/knowledge-digest-zh/YYYYMMDD_HHMMSS_knowledge-digest-zh_主题/
+skill-outputs/knowledge-digest-zh/中文主题_YYYYMMDD_HHMMSS/
   README.md
   知识总结.md
   可复用工作流.md
@@ -43,7 +43,7 @@ skill-outputs/knowledge-digest-zh/YYYYMMDD_HHMMSS_knowledge-digest-zh_主题/
 ### 模式C 默认结构
 
 ```text
-skill-outputs/knowledge-digest-zh/YYYYMMDD_HHMMSS_knowledge-digest-zh_主题/
+skill-outputs/knowledge-digest-zh/中文主题_YYYYMMDD_HHMMSS/
   README.md
   自测题.md
   参考答案.md
