@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "Agent 后台监控"
+  short_description: "长任务后台启动、wait轮询、卡死判定、续跑和收口协议。"
+  default_prompt: "为当前长任务建立后台监控和自动续跑协议。"

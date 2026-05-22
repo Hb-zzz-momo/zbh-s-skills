@@ -1,0 +1,4 @@
+interface:
+  display_name: "产物归档整理"
+  short_description: "识别过时产物并整理 skill-outputs、结果文档和实验报告。"
+  default_prompt: "扫描当前项目的 skill-outputs 和结果文档，生成过时文件候选、分类索引和整理计划。"
