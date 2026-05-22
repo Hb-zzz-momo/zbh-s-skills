@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "项目启动交付"
+  short_description: "外包、比赛、工程项目从读题调研到技术选型、分工和启动命令的交付流程。"
+  default_prompt: "为当前项目制定启动、分工、技术选型和交付计划。"

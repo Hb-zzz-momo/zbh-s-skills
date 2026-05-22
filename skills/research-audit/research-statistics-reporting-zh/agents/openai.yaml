@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "科研统计报告"
+  short_description: "科研论文常用统计指标选择、解释、表格和结果段落写法。"
+  default_prompt: "根据数据类型选择统计指标并生成论文报告写法。"

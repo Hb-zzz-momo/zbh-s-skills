@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "项目接班手册"
+  short_description: "生成和更新项目统一认知、AI接班手册、工作流细化等上下文交接文档。"
+  default_prompt: "为当前项目生成或更新 AI 接班文档，帮助新 AI 快速继承上下文。"
