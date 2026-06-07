@@ -37,6 +37,20 @@ Measure before optimizing. Performance work without measurement is guessing — 
 5. GUARD    → Add monitoring or tests to prevent regression
 ```
 
+### Stagnation Gate
+
+If five consecutive optimization iterations fail to produce a real accepted improvement, stop proposing new code changes and run a stagnation review first. Treat an iteration as ineffective when it fails the agreed gate, only improves one seed or a local sub-metric, repeats an already-failed route, changes no bottleneck ranking, or cannot explain/reproduce the claimed gain.
+
+The stagnation review must record:
+
+- The last five attempts, measurements, and rejection reasons.
+- The shared failure pattern and the routes that are now exhausted.
+- The strongest current bottleneck evidence, not guesses.
+- The next missing measurement, profiler, workload, or theory needed.
+- A clear decision: continue optimizing, change direction, freeze the result, or rebuild the measurement method.
+
+Do not continue small tweaks until that review is complete.
+
 ### Step 1: Measure
 
 Two complementary approaches — use both:
