@@ -1,7 +1,8 @@
 ---
 name: research-skill-flow-zh
-description: 科研 Skill 调用流总控技能：用于多痛点、多假设、多创新点的科研任务分阶段路由、候选池生成、Gap Gate、候选 smoke 漏斗、dev/formal 收敛、论文 claim 分级和外部科研 skill 冲突审计。Use when: 科研调用流、科研skill路由、多候选科研流程、多痛点、多假设、多创新点、候选池、Gap Gate、Memory Intake、Candidate Smoke Funnel、论文claim分级、外部科研skill冲突审计。不适用于：直接执行单一实验、单篇论文写作或普通工程开发，路由后应切换到对应阶段主 skill。
-argument-hint: "说明科研阶段和材料，例如：按科研调用流做新方向探索；用多候选漏斗筛选这些创新点；论文前按 claim 分级整理"
+description: "科研 Skill 调用流总控技能：用于多痛点、多假设、多创新点的科研任务分阶段路由、候选池生成、Gap Gate、候选 smoke 漏斗、dev/formal 收敛、论文 claim 分级和外部科研 skill 冲突审计。Use when: 科研调用流、科研skill路由、多候选科研流程、多痛点、多假设、多创新点、候选池、Gap Gate、Memory Intake、Candidate Smoke Funnel、论文claim分级、外部科研skill冲突审计。不适用于：直接执行单一实验、单篇论文写作或普通工程开发，路由后应切换到对应阶段主 skill。"
+metadata:
+  argument-hint: "说明科研阶段和材料，例如：按科研调用流做新方向探索；用多候选漏斗筛选这些创新点；论文前按 claim 分级整理"
 ---
 
 # 科研 Skill 调用流
