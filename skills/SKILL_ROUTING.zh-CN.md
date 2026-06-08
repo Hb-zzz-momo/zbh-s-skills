@@ -29,6 +29,7 @@
 |---|---|---|
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `agent-skills-ao/*` |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
+| 科研调用流 | 多痛点、多假设、多创新点、候选池、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
 | 科研迭代复盘 | 判断是不是越改越差、机制是否可写 | `research-iteration-audit-zh` |
@@ -133,25 +134,33 @@ code-review-and-quality
 
 默认执行方式：复现 -> 定位最小根因 -> 修复 -> 加回归测试 -> review。
 
+### 科研多候选探索 / 调用流
+
+```text
+research-skill-flow-zh
+```
+
+默认执行方式：Memory Intake -> Gap Gate -> Research Design -> Candidate Smoke Funnel -> Dev/Formal -> Paper Memory。每阶段只允许 1 个主 skill、最多 2 个辅助 skill；审计 skill 只在触发条件满足时调用。
+
 ### 科研实验
 
 ```text
 research-experiment-ops-zh
-plan-faithful-execution-zh
-decisive-result-audit-zh
+agent-wait-monitor-zh
+artifact-curator-zh
 ```
 
-默认执行方式：smoke/formal 分阶段；检查 raw、summary、metric、seed、配置一致性；论文 claim 不越界。
+默认执行方式：smoke/dev/formal 分阶段；检查 raw、summary、metric、seed、配置一致性；固定计划触发 `plan-faithful-execution-zh`，formal、冻结版本或论文 claim 触发 `decisive-result-audit-zh`。
 
 ### 论文写作
 
 ```text
 paper-writing-zh
 research-coach-zh
-decisive-result-audit-zh
+research-statistics-reporting-zh
 ```
 
-默认执行方式：材料驱动写作；事实、推理、建议分开；实验结论必须被结果支撑。
+默认执行方式：材料驱动写作；事实、推理、建议分开；实验结论必须被结果支撑；正式 claim 触发 `decisive-result-audit-zh`。
 
 ### 信息调研
 
@@ -234,4 +243,3 @@ cd C:\Users\zbh\.agents\skills
 ```powershell
 Select-String -Path .\README.md -Pattern 'Skill Routing Protocol|skill-router-zh|addyosmani / agent-skills 工程工作流' -Context 0,20
 ```
-

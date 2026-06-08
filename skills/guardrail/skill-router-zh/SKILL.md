@@ -15,7 +15,7 @@ description: 中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\s
 
 1. **识别任务领域**
    - 工程开发：项目理解、编码、调试、测试、review、上线。
-   - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界。
+   - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界；若涉及科研调用流、多痛点、多假设、多创新点、候选池或 Gap Gate，先走 `research-skill-flow-zh`。
    - 写作翻译：论文、翻译、报告文字。
    - 课程任务：考试、实验、实验报告。
    - 调研证据：资料收集、来源核验、证据链。
@@ -67,13 +67,23 @@ incremental-implementation
 test-driven-development
 ```
 
+### 科研多候选探索 / 调用流
+
+```text
+research-skill-flow-zh
+```
+
+默认执行方式：先做 Memory Intake、Gap Gate 和候选池，再按阶段切换到唯一主 skill；每阶段最多 2 个辅助 skill，审计 skill 只在触发条件满足时调用。
+
 ### 科研算法实验
 
 ```text
 research-experiment-ops-zh
-plan-faithful-execution-zh
-decisive-result-audit-zh
+agent-wait-monitor-zh
+artifact-curator-zh
 ```
+
+默认执行方式：smoke/dev/formal 分阶段执行；固定计划时触发 `plan-faithful-execution-zh`，formal、冻结版本或论文 claim 时触发 `decisive-result-audit-zh`。
 
 ### 论文/报告文字
 
@@ -137,4 +147,3 @@ Skill 路由：
 ```
 
 随后按被选中的具体 skill 执行，而不是停留在路由说明。
-
