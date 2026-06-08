@@ -45,75 +45,76 @@
 |---|-------|-------|-------------|
 | 10 | `iteration-reflection-guard-zh` | 173 | 中文迭代反思守门技能：用于科研、算法、工程、方案设计等任何“继续迭代/提出计划/改进方法/复盘经验/避免重复历史错误/保证创新性/列出致命痛点/自我迭代”的场景 |
 | 11 | `plan-faithful-execution-zh` | 138 | 中文工程执行防自我衍生技能：用于严格按照参考计划文档、题面、方案书、AGENTS.md、任务书、实验计划或用户指定边界执行工程、建模、代码、实验和报告任务；禁止 AI 自作主张扩展参数范围、目标函数、约束条件、文件结构、实验口径、输出格式或结论表述；遇到计划缺失、冲突、不确定或需要新增假设时，必须先提出具体问题并等待用户解答；任务结束时主动检查是否存在自我衍生、越权实现、未授权假设和计划偏离 |
-| 12 | `skill-router-zh` | 149 | 中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\skills 中按任务领域、阶段、风险和交付物选择最少必要 skill 组合，避免一次性加载全量技能 |
-| 13 | `workflow-forge-zh` | 257 | 工作流提炼与生成技能：从零散经验/多轮对话/已有流程中提炼出结构化、可复用的工作流，或为新任务设计工作流 |
+| 12 | `skill-router-zh` | 159 | 中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\skills 中按任务领域、阶段、风险和交付物选择最少必要 skill 组合，避免一次性加载全量技能 |
+| 13 | `subagent-orchestration-zh` | 200 | 中文子代理编排技能：用于把 Codex subagents、/sub、多代理协调、并行委派、explorer/worker、TOML agent、awesome-codex-subagents 角色库和本地 skills 路由结合起来；约束何时允许真实 spawn 子代理、何时只给委派方案、如何划分父代理/子代理职责、如何避免写范围冲突、如何把科研与工程任务的子代理结果回收到本地审计和验收流程 |
+| 14 | `workflow-forge-zh` | 257 | 工作流提炼与生成技能：从零散经验/多轮对话/已有流程中提炼出结构化、可复用的工作流，或为新任务设计工作流 |
 
 ### 论文写作与翻译
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 14 | `paper-writing-zh` | 172 | 学术论文撰写辅助技能：覆盖论文各章节的分阶段撰写、材料驱动写作、事实/推理/建议区分、自检修订 |
-| 15 | `translation-zh` | 147 | 翻译技能：将英文学术/技术文本翻译为地道中文，确保零英文残留、语义完整、逻辑通顺 |
+| 15 | `paper-writing-zh` | 172 | 学术论文撰写辅助技能：覆盖论文各章节的分阶段撰写、材料驱动写作、事实/推理/建议区分、自检修订 |
+| 16 | `translation-zh` | 147 | 翻译技能：将英文学术/技术文本翻译为地道中文，确保零英文残留、语义完整、逻辑通顺 |
 
 ### 课程实验与考试
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 16 | `exam-answer-zh` | 157 | 考试答题辅助技能：适用于期末考试、课程作业、章节练习等答题场景。采用3轮验证机制确保答案可靠性 |
-| 17 | `lab-report-coach-zh` | 336 | 用于"课程实验带练、实验排错、截图规划、实验报告生成、Word文档生成、实验复盘"类任务 |
+| 17 | `exam-answer-zh` | 157 | 考试答题辅助技能：适用于期末考试、课程作业、章节练习等答题场景。采用3轮验证机制确保答案可靠性 |
+| 18 | `lab-report-coach-zh` | 336 | 用于"课程实验带练、实验排错、截图规划、实验报告生成、Word文档生成、实验复盘"类任务 |
 
 ### 信息调研与证据链
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 18 | `info-evidence-chain-zh` | 36 | 信息证据链技能：用于资料收集、分类检索、真实性验证、来源链接整理、证据链表格、调研报告和带来源的结论输出 |
+| 19 | `info-evidence-chain-zh` | 36 | 信息证据链技能：用于资料收集、分类检索、真实性验证、来源链接整理、证据链表格、调研报告和带来源的结论输出 |
 
 ### 汇报展示与软著
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 19 | `ppt-story-design-zh` | 51 | PPT叙事设计技能：用于课程汇报、路演、创新创业、项目展示和技术方案 PPT 的故事线、页面结构、内容定型、痛点表达、证据支撑和视觉风格规划 |
-| 20 | `software-copyright-zh` | 203 | 用于"软著项目开发、说明书生成、代码材料整理、截图演示"全流程 |
+| 20 | `ppt-story-design-zh` | 51 | PPT叙事设计技能：用于课程汇报、路演、创新创业、项目展示和技术方案 PPT 的故事线、页面结构、内容定型、痛点表达、证据支撑和视觉风格规划 |
+| 21 | `software-copyright-zh` | 203 | 用于"软著项目开发、说明书生成、代码材料整理、截图演示"全流程 |
 
 ### 长任务与产物管理
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 21 | `agent-wait-monitor-zh` | 74 | Agent 后台监控协议技能：用于长时间任务的后台启动、wait 轮询、进度文件监控、日志监控、卡死判定、自动续跑、失败重试、最终收口和无人值守实验托管 |
-| 22 | `artifact-curator-zh` | 183 | 产物归档整理与过时识别技能：扫描 skill-outputs（按 skill 子目录与 legacy-flat）、实验结果、日志等；可选脚本将根目录 legacy 一键迁入 skill 子目录 |
+| 22 | `agent-wait-monitor-zh` | 74 | Agent 后台监控协议技能：用于长时间任务的后台启动、wait 轮询、进度文件监控、日志监控、卡死判定、自动续跑、失败重试、最终收口和无人值守实验托管 |
+| 23 | `artifact-curator-zh` | 183 | 产物归档整理与过时识别技能：扫描 skill-outputs（按 skill 子目录与 legacy-flat）、实验结果、日志等；可选脚本将根目录 legacy 一键迁入 skill 子目录 |
 
 ### 全局学习复盘
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 23 | `knowledge-digest-zh` | 326 | 全面知识总结技能：全局可用，在任务完成后提炼垂直领域知识点、工作流方法论、AI协作技巧，用小白举例帮助真正学到东西 |
+| 24 | `knowledge-digest-zh` | 326 | 全面知识总结技能：全局可用，在任务完成后提炼垂直领域知识点、工作流方法论、AI协作技巧，用小白举例帮助真正学到东西 |
 
 ### addyosmani / agent-skills 工程工作流
 
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
-| 24 | `api-and-interface-design` | 294 | 指导稳定 API 与接口设计，适用于 REST/GraphQL 接口、模块边界、类型契约、前后端边界等公共接口设计。 |
-| 25 | `browser-testing-with-devtools` | 302 | 使用真实浏览器和 DevTools 验证页面行为，适用于 DOM 检查、控制台错误、网络请求、性能与渲染问题排查。 |
-| 26 | `ci-cd-and-automation` | 390 | 自动化 CI/CD 流水线配置，适用于构建、测试、质量门禁、部署流程和自动化脚本编排。 |
-| 27 | `code-review-and-quality` | 347 | 进行多维度代码审查，合并前优先检查缺陷风险、可维护性、测试覆盖、性能、安全和架构一致性。 |
-| 28 | `code-simplification` | 331 | 在不改变行为的前提下简化代码，适用于降低复杂度、去除重复、改善命名、拆分职责和提升可读性。 |
-| 29 | `context-engineering` | 289 | 优化 Agent 上下文配置，适用于项目启动、上下文退化、任务切换、规则文件整理和提示上下文设计。 |
-| 30 | `debugging-and-error-recovery` | 300 | 系统化定位根因并恢复错误，适用于测试失败、构建中断、异常行为、回归问题和未知报错排查。 |
-| 31 | `deprecation-and-migration` | 206 | 管理废弃与迁移流程，适用于移除旧系统/API/功能、兼容迁移、用户过渡和弃用策略设计。 |
-| 32 | `documentation-and-adrs` | 278 | 记录架构决策与项目文档，适用于 ADR、公共 API 变更、重要特性发布和未来维护上下文沉淀。 |
-| 33 | `doubt-driven-development` | 243 | 对非平凡决策进行怀疑式复核，适用于高风险代码、陌生系统、生产关键路径和需要反证审查的方案。 |
-| 34 | `frontend-ui-engineering` | 328 | 构建生产级前端界面，适用于组件、布局、状态、交互、响应式设计和用户可感知体验实现。 |
-| 35 | `git-workflow-and-versioning` | 300 | 规范 Git 工作流与版本管理，适用于分支、提交、变更组织、冲突处理、发布版本和协作流程。 |
-| 36 | `idea-refine` | 178 | 通过发散与收敛思考迭代打磨想法，适用于创意澄清、方案压力测试、MVP 范围收敛和一页纸产出。 |
-| 37 | `incremental-implementation` | 245 | 按小步可验证方式交付改动，适用于多文件功能、较大重构、风险分阶段落地和持续验证。 |
-| 38 | `performance-optimization` | 364 | 优化应用性能，适用于性能回归、加载速度、Core Web Vitals、热点剖析、资源瓶颈和响应时间问题。 |
-| 39 | `planning-and-task-breakdown` | 223 | 把需求拆解为有序任务，适用于规格明确但规模较大的功能、实施排期、范围评估和依赖梳理。 |
-| 40 | `security-and-hardening` | 349 | 加固代码安全性，适用于用户输入、认证授权、数据存储、外部集成、会话管理和漏洞风险面。 |
-| 41 | `shipping-and-launch` | 309 | 准备生产发布，适用于上线清单、监控告警、灰度发布、回滚策略、发布风险和发布后验证。 |
-| 42 | `source-driven-development` | 194 | 基于官方文档做实现决策，适用于框架/库版本易变、需要权威来源、避免过时模式的开发任务。 |
-| 43 | `spec-driven-development` | 200 | 先写规格再编码，适用于新项目、新功能、需求不清晰、边界模糊或需要明确验收标准的任务。 |
-| 44 | `test-driven-development` | 383 | 用测试驱动开发，适用于实现逻辑、修复缺陷、改变行为、证明正确性和防止回归。 |
-| 45 | `using-agent-skills` | 177 | 发现并调用合适的 Agent 技能，适用于会话开始、技能选择、技能组合和工作流路由。 |
+| 25 | `api-and-interface-design` | 294 | 指导稳定 API 与接口设计，适用于 REST/GraphQL 接口、模块边界、类型契约、前后端边界等公共接口设计。 |
+| 26 | `browser-testing-with-devtools` | 302 | 使用真实浏览器和 DevTools 验证页面行为，适用于 DOM 检查、控制台错误、网络请求、性能与渲染问题排查。 |
+| 27 | `ci-cd-and-automation` | 390 | 自动化 CI/CD 流水线配置，适用于构建、测试、质量门禁、部署流程和自动化脚本编排。 |
+| 28 | `code-review-and-quality` | 347 | 进行多维度代码审查，合并前优先检查缺陷风险、可维护性、测试覆盖、性能、安全和架构一致性。 |
+| 29 | `code-simplification` | 331 | 在不改变行为的前提下简化代码，适用于降低复杂度、去除重复、改善命名、拆分职责和提升可读性。 |
+| 30 | `context-engineering` | 289 | 优化 Agent 上下文配置，适用于项目启动、上下文退化、任务切换、规则文件整理和提示上下文设计。 |
+| 31 | `debugging-and-error-recovery` | 300 | 系统化定位根因并恢复错误，适用于测试失败、构建中断、异常行为、回归问题和未知报错排查。 |
+| 32 | `deprecation-and-migration` | 206 | 管理废弃与迁移流程，适用于移除旧系统/API/功能、兼容迁移、用户过渡和弃用策略设计。 |
+| 33 | `documentation-and-adrs` | 278 | 记录架构决策与项目文档，适用于 ADR、公共 API 变更、重要特性发布和未来维护上下文沉淀。 |
+| 34 | `doubt-driven-development` | 243 | 对非平凡决策进行怀疑式复核，适用于高风险代码、陌生系统、生产关键路径和需要反证审查的方案。 |
+| 35 | `frontend-ui-engineering` | 328 | 构建生产级前端界面，适用于组件、布局、状态、交互、响应式设计和用户可感知体验实现。 |
+| 36 | `git-workflow-and-versioning` | 300 | 规范 Git 工作流与版本管理，适用于分支、提交、变更组织、冲突处理、发布版本和协作流程。 |
+| 37 | `idea-refine` | 178 | 通过发散与收敛思考迭代打磨想法，适用于创意澄清、方案压力测试、MVP 范围收敛和一页纸产出。 |
+| 38 | `incremental-implementation` | 245 | 按小步可验证方式交付改动，适用于多文件功能、较大重构、风险分阶段落地和持续验证。 |
+| 39 | `performance-optimization` | 364 | 优化应用性能，适用于性能回归、加载速度、Core Web Vitals、热点剖析、资源瓶颈和响应时间问题。 |
+| 40 | `planning-and-task-breakdown` | 223 | 把需求拆解为有序任务，适用于规格明确但规模较大的功能、实施排期、范围评估和依赖梳理。 |
+| 41 | `security-and-hardening` | 349 | 加固代码安全性，适用于用户输入、认证授权、数据存储、外部集成、会话管理和漏洞风险面。 |
+| 42 | `shipping-and-launch` | 309 | 准备生产发布，适用于上线清单、监控告警、灰度发布、回滚策略、发布风险和发布后验证。 |
+| 43 | `source-driven-development` | 194 | 基于官方文档做实现决策，适用于框架/库版本易变、需要权威来源、避免过时模式的开发任务。 |
+| 44 | `spec-driven-development` | 200 | 先写规格再编码，适用于新项目、新功能、需求不清晰、边界模糊或需要明确验收标准的任务。 |
+| 45 | `test-driven-development` | 383 | 用测试驱动开发，适用于实现逻辑、修复缺陷、改变行为、证明正确性和防止回归。 |
+| 46 | `using-agent-skills` | 177 | 发现并调用合适的 Agent 技能，适用于会话开始、技能选择、技能组合和工作流路由。 |
 
 ## Trigger Keywords
 
@@ -134,6 +135,7 @@
 - **流程迭代开始前需要吸取历史经验并提出计划，提出新方法后需要列出5个致命痛点，并在痛点分析后连续自我修订3-5轮再定稿；迭代完成后需要主动总结经验、失败边界和下次不要重复的错路** -> `iteration-reflection-guard-zh`
 - **严格按计划执行, 参考计划文档, 不允许自我发挥, 防止自作主张, 参数范围锁定, E范围, 工程问题, 建模代码, 复现方案, 按文档实现, 有疑问先问, 结束自检** -> `plan-faithful-execution-zh`
 - **技能路由、选择skill、统筹skills库、该用哪个技能、组合多个skill、开始任务前分流、Codex自如使用skills、优化skills调用** -> `skill-router-zh`
+- **subagent, subagents, /sub, 子代理, 多代理, 多代理协调, 并行代理, 并行委派, 委派执行, worker, explorer, spawn_agent, TOML agent, awesome-codex-subagents, Codex-Subagent-Orchestrator, 子代理审计, 子代理调度** -> `subagent-orchestration-zh`
 - **总结工作流、提炼流程、生成SOP、设计工作流、流程优化、把经验变成流程、梳理步骤、生成skill工作流。不适用于执行具体工作流（执行请使用对应领域skill）** -> `workflow-forge-zh`
 
 ### 论文写作与翻译
@@ -285,6 +287,10 @@ All skills support:
     SKILL.md
   guardrail/skill-router-zh/
     agents/
+    SKILL.md
+  guardrail/subagent-orchestration-zh/
+    references/
+    scripts/
     SKILL.md
   guardrail/workflow-forge-zh/
     assets/

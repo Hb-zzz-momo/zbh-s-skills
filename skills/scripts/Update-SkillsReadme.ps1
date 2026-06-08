@@ -97,6 +97,7 @@ $scenarioBySkill = @{
     'research-statistics-reporting-zh' = 'research-audit'
     'software-copyright-zh'      = 'presentation'
     'skill-router-zh'            = 'guardrail'
+    'subagent-orchestration-zh'  = 'guardrail'
     'translation-zh'             = 'writing'
     'workflow-forge-zh'          = 'guardrail'
 }

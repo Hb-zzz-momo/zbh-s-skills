@@ -21,6 +21,7 @@ description: 中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\s
    - 调研证据：资料收集、来源核验、证据链。
    - 汇报软著：PPT、路演、软著材料。
    - 运维产物：长任务监控、产物归档。
+   - 子代理调度：`/sub`、subagents、子代理、多代理、并行委派、worker/explorer。
    - 工作流沉淀：总结流程、设计 SOP、生成新 skill。
 
 2. **识别任务阶段**
@@ -58,6 +59,14 @@ plan-faithful-execution-zh
 incremental-implementation
 code-review-and-quality
 ```
+
+### 子代理 / 多代理委派
+
+```text
+subagent-orchestration-zh
+```
+
+默认执行方式：先确认用户是否明确授权真实子代理；未授权时只给本地执行方案，不 spawn。授权后父代理保留主 skill、写范围、集成和验收，子代理默认只读 explorer，worker 只处理互斥写范围。
 
 ### 中文项目理解和工程开发
 
@@ -133,6 +142,7 @@ artifact-curator-zh
 - 不要只按 skill 名字猜，优先读 `skills/README.md` 的场景分组和触发词。
 - 不要用工程 review skill 替代科研结果审计。
 - 不要用论文写作 skill 编造实验结果。
+- 不要把“深入分析”自动等同于授权子代理；只有用户明确要求 subagent、`/sub`、并行委派或多代理时才真实调度。
 - 不要在参考计划不完整时自行扩展关键参数、结论或文件结构。
 
 ## 输出格式

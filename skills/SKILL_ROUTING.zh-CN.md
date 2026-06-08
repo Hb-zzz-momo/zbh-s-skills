@@ -29,6 +29,7 @@
 |---|---|---|
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `agent-skills-ao/*` |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
+| 子代理调度 | `/sub`、subagents、子代理、多代理、并行委派、worker/explorer | `subagent-orchestration-zh` |
 | 科研调用流 | 多痛点、多假设、多创新点、候选池、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
@@ -66,6 +67,7 @@
 | 页面必须真实可用 | `frontend-ui-engineering`, `browser-testing-with-devtools` |
 | 性能是目标或存在回归 | `performance-optimization` |
 | 任务会长时间运行 | `agent-wait-monitor-zh` |
+| 用户明确要求 subagent、`/sub`、并行委派或多代理 | `subagent-orchestration-zh` |
 | 需要沉淀给下一任 AI | `project-handoff-zh`, `documentation-and-adrs` |
 
 ### Step 4：声明并执行
@@ -103,6 +105,14 @@ test-driven-development
 ```
 
 默认执行方式：先锁定计划边界；缺口先问；禁止擅自扩大参数、目标、文件结构和结论。
+
+### 子代理 / 多代理委派
+
+```text
+subagent-orchestration-zh
+```
+
+默认执行方式：只有用户明确授权 subagent、`/sub`、并行代理、委派、worker/explorer 时才真实调度。父代理保留本地主 skill、写范围、最终集成和验收；子代理默认只读 explorer，worker 只处理互斥写范围。
 
 ### 前端页面
 
@@ -205,6 +215,7 @@ artifact-curator-zh
 - 有参考计划时，先用 `plan-faithful-execution-zh` 锁边界。
 - 有代码行为变化时，默认加入测试或可执行验证。
 - 有论文/报告结论时，默认做证据和结果审计。
+- 有子代理请求时，先确认授权和写范围；不要把“深入分析”自动当作授权。
 - 有用户指定输出目录时，写入指定目录。
 - 不确定时先查 `skills/README.md`，再选择 skill。
 - 一次最多主动加载 1-3 个 skill；复杂任务分阶段追加。
