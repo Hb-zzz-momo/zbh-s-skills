@@ -144,6 +144,18 @@ chore/<short-description>     → chore/update-deps
 refactor/<short-description>  → refactor/auth-module
 ```
 
+### Long-Running Contest or Experiment Repos
+
+When a repository has many benchmark/probe branches, do not let old branches become accidental baselines:
+
+- Read the project-level `AGENTS.md` or equivalent handoff file before pruning or starting new experiments.
+- Keep only explicitly frozen baselines, the current best baseline, and user-named collaboration exceptions on the shared remote.
+- Keep the local workspace just as clean as the remote: prune stale local branches and old worktrees so IDE file trees, shell prompts, and agent context do not bias future work toward obsolete experiments.
+- Before deleting remote or local experiment branches, create a `git bundle --all` archive plus a refs manifest, stored outside the worktree.
+- Protect frozen baselines and current best baselines with named tags before pruning.
+- Short-lived official-submission/probe branches and worktrees should be archived or deleted after their result is recorded in the experiment log.
+- Never start a new optimization from a stale side branch when a current-best baseline is documented; branch from the current best unless the user explicitly asks for a historical ablation.
+
 ## Working with Worktrees
 
 For parallel AI agent work, use git worktrees to run multiple branches simultaneously:
