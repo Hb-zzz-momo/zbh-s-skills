@@ -87,6 +87,8 @@ $scenarioBySkill = @{
     'paper-writing-zh'           = 'writing'
     'plan-faithful-execution-zh' = 'guardrail'
     'ppt-story-design-zh'        = 'presentation'
+    'engineering-skill-flow-zh'  = 'engineering'
+    'web-design-workflow-zh'     = 'engineering'
     'project-dev-zh'             = 'engineering'
     'project-handoff-zh'         = 'engineering'
     'project-kickoff-delivery-zh' = 'engineering'
@@ -209,7 +211,7 @@ $L = [System.Collections.ArrayList]::new()
 [void]$L.Add('## Skill Routing Protocol')
 [void]$L.Add('')
 [void]$L.Add('- For any "which skill should I use" or multi-skill orchestration task, start with ``skill-router-zh``.')
-[void]$L.Add('- For engineering tasks, use the ``agent-skills-ao`` lifecycle: Define -> Plan -> Build -> Verify -> Review -> Ship.')
+[void]$L.Add('- For engineering tasks, use the ``agent-skills-ao`` lifecycle: Define -> Plan -> Build -> Verify -> Review -> Ship; for complex engineering, multi-solution implementation, architecture changes, engineering Gate, or technical spike, start with ``engineering-skill-flow-zh``.')
 [void]$L.Add('- For strict plans, contest prompts, fixed requirements, or user-specified boundaries, add ``plan-faithful-execution-zh`` before implementation.')
 [void]$L.Add('- Load the minimum useful set: usually one primary skill plus one verification/review skill; avoid loading the whole library.')
 [void]$L.Add('- Full routing handbook: ``SKILL_ROUTING.zh-CN.md``.')

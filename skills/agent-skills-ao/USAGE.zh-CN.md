@@ -18,6 +18,8 @@ Define 定义 -> Plan 计划 -> Build 开发 -> Verify 验证 -> Review 评审 -
 2. 只点名当前阶段需要的 1-3 个 skill。
 3. 对高风险任务再叠加安全、性能、文档或怀疑式复核 skill。
 
+复杂工程、多方案实现、架构改造或技术 spike 不直接从 Build 阶段开写，先走 `engineering-skill-flow-zh` 建候选池、做 Gate、收敛主实现路径；普通小改仍直接使用对应阶段 skill。
+
 ## 2. 在 Codex/Agent 里怎么调用
 
 本目录已经按 skill 子目录安装完成。使用时直接在请求里点名 skill 即可，例如：
@@ -45,6 +47,7 @@ Define 定义 -> Plan 计划 -> Build 开发 -> Verify 验证 -> Review 评审 -
 | 阶段 | Skill | 用来做什么 | 典型调用方式 |
 |---|---|---|---|
 | Meta | `using-agent-skills` | 判断当前任务该用哪些 skill | 先判断这次任务该走哪个工作流 |
+| Meta | `engineering-skill-flow-zh` | 复杂工程任务总控：多方案、Gate、spike、主路径收敛 | 按工程调用流先比较多个实现方案再开发 |
 | Define | `idea-refine` | 把模糊想法收敛成可执行方案 | 用 idea-refine 帮我把这个功能想清楚 |
 | Define | `spec-driven-development` | 先写规格、验收标准，再编码 | 使用 spec-driven-development，先输出 SPEC |
 | Plan | `planning-and-task-breakdown` | 把需求拆成任务、依赖和验收标准 | 用 planning-and-task-breakdown 拆任务 |
@@ -95,13 +98,15 @@ test-driven-development
 code-review-and-quality
 ```
 
-前端页面或交互：
+Web 设计 / 页面改版：
 
 ```text
+web-design-workflow-zh
 frontend-ui-engineering
 browser-testing-with-devtools
-performance-optimization
 ```
+
+适用：新网站、Landing Page、Portfolio、产品页、页面高级感、页面太丑、生成或修订 `DESIGN.md`。纯局部组件交互或 UI bug 可以只用 `frontend-ui-engineering` + `browser-testing-with-devtools`。
 
 API 或模块边界：
 
@@ -217,4 +222,3 @@ cd C:\Users\zbh\.agents\skills
 ```powershell
 Select-String -Path .\README.md -Pattern 'addyosmani / agent-skills 工程工作流' -Context 0,30
 ```
-

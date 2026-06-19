@@ -55,9 +55,11 @@ Stop after answering the bounded question. Do not propose edits unless asked.
 - mode: write
 - parent skill:
 - mission:
+- minimum change:
 - writable scope:
 - forbidden scope:
 - validation command:
+- integration gate:
 
 ## Shared Rules
 

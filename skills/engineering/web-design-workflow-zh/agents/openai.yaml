@@ -1,0 +1,4 @@
+interface:
+  display_name: "Web Design Workflow"
+  short_description: "DESIGN.md-first Web UI workflow"
+  default_prompt: "Use $web-design-workflow-zh to take a web UI request from DESIGN.md through implementation and final audit."

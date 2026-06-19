@@ -1,6 +1,6 @@
 ---
 name: skill-router-zh
-description: 中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\skills 中按任务领域、阶段、风险和交付物选择最少必要 skill 组合，避免一次性加载全量技能。Use when: 技能路由、选择skill、统筹skills库、该用哪个技能、组合多个skill、开始任务前分流、Codex自如使用skills、优化skills调用。不适用于：直接执行具体专业任务，路由后应切换到对应领域 skill。
+description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\skills 中按任务领域、阶段、风险和交付物选择最少必要 skill 组合，避免一次性加载全量技能。Use when: 技能路由、选择skill、统筹skills库、该用哪个技能、组合多个skill、开始任务前分流、Codex自如使用skills、优化skills调用。不适用于：直接执行具体专业任务，路由后应切换到对应领域 skill。'
 ---
 
 # Skills 总控路由
@@ -14,7 +14,8 @@ description: 中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\s
 ## 路由流程
 
 1. **识别任务领域**
-   - 工程开发：项目理解、编码、调试、测试、review、上线。
+   - 工程开发：项目理解、编码、调试、测试、review、上线；若涉及复杂工程、多方案实现、架构改造、技术 spike、工程 Gate 或候选实现池，先走 `engineering-skill-flow-zh`。
+   - Web 设计 / 页面改版：网站、Landing Page、Portfolio、产品页、页面高级感、页面太丑、生成 `DESIGN.md` 时先走 `web-design-workflow-zh`；纯局部组件交互或 UI bug 再走 `frontend-ui-engineering`。
    - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界；若涉及科研调用流、多痛点、多假设、多创新点、候选池或 Gap Gate，先走 `research-skill-flow-zh`。
    - 写作翻译：论文、翻译、报告文字。
    - 课程任务：考试、实验、实验报告。
@@ -66,7 +67,7 @@ code-review-and-quality
 subagent-orchestration-zh
 ```
 
-默认执行方式：先确认用户是否明确授权真实子代理；未授权时只给本地执行方案，不 spawn。授权后父代理保留主 skill、写范围、集成和验收，子代理默认只读 explorer，worker 只处理互斥写范围。
+默认执行方式：先确认用户是否明确授权真实子代理；未授权时只给本地执行方案，不 spawn。授权后父代理保留主 skill、写范围、集成和验收；子代理默认使用只读 explorer/reviewer。当父代理明确给出最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛时，可以使用 worker 修改文件，且 worker 改动必须由父代理复核、集成、测试和最终验收。
 
 ### 中文项目理解和工程开发
 
@@ -75,6 +76,24 @@ project-dev-zh
 incremental-implementation
 test-driven-development
 ```
+
+### Web 设计 / 页面改版
+
+```text
+web-design-workflow-zh
+frontend-ui-engineering
+browser-testing-with-devtools
+```
+
+默认执行方式：新建网站、Landing Page、Portfolio、产品页或大改版先走 `DESIGN.md`，再审美守门、工程实现、浏览器验收；局部 UI bug 不强行重建全站设计。
+
+### 复杂工程 / 多方案实现调用流
+
+```text
+engineering-skill-flow-zh
+```
+
+默认执行方式：先做 Project Intake、Solution Gate 和候选实现池；进入 Main Build 前收敛到一个主实现路径或明确组合路径；每阶段最多 2 个辅助 skill，审计/验证 skill 只在触发条件满足时调用。
 
 ### 科研多候选探索 / 调用流
 
@@ -136,12 +155,15 @@ artifact-curator-zh
 | Review | `code-review-and-quality`, `security-and-hardening`, `performance-optimization`, `decisive-result-audit-zh` |
 | Ship | `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `documentation-and-adrs` |
 
+复杂工程任务先用 `engineering-skill-flow-zh` 做阶段总控；普通小改仍直接走对应阶段 skill。
+
 ## 不要这样用
 
 - 不要把所有 skill 都加载进上下文。
 - 不要只按 skill 名字猜，优先读 `skills/README.md` 的场景分组和触发词。
 - 不要用工程 review skill 替代科研结果审计。
 - 不要用论文写作 skill 编造实验结果。
+- 不要把工程总控流当成普通小修入口；单文件小改、明确 bug fix 或直接代码解释仍走轻量工程 skill。
 - 不要把“深入分析”自动等同于授权子代理；只有用户明确要求 subagent、`/sub`、并行委派或多代理时才真实调度。
 - 不要在参考计划不完整时自行扩展关键参数、结论或文件结构。
 

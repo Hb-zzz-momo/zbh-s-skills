@@ -27,10 +27,12 @@
 
 | 领域 | 典型任务 | 首选 skill |
 |---|---|---|
-| 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `agent-skills-ao/*` |
+| 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
+| Web 设计 / 页面改版 | 网站、Landing Page、Portfolio、产品页、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
 | 子代理调度 | `/sub`、subagents、子代理、多代理、并行委派、worker/explorer | `subagent-orchestration-zh` |
 | 科研调用流 | 多痛点、多假设、多创新点、候选池、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
+| 工程调用流 | 复杂工程、多方案实现、技术 spike、工程 Gate、候选实现池 | `engineering-skill-flow-zh` |
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
 | 科研迭代复盘 | 判断是不是越改越差、机制是否可写 | `research-iteration-audit-zh` |
@@ -64,7 +66,7 @@
 | 用户给了固定计划、题面或边界 | `plan-faithful-execution-zh` |
 | 结论会写进论文或报告 | `decisive-result-audit-zh`, `paper-writing-zh` |
 | 改动涉及认证、权限、输入、密钥 | `security-and-hardening` |
-| 页面必须真实可用 | `frontend-ui-engineering`, `browser-testing-with-devtools` |
+| 页面必须真实可用或需要视觉设计验收 | `web-design-workflow-zh`, `frontend-ui-engineering`, `browser-testing-with-devtools` |
 | 性能是目标或存在回归 | `performance-optimization` |
 | 任务会长时间运行 | `agent-wait-monitor-zh` |
 | 用户明确要求 subagent、`/sub`、并行委派或多代理 | `subagent-orchestration-zh` |
@@ -96,6 +98,14 @@ code-review-and-quality
 
 默认执行方式：读现有代码 -> 小步修改 -> 跑测试/检查 -> review 风险。
 
+### 复杂工程 / 多方案实现
+
+```text
+engineering-skill-flow-zh
+```
+
+默认执行方式：Project Intake -> Solution Gate -> Implementation Design -> Candidate Spike / Slice Funnel -> Main Build -> Verify / Review -> Ship / Memory。进入 Main Build 前必须收敛到一个主实现路径或明确组合路径；普通小改不走这个总控流。
+
 ### 有明确参考计划的工程任务
 
 ```text
@@ -112,17 +122,17 @@ test-driven-development
 subagent-orchestration-zh
 ```
 
-默认执行方式：只有用户明确授权 subagent、`/sub`、并行代理、委派、worker/explorer 时才真实调度。父代理保留本地主 skill、写范围、最终集成和验收；子代理默认只读 explorer，worker 只处理互斥写范围。
+默认执行方式：只有用户明确授权 subagent、`/sub`、并行代理、委派、worker/explorer 时才真实调度。父代理保留本地主 skill、写范围、最终集成和验收；子代理默认使用只读 explorer/reviewer。当父代理明确给出最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛时，可以使用 worker 修改文件，且 worker 改动必须由父代理复核、集成、测试和最终验收。
 
-### 前端页面
+### Web 设计 / 前端页面
 
 ```text
+web-design-workflow-zh
 frontend-ui-engineering
 browser-testing-with-devtools
-performance-optimization
 ```
 
-默认执行方式：按真实使用场景做界面；启动本地服务；用浏览器验证交互、布局、控制台错误。
+默认执行方式：新建网站、Landing Page、Portfolio、产品页或大改版先生成/修订 `DESIGN.md`，再做审美守门、工程实现和浏览器验收；纯局部组件交互或 UI bug 可直接走 `frontend-ui-engineering`。
 
 ### API / 模块边界
 
@@ -213,6 +223,7 @@ artifact-curator-zh
 以下规则优先级高于具体 skill 的便利性：
 
 - 有参考计划时，先用 `plan-faithful-execution-zh` 锁边界。
+- 复杂工程、多方案实现或架构改造先用 `engineering-skill-flow-zh` 建候选池和 Gate；单文件小改仍直接走轻量工程 skill。
 - 有代码行为变化时，默认加入测试或可执行验证。
 - 有论文/报告结论时，默认做证据和结果审计。
 - 有子代理请求时，先确认授权和写范围；不要把“深入分析”自动当作授权。
