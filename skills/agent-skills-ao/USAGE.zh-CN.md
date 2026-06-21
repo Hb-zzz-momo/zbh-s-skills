@@ -98,7 +98,7 @@ test-driven-development
 code-review-and-quality
 ```
 
-Web 设计 / 页面改版：
+Web 设计 / Vibe Coding / 页面改版：
 
 ```text
 web-design-workflow-zh
@@ -106,7 +106,7 @@ frontend-ui-engineering
 browser-testing-with-devtools
 ```
 
-适用：新网站、Landing Page、Portfolio、产品页、页面高级感、页面太丑、生成或修订 `DESIGN.md`。纯局部组件交互或 UI bug 可以只用 `frontend-ui-engineering` + `browser-testing-with-devtools`。
+适用：新网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成或修订 `DESIGN.md`。总控 skill 会区分快速原型/正式产品和新建/改版/图像先行；纯局部组件交互或 UI bug 可以只用 `frontend-ui-engineering` + `browser-testing-with-devtools`。
 
 API 或模块边界：
 

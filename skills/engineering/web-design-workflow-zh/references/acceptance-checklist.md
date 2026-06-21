@@ -2,6 +2,11 @@
 
 联网时优先读取 Vercel 最新指南；本文件作为本地降级验收清单。
 
+## Scope
+
+- 快速原型：Visual、UX、Accessibility、Responsive、Engineering 必须检查；正式上线项可标为待办。
+- 正式产品：所有章节都要检查，并保留命令、截图或 Preview URL 作为证据。
+
 ## Visual Quality
 
 - [ ] 首屏清楚表达页面对象、目标用户和主要动作。
@@ -46,6 +51,8 @@
 - [ ] 没有无用注释、死代码、调试日志。
 - [ ] lint / typecheck / test / build 中可用项已执行。
 - [ ] 浏览器控制台没有错误。
+- [ ] 关键页面已在真实浏览器截图，而不是只检查源码。
+- [ ] 实现与 `DESIGN.md` 的颜色、字体、间距、圆角和动效规则一致。
 
 ## Performance
 
@@ -54,3 +61,12 @@
 - [ ] `pointermove`、scroll listener 做节流或 rAF。
 - [ ] WebGL/重背景不超过一处，离屏暂停或移动端降级。
 - [ ] 没有大面积移动元素使用 `filter: blur()`。
+
+## Formal Product Gates
+
+- [ ] Code Review 已检查无关改动、重复代码、组件边界和回归风险。
+- [ ] Preview Deployment 可访问，关键路径已在预览环境复验。
+- [ ] 性能预算或 Core Web Vitals 目标由项目明确，不机械套固定分数。
+- [ ] SEO 元信息、robots、sitemap 或项目要求的可发现性设置已检查。
+- [ ] 未提交密钥、令牌、私有 URL 或敏感数据。
+- [ ] 正式发布有监控、回滚和发布后检查方式。

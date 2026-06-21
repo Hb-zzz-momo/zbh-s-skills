@@ -1,143 +1,191 @@
 ---
 name: web-design-workflow-zh
-description: "中文 Web Design 工作流编排技能：把网站、页面、Landing Page、Portfolio、产品页和现有前端改版请求按 DESIGN.md 先行、审美守门、前端工程实现、真实浏览器与 Vercel Web Design Guidelines 验收四阶段推进。Use when: 做网站、设计页面、landing page、portfolio、产品页、网站高级感、页面太丑、改版前端、生成 DESIGN.md、Web UI 验收、避免 AI 味、前端审美工作流。"
+description: "中文 Web Design 与 Vibe Coding 总控工作流：按新建网站、现有页面改版、图像先行和正式产品交付选择最少必要 skill，执行需求规格化、DESIGN.md、审美批判、纵向切片、工程实现、真实浏览器验收和上线门禁。Use when: 做网站、设计页面、landing page、portfolio、产品页、网站高级感、页面太丑、改版前端、生成 DESIGN.md、image-to-code、Vibe Coding、Web UI 验收、避免 AI 味、前端审美工作流。"
 ---
 
 # Web Design Workflow Zh
 
 ## 目标
 
-把 Web 界面任务固定成一条可复用链路：
+用一个总控入口编排 Web 设计和前端交付：
 
+```text
+需求边界 -> 选择任务分支 -> DESIGN.md -> 视觉纵向切片 -> 工程实现 -> 浏览器验收 -> 按需上线
 ```
-设计前 DESIGN.md -> 编码时审美守门 -> 工程化实现 -> 浏览器与规范验收
+
+该技能只负责路由和阶段门禁。不要一次性加载全部外部 skills；每个阶段只加载 1 个主 skill，最多追加 2 个辅助 skill。
+
+## 启动检查
+
+先读取当前项目的真实材料：
+
+- `PRD.md` / `SPEC.md` / README / 用户提示词
+- 现有 `DESIGN.md`、截图、Figma、参考 URL、品牌素材
+- `package.json`、样式方案、组件库、路由和测试配置
+
+再判断交付级别：
+
+- **快速原型**：课程项目、Demo、比赛原型、MVP、单页展示。
+- **正式产品**：真实上线、商业站点、SaaS、数据平台、长期维护项目。
+
+详细步骤见 `references/workflow-modes.md`。
+
+## 任务分支
+
+### A. 新建网站 / 新页面
+
+使用顺序：
+
+```text
+web-design 规则 -> frontend-design 批判 -> 本技能 Taste Gate
+-> frontend-ui-engineering -> browser-testing-with-devtools -> Vercel Guidelines
 ```
 
-该技能是编排层，不替代具体项目实现。先用它锁定设计规范和验收口径，再按项目真实技术栈编码。
+产出项目根目录 `DESIGN.md`，再做一个代表全站质量的纵向切片，不要直接生成整站。
 
-## 来源组合
+### B. 现有页面改版
 
-| 阶段 | 主要来源 | 职责 |
-|---|---|---|
-| 设计前 | `KAOPU-XiaoPu/web-design` 本地压缩包 | 先产出可编辑的 `DESIGN.md`，定义颜色、字体、组件、动效和响应式规则 |
-| 编码时 | `Leonxlnx/taste-skill` 本地压缩包 | 做 Design Read、三档审美参数和 anti-slop 守门，避免模板感、AI 味和廉价感 |
-| 工程化 | 本地 `frontend-ui-engineering` | 组件结构、状态、响应式、可访问性、设计系统和真实工程约束 |
-| 验收时 | Vercel Web Design Guidelines | 用最新 UI/UX/Accessibility 指南做最终审计；无法联网时使用本技能的本地验收清单 |
+使用顺序：
 
-按需读取 `references/source-map.md` 了解源材料位置和加载策略。
-
-## 工作流
-
-### Step 0: 识别任务边界
-
-先判断任务类型：
-
-- 新页面 / 新网站：完整走 Step 1-5。
-- 现有页面改丑：先做截图和代码审计，再走 Step 2-5。
-- 只修一个 UI bug：沿用现有 `DESIGN.md` 或局部样式规范，不强行重建全站设计。
-- 后端、数据库、纯逻辑 bug：不要使用本技能。
-
-启动时检查项目根目录是否已有：
-
-- `DESIGN.md`
-- `PRD.md` / `SPEC.md`
-- 截图、参考 URL、品牌素材、现有设计系统
-
-信息不足且设计方向会明显分叉时，只问一个最关键的问题；能从上下文判断时直接继续。
-
-### Step 1: Design Read
-
-编码前先输出一行 Design Read：
-
+```text
+redesign-existing-projects 审计 -> 更新 DESIGN.md
+-> frontend-ui-engineering 定点修改 -> browser-testing-with-devtools 回归
 ```
+
+先扫描、诊断、列出保留项，再修改。不得为了视觉重写框架、破坏业务行为或删除用户现有功能。
+
+### C. 图像先行
+
+仅在以下情况启用：
+
+- 用户明确要求先出视觉稿、参考图或 image-to-code。
+- 视觉辨识度是核心目标，文字规范不足以消除方向分歧。
+- 当前环境有图像生成能力。
+
+使用顺序：
+
+```text
+imagegen-frontend-web -> 选定视觉方向 -> image-to-code
+-> DESIGN.md 反向固化 -> frontend-ui-engineering -> 浏览器验收
+```
+
+图像 skills 很长，只能放在独立设计阶段按需加载，不与完整 `taste-skill` 同时加载。
+
+### D. 局部 UI Bug
+
+沿用现有 `DESIGN.md` 或项目样式，不启动完整工作流。直接使用：
+
+```text
+frontend-ui-engineering -> browser-testing-with-devtools
+```
+
+### E. 单文件视觉产物
+
+只有用户要单文件 HTML、浏览器演示、可交互视觉稿或 slide-like artifact 时，才考虑 `web-design-engineer`。普通产品前端不使用它替代项目工程流程。
+
+## Phase 1: 规格化需求
+
+至少锁定：
+
+- 页面对象和唯一目标
+- 目标用户与主要任务
+- 页面/信息结构
+- 真实内容和素材来源
+- 现有技术栈或新项目最小技术选择
+- 响应式、可访问性和验收范围
+
+简单任务用一页 brief 即可；正式产品再扩展 PRD、用户流和页面结构。不要默认强制 Next.js、Tailwind 或 shadcn/ui，已有项目必须沿用现有栈。
+
+## Phase 2: DESIGN.md 与审美门
+
+先输出一行 Design Read：
+
+```text
 Reading this as: [页面类型] for [目标用户], with a [风格语言], leaning toward [设计系统/审美家族].
 ```
 
-然后锁定三个参数：
+再确定：
 
 - `DESIGN_VARIANCE`: 1-10，布局变化度。
 - `MOTION_INTENSITY`: 1-10，动效强度。
 - `VISUAL_DENSITY`: 1-10，信息密度。
 
-审美默认值不得无脑套用。必须根据目标用户、品牌、参考物、行业和使用场景调整。
+创建或修订 `DESIGN.md`。契约见 `references/design-md-contract.md`。
 
-### Step 2: 生成或修订 DESIGN.md
+### Taste Gate
 
-除非用户只要求局部 bug 修复，否则先创建或更新项目根目录的 `DESIGN.md`，再写代码。
+在写代码前检查：
 
-`DESIGN.md` 必须覆盖 9 个章节：
+- 设计是否来自具体受众、内容和品牌，而不是“高级感”空话？
+- 是否落入紫蓝渐变、米色奢华、黑底酸绿色、三等分卡片等默认模板？
+- Hero 是否表达页面核心，而不是固定的 H1 + 副标题 + 双 CTA？
+- 是否只有一个可解释的 signature moment，并让其余页面保持克制？
+- 文案是否真实、具体、可操作？
 
-1. Visual Theme & Atmosphere
-2. Color Palette & Roles
-3. Typography Rules
-4. Component Stylings
-5. Layout Principles
-6. Depth & Elevation
-7. Animation & Interaction
-8. Do's and Don'ts
-9. Responsive Behavior
+未通过时先改 `DESIGN.md`，不要进入构建。
 
-详细契约见 `references/design-md-contract.md`。每章要有实质内容，不能只填模板标题。
+## Phase 3: 纵向切片
 
-### Step 3: Taste Gate
+先实现一个能代表最终质量的完整片段，例如：
 
-在编码前做一次 anti-slop 检查：
+- Landing Page：导航 + Hero + 首个内容区。
+- Dashboard：导航 + 一个真实数据区 + loading/empty/error。
+- 表单流程：输入 + 校验 + 提交 + 成功/失败反馈。
 
-- 页面是否有具体受众和页面目标，而不是泛泛的“高级感”？
-- 颜色、字体、布局是否来自本项目语境，而不是 AI 默认紫蓝渐变、奶油米色、高反差黑绿、三等分卡片？
-- Hero 是否服务内容，而不是模板化大标题 + 副标题 + CTA？
-- 是否有一个可解释的 signature moment，而不是到处撒动效？
-- 文案是否真实可用，避免 lorem ipsum 式空话？
+切片必须同时覆盖真实内容、核心视觉、响应式和交互状态。方向错误时只返工切片，不返工整站。
 
-未通过时先改 `DESIGN.md`，不要直接写代码。
+协作模式下可展示切片让用户确认；用户要求自主端到端完成时，记录决策后继续，不停在等待确认。
 
-### Step 4: 工程化实现
+## Phase 4: 工程实现
 
-编码时遵守：
-
-- 先读现有项目结构、依赖、样式方案和组件库。
-- 沿用项目技术栈；无项目时再选择最小可行方案。
-- 新增依赖前查 `package.json`，不要假设库已安装。
+- 沿用项目框架、路由、样式方案和组件库。
+- 新依赖前检查依赖文件，不假设库已安装。
+- 颜色、字体、间距、圆角和动效来自 `DESIGN.md`。
 - 组件保持单一职责，数据获取和展示分离。
-- 颜色、字体、间距、圆角和动效必须来自 `DESIGN.md`。
-- 每个交互元素必须有 hover、focus、active 和 disabled/不可用策略。
-- 必须覆盖 loading、empty、error 状态，避免只做成功态。
-- 移动端优先，至少检查 320px、768px、1024px、1440px。
-- 避免大面积卡片套卡片、单色系 UI、文字溢出、元素重叠和无意义装饰。
+- 覆盖 loading、empty、error、hover、focus、active 和 disabled。
+- 按可验证切片推进，不一次生成整个复杂项目。
+- 前端应用完成后启动 dev server，并提供本地 URL。
 
-如果是前端应用而不是静态文件，完成后启动本地 dev server，并把 URL 告诉用户。
+## Phase 5: 验收与交付
 
-### Step 5: 验收与修正
+执行项目已有的 lint、typecheck、test、build，并做真实浏览器检查。至少覆盖桌面和移动端截图、控制台、网络、键盘导航、溢出和遮挡。
 
-实现后必须跑可用的验证命令：
+联网时读取最新 Vercel Web Interface Guidelines：
 
-- 依赖安装状态检查
-- lint / typecheck / test / build 中项目已有的质量门
-- 真实浏览器检查，至少桌面和移动端视口
-- 控制台错误、网络错误、横向滚动、文字溢出、遮挡、焦点态、键盘导航
-
-联网可用时，验收前读取 Vercel 最新指南：
-
-```
+```text
 https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md
 ```
 
-无法联网时，使用 `references/acceptance-checklist.md` 作为本地降级清单。发现问题要直接修，不要只报告。
+无法联网时使用 `references/acceptance-checklist.md`。发现问题要直接修正并复验。
+
+正式产品再追加 code review、Preview Deployment、性能、SEO、安全和发布回滚门禁；快速原型不强制完整上线链。
+
+## 压缩包技能读取
+
+按 `references/source-map.md` 选择来源，并用脚本读取指定 entry：
+
+```powershell
+& .\scripts\Read-ZipSkill.ps1 -ZipPath C:\Users\zbh\.agents\skills-main.zip `
+  -EntryPath skills-main/skills/frontend-design/SKILL.md
+```
+
+不得仅凭压缩包文件名推断内容。无效或下载不完整的 zip 不进入工作流。
 
 ## 输出要求
 
 交付时说明：
 
-- `DESIGN.md` 是否新建或更新，以及路径。
-- 实现涉及的关键文件。
-- 已执行的验证命令和结果。
-- 本地预览 URL。
-- 未覆盖的风险或需要用户提供的素材。
+- 使用了哪个任务分支和交付级别。
+- PRD/brief、`DESIGN.md`、纵向切片和实现文件路径。
+- 执行过的验证命令、浏览器视口和结果。
+- 本地预览或 Preview URL。
+- 未覆盖风险、缺失素材和正式上线前待办。
 
 ## 失败红线
 
-- 没有 `DESIGN.md` 就直接从零写整站。
-- 把外部设计规则全量硬塞进代码，而不结合项目受众和内容。
-- 用默认紫蓝渐变、米色奢华、三列卡片、毛玻璃堆叠制造“高级感”。
-- 为了炫技引入无法维护的动效或大型依赖。
-- 只在代码层完成，没做浏览器截图/真实视口验收。
+- 不做任务分支判断就加载所有设计 skills。
+- 新建整站时没有 `DESIGN.md` 或纵向切片就全面编码。
+- 现有项目改版时先重写框架，再谈视觉。
+- 把外部 skill 的固定字体、图标、技术栈当成高于项目约束的规则。
+- 图像先行只生成漂亮图，不反向固化 token、组件状态和响应式规则。
+- 只检查代码，不做真实浏览器截图和交互验证。

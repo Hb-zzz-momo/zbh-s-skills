@@ -15,7 +15,7 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
 
 1. **识别任务领域**
    - 工程开发：项目理解、编码、调试、测试、review、上线；若涉及复杂工程、多方案实现、架构改造、技术 spike、工程 Gate 或候选实现池，先走 `engineering-skill-flow-zh`。
-   - Web 设计 / 页面改版：网站、Landing Page、Portfolio、产品页、页面高级感、页面太丑、生成 `DESIGN.md` 时先走 `web-design-workflow-zh`；纯局部组件交互或 UI bug 再走 `frontend-ui-engineering`。
+   - Web 设计 / Vibe Coding / 页面改版：网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 `DESIGN.md` 时先走 `web-design-workflow-zh`；纯局部组件交互或 UI bug 再走 `frontend-ui-engineering`。
    - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界；若涉及科研调用流、多痛点、多假设、多创新点、候选池或 Gap Gate，先走 `research-skill-flow-zh`。
    - 写作翻译：论文、翻译、报告文字。
    - 课程任务：考试、实验、实验报告。
@@ -77,7 +77,7 @@ incremental-implementation
 test-driven-development
 ```
 
-### Web 设计 / 页面改版
+### Web 设计 / Vibe Coding / 页面改版
 
 ```text
 web-design-workflow-zh
@@ -85,7 +85,7 @@ frontend-ui-engineering
 browser-testing-with-devtools
 ```
 
-默认执行方式：新建网站、Landing Page、Portfolio、产品页或大改版先走 `DESIGN.md`，再审美守门、工程实现、浏览器验收；局部 UI bug 不强行重建全站设计。
+默认执行方式：先判断快速原型或正式产品，再按新建、现有改版、图像先行选择分支；`DESIGN.md` 通过审美门后先实现纵向切片，再扩展、工程化和浏览器验收。局部 UI bug 不强行重建全站设计。
 
 ### 复杂工程 / 多方案实现调用流
 

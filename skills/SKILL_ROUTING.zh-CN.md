@@ -28,7 +28,7 @@
 | 领域 | 典型任务 | 首选 skill |
 |---|---|---|
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
-| Web 设计 / 页面改版 | 网站、Landing Page、Portfolio、产品页、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
+| Web 设计 / Vibe Coding / 页面改版 | 网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
 | 子代理调度 | `/sub`、subagents、子代理、多代理、并行委派、worker/explorer | `subagent-orchestration-zh` |
 | 科研调用流 | 多痛点、多假设、多创新点、候选池、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
@@ -124,7 +124,7 @@ subagent-orchestration-zh
 
 默认执行方式：只有用户明确授权 subagent、`/sub`、并行代理、委派、worker/explorer 时才真实调度。父代理保留本地主 skill、写范围、最终集成和验收；子代理默认使用只读 explorer/reviewer。当父代理明确给出最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛时，可以使用 worker 修改文件，且 worker 改动必须由父代理复核、集成、测试和最终验收。
 
-### Web 设计 / 前端页面
+### Web 设计 / Vibe Coding / 前端页面
 
 ```text
 web-design-workflow-zh
@@ -132,7 +132,7 @@ frontend-ui-engineering
 browser-testing-with-devtools
 ```
 
-默认执行方式：新建网站、Landing Page、Portfolio、产品页或大改版先生成/修订 `DESIGN.md`，再做审美守门、工程实现和浏览器验收；纯局部组件交互或 UI bug 可直接走 `frontend-ui-engineering`。
+默认执行方式：先判断快速原型或正式产品，再按新建、现有改版、图像先行选择分支；生成/修订 `DESIGN.md` 后先做纵向切片，再工程实现和浏览器验收。纯局部组件交互或 UI bug 可直接走 `frontend-ui-engineering`。
 
 ### API / 模块边界
 
