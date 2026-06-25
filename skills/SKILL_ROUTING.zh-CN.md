@@ -28,6 +28,7 @@
 | 领域 | 典型任务 | 首选 skill |
 |---|---|---|
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
+| 工具使用建议 | VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界 | `skill-router-zh`, `context-engineering`, `source-driven-development` |
 | Web 设计 / Vibe Coding / 页面改版 | 网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
 | 子代理调度 | `/sub`、subagents、子代理、多代理、并行委派、worker/explorer | `subagent-orchestration-zh` |
@@ -37,6 +38,7 @@
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
 | 科研迭代复盘 | 判断是不是越改越差、机制是否可写 | `research-iteration-audit-zh` |
 | 论文写作 | 摘要、引言、方法、实验、结论、润色 | `paper-writing-zh` |
+| 论文格式修正 | Word论文排版、毕业论文格式、期刊模板、docx格式检查、图表题注、页边距、标题样式、参考文献格式统一 | `paper-format-fixer-zh` |
 | 翻译 | 英文学术/技术文本英译中 | `translation-zh` |
 | 课程考试 | 选择题、简答题、计算题、作业 | `exam-answer-zh` |
 | 课程实验 | 实验排错、截图规划、实验报告 | `lab-report-coach-zh` |
@@ -182,6 +184,15 @@ research-statistics-reporting-zh
 
 默认执行方式：材料驱动写作；事实、推理、建议分开；实验结论必须被结果支撑；正式 claim 触发 `decisive-result-audit-zh`。
 
+### 论文格式修正
+
+```text
+paper-format-fixer-zh
+paper-writing-zh
+```
+
+默认执行方式：优先读取用户给的学校/期刊格式要求、样例 `.docx` 或模板文件；先审计 `.docx` 页面、样式、段落、表格、图表题注和参考文献格式，再保守修正并输出新文件。内容写作仍交给 `paper-writing-zh`，不要把格式修正扩展成论文 claim 或实验结论改写。
+
 ### 信息调研
 
 ```text
@@ -190,6 +201,16 @@ source-driven-development
 ```
 
 默认执行方式：查来源、分级证据、保留链接、标注时效和不确定性。
+
+### 工具使用建议
+
+```text
+skill-router-zh
+context-engineering
+source-driven-development
+```
+
+默认执行方式：当用户询问工具怎么选、怎么装、怎么接入、某能力该放在哪一层时，按四层回答：VS Code 插件（编辑器侧能力）、Codex 插件（Codex 内能力和 skill/plugin）、语言本身安装包/生态依赖（运行时、库、CLI、包管理器）、Codex MCP（外部服务、账号、数据源和自动化连接）。每层说明适用场景、当前是否可用或需要安装、配置位置、验证方式和优先级；不要把 MCP、编辑器插件、Codex 插件和语言包混成一类。
 
 ### 汇报 / PPT
 
@@ -227,6 +248,7 @@ artifact-curator-zh
 - 有代码行为变化时，默认加入测试或可执行验证。
 - 有论文/报告结论时，默认做证据和结果审计。
 - 有子代理请求时，先确认授权和写范围；不要把“深入分析”自动当作授权。
+- 有工具使用建议请求时，按 VS Code 插件、Codex 插件、语言本身安装包/生态依赖、Codex MCP 四层组织答案，并区分“已安装可用”“需要配置”“只是候选建议”。
 - 有用户指定输出目录时，写入指定目录。
 - 不确定时先查 `skills/README.md`，再选择 skill。
 - 一次最多主动加载 1-3 个 skill；复杂任务分阶段追加。

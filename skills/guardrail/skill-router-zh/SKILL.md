@@ -15,6 +15,7 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
 
 1. **识别任务领域**
    - 工程开发：项目理解、编码、调试、测试、review、上线；若涉及复杂工程、多方案实现、架构改造、技术 spike、工程 Gate 或候选实现池，先走 `engineering-skill-flow-zh`。
+   - 工具使用建议：VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界；优先按“四层工具建议框架”回答。
    - Web 设计 / Vibe Coding / 页面改版：网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 `DESIGN.md` 时先走 `web-design-workflow-zh`；纯局部组件交互或 UI bug 再走 `frontend-ui-engineering`。
    - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界；若涉及科研调用流、多痛点、多假设、多创新点、候选池或 Gap Gate，先走 `research-skill-flow-zh`。
    - 写作翻译：论文、翻译、报告文字。
@@ -128,6 +129,16 @@ info-evidence-chain-zh
 source-driven-development
 ```
 
+### 工具使用建议
+
+```text
+skill-router-zh
+context-engineering
+source-driven-development
+```
+
+默认执行方式：按四层回答工具建议：VS Code 插件（编辑器侧能力）、Codex 插件（Codex 内能力和 skill/plugin）、语言本身安装包/生态依赖（运行时、库、CLI、包管理器）、Codex MCP（外部服务、账号、数据源和自动化连接）。逐层说明适用场景、当前是否可用或需要安装、配置位置、验证方式和优先级；不要把 MCP、编辑器插件、Codex 插件和语言包混成一类。
+
 ### PPT/软著
 
 按实际任务二选一，不要同时加载无关技能。
@@ -164,6 +175,7 @@ artifact-curator-zh
 - 不要用工程 review skill 替代科研结果审计。
 - 不要用论文写作 skill 编造实验结果。
 - 不要把工程总控流当成普通小修入口；单文件小改、明确 bug fix 或直接代码解释仍走轻量工程 skill。
+- 不要回答工具建议时只给单一工具名；必须从 VS Code 插件、Codex 插件、语言本身安装包/生态依赖、Codex MCP 四层拆开边界。
 - 不要把“深入分析”自动等同于授权子代理；只有用户明确要求 subagent、`/sub`、并行委派或多代理时才真实调度。
 - 不要在参考计划不完整时自行扩展关键参数、结论或文件结构。
 

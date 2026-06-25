@@ -84,6 +84,7 @@ $scenarioBySkill = @{
     'iteration-reflection-guard-zh' = 'guardrail'
     'knowledge-digest-zh'        = 'learning'
     'lab-report-coach-zh'        = 'course'
+    'paper-format-fixer-zh'      = 'writing'
     'paper-writing-zh'           = 'writing'
     'plan-faithful-execution-zh' = 'guardrail'
     'ppt-story-design-zh'        = 'presentation'

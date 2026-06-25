@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "论文格式修正"
+  short_description: "审计并保守修正 Word 论文格式、排版和模板问题"
+  default_prompt: "Use $paper-format-fixer-zh to audit and fix the formatting of this Word thesis or paper."
