@@ -1,51 +1,71 @@
 ---
 name: ppt-story-design-zh
-description: "PPT叙事设计技能：用于课程汇报、路演、创新创业、项目展示和技术方案 PPT 的故事线、页面结构、内容定型、痛点表达、证据支撑和视觉风格规划。Use when: 做PPT、PPT大纲、路演PPT、创新创业PPT、项目展示、汇报材料、页面结构、故事线、痛点分析、市场分析、技术创新、专家背书。"
+description: "PPT 叙事与逐页契约技能：面向课程汇报、学术答辩、创新创业路演、商业提案、产品发布、技术方案和数据报告，确定听众决策、核心主张、证据链、故事线、时间预算并输出结构化 slide-spec.json。Use when: PPT大纲、页面结构、故事线、演讲顺序、Claim-Evidence Map、逐页契约、答辩叙事、路演结构。需要生成PPTX时由 ppt-workflow-orchestrator-zh 路由后续构建。"
 ---
 
-# PPT叙事设计技能
+# PPT 叙事与逐页契约
 
 ## 目标
 
-先把“讲什么、为什么听众要信、每页承担什么作用”定清楚，再生成页面内容或视觉稿。
+先定清“讲什么、为什么可信、希望听众做什么、每页承担什么任务”，再把结果固化为可验证的逐页契约。不要在本 Skill 中生成 PPTX 或替代视觉系统。
 
-## 工作流
+## Step 1：判定类型与决策
 
-1. 定听众：评委、老师、客户、投资人、同学或技术团队。
-2. 定一句话主张：这个 PPT 想让对方记住什么。
-3. 定故事线：背景 → 痛点 → 方案 → 证据 → 价值 → 行动。
-4. 定页面骨架：每页只承担一个表达任务。
-5. 定证据：数据、政策、案例、专家背书、实验结果。
-6. 定视觉方向：正式、科技、商业、教育、路演、极简等。
-7. 再写内容：先短句、再图表、最后美化。
+1. 从课程汇报、学术答辩、创新创业路演、商业提案、产品发布、技术方案、数据报告中选择最接近的一类。
+2. 明确听众与其当前认知。
+3. 从理解、相信、选择、投资、批准、采用、继续讨论中选择期望的最终决策。
+4. 写出一句话核心主张与核心矛盾。
 
-## 创新创业路演结构
+按类型选择叙事骨架时读取 `references/narrative-archetypes.md`，不要机械套用固定章节。
 
-1. 政策/趋势引入
-2. 市场规模和行业痛点
-3. 痛点的具体损失和紧迫性
-4. 项目缘起和团队实践
-5. 解决方案和技术创新
-6. 竞品/行业对比
-7. 商业价值和落地路径
-8. 阶段成果和专家/企业背书
+## Step 2：建立 Claim-Evidence Map
 
-## 输出要求
+为每个关键主张记录支撑证据、来源 ID、证据强度和缺失信息。使用 `references/claim-evidence-map.md`。
 
-- PPT 一句话主张
-- 页面清单
-- 每页标题、核心信息、建议图形
-- 需要补充的证据材料
-- 演讲顺序和注意事项
+- 事实必须可追溯。
+- 推断、建议和示例数据必须显式标记。
+- 缺证据的主张可以保留在待办，不得包装为已证实结论。
+- 竞品比较不得无证据点名攻击。
 
-## 约束
+## Step 3：设计故事线
 
-- 不要一开始就让 AI 直接生成整套 PPT 页面。
-- 先定型，再扩写。
-- PPT 里不要放完整长句，优先短句和图表。
-- 痛点必须具体，最好能量化损失。
+1. 描述听众当前认知与希望形成的新认知。
+2. 用核心矛盾连接背景、问题、方案、证据、价值与行动。
+3. 为每章写明作用、进入条件和离开时听众应形成的判断。
+4. 页面顺序服务于决策，而不是材料原始顺序。
+
+## Step 4：分配时间
+
+输出总时长、每章时长、每页建议时长、可删减页面和超时应急版本。删减后仍须保留主张—证据—行动闭环。
+
+## Step 5：建立逐页契约
+
+使用 `assets/slide-spec-template.json` 输出 `slide-spec.json`。每页必须包含：
+
+`slide_id`, `section`, `purpose`, `audience_takeaway`, `claim`, `evidence_refs`, `visual_type`, `layout_family`, `dominant_asset`, `content_blocks`, `text_budget`, `source_footer`, `speaker_notes`, `qa_checks`。
+
+约束：
+
+- 一页只表达一个主要结论。
+- 标题表达结论，不只写章节名。
+- 每页至少规划一个有信息意义的视觉对象。
+- `evidence_refs` 与 `source_footer` 必须可解析。
+- 页面契约描述信息与验收，不写死视觉坐标。
+
+## 输出
+
+- `storyline.md`
+- `claim-evidence-map.md`
+- `slide-spec.json`
+- 演讲时间预算与超时应急版本
+
+仅规划任务可同时提供 `assets/ppt-outline-template.md` 的人类可读摘要，但 JSON 是后续构建的权威输入。
 
 ## 资源
 
-- PPT 叙事规则：`references/ppt-story-rules.md`
-- 页面规划模板：`assets/ppt-outline-template.md`
+- 叙事类型：`references/narrative-archetypes.md`
+- 主张证据映射：`references/claim-evidence-map.md`
+- 叙事规则：`references/ppt-story-rules.md`
+- 结构化契约：`assets/slide-spec-template.json`
+- 旧版可读表格：`assets/ppt-outline-template.md`
+

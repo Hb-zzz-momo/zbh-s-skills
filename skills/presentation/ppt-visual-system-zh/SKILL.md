@@ -1,85 +1,74 @@
 ---
 name: ppt-visual-system-zh
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: "PPT 视觉系统与审美门禁技能：把主题和品牌方向转成可执行的 PRESENTATION_DESIGN.md，定义颜色、字体、网格、间距、圆角、图标、图表、布局家族、唯一视觉母题与页面节奏。Use when: PPT视觉设计、演示设计规范、PRESENTATION_DESIGN.md、版式系统、三页纵向切片、Taste Gate、避免AI模板感。"
 ---
 
-# Ppt Visual System Zh
+# PPT 视觉系统
 
-## Overview
+## 目标与边界
 
-[TODO: 1-2 sentences explaining what this skill enables]
+创建可供构建代码直接消费的视觉契约。不要写空泛的“高级、科技、简洁”，不要生成 PPTX，不要替代叙事 Skill 决定主张。
 
-## Structuring This Skill
+## Step 1：Design Read
 
-[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
+读取主题、听众、品牌规范、模板、素材和 `slide-spec.json`，写明：
 
-**1. Workflow-Based** (best for sequential processes)
-- Works well when there are clear step-by-step procedures
-- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
-- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
+- 场景与情绪。
+- 内容的核心隐喻。
+- 唯一视觉母题及其信息作用。
+- 应延续和应避免的参考特征。
 
-**2. Task-Based** (best for tool collections)
-- Works well when the skill offers different operations/capabilities
-- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
-- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
+若用户提供模板，优先提取其主题令牌，不得另起一套冲突设计系统。
 
-**3. Reference/Guidelines** (best for standards or specifications)
-- Works well for brand guidelines, coding standards, or requirements
-- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
-- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
+## Step 2：量化方向
 
-**4. Capabilities-Based** (best for integrated systems)
-- Works well when the skill provides multiple interrelated features
-- Example: Product Management with "Core Capabilities" -> numbered capability list
-- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
+为以下变量给出 1–10 的值与一句理由：
 
-Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
+```text
+LAYOUT_VARIANCE
+VISUAL_DENSITY
+COLOR_INTENSITY
+IMAGE_DOMINANCE
+MOTION_INTENSITY
+```
 
-Delete this entire "Structuring This Skill" section when done - it's just guidance.]
+## Step 3：建立设计令牌
 
-## [TODO: Replace with the first main section based on chosen structure]
+使用 `assets/presentation-design-template.md` 定义：
 
-[TODO: Add content here. See examples in existing skills:
-- Code samples for technical skills
-- Decision trees for complex workflows
-- Concrete examples with realistic user requests
-- References to scripts/templates/references as needed]
+- 16:9 页面尺寸、网格、安全边距和基准间距。
+- 颜色角色与十六进制值；每个颜色说明用途和禁用场景。
+- 中文/英文字体回退链、标题/正文/注释/数据字号。
+- 圆角、描边、阴影、图标、图片和图表规则。
+- 版式家族与页面节奏。
 
-## Resources (optional)
+颜色、字体和间距必须用令牌名引用，禁止在页面代码中随机硬编码。
 
-Create only the resource directories this skill actually needs. Delete this section if no resources are required.
+## Step 4：检查版式语法
 
-### scripts/
-Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
+按 `references/layout-grammar.md` 为每个 Slide Contract 选择版式家族。布局需要变化，但令牌保持统一；连续两页不应只有标题加项目符号。
 
-**Examples from other skills:**
-- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
-- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
+## Step 5：Taste Gate
 
-**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
+先检查 `references/anti-ai-patterns.md`，再用 `references/visual-qa-checklist.md` 审核三页纵向切片。
 
-**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
+Gate 结果：
 
-### references/
-Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
+- `PASS`：视觉母题、层级、密度、对比与页面节奏均成立。
+- `CAUTION`：可继续构建，但必须记录具体待修项。
+- `BLOCK`：风格与主题不符、关键文字不可读或明显模板化；只返工三页。
 
-**Examples from other skills:**
-- Product management: `communication.md`, `context_building.md` - detailed workflow guides
-- BigQuery: API reference documentation and query examples
-- Finance: Schema documentation, company policies
+## 输出
 
-**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
+- `PRESENTATION_DESIGN.md`
+- 三页纵向切片视觉检查记录
+- 设计风险与字体替代说明
 
-### assets/
-Files not intended to be loaded into context, but rather used within the output Codex produces.
+## 资源
 
-**Examples from other skills:**
-- Brand styling: PowerPoint template files (.pptx), logo files
-- Frontend builder: HTML/React boilerplate project directories
-- Typography: Font files (.ttf, .woff2)
+- 契约要求：`references/design-system-contract.md`
+- 布局语法：`references/layout-grammar.md`
+- 字体规则：`references/typography-rules.md`
+- AI 模板反模式：`references/anti-ai-patterns.md`
+- 视觉 QA：`references/visual-qa-checklist.md`
 
-**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
-
----
-
-**Not every skill requires all three types of resources.**

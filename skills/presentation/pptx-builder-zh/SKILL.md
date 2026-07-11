@@ -1,85 +1,62 @@
 ---
 name: pptx-builder-zh
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: "PPTX 从零构建技能：使用 PptxGenJS 根据 slide-spec.json 与 PRESENTATION_DESIGN.md 生成原生可编辑的文本、形状、图片、SVG、表格、图表和演讲者备注，并输出源代码、PPTX 与构建几何清单。Use when: 从零生成PPTX、PptxGenJS、可编辑幻灯片、PPT组件化、PPTX源码、构建三页纵向切片。模板编辑请使用 pptx-template-editor-zh。"
 ---
 
-# Pptx Builder Zh
+# PPTX 从零构建
 
-## Overview
+## 前置 Gate
 
-[TODO: 1-2 sentences explaining what this skill enables]
+仅在 `slide-spec.json` 已通过叙事 Gate、`PRESENTATION_DESIGN.md` 已通过 Taste Gate、真实数据和素材路径可解析时 Build。缺失项不得编造。先构建三页纵向切片，渲染通过后再构建全套。
 
-## Structuring This Skill
+## 依赖检查
 
-[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
+在本 Skill 目录执行：
 
-**1. Workflow-Based** (best for sequential processes)
-- Works well when there are clear step-by-step procedures
-- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
-- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
+```powershell
+npm install
+npm exec tsx scripts/init-deck.ts -- --help
+```
 
-**2. Task-Based** (best for tool collections)
-- Works well when the skill offers different operations/capabilities
-- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
-- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
+依赖与安装边界见 `references/pptxgenjs-guide.md`。不得假设 Node、字体或图像解码器已存在。
 
-**3. Reference/Guidelines** (best for standards or specifications)
-- Works well for brand guidelines, coding standards, or requirements
-- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
-- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
+## 构建流程
 
-**4. Capabilities-Based** (best for integrated systems)
-- Works well when the skill provides multiple interrelated features
-- Example: Product Management with "Core Capabilities" -> numbered capability list
-- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
+1. 读取 Slide Contract 和设计令牌。
+2. 在 `theme.ts` 中集中定义颜色、字体、尺寸和间距。
+3. 用 `components.ts` 复用标题、来源、流程、数据和卡片等组件。
+4. 通过 `init-deck.ts` 生成 16:9 PPTX、演讲者备注和几何清单。
+5. 用 `check-bounds.ts` 检查越界、最小边距与文字预算。
+6. 把 PPTX 交给 `ppt-render-qa-zh`；本 Skill 不自行声明视觉验收完成。
 
-Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
+```powershell
+npm exec tsx scripts/init-deck.ts -- --spec slide-spec.json --output presentation.pptx --manifest build-manifest.json
+npm exec tsx scripts/check-bounds.ts -- --spec slide-spec.json --manifest build-manifest.json --output build-check.json
+```
 
-Delete this entire "Structuring This Skill" section when done - it's just guidance.]
+## 原生可编辑约束
 
-## [TODO: Replace with the first main section based on chosen structure]
+- 文字、形状、表格和图表尽量使用 PowerPoint 原生对象。
+- 照片、插画和必要的 SVG/PNG 可以作为图片；不得把整页截图当内容。
+- 不把复杂文本烘焙进图片。
+- 颜色、字体、间距必须来自主题令牌，禁止页面内随机硬编码。
+- 每页至少有一个有信息意义的视觉对象。
+- 连续页面不得重复标题加项目符号或无意义三列卡片。
+- 公共组件必须复用；特殊页面仍需登记几何信息。
 
-[TODO: Add content here. See examples in existing skills:
-- Code samples for technical skills
-- Decision trees for complex workflows
-- Concrete examples with realistic user requests
-- References to scripts/templates/references as needed]
+## 错误处理
 
-## Resources (optional)
+- 输入 JSON 不合法、页数为空、`slide_id` 重复或输出目录不可写时立即失败。
+- 找不到素材时报告具体 slide 与路径，不生成伪素材。
+- PptxGenJS 写出失败时保留源文件和错误日志，不把空 PPTX 当成功。
+- 边界检查有 `ERROR` 时不得进入 Ship；文字预算 `WARNING` 必须人工复核渲染。
 
-Create only the resource directories this skill actually needs. Delete this section if no resources are required.
+## 输出与资源
 
-### scripts/
-Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
+输出可编辑 `.pptx`、TypeScript 源码、依赖锁文件、`build-manifest.json` 和 `build-check.json`。
 
-**Examples from other skills:**
-- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
-- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
+- PptxGenJS 与安装：`references/pptxgenjs-guide.md`
+- 组件契约：`references/component-contract.md`
+- 常见故障：`references/common-pitfalls.md`
+- 起步项目：`assets/starter/README.md`
 
-**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
-
-**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
-
-### references/
-Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
-
-**Examples from other skills:**
-- Product management: `communication.md`, `context_building.md` - detailed workflow guides
-- BigQuery: API reference documentation and query examples
-- Finance: Schema documentation, company policies
-
-**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
-
-### assets/
-Files not intended to be loaded into context, but rather used within the output Codex produces.
-
-**Examples from other skills:**
-- Brand styling: PowerPoint template files (.pptx), logo files
-- Frontend builder: HTML/React boilerplate project directories
-- Typography: Font files (.ttf, .woff2)
-
-**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
-
----
-
-**Not every skill requires all three types of resources.**

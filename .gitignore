@@ -29,3 +29,5 @@ mcp-servers/local-python-figure-mcp/sample.csv
 mcp-servers/local-python-figure-mcp/sample-output/
 
 *.zip
+./外部skill压缩包/
+./skill-output/
