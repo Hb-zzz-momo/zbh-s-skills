@@ -63,6 +63,34 @@ def collect_run_sizes(doc: Any) -> Counter:
     return sizes
 
 
+def iter_all_paragraphs(doc: Any):
+    for paragraph in doc.paragraphs:
+        yield paragraph
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    yield paragraph
+    for section in doc.sections:
+        for container in (section.header, section.footer):
+            for paragraph in container.paragraphs:
+                yield paragraph
+            for table in container.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        for paragraph in cell.paragraphs:
+                            yield paragraph
+
+
+def collect_run_colors(doc: Any) -> Counter:
+    colors: Counter = Counter()
+    for paragraph in iter_all_paragraphs(doc):
+        for run in paragraph.runs:
+            if run.text.strip():
+                colors[str(run.font.color.rgb)] += 1
+    return colors
+
+
 def audit_docx(path: Path) -> dict[str, Any]:
     doc = Document(str(path))
     paragraph_texts = [paragraph_text(p) for p in doc.paragraphs]
@@ -112,6 +140,7 @@ def audit_docx(path: Path) -> dict[str, Any]:
             "present": True,
             "font_name": style.font.name,
             "font_size_pt": pt_value(style.font.size),
+            "font_color": str(style.font.color.rgb),
             "bold": style.font.bold,
             "italic": style.font.italic,
             "line_spacing": line_spacing_value(getattr(fmt, "line_spacing", None)),
@@ -144,6 +173,9 @@ def audit_docx(path: Path) -> dict[str, Any]:
             }
         )
 
+    run_font_colors = dict(collect_run_colors(doc).most_common())
+    non_black_colors = {color: count for color, count in run_font_colors.items() if color != "000000"}
+
     issues = []
     if blank_runs:
         issues.append({"severity": "warning", "message": "Found consecutive blank paragraphs.", "details": blank_runs[:20]})
@@ -151,6 +183,14 @@ def audit_docx(path: Path) -> dict[str, Any]:
         issues.append({"severity": "info", "message": "No obvious References heading found."})
     if not captions:
         issues.append({"severity": "info", "message": "No obvious figure/table captions found."})
+    if non_black_colors:
+        issues.append(
+            {
+                "severity": "warning",
+                "message": "Found font colors that are not explicit black (#000000).",
+                "details": non_black_colors,
+            }
+        )
 
     return {
         "file": str(path.resolve()),
@@ -159,6 +199,7 @@ def audit_docx(path: Path) -> dict[str, Any]:
         "sections": sections,
         "styles": styles,
         "run_font_sizes": dict(collect_run_sizes(doc).most_common()),
+        "run_font_colors": run_font_colors,
         "consecutive_blank_paragraphs": blank_runs,
         "captions": captions[:50],
         "reference_headings": reference_heading_indexes,
@@ -191,6 +232,7 @@ def to_markdown(report: dict[str, Any]) -> str:
             continue
         lines.append(
             f"- `{name}`: font={data['font_name']}, size={data['font_size_pt']} pt, "
+            f"color={data['font_color']}, "
             f"line_spacing={data['line_spacing']}, before/after={data['space_before_pt']}/{data['space_after_pt']} pt, "
             f"first_indent={data['first_line_indent_cm']} cm, align={data['alignment']}"
         )
@@ -200,6 +242,12 @@ def to_markdown(report: dict[str, Any]) -> str:
             lines.append(f"- {size} pt: {count} runs")
     else:
         lines.append("- No direct run font sizes found.")
+    lines.extend(["", "## 字体颜色分布", ""])
+    if report["run_font_colors"]:
+        for color, count in report["run_font_colors"].items():
+            lines.append(f"- {color}: {count} runs")
+    else:
+        lines.append("- No text runs found.")
     lines.extend(["", "## 图表题注线索", ""])
     for item in report["captions"] or []:
         lines.append(f"- P{item['paragraph']}: {item['text']}")

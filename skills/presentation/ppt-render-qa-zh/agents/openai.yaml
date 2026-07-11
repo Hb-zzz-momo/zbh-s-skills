@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPT渲染质检"
+  short_description: "渲染PPTX、生成逐页图片与Montage并执行内容几何视觉修复复验。"
+  default_prompt: "渲染当前PPTX，记录问题，修复后重新验证并输出QA报告。"

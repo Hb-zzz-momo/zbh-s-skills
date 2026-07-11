@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPT制作总控"
+  short_description: "路由证据、叙事、视觉、构建、渲染、修复和交付阶段。"
+  default_prompt: "使用PPT总控工作流完成当前演示任务，并按阶段门禁交付。"

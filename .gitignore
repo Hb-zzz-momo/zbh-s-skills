@@ -23,5 +23,9 @@ Thumbs.db
 .runtime/
 outputs/
 uploads/
+mcp-workspaces/
+mcp-servers/inkscape-mcps/
+mcp-servers/local-python-figure-mcp/sample.csv
+mcp-servers/local-python-figure-mcp/sample-output/
 
 *.zip

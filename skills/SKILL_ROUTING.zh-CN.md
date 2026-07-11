@@ -32,7 +32,7 @@
 | Web 设计 / Vibe Coding / 页面改版 | 网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
 | 子代理调度 | `/sub`、subagents、子代理、多代理、并行委派、worker/explorer | `subagent-orchestration-zh` |
-| 科研调用流 | 多痛点、多假设、多创新点、候选池、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
+| 科研调用流 | 机制创新、新方法构思、算法创新点、多痛点、多假设、多创新点、候选池、文献检索门、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
 | 工程调用流 | 复杂工程、多方案实现、技术 spike、工程 Gate、候选实现池 | `engineering-skill-flow-zh` |
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
@@ -66,6 +66,7 @@
 | 风险信号 | 追加 skill |
 |---|---|
 | 用户给了固定计划、题面或边界 | `plan-faithful-execution-zh` |
+| 科研机制创新、新方法构思、算法创新点、novelty 或 gap 判断 | `research-skill-flow-zh`, `info-evidence-chain-zh` |
 | 结论会写进论文或报告 | `decisive-result-audit-zh`, `paper-writing-zh` |
 | 改动涉及认证、权限、输入、密钥 | `security-and-hardening` |
 | 页面必须真实可用或需要视觉设计验收 | `web-design-workflow-zh`, `frontend-ui-engineering`, `browser-testing-with-devtools` |
@@ -73,6 +74,25 @@
 | 任务会长时间运行 | `agent-wait-monitor-zh` |
 | 用户明确要求 subagent、`/sub`、并行委派或多代理 | `subagent-orchestration-zh` |
 | 需要沉淀给下一任 AI | `project-handoff-zh`, `documentation-and-adrs` |
+
+### 高风险任务统一硬门槛模板
+
+凡 Step 3 命中风险信号，或任务会进入编码、实验、论文 claim、子代理调度、正式交付、文件覆盖、批量移动等不可轻易回滚动作前，必须先输出或写入阶段记录：
+
+```text
+硬门槛：
+- 触发门槛：本轮为什么必须先过 gate。
+- 前置证据：已读取的文件、模板、文献、raw 结果、测试、截图、日志或用户计划。
+- 禁止越界：证据不足时不能声称什么、不能修改什么、不能启动什么。
+- 判定结果：PASS / CAUTION / BLOCK。
+- 下一步动作：放行、补证据、降级、暂停询问、只做审计或回滚。
+```
+
+判定规则：
+
+- `PASS`：证据足够，允许进入下一阶段，但仍要执行对应 skill 的验证要求。
+- `CAUTION`：只允许低风险下一步，必须降级表述、缩小范围或补验证；不得升级为正式 claim 或最终交付。
+- `BLOCK`：不得继续该高风险动作，只能补证据、改方案、询问用户或记录为失败/待办。
 
 ### Step 4：声明并执行
 
@@ -85,7 +105,7 @@ Skill 路由：
 - 收尾 skill：code-review-and-quality，用于风险审查。
 ```
 
-说明后直接工作，不要把路由变成长篇计划。
+若命中高风险信号，声明路由后先给出“硬门槛”五项；未命中时直接工作，不要把路由变成长篇计划。
 
 ## 3. 常见任务组合
 
@@ -160,9 +180,10 @@ code-review-and-quality
 
 ```text
 research-skill-flow-zh
+info-evidence-chain-zh
 ```
 
-默认执行方式：Memory Intake -> Gap Gate -> Research Design -> Candidate Smoke Funnel -> Dev/Formal -> Paper Memory。每阶段只允许 1 个主 skill、最多 2 个辅助 skill；审计 skill 只在触发条件满足时调用。
+默认执行方式：Memory Intake -> 文献检索门 -> Gap Gate -> Research Design -> Candidate Smoke Funnel -> Dev/Formal -> Paper Memory。凡是机制创新、新方法构思、算法创新点、novelty 或 gap 判断，必须先用 `info-evidence-chain-zh` 或等价文献检索产出证据链；未检索只能输出“待检索假设”，不得进入机制设计、编码或论文贡献 claim。每阶段只允许 1 个主 skill、最多 2 个辅助 skill；审计 skill 只在触发条件满足时调用。
 
 ### 科研实验
 
@@ -247,6 +268,8 @@ artifact-curator-zh
 - 复杂工程、多方案实现或架构改造先用 `engineering-skill-flow-zh` 建候选池和 Gate；单文件小改仍直接走轻量工程 skill。
 - 有代码行为变化时，默认加入测试或可执行验证。
 - 有论文/报告结论时，默认做证据和结果审计。
+- 有科研机制创新、新方法或算法创新点时，默认先做文献检索门；不得从本地实验直觉直接生成 novelty claim。
+- 命中高风险信号时，必须使用统一硬门槛模板；没有前置证据只能 `CAUTION` 或 `BLOCK`，不能写成 `PASS`。
 - 有子代理请求时，先确认授权和写范围；不要把“深入分析”自动当作授权。
 - 有工具使用建议请求时，按 VS Code 插件、Codex 插件、语言本身安装包/生态依赖、Codex MCP 四层组织答案，并区分“已安装可用”“需要配置”“只是候选建议”。
 - 有用户指定输出目录时，写入指定目录。

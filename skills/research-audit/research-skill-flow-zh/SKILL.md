@@ -1,6 +1,6 @@
 ---
 name: research-skill-flow-zh
-description: "科研 Skill 调用流总控技能：用于多痛点、多假设、多创新点的科研任务分阶段路由、候选池生成、Gap Gate、候选 smoke 漏斗、dev/formal 收敛、论文 claim 分级和外部科研 skill 冲突审计。Use when: 科研调用流、科研skill路由、多候选科研流程、多痛点、多假设、多创新点、候选池、Gap Gate、Memory Intake、Candidate Smoke Funnel、论文claim分级、外部科研skill冲突审计。不适用于：直接执行单一实验、单篇论文写作或普通工程开发，路由后应切换到对应阶段主 skill。"
+description: "科研 Skill 调用流总控技能：用于机制创新、新方法构思、算法创新点、多痛点、多假设、多创新点的科研任务分阶段路由、文献检索门、候选池生成、Gap Gate、候选 smoke 漏斗、dev/formal 收敛、论文 claim 分级和外部科研 skill 冲突审计。Use when: 机制创新、算法创新、新方法、科研调用流、科研skill路由、多候选科研流程、多痛点、多假设、多创新点、候选池、文献检索、Gap Gate、Memory Intake、Candidate Smoke Funnel、论文claim分级、外部科研skill冲突审计。不适用于：直接执行单一实验、单篇论文写作或普通工程开发，路由后应切换到对应阶段主 skill。"
 metadata:
   argument-hint: "说明科研阶段和材料，例如：按科研调用流做新方向探索；用多候选漏斗筛选这些创新点；论文前按 claim 分级整理"
 ---
@@ -9,7 +9,7 @@ metadata:
 
 ## 目标
 
-把科研任务组织成“多候选生成 + 分阶段筛选 + 单实验验证”的调用流。早期允许提出多个痛点、多个假设、多个创新点；进入实验和论文 claim 前必须收敛，避免把多个机制一次混改后直接宣称整体有效。
+把科研任务组织成“文献检索门 + 多候选生成 + 分阶段筛选 + 单实验验证”的调用流。早期允许提出多个痛点、多个假设、多个创新点；进入机制设计、实验和论文 claim 前必须先完成文献/证据链检索并收敛，避免凭直觉编机制，或把多个机制一次混改后直接宣称整体有效。
 
 本 skill 是科研路由和流程守门，不替代阶段主 skill。选定阶段后，按下表切换到对应主 skill 执行。
 
@@ -26,12 +26,42 @@ metadata:
 - 审计 skill：不计入辅助数量，但只有触发条件满足时才能调用。
 - 跨阶段任务要分阶段切换主 skill，不要一次性加载全量科研 skill。
 
+## 文献检索门硬规则
+
+凡是任务出现以下任一信号，必须先过文献检索门，再进入 Gap Gate、Research Design、算法改进编码或实验：
+
+- 机制创新、算法创新、新方法、新模块、新贡献点、novelty、gap、SOTA 对比、论文主创新。
+- 用户要求“提出机制”“设计创新点”“找可写论文的方法”“这个方向有没有创新性”。
+- 需要判断某个痛点是否已有方法解决，或某个机制是否只是旧方法换名。
+
+文献检索门默认使用 `info-evidence-chain-zh` 作为辅助 skill，并优先组合本地材料、Zotero/citecheck、论文数据库、官方论文页或联网检索。若用户明确禁止联网，必须改为“本地材料检索”，并在输出中标注证据不足。
+
+本门属于全局统一硬门槛模板：触发门槛是机制创新/novelty/gap 判断，前置证据是文献和本地材料，禁止越界是不得声称首创或贡献成立，判定结果必须是 `PASS / CAUTION / BLOCK`，下一步动作必须明确放行、补检索、降级或暂停。
+
+通过门槛必须输出：
+
+```text
+文献检索状态：已检索 / 本地-only / 用户禁止检索 / 工具不可用
+检索范围：关键词、数据库/来源、时间范围
+代表性已有方法：至少 3 条；少于 3 条必须解释原因
+候选 gap：每条对应来源和证据
+不可越界声明：未检索到不等于不存在；不得直接声称首创
+下一步：PASS / CAUTION / BLOCK
+```
+
+硬性禁止：
+
+- 未完成文献检索门时，直接输出“创新点成立”“机制有新意”“论文贡献可写”。
+- 把本地实验失败或成功直接解释为文献 gap。
+- 把单篇论文或单一搜索结果当作完整领域结论。
+- 因为用户催促就跳过检索；只能先给“待检索假设”。
+
 ## 阶段路由
 
 | 阶段 | 主 skill | 最多辅助 skill | 条件审计 skill | 必须产出 |
 |---|---|---|---|---|
-| Memory Intake | `research-coach-zh` | `info-evidence-chain-zh`, `literature-triage-matrix` | 无 | 项目状态卡、文献比较矩阵、候选池初稿 |
-| Gap Gate | `research-coach-zh` | `literature-triage-matrix`, `info-evidence-chain-zh` | `iteration-reflection-guard-zh` | 候选池表、PASS/CAUTION/BLOCK |
+| Memory Intake | `research-coach-zh` | `info-evidence-chain-zh`, `literature-triage-matrix` | 无 | 项目状态卡、文献检索状态、文献比较矩阵、候选池初稿 |
+| Gap Gate | `research-coach-zh` | `info-evidence-chain-zh`, `literature-triage-matrix` | `iteration-reflection-guard-zh` | 候选池表、文献证据列、PASS/CAUTION/BLOCK |
 | Research Design | `research-coach-zh` | `research-design-helper`, `literature-triage-matrix` | `plan-faithful-execution-zh` | 创新点可行性矩阵、最小验证计划 |
 | Candidate Smoke Funnel | `research-experiment-ops-zh` | `agent-wait-monitor-zh`, `artifact-curator-zh` | `research-iteration-audit-zh` | 每个候选的独立 smoke 记录和排序 |
 | Dev/Formal | `research-experiment-ops-zh` | `agent-wait-monitor-zh`, `artifact-curator-zh` | `decisive-result-audit-zh`, `plan-faithful-execution-zh` | dev/formal 结果、raw/summary/config 对齐检查 |
@@ -49,7 +79,7 @@ metadata:
 - 历史实验记录。
 - 实验日志、summary、raw。
 - 既有失败路线和有效路线。
-- 文献材料、证据链和文献比较矩阵。
+- 文献材料、证据链和文献比较矩阵；若任务是机制创新或新方法构思，必须先补检索，不能只读历史实验。
 - 用户指定边界、数据、算力、时间和论文目标。
 
 项目状态卡必须保留六段式记忆：
@@ -80,8 +110,8 @@ metadata:
 
 | Gate | 判断问题 | 依据 |
 |---|---|---|
-| Gate 1 | 每个痛点对应的 gap 是否存在？ | 文献矩阵参考 |
-| Gate 2 | 每个创新点是否构成真实贡献？ | 文献对比辅助 |
+| Gate 1 | 每个痛点对应的 gap 是否存在？ | 文献检索门输出和文献矩阵 |
+| Gate 2 | 每个创新点是否构成真实贡献？ | 文献对比辅助；未检索时只能 BLOCK 或 CAUTION |
 | Gate 3 | 每个候选以当前数据、算力、时间是否可行？ | 本地实验经验为主 |
 
 候选池表模板：
@@ -254,6 +284,7 @@ Skill 路由：
 - 阶段：...
 - 主 skill：...
 - 辅助 skill：...
+- 文献检索门：已通过 / 未通过，原因是...
 - 审计 skill：未触发 / 已触发，原因是...
 ```
 
@@ -270,6 +301,7 @@ Skill 路由：
 
 - 每个阶段只有 1 个主 skill。
 - 辅助 skill 不超过 2 个。
+- 机制创新、新方法或创新点判断是否完成文献检索门；未完成时是否禁止 novelty/贡献 claim。
 - 审计 skill 只在触发条件满足时调用。
 - 多个创新点都有独立证据和失败条件。
 - dev/formal 没有未记录的混合机制。

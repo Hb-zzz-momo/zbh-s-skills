@@ -14,7 +14,7 @@ try:
     from docx.enum.text import WD_ALIGN_PARAGRAPH
     from docx.oxml import OxmlElement
     from docx.oxml.ns import qn
-    from docx.shared import Cm, Pt
+    from docx.shared import Cm, Pt, RGBColor
 except ImportError:  # pragma: no cover
     print("Missing dependency: python-docx. Install with: python -m pip install python-docx", file=sys.stderr)
     raise SystemExit(2)
@@ -26,6 +26,17 @@ ALIGNMENTS = {
     "right": WD_ALIGN_PARAGRAPH.RIGHT,
     "justify": WD_ALIGN_PARAGRAPH.JUSTIFY,
 }
+
+
+def parse_rgb(value: str | None) -> RGBColor | None:
+    if value is None:
+        return None
+    normalized = str(value).strip().lstrip("#")
+    if normalized.lower() in {"none", "false", "off"}:
+        return None
+    if len(normalized) != 6:
+        raise ValueError(f"Invalid RGB color: {value}")
+    return RGBColor(int(normalized[0:2], 16), int(normalized[2:4], 16), int(normalized[4:6], 16))
 
 
 def load_rules(path: Path | None) -> dict[str, Any]:
@@ -62,6 +73,10 @@ def apply_style_rule(style: Any, rule: dict[str, Any]) -> None:
         style.font.bold = bool(rule["bold"])
     if "italic" in rule:
         style.font.italic = bool(rule["italic"])
+    if "font_color" in rule:
+        color = parse_rgb(rule["font_color"])
+        if color is not None:
+            style.font.color.rgb = color
 
     fmt = style.paragraph_format
     if "line_spacing" in rule:
@@ -130,6 +145,50 @@ def normalize_abnormal_run_sizes(doc: Any, rule: dict[str, Any]) -> int:
     return changed
 
 
+def iter_all_paragraphs(doc: Any):
+    for paragraph in doc.paragraphs:
+        yield paragraph
+    for table in doc.tables:
+        for row in table.rows:
+            for cell in row.cells:
+                for paragraph in cell.paragraphs:
+                    yield paragraph
+    for section in doc.sections:
+        for container in (section.header, section.footer):
+            for paragraph in container.paragraphs:
+                yield paragraph
+            for table in container.tables:
+                for row in table.rows:
+                    for cell in row.cells:
+                        for paragraph in cell.paragraphs:
+                            yield paragraph
+
+
+def force_font_color(doc: Any, color_value: str | None = "000000") -> dict[str, Any]:
+    color = parse_rgb(color_value)
+    if color is None:
+        return {"enabled": False, "runs_seen": 0, "runs_changed": 0, "styles_changed": 0, "color": None}
+    styles_changed = 0
+    for style in doc.styles:
+        try:
+            if style.font.color.rgb != color:
+                styles_changed += 1
+            style.font.color.rgb = color
+        except Exception:
+            continue
+    runs_seen = 0
+    runs_changed = 0
+    for paragraph in iter_all_paragraphs(doc):
+        for run in paragraph.runs:
+            if not run.text.strip():
+                continue
+            runs_seen += 1
+            if run.font.color.rgb != color:
+                runs_changed += 1
+            run.font.color.rgb = color
+    return {"enabled": True, "runs_seen": runs_seen, "runs_changed": runs_changed, "styles_changed": styles_changed, "color": str(color)}
+
+
 def apply_table_style(doc: Any, style_name: str) -> int:
     changed = 0
     for table in doc.tables:
@@ -151,6 +210,7 @@ def fix_docx(input_path: Path, out_path: Path, rules: dict[str, Any], overwrite:
         "styles_changed": [],
         "blank_paragraphs_removed": 0,
         "abnormal_run_sizes_changed": 0,
+        "font_color": {},
         "tables_styled": 0,
         "mode": "rules" if rules else "conservative-default",
     }
@@ -171,6 +231,9 @@ def fix_docx(input_path: Path, out_path: Path, rules: dict[str, Any], overwrite:
 
     run_font_rule = rules.get("run_font", {"min_pt": 6, "max_pt": 36, "replacement_pt": 12})
     summary["abnormal_run_sizes_changed"] = normalize_abnormal_run_sizes(doc, run_font_rule)
+
+    color_value = rules.get("force_font_color", run_font_rule.get("font_color", "000000"))
+    summary["font_color"] = force_font_color(doc, color_value)
 
     if "table_style" in rules:
         summary["tables_styled"] = apply_table_style(doc, str(rules["table_style"]))

@@ -11,6 +11,8 @@ description: '决定性结果审计技能：用于审计 formal/gate、冻结版
 
 本技能不负责判断机制是否堆叠，机制审计继续用 `research-iteration-audit-zh`。本技能只回答：这批结果能不能被相信，指标有没有按正确口径算，比较是否公平。
 
+本技能是全局统一硬门槛模板中的“结果/claim gate”：触发门槛是 formal、冻结、论文主表、算法胜负或 claim 升级；前置证据是 raw、metric 实现、collector、配置和抽样重算；禁止越界是不得把不可信结果写成论文结论；判定结果只能是 `PASS / CAUTION / BLOCK`；下一步动作必须明确放行、降级、补重算或 BLOCK。
+
 ## 触发等级
 
 必须触发：

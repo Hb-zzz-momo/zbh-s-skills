@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPTX从零构建"
+  short_description: "使用PptxGenJS构建原生可编辑PPTX并执行页面边界与组件一致性检查。"
+  default_prompt: "按slide-spec与设计契约从零生成可编辑PPTX。"

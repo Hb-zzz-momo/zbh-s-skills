@@ -83,6 +83,7 @@ $scenarioBySkill = @{
     'info-evidence-chain-zh'     = 'info'
     'iteration-reflection-guard-zh' = 'guardrail'
     'knowledge-digest-zh'        = 'learning'
+    'project-docs-knowledge-log-zh' = 'learning'
     'lab-report-coach-zh'        = 'course'
     'paper-format-fixer-zh'      = 'writing'
     'paper-writing-zh'           = 'writing'
@@ -95,6 +96,7 @@ $scenarioBySkill = @{
     'project-kickoff-delivery-zh' = 'engineering'
     'research-coach-zh'          = 'research-audit'
     'research-experiment-ops-zh' = 'research-audit'
+    'research-figure-generation-zh' = 'research-audit'
     'research-iteration-audit-zh' = 'research-audit'
     'research-skill-flow-zh'     = 'research-audit'
     'research-statistics-reporting-zh' = 'research-audit'
@@ -206,6 +208,7 @@ $L = [System.Collections.ArrayList]::new()
 [void]$L.Add('## Global Defaults')
 [void]$L.Add('')
 [void]$L.Add('- ``knowledge-digest-zh`` is a user-level global skill and is auto-invoked at task completion via ``~/.agents/.instructions.md``')
+[void]$L.Add('- ``project-docs-knowledge-log-zh`` is a user-level global project-docs skill and can write the key reusable Q&A knowledge point into the current project ``docs/knowledge/`` via ``~/.agents/.instructions.md``')
 [void]$L.Add('')
 
 # --- routing protocol ---
@@ -260,7 +263,7 @@ foreach ($scenario in $scenarioOrder) {
 [void]$L.Add('')
 [void]$L.Add('1. **Self-iteration mode** - give feedback after use to trigger optimization')
 [void]$L.Add('2. **YAML frontmatter** - standard name / description fields')
-[void]$L.Add('3. **Markdown deliverable** - substantial skill outputs must also be written to Markdown file(s) or a dedicated output folder in the current workspace')
+[void]$L.Add('3. **Markdown deliverable** - substantial skill outputs must also be written to Markdown file(s) or a dedicated output folder in the current workspace; project-knowledge notes may explicitly target ``docs/knowledge/``')
 [void]$L.Add('4. **Skill-output naming** - new outputs go under ``skill-outputs/<skill-name>/`` and use Chinese topic names with the date/time suffix, for example ``阶段审计报告_YYYYMMDD_HHMMSS.md``; do not repeat the skill name in the file or folder name')
 [void]$L.Add('5. **Line limit** - every SKILL.md < 500 lines')
 [void]$L.Add('')

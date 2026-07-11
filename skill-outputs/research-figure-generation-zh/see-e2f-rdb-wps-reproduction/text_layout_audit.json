@@ -1,0 +1,1029 @@
+{
+  "canvas": {
+    "width": 1600,
+    "height": 900,
+    "unit": "ppt-coordinate"
+  },
+  "total_text_items": 113,
+  "caution_count": 0,
+  "cautions": [],
+  "items": [
+    {
+      "text": "SEE / E2F-Guided Initialization",
+      "x": 23.0,
+      "y": 15.0,
+      "w": 419.0,
+      "h": 28.0,
+      "font_size": 15,
+      "status": "PASS"
+    },
+    {
+      "text": "1",
+      "x": 41.0,
+      "y": 58.0,
+      "w": 27.0,
+      "h": 27.0,
+      "font_size": 12,
+      "status": "PASS"
+    },
+    {
+      "text": "HDLSS biomedical data",
+      "x": 95.0,
+      "y": 58.0,
+      "w": 210.0,
+      "h": 20.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "X ∈ Rⁿˣᵈ, y",
+      "x": 105.0,
+      "y": 82.0,
+      "w": 115.0,
+      "h": 28.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "Feature matrix  X",
+      "x": 65.0,
+      "y": 112.0,
+      "w": 120.0,
+      "h": 18.0,
+      "font_size": 7,
+      "status": "PASS"
+    },
+    {
+      "text": "Label vector  y",
+      "x": 280.0,
+      "y": 112.0,
+      "w": 105.0,
+      "h": 18.0,
+      "font_size": 7,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 245.0,
+      "y": 126.0,
+      "w": 34.0,
+      "h": 18.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 407.0,
+      "y": 126.0,
+      "w": 20.0,
+      "h": 18.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "2",
+      "x": 41.0,
+      "y": 183.0,
+      "w": 27.0,
+      "h": 27.0,
+      "font_size": 12,
+      "status": "PASS"
+    },
+    {
+      "text": "Supervised relevance scoring",
+      "x": 89.0,
+      "y": 185.0,
+      "w": 230.0,
+      "h": 20.0,
+      "font_size": 9.5,
+      "status": "PASS"
+    },
+    {
+      "text": "ANOVA F-score",
+      "x": 95.0,
+      "y": 210.0,
+      "w": 80.0,
+      "h": 18.0,
+      "font_size": 7.4,
+      "status": "PASS"
+    },
+    {
+      "text": "ranked relevance",
+      "x": 280.0,
+      "y": 210.0,
+      "w": 105.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 355.0,
+      "y": 255.0,
+      "w": 36.0,
+      "h": 18.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "F-score  →  relevance order",
+      "x": 115.0,
+      "y": 285.0,
+      "w": 220.0,
+      "h": 22.0,
+      "font_size": 7.5,
+      "status": "PASS"
+    },
+    {
+      "text": "3",
+      "x": 41.0,
+      "y": 333.0,
+      "w": 27.0,
+      "h": 27.0,
+      "font_size": 12,
+      "status": "PASS"
+    },
+    {
+      "text": "Supervised candidate feature pool",
+      "x": 95.0,
+      "y": 337.0,
+      "w": 250.0,
+      "h": 20.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "Top-K supervised pool",
+      "x": 95.0,
+      "y": 364.0,
+      "w": 130.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "K ≤ 512",
+      "x": 233.0,
+      "y": 364.0,
+      "w": 70.0,
+      "h": 18.0,
+      "font_size": 8.3,
+      "status": "PASS"
+    },
+    {
+      "text": "1",
+      "x": 101.0,
+      "y": 386.0,
+      "w": 18.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "2",
+      "x": 136.0,
+      "y": 386.0,
+      "w": 18.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "3",
+      "x": 174.0,
+      "y": 386.0,
+      "w": 18.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "4",
+      "x": 212.0,
+      "y": 386.0,
+      "w": 18.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "5",
+      "x": 250.0,
+      "y": 386.0,
+      "w": 18.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "6",
+      "x": 288.0,
+      "y": 386.0,
+      "w": 18.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 321.0,
+      "y": 386.0,
+      "w": 34.0,
+      "h": 16.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "K",
+      "x": 363.0,
+      "y": 386.0,
+      "w": 16.0,
+      "h": 16.0,
+      "font_size": 8,
+      "status": "PASS"
+    },
+    {
+      "text": "poolBudget = 512",
+      "x": 65.0,
+      "y": 417.0,
+      "w": 135.0,
+      "h": 22.0,
+      "font_size": 7.5,
+      "status": "PASS"
+    },
+    {
+      "text": "high relevance",
+      "x": 225.0,
+      "y": 417.0,
+      "w": 135.0,
+      "h": 22.0,
+      "font_size": 7.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Key idea: Supervised E2F Shaping",
+      "x": -18.0,
+      "y": 505.0,
+      "w": 180.0,
+      "h": 18.0,
+      "font_size": 6.7,
+      "status": "PASS"
+    },
+    {
+      "text": "4",
+      "x": 41.0,
+      "y": 455.0,
+      "w": 27.0,
+      "h": 27.0,
+      "font_size": 12,
+      "status": "PASS"
+    },
+    {
+      "text": "Redundancy-aware endpoint growth",
+      "x": 105.0,
+      "y": 455.0,
+      "w": 230.0,
+      "h": 20.0,
+      "font_size": 9.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Endpoint growth\nrelevance + redundancy + error",
+      "x": 109.0,
+      "y": 478.0,
+      "w": 250.0,
+      "h": 28.0,
+      "font_size": 6.7,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 340.0,
+      "y": 518.0,
+      "w": 24.0,
+      "h": 15.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "|corr|\nredundancy",
+      "x": 49.0,
+      "y": 570.0,
+      "w": 84.0,
+      "h": 26.0,
+      "font_size": 5.8,
+      "status": "PASS"
+    },
+    {
+      "text": "single-feature\nKNN error",
+      "x": 155.0,
+      "y": 570.0,
+      "w": 86.0,
+      "h": 26.0,
+      "font_size": 6.0,
+      "status": "PASS"
+    },
+    {
+      "text": "branchWidth",
+      "x": 265.0,
+      "y": 570.0,
+      "w": 80.0,
+      "h": 26.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "maxEntryK",
+      "x": 365.0,
+      "y": 570.0,
+      "w": 64.0,
+      "h": 26.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "5",
+      "x": 41.0,
+      "y": 625.0,
+      "w": 27.0,
+      "h": 27.0,
+      "font_size": 12,
+      "status": "PASS"
+    },
+    {
+      "text": "Endpoint-to-Front Seeds",
+      "x": 160.0,
+      "y": 625.0,
+      "w": 190.0,
+      "h": 20.0,
+      "font_size": 9.2,
+      "status": "PASS"
+    },
+    {
+      "text": "sparse\nendpoint",
+      "x": 77.0,
+      "y": 655.0,
+      "w": 55.0,
+      "h": 30.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "low-error\nendpoint",
+      "x": 363.0,
+      "y": 655.0,
+      "w": 60.0,
+      "h": 30.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "trade-off band",
+      "x": 205.0,
+      "y": 655.0,
+      "w": 90.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "bandSteps",
+      "x": 65.0,
+      "y": 725.0,
+      "w": 90.0,
+      "h": 28.0,
+      "font_size": 7,
+      "status": "PASS"
+    },
+    {
+      "text": "bandMaxRatio",
+      "x": 195.0,
+      "y": 725.0,
+      "w": 100.0,
+      "h": 28.0,
+      "font_size": 7,
+      "status": "PASS"
+    },
+    {
+      "text": "multi-scale\nsubset size",
+      "x": 335.0,
+      "y": 725.0,
+      "w": 95.0,
+      "h": 28.0,
+      "font_size": 6.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Initial CoverPop / SparsePop / EntryPop",
+      "x": 55.0,
+      "y": 787.0,
+      "w": 355.0,
+      "h": 20.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "RDB-Guided Sparse Evolutionary Loop",
+      "x": 478.0,
+      "y": 15.0,
+      "w": 774.0,
+      "h": 28.0,
+      "font_size": 15,
+      "status": "PASS"
+    },
+    {
+      "text": "Population",
+      "x": 520.0,
+      "y": 100.0,
+      "w": 110.0,
+      "h": 24.0,
+      "font_size": 10,
+      "status": "PASS"
+    },
+    {
+      "text": "CoverPop + SparsePop + Archive",
+      "x": 490.0,
+      "y": 130.0,
+      "w": 170.0,
+      "h": 20.0,
+      "font_size": 6.8,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 630.0,
+      "y": 205.0,
+      "w": 40.0,
+      "h": 20.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "NDSort",
+      "x": 500.0,
+      "y": 270.0,
+      "w": 48.0,
+      "h": 28.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "CrowdDis",
+      "x": 555.0,
+      "y": 270.0,
+      "w": 56.0,
+      "h": 28.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "FrontNo",
+      "x": 615.0,
+      "y": 270.0,
+      "w": 40.0,
+      "h": 28.0,
+      "font_size": 6.0,
+      "status": "PASS"
+    },
+    {
+      "text": "RDB Core Controller",
+      "x": 720.0,
+      "y": 78.0,
+      "w": 200.0,
+      "h": 24.0,
+      "font_size": 11,
+      "status": "PASS"
+    },
+    {
+      "text": "Role-Decoupled Backbone (RDB)",
+      "x": 715.0,
+      "y": 110.0,
+      "w": 210.0,
+      "h": 18.0,
+      "font_size": 8.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Role pressure ≠ fixed parent identity",
+      "x": 715.0,
+      "y": 136.0,
+      "w": 220.0,
+      "h": 20.0,
+      "font_size": 6.8,
+      "status": "PASS"
+    },
+    {
+      "text": "Extreme\nPreservation",
+      "x": 705.0,
+      "y": 170.0,
+      "w": 110.0,
+      "h": 68.0,
+      "font_size": 8.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Coverage\nEnhancement",
+      "x": 825.0,
+      "y": 170.0,
+      "w": 110.0,
+      "h": 68.0,
+      "font_size": 8.5,
+      "status": "PASS"
+    },
+    {
+      "text": "extreme quota",
+      "x": 710.0,
+      "y": 255.0,
+      "w": 100.0,
+      "h": 34.0,
+      "font_size": 6.8,
+      "status": "PASS"
+    },
+    {
+      "text": "coverage quota",
+      "x": 825.0,
+      "y": 255.0,
+      "w": 100.0,
+      "h": 34.0,
+      "font_size": 6.8,
+      "status": "PASS"
+    },
+    {
+      "text": "Three-lane Offspring Generator",
+      "x": 995.0,
+      "y": 78.0,
+      "w": 232.0,
+      "h": 24.0,
+      "font_size": 9.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Cover / Sparse ≠ Band Offspring",
+      "x": 1015.0,
+      "y": 105.0,
+      "w": 190.0,
+      "h": 18.0,
+      "font_size": 7.8,
+      "status": "PASS"
+    },
+    {
+      "text": "Cover lane",
+      "x": 1010.0,
+      "y": 132.0,
+      "w": 85.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "CoverOffDec",
+      "x": 1010.0,
+      "y": 156.0,
+      "w": 118.0,
+      "h": 18.0,
+      "font_size": 7.6,
+      "status": "PASS"
+    },
+    {
+      "text": "general Pareto search",
+      "x": 1010.0,
+      "y": 178.0,
+      "w": 125.0,
+      "h": 18.0,
+      "font_size": 7.1,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 1205.0,
+      "y": 155.0,
+      "w": 25.0,
+      "h": 20.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "Sparse lane",
+      "x": 1010.0,
+      "y": 228.0,
+      "w": 85.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "SparseOffDec",
+      "x": 1010.0,
+      "y": 250.0,
+      "w": 118.0,
+      "h": 18.0,
+      "font_size": 7.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Add / Drop / Swap",
+      "x": 1010.0,
+      "y": 272.0,
+      "w": 105.0,
+      "h": 18.0,
+      "font_size": 7.1,
+      "status": "PASS"
+    },
+    {
+      "text": "sparsity pressure",
+      "x": 1010.0,
+      "y": 294.0,
+      "w": 105.0,
+      "h": 18.0,
+      "font_size": 7.0,
+      "status": "PASS"
+    },
+    {
+      "text": "↔",
+      "x": 1164.0,
+      "y": 251.0,
+      "w": 28.0,
+      "h": 16.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 1205.0,
+      "y": 285.0,
+      "w": 25.0,
+      "h": 20.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "Band lane",
+      "x": 1010.0,
+      "y": 336.0,
+      "w": 85.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "BandOffDec",
+      "x": 1010.0,
+      "y": 358.0,
+      "w": 100.0,
+      "h": 18.0,
+      "font_size": 7.6,
+      "status": "PASS"
+    },
+    {
+      "text": "GNNE²F Band Decoder",
+      "x": 1010.0,
+      "y": 380.0,
+      "w": 130.0,
+      "h": 18.0,
+      "font_size": 7.0,
+      "status": "PASS"
+    },
+    {
+      "text": "front-band expansion",
+      "x": 1010.0,
+      "y": 402.0,
+      "w": 115.0,
+      "h": 16.0,
+      "font_size": 6.8,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 1205.0,
+      "y": 340.0,
+      "w": 25.0,
+      "h": 20.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "Bi-objective Evaluation",
+      "x": 745.0,
+      "y": 355.0,
+      "w": 160.0,
+      "h": 18.0,
+      "font_size": 7.8,
+      "status": "PASS"
+    },
+    {
+      "text": "error + feature ratio",
+      "x": 760.0,
+      "y": 377.0,
+      "w": 130.0,
+      "h": 17.0,
+      "font_size": 6.6,
+      "status": "PASS"
+    },
+    {
+      "text": "classification\nerror",
+      "x": 725.0,
+      "y": 402.0,
+      "w": 95.0,
+      "h": 34.0,
+      "font_size": 6.2,
+      "status": "PASS"
+    },
+    {
+      "text": "selected feature\nratio",
+      "x": 830.0,
+      "y": 402.0,
+      "w": 95.0,
+      "h": 34.0,
+      "font_size": 6.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Environmental Selection",
+      "x": 742.0,
+      "y": 484.0,
+      "w": 165.0,
+      "h": 20.0,
+      "font_size": 7.8,
+      "status": "PASS"
+    },
+    {
+      "text": "NDSort + CrowdDis",
+      "x": 777.0,
+      "y": 507.0,
+      "w": 100.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Sparse Pareto Archive",
+      "x": 750.0,
+      "y": 572.0,
+      "w": 150.0,
+      "h": 18.0,
+      "font_size": 8.0,
+      "status": "PASS"
+    },
+    {
+      "text": "archive update",
+      "x": 785.0,
+      "y": 594.0,
+      "w": 80.0,
+      "h": 18.0,
+      "font_size": 6.8,
+      "status": "PASS"
+    },
+    {
+      "text": "…",
+      "x": 907.0,
+      "y": 615.0,
+      "w": 30.0,
+      "h": 18.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "Front Formation",
+      "x": 770.0,
+      "y": 683.0,
+      "w": 130.0,
+      "h": 20.0,
+      "font_size": 9.2,
+      "status": "PASS"
+    },
+    {
+      "text": "sparse\nendpoint",
+      "x": 550.0,
+      "y": 690.0,
+      "w": 80.0,
+      "h": 35.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "low-error\nendpoint",
+      "x": 1030.0,
+      "y": 690.0,
+      "w": 80.0,
+      "h": 35.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "trade-off band",
+      "x": 785.0,
+      "y": 725.0,
+      "w": 95.0,
+      "h": 18.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "continuity",
+      "x": 610.0,
+      "y": 794.0,
+      "w": 90.0,
+      "h": 17.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "sparsity",
+      "x": 790.0,
+      "y": 800.0,
+      "w": 80.0,
+      "h": 17.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "coverage",
+      "x": 990.0,
+      "y": 794.0,
+      "w": 80.0,
+      "h": 17.0,
+      "font_size": 6.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Final Output",
+      "x": 1288.0,
+      "y": 15.0,
+      "w": 289.0,
+      "h": 28.0,
+      "font_size": 15,
+      "status": "PASS"
+    },
+    {
+      "text": "Termination Criteria",
+      "x": 1360.0,
+      "y": 90.0,
+      "w": 145.0,
+      "h": 20.0,
+      "font_size": 9,
+      "status": "PASS"
+    },
+    {
+      "text": "maxFE / convergence",
+      "x": 1375.0,
+      "y": 118.0,
+      "w": 120.0,
+      "h": 18.0,
+      "font_size": 7.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Stable Sparse\nPareto Feature Panels",
+      "x": 1330.0,
+      "y": 250.0,
+      "w": 210.0,
+      "h": 50.0,
+      "font_size": 12,
+      "status": "PASS"
+    },
+    {
+      "text": "Pareto Front",
+      "x": 1360.0,
+      "y": 385.0,
+      "w": 125.0,
+      "h": 28.0,
+      "font_size": 11,
+      "status": "PASS"
+    },
+    {
+      "text": "Classification Error",
+      "x": 1278.0,
+      "y": 490.0,
+      "w": 130.0,
+      "h": 20.0,
+      "font_size": 7.6,
+      "status": "PASS"
+    },
+    {
+      "text": "Selected Feature Ratio",
+      "x": 1378.0,
+      "y": 635.0,
+      "w": 150.0,
+      "h": 20.0,
+      "font_size": 8.2,
+      "status": "PASS"
+    },
+    {
+      "text": "HV",
+      "x": 1300.0,
+      "y": 686.0,
+      "w": 78.0,
+      "h": 38.0,
+      "font_size": 8.5,
+      "status": "PASS"
+    },
+    {
+      "text": "IGD",
+      "x": 1390.0,
+      "y": 686.0,
+      "w": 78.0,
+      "h": 38.0,
+      "font_size": 8.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Stability",
+      "x": 1474.0,
+      "y": 686.0,
+      "w": 78.0,
+      "h": 38.0,
+      "font_size": 8.5,
+      "status": "PASS"
+    },
+    {
+      "text": "biomedical feature panel",
+      "x": 1342.0,
+      "y": 760.0,
+      "w": 178.0,
+      "h": 24.0,
+      "font_size": 8.5,
+      "status": "PASS"
+    },
+    {
+      "text": "Extreme Anchor",
+      "x": 75.0,
+      "y": 854.0,
+      "w": 120.0,
+      "h": 22.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Diverse Anchor",
+      "x": 235.0,
+      "y": 854.0,
+      "w": 120.0,
+      "h": 22.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Medium Anchor",
+      "x": 390.0,
+      "y": 854.0,
+      "w": 120.0,
+      "h": 22.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Compact Anchor",
+      "x": 535.0,
+      "y": 854.0,
+      "w": 120.0,
+      "h": 22.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Candidate Solution",
+      "x": 710.0,
+      "y": 854.0,
+      "w": 120.0,
+      "h": 22.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Selected (Survivor)",
+      "x": 875.0,
+      "y": 854.0,
+      "w": 120.0,
+      "h": 22.0,
+      "font_size": 7.2,
+      "status": "PASS"
+    },
+    {
+      "text": "Data / Evolution Flow",
+      "x": 1080.0,
+      "y": 854.0,
+      "w": 130.0,
+      "h": 22.0,
+      "font_size": 7.1,
+      "status": "PASS"
+    },
+    {
+      "text": "Control / Role Guidance",
+      "x": 1272.0,
+      "y": 854.0,
+      "w": 135.0,
+      "h": 22.0,
+      "font_size": 7.1,
+      "status": "PASS"
+    },
+    {
+      "text": "Auxiliary Link",
+      "x": 1475.0,
+      "y": 854.0,
+      "w": 95.0,
+      "h": 22.0,
+      "font_size": 7.1,
+      "status": "PASS"
+    }
+  ]
+}

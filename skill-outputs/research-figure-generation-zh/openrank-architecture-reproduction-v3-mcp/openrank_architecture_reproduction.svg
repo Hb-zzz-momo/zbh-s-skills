@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1690" height="939" viewBox="0 0 1690 939" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker id="arrowBlack" markerHeight="8" markerWidth="11" orient="auto" refX="10" refY="4">
+   <path d="m0 0 10 4-10 4z" fill="#111827"/>
+  </marker>
+  <marker id="arrowBlue" markerHeight="8" markerWidth="11" orient="auto" refX="10" refY="4">
+   <path d="m0 0 10 4-10 4z" fill="#1558ad"/>
+  </marker>
+  <marker id="arrowGreen" markerHeight="8" markerWidth="11" orient="auto" refX="10" refY="4">
+   <path d="m0 0 10 4-10 4z" fill="#16763a"/>
+  </marker>
+  <style>text { font-family: Arial, Helvetica, sans-serif; }
+    .small { letter-spacing: 0; }</style>
+ </defs>
+ <rect width="1690" height="939" fill="#fff"/>
+ <text x="845.0" y="41" fill="#0d1b2f" font-size="38" font-weight="800" text-anchor="middle">OpenRank Visualization Platform: System Architecture</text>
+ <text x="845.0" y="75" fill="#28384d" font-size="20" font-style="italic" font-weight="500" text-anchor="middle">LLM Open-Source Ecosystem Health Analytics Based on OpenDigger Metrics</text>
+ <rect x="12" y="96" width="212" height="620" rx="9" fill="#fff" stroke="#1558ad" stroke-dasharray="5 3" stroke-width="1.7"/>
+ <circle cx="50" cy="127" r="17" fill="#1558ad"/>
+ <text x="50" y="133" fill="white" font-size="18" font-weight="700" text-anchor="middle">1</text>
+ <text x="80" y="134" fill="#1558ad" font-size="20" font-weight="700">User &amp; Client</text>
+ <rect x="278" y="96" width="282" height="520" rx="9" fill="#fff" stroke="#16763a" stroke-dasharray="5 3" stroke-width="1.7"/>
+ <circle cx="316" cy="127" r="17" fill="#16763a"/>
+ <text x="316" y="133" fill="white" font-size="18" font-weight="700" text-anchor="middle">2</text>
+ <text x="346" y="134" fill="#16763a" font-size="20" font-weight="700">Vue 3 Frontend</text>
+ <rect x="626" y="96" width="355" height="620" rx="9" fill="#fff" stroke="#0d3f87" stroke-dasharray="5 3" stroke-width="1.7"/>
+ <circle cx="664" cy="127" r="17" fill="#0d3f87"/>
+ <text x="664" y="133" fill="white" font-size="18" font-weight="700" text-anchor="middle">3</text>
+ <text x="694" y="134" fill="#0d3f87" font-size="17" font-weight="700">Flask Backend Service</text>
+ <rect x="1055" y="96" width="295" height="620" rx="9" fill="#fff" stroke="#16763a" stroke-dasharray="5 3" stroke-width="1.7"/>
+ <circle cx="1093" cy="127" r="17" fill="#16763a"/>
+ <text x="1093" y="133" fill="white" font-size="18" font-weight="700" text-anchor="middle">4</text>
+ <text x="1123" y="134" fill="#16763a" font-size="17" font-weight="700">Data Processing &amp; Storage</text>
+ <rect x="1428" y="96" width="258" height="620" rx="9" fill="#fff" stroke="#ef6a1a" stroke-dasharray="5 3" stroke-width="1.7"/>
+ <circle cx="1466" cy="127" r="17" fill="#ef6a1a"/>
+ <text x="1466" y="133" fill="white" font-size="18" font-weight="700" text-anchor="middle">5</text>
+ <text x="1496" y="134" fill="#ef6a1a" font-size="17" font-weight="700">External Data Sources</text>
+ <rect x="64" y="210" width="104" height="98" rx="8" fill="#f8fafc" stroke="#0d1b2f" stroke-width="4"/>
+ <g transform="translate(84 224) scale(2.6667)" fill="none" stroke="#0d1b2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8">
+  <rect x="2" y="3" width="20" height="14" rx="2"/>
+  <line x1="8" x2="16" y1="21" y2="21"/>
+  <line x1="12" x2="12" y1="17" y2="21"/>
+ </g>
+ <g transform="translate(98 243) scale(1.5)" fill="none" stroke="#0d1b2f" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.1">
+  <path d="M17.925 20.056a6 6 0 0 0-11.851.001"/>
+  <circle cx="12" cy="11" r="4"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <rect x="28" y="352" width="180" height="64" rx="6" fill="#fbfdff" stroke="#1558ad" stroke-width="1.2"/>
+ <g transform="translate(40 370.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <circle cx="12" cy="12" r="10"/>
+  <path d="m12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+  <path d="m2 12h20"/>
+ </g>
+ <text x="76" y="389.0" fill="#101828" font-size="13" font-weight="500">Web Browser</text>
+ <rect x="28" y="440" width="180" height="64" rx="6" fill="#fbfdff" stroke="#1558ad" stroke-width="1.2"/>
+ <g transform="translate(40 458.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+  <path d="m16 3.128a4 4 0 0 1 0 7.744"/>
+  <path d="m22 21v-2a4 4 0 0 0-3-3.87"/>
+  <circle cx="9" cy="7" r="4"/>
+ </g>
+ <text x="76" y="468.2" fill="#101828" font-size="12" font-weight="500">Student / Analyst /</text>
+ <text x="76" y="482.2" fill="#101828" font-size="12" font-weight="500">Researcher</text>
+ <rect x="28" y="528" width="180" height="64" rx="6" fill="#fbfdff" stroke="#1558ad" stroke-width="1.2"/>
+ <g transform="translate(40 546.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m3 3v16a2 2 0 0 0 2 2h16"/>
+  <path d="M18 17V9"/>
+  <path d="M13 17V5"/>
+  <path d="m8 17v-3"/>
+ </g>
+ <text x="76" y="556.2" fill="#101828" font-size="12" font-weight="500">Interactive Dashboard</text>
+ <text x="76" y="570.2" fill="#101828" font-size="12" font-weight="500">Access</text>
+ <rect x="291" y="158" width="252" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(303 164.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/>
+ </g>
+ <text x="339" y="181.0" fill="#101828" font-size="13" font-weight="500">Vite Build System</text>
+ <rect x="291" y="201" width="252" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(303 207.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <circle cx="6" cy="19" r="3"/>
+  <path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>
+  <circle cx="18" cy="5" r="3"/>
+ </g>
+ <text x="339" y="224.0" fill="#101828" font-size="13" font-weight="500">Vue Router</text>
+ <rect x="291" y="244" width="252" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(303 250.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/>
+  <path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/>
+  <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/>
+ </g>
+ <text x="339" y="267.0" fill="#101828" font-size="13" font-weight="500">Pinia State Management</text>
+ <rect x="291" y="287" width="252" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(303 293.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="339" y="310.0" fill="#101828" font-size="13" font-weight="500">API Service Layer</text>
+ <rect x="291" y="330" width="252" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(303 336.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"/>
+  <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+ </g>
+ <text x="339" y="353.0" fill="#101828" font-size="13" font-weight="500">ECharts Visualization Engine</text>
+ <rect x="291" y="384" width="127" height="216" rx="8" fill="#fbfffb" stroke="#16763a" stroke-width="1.4"/>
+ <text x="354" y="409" fill="#16763a" font-size="14" font-weight="700" text-anchor="middle">Main Views</text>
+ <g transform="translate(301 414) scale(.83333)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3">
+  <path d="m15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/>
+  <path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+ </g>
+ <text x="328" y="430" fill="#101828" font-size="11" font-weight="400">Home Dashboard</text>
+ <g transform="translate(301 448) scale(.83333)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3">
+  <path d="m3 3v16a2 2 0 0 0 2 2h16"/>
+  <path d="M18 17V9"/>
+  <path d="M13 17V5"/>
+  <path d="m8 17v-3"/>
+ </g>
+ <text x="328" y="459" fill="#101828" font-size="10" font-weight="400">LLM Ecosystem</text>
+ <text x="328" y="472" fill="#101828" font-size="10" font-weight="400">Summary</text>
+ <g transform="translate(301 482) scale(.83333)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3">
+  <path d="M14 2v6a2 2 0 0 0 .245.96l5.51 10.08A2 2 0 0 1 18 22H6a2 2 0 0 1-1.755-2.96l5.51-10.08A2 2 0 0 0 10 8V2"/>
+  <path d="m6.453 15h11.094"/>
+  <path d="m8.5 2h7"/>
+ </g>
+ <text x="328" y="498" fill="#101828" font-size="11" font-weight="400">Visual Lab</text>
+ <g transform="translate(301 516) scale(.83333)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3">
+  <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+ </g>
+ <text x="328" y="532" fill="#101828" font-size="11" font-weight="400">Favorites</text>
+ <g transform="translate(301 550) scale(.83333)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.3">
+  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+  <circle cx="9" cy="7" r="4"/>
+  <line x1="19" x2="19" y1="8" y2="14"/>
+  <line x1="22" x2="16" y1="11" y2="11"/>
+ </g>
+ <text x="328" y="566" fill="#101828" font-size="11" font-weight="400">Login / Register</text>
+ <rect x="426" y="384" width="122" height="216" rx="8" fill="#fbfffb" stroke="#16763a" stroke-width="1.4"/>
+ <text x="487" y="402" fill="#16763a" font-size="11" font-weight="700" text-anchor="middle">Reusable</text>
+ <text x="487" y="416" fill="#16763a" font-size="11" font-weight="700" text-anchor="middle">Components</text>
+ <rect x="434" y="428" width="104" height="48" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(446 438.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m3 3v16a2 2 0 0 0 2 2h16"/>
+  <path d="m19 9-5 5-4-4-3 3"/>
+ </g>
+ <text x="482" y="449.5" fill="#101828" font-size="10" font-weight="500">Metric</text>
+ <text x="482" y="461.5" fill="#101828" font-size="10" font-weight="500">Line Chart</text>
+ <rect x="434" y="486" width="104" height="48" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(446 496.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/>
+  <path d="M4 6h.01"/>
+  <path d="m2.29 9.62a10 10 0 1 0 19.02-1.27"/>
+  <path d="m16.24 7.76a6 6 0 1 0-8.01 8.91"/>
+  <path d="M12 18h.01"/>
+  <path d="m17.99 11.66a6 6 0 0 1-2.22 5.01"/>
+  <circle cx="12" cy="12" r="2"/>
+  <path d="m13.41 10.59 5.66-5.66"/>
+ </g>
+ <text x="482" y="507.5" fill="#101828" font-size="10" font-weight="500">Radar</text>
+ <text x="482" y="519.5" fill="#101828" font-size="10" font-weight="500">Compare</text>
+ <rect x="434" y="544" width="104" height="48" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(446 554.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <ellipse cx="12" cy="5" rx="9" ry="3"/>
+  <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
+  <path d="m3 12a9 3 0 0 0 18 0"/>
+ </g>
+ <text x="482" y="565.5" fill="#101828" font-size="10" font-weight="500">Contributor</text>
+ <text x="482" y="577.5" fill="#101828" font-size="10" font-weight="500">Bar Chart</text>
+ <rect x="232" y="627" width="360" height="93" rx="8" fill="#fbfff9" stroke="#16763a" stroke-dasharray="5 3" stroke-width="1.4"/>
+ <text x="247" y="656" fill="#0b6b32" font-size="11" font-weight="600">Receives</text>
+ <text x="247" y="671" fill="#0b6b32" font-size="11" font-weight="600">JSON Data</text>
+ <text x="247" y="686" fill="#0b6b32" font-size="11" font-weight="600">from Backend</text>
+ <rect x="329" y="642" width="42" height="50" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <rect x="334.5" y="651.5" width="31" height="31" rx="5" fill="#fff" stroke="#16763a"/>
+ <g transform="translate(340.5 657.5) scale(.79167)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z"/>
+  <path d="m14 2v5a1 1 0 0 0 1 1h5"/>
+  <path d="M10 9H8"/>
+  <path d="M16 13H8"/>
+  <path d="M16 17H8"/>
+ </g>
+ <text x="377" y="672.0" fill="#101828" font-size="13" font-weight="500"/>
+ <line x1="376" x2="390" y1="667" y2="667" fill="none" marker-end="url(#arrowGreen)" stroke="#16763a" stroke-width="2"/>
+ <rect x="394" y="642" width="48" height="50" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <rect x="402.5" y="651.5" width="31" height="31" rx="5" fill="#fff" stroke="#16763a"/>
+ <g transform="translate(408.5 657.5) scale(.79167)" fill="none" stroke="#16763a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m3 3v16a2 2 0 0 0 2 2h16"/>
+  <path d="M18 17V9"/>
+  <path d="M13 17V5"/>
+  <path d="m8 17v-3"/>
+ </g>
+ <text x="448" y="672.0" fill="#101828" font-size="13" font-weight="500"/>
+ <line x1="448" x2="466" y1="667" y2="667" fill="none" marker-end="url(#arrowGreen)" stroke="#16763a" stroke-width="2"/>
+ <text x="474" y="656" fill="#0b6b32" font-size="11" font-weight="600">Renders Charts</text>
+ <text x="474" y="671" fill="#0b6b32" font-size="11" font-weight="600">Dashboard</text>
+ <text x="474" y="686" fill="#0b6b32" font-size="11" font-weight="600">Views</text>
+ <rect x="639" y="158" width="326" height="44" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(651 166.5) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M4 12.15V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.706.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2h-3.35"/>
+  <path d="m14 2v5a1 1 0 0 0 1 1h5"/>
+  <path d="m5 16-3 3 3 3"/>
+  <path d="m9 22 3-3-3-3"/>
+ </g>
+ <text x="687" y="185.0" fill="#101828" font-size="13" font-weight="500">Application Entry: main.py</text>
+ <text x="804" y="237" fill="#0d3f87" font-size="16" font-weight="800" text-anchor="middle">REST APIs</text>
+ <rect x="642" y="246" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 252.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="260.5" fill="#101828" font-size="10" font-weight="500">OpenDigger</text>
+ <text x="690" y="272.5" fill="#101828" font-size="10" font-weight="500">API Module</text>
+ <rect x="828" y="246" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="268" fill="#101828" font-size="11" font-weight="400">/api/llm/summary</text>
+ <rect x="642" y="284" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 290.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="298.5" fill="#101828" font-size="10" font-weight="500">LLM Summary /</text>
+ <text x="690" y="310.5" fill="#101828" font-size="10" font-weight="500">Report API</text>
+ <rect x="828" y="284" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="306" fill="#101828" font-size="11" font-weight="400">/api/llm/rank/metrics</text>
+ <rect x="642" y="322" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 328.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="344.0" fill="#101828" font-size="12" font-weight="500">Contributor Risk API</text>
+ <rect x="828" y="322" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="344" fill="#101828" font-size="11" font-weight="400">/api/llm/report</text>
+ <rect x="642" y="360" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 366.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="382.0" fill="#101828" font-size="12" font-weight="500">Auth API</text>
+ <rect x="828" y="360" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="382" fill="#101828" font-size="11" font-weight="400">/api/auth/login</text>
+ <rect x="642" y="398" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 404.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="420.0" fill="#101828" font-size="12" font-weight="500">Auth API (Register)</text>
+ <rect x="828" y="398" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="420" fill="#101828" font-size="11" font-weight="400">/api/auth/register</text>
+ <rect x="642" y="436" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 442.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="458.0" fill="#101828" font-size="12" font-weight="500">Favorites API</text>
+ <rect x="828" y="436" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="458" fill="#101828" font-size="11" font-weight="400">/api/favorites</text>
+ <rect x="642" y="474" width="180" height="34" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(654 480.5) scale(.875)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21.54 15H17a2 2 0 0 0-2 2v4.54"/>
+  <path d="M7 3.34V5a3 3 0 0 0 3 3a2 2 0 0 1 2 2c0 1.1.9 2 2 2a2 2 0 0 0 2-2c0-1.1.9-2 2-2h3.17"/>
+  <path d="M11 21.95V18a2 2 0 0 0-2-2a2 2 0 0 1-2-2v-1a2 2 0 0 0-2-2H2.05"/>
+  <circle cx="12" cy="12" r="10"/>
+ </g>
+ <text x="690" y="496.0" fill="#101828" font-size="12" font-weight="500">Contributor Risk API</text>
+ <rect x="828" y="474" width="128" height="34" rx="5" fill="#f8fbff" stroke="#0d3f87"/>
+ <text x="838" y="496" fill="#101828" font-size="9" font-weight="400">/api/health/contributors/risk</text>
+ <rect x="640" y="537" width="323" height="140" rx="8" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.4"/>
+ <text x="801" y="558" fill="#0d3f87" font-size="14" font-weight="800" text-anchor="middle">Middleware / Services</text>
+ <rect x="651" y="577" width="142" height="43" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(663 585) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+  <path d="m9 12 2 2 4-4"/>
+ </g>
+ <text x="699" y="595.35" fill="#101828" font-size="11" font-weight="500">JWT</text>
+ <text x="699" y="608.35" fill="#101828" font-size="11" font-weight="500">Authentication</text>
+ <rect x="801" y="577" width="142" height="43" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(813 585) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m12 14 4-4"/>
+  <path d="m3.34 19a10 10 0 1 1 17.32 0"/>
+ </g>
+ <text x="849" y="595.35" fill="#101828" font-size="11" font-weight="500">API Rate</text>
+ <text x="849" y="608.35" fill="#101828" font-size="11" font-weight="500">Limiting</text>
+ <rect x="651" y="629" width="142" height="43" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(663 637) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <circle cx="12" cy="12" r="10"/>
+  <path d="m12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/>
+  <path d="m2 12h20"/>
+ </g>
+ <text x="699" y="655.5" fill="#101828" font-size="12" font-weight="500">CORS</text>
+ <rect x="801" y="629" width="142" height="43" rx="6" fill="#fbfdff" stroke="#0d3f87" stroke-width="1.2"/>
+ <g transform="translate(813 637) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <ellipse cx="12" cy="5" rx="9" ry="3"/>
+  <path d="M3 5V19A9 3 0 0 0 21 19V5"/>
+  <path d="m3 12a9 3 0 0 0 18 0"/>
+ </g>
+ <text x="849" y="655.5" fill="#101828" font-size="11" font-weight="500">Request Cache</text>
+ <rect x="1072" y="158" width="272" height="272" rx="8" fill="#fbfffb" stroke="#16763a" stroke-width="1.4"/>
+ <text x="1208" y="181" fill="#16763a" font-size="15" font-weight="800" text-anchor="middle">Data Processing Pipeline</text>
+ <rect x="1085" y="190" width="246" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1097 196.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m12 13v8l-4-4"/>
+  <path d="m12 21 4-4"/>
+  <path d="M4.393 15.269A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.436 8.284"/>
+ </g>
+ <text x="1133" y="213.0" fill="#101828" font-size="13" font-weight="500">Data Fetcher</text>
+ <rect x="1085" y="229" width="246" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1097 235.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.106-3.105c.32-.322.863-.22.983.218a6 6 0 0 1-8.259 7.057l-7.91 7.91a1 1 0 0 1-2.999-3l7.91-7.91a6 6 0 0 1 7.057-8.259c.438.12.54.662.219.984z"/>
+ </g>
+ <text x="1133" y="252.0" fill="#101828" font-size="13" font-weight="500">Metric Utilities</text>
+ <rect x="1085" y="268" width="246" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1097 274.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"/>
+  <circle cx="12" cy="12" r="3"/>
+ </g>
+ <text x="1133" y="291.0" fill="#101828" font-size="13" font-weight="500">Config Loader</text>
+ <rect x="1085" y="307" width="246" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1097 313.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/>
+  <path d="M3.22 13H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/>
+ </g>
+ <text x="1133" y="330.0" fill="#101828" font-size="13" font-weight="500">Health Score Calculation</text>
+ <rect x="1085" y="346" width="246" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1097 352.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m16 7h6v6"/>
+  <path d="m22 7-8.5 8.5-5-5L2 17"/>
+ </g>
+ <text x="1133" y="369.0" fill="#101828" font-size="13" font-weight="500">Time-Series Aggregation</text>
+ <rect x="1085" y="385" width="246" height="36" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1097 391.5) scale(.95833)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <rect x="2" y="2" width="20" height="8" rx="2" ry="2"/>
+  <rect x="2" y="14" width="20" height="8" rx="2" ry="2"/>
+  <line x1="6" x2="6.01" y1="6" y2="6"/>
+  <line x1="6" x2="6.01" y1="18" y2="18"/>
+ </g>
+ <text x="1133" y="408.0" fill="#101828" font-size="13" font-weight="500">Data Cache</text>
+ <line x1="1208" x2="1208" y1="430" y2="450" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="1.8"/>
+ <rect x="1072" y="449" width="272" height="57" rx="7" fill="#fbfff9" stroke="#16763a" stroke-dasharray="5 3" stroke-width="1.4"/>
+ <text x="1208" y="474" fill="#16763a" font-size="14" font-weight="800" text-anchor="middle">Health Score =</text>
+ <text x="1208" y="494" fill="#0b6b32" font-size="12" font-weight="400" text-anchor="middle">0.5 x OpenRank + 0.3 x Activity + 0.2 x Stability</text>
+ <line x1="1208" x2="1208" y1="506" y2="542" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="1.8"/>
+ <text x="1248" y="528" fill="#0b6b32" font-size="12" font-weight="400" text-anchor="middle">Processed Metrics</text>
+ <text x="1248" y="545" fill="#0b6b32" font-size="12" font-weight="400" text-anchor="middle">(Parsed)</text>
+ <rect x="1072" y="548" width="272" height="160" rx="8" fill="#fbfffb" stroke="#16763a" stroke-width="1.4"/>
+ <text x="1234" y="574" fill="#16763a" font-size="16" font-weight="800" text-anchor="middle">SQLite Database</text>
+ <ellipse cx="1124" cy="599" rx="36" ry="15" fill="#16763a"/>
+ <path d="m1088 599v70c0 8 17 15 36 15s36-7 36-15v-70" fill="#16763a" opacity=".95"/>
+ <path d="m1088 622c0 8 17 15 36 15s36-7 36-15" fill="none" stroke="#fff" stroke-width="3"/>
+ <path d="m1088 646c0 8 17 15 36 15s36-7 36-15" fill="none" stroke="#fff" stroke-width="3"/>
+ <rect x="1172" y="586" width="158" height="31" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1184 592.5) scale(.75)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/>
+  <circle cx="12" cy="7" r="4"/>
+ </g>
+ <text x="1220" y="606.5" fill="#101828" font-size="11" font-weight="500">User</text>
+ <rect x="1305" y="593" width="20" height="17" rx="2" fill="#fff" stroke="#16763a" stroke-width=".9"/>
+ <line x1="1305" x2="1325" y1="599" y2="599" fill="none" stroke="#16763a" stroke-width=".8"/>
+ <line x1="1312" x2="1312" y1="593" y2="610" fill="none" stroke="#16763a" stroke-width=".8"/>
+ <rect x="1172" y="625" width="158" height="31" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1184 631.5) scale(.75)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+ </g>
+ <text x="1220" y="645.5" fill="#101828" font-size="11" font-weight="500">Favorite</text>
+ <rect x="1305" y="632" width="20" height="17" rx="2" fill="#fff" stroke="#16763a" stroke-width=".9"/>
+ <line x1="1305" x2="1325" y1="638" y2="638" fill="none" stroke="#16763a" stroke-width=".8"/>
+ <line x1="1312" x2="1312" y1="632" y2="649" fill="none" stroke="#16763a" stroke-width=".8"/>
+ <rect x="1172" y="664" width="158" height="31" rx="6" fill="#fbfdff" stroke="#16763a" stroke-width="1.2"/>
+ <g transform="translate(1184 670.5) scale(.75)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m3 3v16a2 2 0 0 0 2 2h16"/>
+  <path d="m19 9-5 5-4-4-3 3"/>
+ </g>
+ <text x="1220" y="684.5" fill="#101828" font-size="11" font-weight="500">MetricSeries</text>
+ <rect x="1305" y="671" width="20" height="17" rx="2" fill="#fff" stroke="#16763a" stroke-width=".9"/>
+ <line x1="1305" x2="1325" y1="677" y2="677" fill="none" stroke="#16763a" stroke-width=".8"/>
+ <line x1="1312" x2="1312" y1="671" y2="688" fill="none" stroke="#16763a" stroke-width=".8"/>
+ <rect x="1438" y="158" width="226" height="47" rx="6" fill="#fbfdff" stroke="#ef6a1a" stroke-width="1.2"/>
+ <g transform="translate(1450 168) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m21 21-4.34-4.34"/>
+  <circle cx="11" cy="11" r="8"/>
+ </g>
+ <text x="1486" y="186.5" fill="#101828" font-size="12" font-weight="500">OpenDigger</text>
+ <rect x="1438" y="215" width="226" height="47" rx="6" fill="#fbfdff" stroke="#ef6a1a" stroke-width="1.2"/>
+ <g transform="translate(1450 225) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76z"/>
+  <path d="m9 12 2 2 4-4"/>
+ </g>
+ <text x="1486" y="243.5" fill="#101828" font-size="12" font-weight="500">OpenRank Metrics</text>
+ <rect x="1438" y="272" width="226" height="47" rx="6" fill="#fbfdff" stroke="#ef6a1a" stroke-width="1.2"/>
+ <g transform="translate(1450 282) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M15 6a9 9 0 0 0-9 9V3"/>
+  <circle cx="18" cy="6" r="3"/>
+  <circle cx="6" cy="18" r="3"/>
+ </g>
+ <text x="1486" y="291.7" fill="#101828" font-size="12" font-weight="500">GitHub Repository</text>
+ <text x="1486" y="305.7" fill="#101828" font-size="12" font-weight="500">Metadata</text>
+ <rect x="1438" y="329" width="226" height="47" rx="6" fill="#fbfdff" stroke="#ef6a1a" stroke-width="1.2"/>
+ <g transform="translate(1450 339) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>
+ </g>
+ <text x="1486" y="357.5" fill="#101828" font-size="12" font-weight="500">Project Activity Metrics</text>
+ <rect x="1438" y="386" width="226" height="47" rx="6" fill="#fbfdff" stroke="#ef6a1a" stroke-width="1.2"/>
+ <g transform="translate(1450 396) scale(1.125)" fill="none" stroke="#0f172a" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+  <path d="m16 3.128a4 4 0 0 1 0 7.744"/>
+  <path d="m22 21v-2a4 4 0 0 0-3-3.87"/>
+  <circle cx="9" cy="7" r="4"/>
+ </g>
+ <text x="1486" y="414.5" fill="#101828" font-size="12" font-weight="500">Developer / Contributor Metrics</text>
+ <rect x="1438" y="482" width="226" height="205" rx="8" fill="#fffaf5" stroke="#ef6a1a" stroke-dasharray="5 3" stroke-width="1.5"/>
+ <text x="1551" y="509" fill="#ef6a1a" font-size="16" font-weight="800" text-anchor="middle">Metric Ingestion</text>
+ <rect x="1452" y="524" width="89" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1496.5" y="544" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">OpenRank</text>
+ <rect x="1548" y="524" width="90" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1593.0" y="544" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">Activity</text>
+ <rect x="1452" y="564" width="89" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1496.5" y="584" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">Stars</text>
+ <rect x="1548" y="564" width="90" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1593.0" y="584" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">Forks</text>
+ <rect x="1452" y="604" width="89" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1496.5" y="624" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">Issues</text>
+ <rect x="1548" y="604" width="90" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1593.0" y="624" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">Pull Requests</text>
+ <rect x="1452" y="644" width="186" height="31" rx="5" fill="#fffdf9" stroke="#ef6a1a" stroke-width="1.2"/>
+ <text x="1545.0" y="664" fill="#101828" font-size="12" font-weight="400" text-anchor="middle">Contributors</text>
+ <line x1="224" x2="276" y1="292" y2="292" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="2"/>
+ <rect x="226" y="247" width="49" height="38" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="250" y="260" fill="#101828" font-size="11" font-weight="600" text-anchor="middle">HTTPS</text>
+ <text x="250" y="274" fill="#101828" font-size="11" font-weight="600" text-anchor="middle">Request</text>
+ <line x1="560" x2="622" y1="318" y2="318" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="2"/>
+ <rect x="563" y="266" width="60" height="52" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="593" y="280" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">REST API</text>
+ <text x="593" y="293" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">Requests</text>
+ <text x="593" y="306" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">(JSON)</text>
+ <line x1="981" x2="1053" y1="300" y2="300" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="2"/>
+ <rect x="990" y="262" width="58" height="39" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="1019" y="276" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">Process</text>
+ <text x="1019" y="289" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">Requests</text>
+ <line x1="1428" x2="1352" y1="202" y2="202" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="2"/>
+ <rect x="1355" y="292" width="70" height="40" rx="4" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="1390" y="305" fill="#ef6a1a" font-size="11" font-weight="700" text-anchor="middle">Fetch Data</text>
+ <text x="1390" y="319" fill="#ef6a1a" font-size="11" font-weight="700" text-anchor="middle">(API/Scrape)</text>
+ <line x1="1047" x2="982" y1="379" y2="379" fill="none" marker-end="url(#arrowBlue)" stroke="#1558ad" stroke-dasharray="5 4" stroke-width="1.8"/>
+ <rect x="986" y="393" width="65" height="43" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="1018" y="407" fill="#1558ad" font-size="10" font-weight="700" text-anchor="middle">Cached Data</text>
+ <text x="1018" y="420" fill="#1558ad" font-size="10" font-weight="700" text-anchor="middle">DB Results</text>
+ <line x1="1047" x2="982" y1="595" y2="595" fill="none" marker-end="url(#arrowBlue)" stroke="#1558ad" stroke-dasharray="5 4" stroke-width="1.8"/>
+ <rect x="986" y="611" width="65" height="43" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="1018" y="625" fill="#1558ad" font-size="10" font-weight="700" text-anchor="middle">Query / Read</text>
+ <text x="1018" y="638" fill="#1558ad" font-size="10" font-weight="700" text-anchor="middle">(Results)</text>
+ <line x1="626" x2="562" y1="467" y2="467" fill="none" marker-end="url(#arrowBlue)" stroke="#1558ad" stroke-dasharray="5 4" stroke-width="1.8"/>
+ <rect x="563" y="480" width="61" height="89" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="594" y="493" fill="#1558ad" font-size="9" font-weight="700" text-anchor="middle">JSON</text>
+ <text x="594" y="505" fill="#1558ad" font-size="9" font-weight="700" text-anchor="middle">Responses</text>
+ <text x="594" y="517" fill="#1558ad" font-size="9" font-weight="700" text-anchor="middle">Data</text>
+ <text x="594" y="529" fill="#1558ad" font-size="9" font-weight="700" text-anchor="middle">Reports</text>
+ <text x="594" y="541" fill="#1558ad" font-size="9" font-weight="700" text-anchor="middle">AI Insights</text>
+ <text x="594" y="553" fill="#1558ad" font-size="9" font-weight="700" text-anchor="middle">Favorites</text>
+ <line x1="278" x2="228" y1="516" y2="516" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="2"/>
+ <rect x="226" y="523" width="50" height="39" rx="3" fill="#fff" stroke="#fff" stroke-width="0"/>
+ <text x="251" y="537" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">Rendered</text>
+ <text x="251" y="550" fill="#101828" font-size="10" font-weight="600" text-anchor="middle">Views</text>
+ <rect x="12" y="740" width="1675" height="103" rx="9" fill="#fff" stroke="#5b2a97" stroke-dasharray="5 3" stroke-width="1.5"/>
+ <text x="845.0" y="769" fill="#5b2a97" font-size="20" font-weight="800" text-anchor="middle">Platform Capabilities</text>
+ <rect x="32" y="777" width="210" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(46 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="m3 3v16a2 2 0 0 0 2 2h16"/>
+  <path d="M18 17V9"/>
+  <path d="M13 17V5"/>
+  <path d="m8 17v-3"/>
+ </g>
+ <text x="84" y="807" fill="#101828" font-size="12" font-weight="600">Interactive Visualization</text>
+ <rect x="259" y="777" width="176" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(273 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M12 18V5"/>
+  <path d="m15 13a4.17 4.17 0 0 1-3-4 4.17 4.17 0 0 1-3 4"/>
+  <path d="M17.598 6.5A3 3 0 1 0 12 5a3 3 0 1 0-5.598 1.5"/>
+  <path d="m17.997 5.125a4 4 0 0 1 2.526 5.77"/>
+  <path d="m18 18a4 4 0 0 0 2-7.464"/>
+  <path d="M19.967 17.483A4 4 0 1 1 12 18a4 4 0 1 1-7.967-.517"/>
+  <path d="m6 18a4 4 0 0 1-2-7.464"/>
+  <path d="m6.003 5.125a4 4 0 0 0-2.526 5.77"/>
+ </g>
+ <text x="311" y="807" fill="#101828" font-size="13" font-weight="600">AI Interpretation</text>
+ <rect x="452" y="777" width="176" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(466 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+  <circle cx="9" cy="9" r="2"/>
+  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+ </g>
+ <text x="504" y="807" fill="#101828" font-size="13" font-weight="600">PNG Export</text>
+ <rect x="645" y="777" width="176" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(659 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M4.226 20.925A2 2 0 0 0 6 22h12a2 2 0 0 0 2-2V8a2.4 2.4 0 0 0-.706-1.706l-3.588-3.588A2.4 2.4 0 0 0 14 2H6a2 2 0 0 0-2 2v3.127"/>
+  <path d="m14 2v5a1 1 0 0 0 1 1h5"/>
+  <path d="m5 11-3 3"/>
+  <path d="m5 17-3-3h10"/>
+ </g>
+ <text x="697" y="807" fill="#101828" font-size="13" font-weight="600">Report Export</text>
+ <rect x="838" y="777" width="210" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(852 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/>
+ </g>
+ <text x="890" y="807" fill="#101828" font-size="12" font-weight="600">Favorites Management</text>
+ <rect x="1065" y="777" width="176" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(1079 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/>
+  <path d="m12 8v4"/>
+  <path d="M12 16h.01"/>
+ </g>
+ <text x="1117" y="807" fill="#101828" font-size="13" font-weight="600">Risk Analysis</text>
+ <rect x="1258" y="777" width="176" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(1272 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/>
+  <path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/>
+  <path d="M18 9h1.5a1 1 0 0 0 0-5H18"/>
+  <path d="m4 22h16"/>
+  <path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/>
+  <path d="M6 9H4.5a1 1 0 0 1 0-5H6"/>
+ </g>
+ <text x="1310" y="807" fill="#101828" font-size="13" font-weight="600">Health Ranking</text>
+ <rect x="1451" y="777" width="210" height="50" rx="6" fill="#fffefd" stroke="#5b2a97" stroke-width="1.2"/>
+ <g transform="translate(1465 791) scale(1)" fill="none" stroke="#5b2a97" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2">
+  <path d="M21 12c.552 0 1.005-.449.95-.998a10 10 0 0 0-8.953-8.951c-.55-.055-.998.398-.998.95v8a1 1 0 0 0 1 1z"/>
+  <path d="M21.21 15.89A10 10 0 1 1 8 2.83"/>
+ </g>
+ <text x="1503" y="807" fill="#101828" font-size="12" font-weight="600">Multi-chart Visual Analytics</text>
+ <rect x="28" y="871" width="862" height="50" rx="6" fill="#fff" stroke="#667085" stroke-width="1.2"/>
+ <text x="46" y="903" fill="#101828" font-size="13" font-weight="800">Legend:</text>
+ <rect x="116" y="884" width="36" height="22" rx="4" fill="#fff" stroke="#1558ad" stroke-dasharray="5 3" stroke-width="1.4"/>
+ <text x="166" y="901" fill="#101828" font-size="12" font-weight="400">Infrastructure / Backend</text>
+ <rect x="316" y="884" width="36" height="22" rx="4" fill="#fff" stroke="#16763a" stroke-dasharray="5 3" stroke-width="1.4"/>
+ <text x="366" y="901" fill="#101828" font-size="12" font-weight="400">Data Processing</text>
+ <rect x="486" y="884" width="36" height="22" rx="4" fill="#fff" stroke="#ef6a1a" stroke-dasharray="5 3" stroke-width="1.4"/>
+ <text x="536" y="901" fill="#101828" font-size="12" font-weight="400">Analytics / AI Interpretation</text>
+ <rect x="686" y="884" width="36" height="22" rx="4" fill="#fff" stroke="#5b2a97" stroke-dasharray="5 3" stroke-width="1.4"/>
+ <text x="736" y="901" fill="#101828" font-size="12" font-weight="400">Visualization / Capabilities</text>
+ <line x1="960" x2="1010" y1="894" y2="894" fill="none" marker-end="url(#arrowBlack)" stroke="#111827" stroke-width="2"/>
+ <text x="1025" y="900" fill="#101828" font-size="12" font-weight="400">Primary Data Flow</text>
+ <line x1="1190" x2="1240" y1="894" y2="894" fill="none" marker-end="url(#arrowBlue)" stroke="#1558ad" stroke-dasharray="5 4" stroke-width="2"/>
+ <text x="1260" y="900" fill="#1558ad" font-size="12" font-weight="700">Response / Return Flow</text>
+ <line x1="1432" x2="1484" y1="894" y2="894" fill="none" marker-end="url(#arrowBlue)" stroke="#1558ad" stroke-dasharray="5 4" stroke-width="2"/>
+ <line x1="1484" x2="1432" y1="894" y2="894" fill="none" marker-end="url(#arrowBlue)" stroke="#1558ad" stroke-dasharray="5 4" stroke-width="2"/>
+ <text x="1505" y="900" fill="#101828" font-size="12" font-weight="400">Bidirectional / Data Access</text>
+</svg>

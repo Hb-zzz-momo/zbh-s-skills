@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "科研生图与论文配图"
+  short_description: "科研图设计、已有图片复现、MCP 绘图、可编辑交付与审稿式验收工作流。"
+  default_prompt: "Use $research-figure-generation-zh to design, reproduce, generate, and verify a publication-ready research figure with editable-source boundaries and full-figure QA gates."
