@@ -1,0 +1,151 @@
+{
+  "source": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass1\\presentation-pass1.pptx",
+  "slide_size": {
+    "width": 13.333333333333334,
+    "height": 7.5
+  },
+  "checked_shapes": 85,
+  "issues": [
+    {
+      "severity": "ERROR",
+      "slide": 1,
+      "shape_ids": [
+        8,
+        25
+      ],
+      "names": [
+        "Text 6",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 2,
+      "shape_ids": [
+        9,
+        25
+      ],
+      "names": [
+        "Text 7",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 3,
+      "shape_ids": [
+        5,
+        25
+      ],
+      "names": [
+        "Text 2",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 4,
+      "shape_ids": [
+        5,
+        25
+      ],
+      "names": [
+        "Text 2",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 5,
+      "shape_ids": [
+        4,
+        25
+      ],
+      "names": [
+        "Text 1",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 6,
+      "shape_ids": [
+        5,
+        25
+      ],
+      "names": [
+        "Text 2",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 7,
+      "shape_ids": [
+        12,
+        25
+      ],
+      "names": [
+        "Text 10",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 8,
+      "shape_ids": [
+        11,
+        25
+      ],
+      "names": [
+        "Text 9",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 9,
+      "shape_ids": [
+        18,
+        25
+      ],
+      "names": [
+        "Text 16",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    },
+    {
+      "severity": "ERROR",
+      "slide": 10,
+      "shape_ids": [
+        8,
+        25
+      ],
+      "names": [
+        "Text 6",
+        "Slide Number Placeholder 0"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 0.857
+    }
+  ],
+  "status": "FAIL"
+}

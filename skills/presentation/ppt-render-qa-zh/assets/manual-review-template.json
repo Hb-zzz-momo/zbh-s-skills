@@ -1,0 +1,13 @@
+{
+  "reviewer": "",
+  "reviewed_at": "",
+  "approved": false,
+  "checks": {
+    "montage_rhythm": false,
+    "representative_pages": false,
+    "font_and_clipping": false,
+    "contrast": false,
+    "chart_readability": false
+  },
+  "notes": ""
+}

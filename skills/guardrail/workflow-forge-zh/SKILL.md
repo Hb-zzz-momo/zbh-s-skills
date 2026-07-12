@@ -1,10 +1,22 @@
 ---
 name: workflow-forge-zh
 description: '工作流提炼与生成技能：从零散经验/多轮对话/已有流程中提炼出结构化、可复用的工作流，或为新任务设计工作流。Use when: 总结工作流、提炼流程、生成SOP、设计工作流、流程优化、把经验变成流程、梳理步骤、生成skill工作流。不适用于执行具体工作流（执行请使用对应领域skill）。'
-argument-hint: '说明需求，如"帮我从这次实验过程提炼工作流""为XX任务设计工作流""优化这个流程""把这段经验总结成可复用的SOP"'
+metadata:
+  argument-hint: '说明需求，如"帮我从这次实验过程提炼工作流""为XX任务设计工作流""优化这个流程""把这段经验总结成可复用的SOP"'
 ---
 
 # 工作流提炼与生成技能
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 技能目标
 
@@ -29,6 +41,19 @@ argument-hint: '说明需求，如"帮我从这次实验过程提炼工作流""�
 | D. 转化为 Skill | "把这个工作流变成skill""生成SKILL.md" | 将工作流封装为标准 VS Code Copilot Skill |
 
 ---
+
+<!-- contextual-reference-router:gate:v1:start -->
+## 条件参考路由
+
+只有用户要求行业案例、优秀工作流、Prompt/Agent 指令参考，或外部参考能补足当前模式时，阶段性调用 `contextual-reference-router`：
+
+- **模式 A**：先忠实还原实际事件；完成还原后，外部参考只能作为独立改进建议，不能改写原始经验。
+- **模式 B**：明确目标后、逆向拆解前参考同类流程，形成 Reference Brief 再设计。
+- **模式 C**：先完成瓶颈诊断，再参考优秀模式提出改法，不能用外部模板替代真实问题。
+- **模式 D**：转化前优先参考对应产品官方 Skill/Agent 指令规范，再用高质量案例补充；Schema 和最终校验仍交给 `skill-creator` 或官方工具。
+
+Reference Brief 只记录具体案例、采用/不采用规律、转译与访问/许可限制；完成后退出参考 Skill。用户禁止联网、只要求忠实提炼或已给完整规范时跳过。
+<!-- contextual-reference-router:gate:v1:end -->
 
 ## 模式A：提炼工作流
 
@@ -194,6 +219,12 @@ argument-hint: '[用户该怎么调用的示例]'
 ## 产出物清单
 - [ ] [最终产出1]
 - [ ] [最终产出2]
+
+## 参考依据 [触发 contextual-reference-router 时]
+- 具体来源与案例：
+- 采用/不采用规律：
+- 当前工作流转译：
+- 访问与许可限制：
 ```
 
 ### 格式规则

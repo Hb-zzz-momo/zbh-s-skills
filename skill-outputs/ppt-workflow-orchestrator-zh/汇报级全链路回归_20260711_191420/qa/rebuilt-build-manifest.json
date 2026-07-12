@@ -1,0 +1,534 @@
+{
+  "slide_size": {
+    "width": 13.333,
+    "height": 7.5,
+    "margin": 0.55
+  },
+  "source_spec": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\slide-spec.json",
+  "design": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\PRESENTATION_DESIGN.md",
+  "output": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\presentation-rebuilt.pptx",
+  "slide_ids": [
+    "S01",
+    "S02",
+    "S03",
+    "S04",
+    "S05",
+    "S06",
+    "S07",
+    "S08",
+    "S09",
+    "S10"
+  ],
+  "object_counts": {
+    "svg": 1,
+    "charts": 1,
+    "tables": 1,
+    "images": 1
+  },
+  "elements": [
+    {
+      "slide_id": "S01",
+      "component": "motif-bar",
+      "x": 0,
+      "y": 0,
+      "w": 0.22,
+      "h": 7.5,
+      "purpose": "视觉母题"
+    },
+    {
+      "slide_id": "S01",
+      "component": "hero-title",
+      "x": 0.85,
+      "y": 1.45,
+      "w": 8.7,
+      "h": 1.5,
+      "purpose": "核心主张"
+    },
+    {
+      "slide_id": "S01",
+      "component": "body",
+      "x": 0.9,
+      "y": 3.35,
+      "w": 7.5,
+      "h": 1,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S01",
+      "component": "metric",
+      "x": 10,
+      "y": 1.55,
+      "w": 2.35,
+      "h": 1.55,
+      "purpose": "开场"
+    },
+    {
+      "slide_id": "S01",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S02",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S02",
+      "component": "split-panel",
+      "x": 0.85,
+      "y": 2,
+      "w": 5.55,
+      "h": 2.55,
+      "purpose": "规划端：故事线、页面结构、演讲顺序"
+    },
+    {
+      "slide_id": "S02",
+      "component": "split-panel",
+      "x": 6.85,
+      "y": 2,
+      "w": 5.55,
+      "h": 2.55,
+      "purpose": "交付端：对象构建、真实渲染、视觉验收、修复证据"
+    },
+    {
+      "slide_id": "S02",
+      "component": "takeaway-band",
+      "x": 1.65,
+      "y": 5.35,
+      "w": 10,
+      "h": 0.75,
+      "purpose": "听众记忆点"
+    },
+    {
+      "slide_id": "S02",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S03",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S03",
+      "component": "svg",
+      "x": 0.8,
+      "y": 1.45,
+      "w": 8,
+      "h": 5.25,
+      "purpose": "PPT生产闭环"
+    },
+    {
+      "slide_id": "S03",
+      "component": "body",
+      "x": 9.35,
+      "y": 2,
+      "w": 3.05,
+      "h": 2.8,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S03",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S04",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S04",
+      "component": "native-chart",
+      "x": 0.82,
+      "y": 1.55,
+      "w": 8.45,
+      "h": 4.9,
+      "purpose": "阶段完成度"
+    },
+    {
+      "slide_id": "S04",
+      "component": "body",
+      "x": 9.65,
+      "y": 2,
+      "w": 2.8,
+      "h": 2.6,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S04",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S05",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S05",
+      "component": "native-table",
+      "x": 0.85,
+      "y": 1.65,
+      "w": 11.65,
+      "h": 4.7,
+      "purpose": "原生表格"
+    },
+    {
+      "slide_id": "S05",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S06",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S06",
+      "component": "image",
+      "x": 0.8,
+      "y": 1.45,
+      "w": 8,
+      "h": 5.25,
+      "purpose": "优秀封面视觉参考"
+    },
+    {
+      "slide_id": "S06",
+      "component": "body",
+      "x": 9.35,
+      "y": 2,
+      "w": 3.05,
+      "h": 2.8,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S06",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S07",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S07",
+      "component": "process-node",
+      "x": 0.75,
+      "y": 2.45,
+      "w": 3.6533333333333338,
+      "h": 1.55,
+      "purpose": "封面：审美方向"
+    },
+    {
+      "slide_id": "S07",
+      "component": "process-arrow",
+      "x": 4.453333333333334,
+      "y": 3.225,
+      "w": 0.31999999999999995,
+      "h": 0.001,
+      "purpose": "流程方向"
+    },
+    {
+      "slide_id": "S07",
+      "component": "process-node",
+      "x": 4.823333333333334,
+      "y": 2.45,
+      "w": 3.6533333333333338,
+      "h": 1.55,
+      "purpose": "机制：复杂布局"
+    },
+    {
+      "slide_id": "S07",
+      "component": "process-arrow",
+      "x": 8.526666666666669,
+      "y": 3.225,
+      "w": 0.31999999999999995,
+      "h": 0.001,
+      "purpose": "流程方向"
+    },
+    {
+      "slide_id": "S07",
+      "component": "process-node",
+      "x": 8.896666666666668,
+      "y": 2.45,
+      "w": 3.6533333333333338,
+      "h": 1.55,
+      "purpose": "数据：口径与图表"
+    },
+    {
+      "slide_id": "S07",
+      "component": "body",
+      "x": 1.35,
+      "y": 5.15,
+      "w": 10.6,
+      "h": 0.8,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S07",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S08",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S08",
+      "component": "comparison-cell",
+      "x": 0.9,
+      "y": 1.75,
+      "w": 5.55,
+      "h": 1.75,
+      "purpose": "A 仅规划：停在契约"
+    },
+    {
+      "slide_id": "S08",
+      "component": "comparison-cell",
+      "x": 6.95,
+      "y": 1.75,
+      "w": 5.55,
+      "h": 1.75,
+      "purpose": "B 从零：原生对象构建"
+    },
+    {
+      "slide_id": "S08",
+      "component": "comparison-cell",
+      "x": 0.9,
+      "y": 4,
+      "w": 5.55,
+      "h": 1.75,
+      "purpose": "C 基于模板：先分析再映射"
+    },
+    {
+      "slide_id": "S08",
+      "component": "comparison-cell",
+      "x": 6.95,
+      "y": 4,
+      "w": 5.55,
+      "h": 1.75,
+      "purpose": "D 修改已有：保守 OOXML 编辑"
+    },
+    {
+      "slide_id": "S08",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S09",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-node",
+      "x": 0.75,
+      "y": 2.45,
+      "w": 2.024,
+      "h": 1.55,
+      "purpose": "构建"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-arrow",
+      "x": 2.824,
+      "y": 3.225,
+      "w": 0.31999999999999995,
+      "h": 0.001,
+      "purpose": "流程方向"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-node",
+      "x": 3.194,
+      "y": 2.45,
+      "w": 2.024,
+      "h": 1.55,
+      "purpose": "双渲染"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-arrow",
+      "x": 5.268,
+      "y": 3.225,
+      "w": 0.31999999999999995,
+      "h": 0.001,
+      "purpose": "流程方向"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-node",
+      "x": 5.638,
+      "y": 2.45,
+      "w": 2.024,
+      "h": 1.55,
+      "purpose": "机器检查"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-arrow",
+      "x": 7.712,
+      "y": 3.225,
+      "w": 0.31999999999999995,
+      "h": 0.001,
+      "purpose": "流程方向"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-node",
+      "x": 8.082,
+      "y": 2.45,
+      "w": 2.024,
+      "h": 1.55,
+      "purpose": "人工复核"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-arrow",
+      "x": 10.156000000000002,
+      "y": 3.225,
+      "w": 0.31999999999999995,
+      "h": 0.001,
+      "purpose": "流程方向"
+    },
+    {
+      "slide_id": "S09",
+      "component": "process-node",
+      "x": 10.526,
+      "y": 2.45,
+      "w": 2.024,
+      "h": 1.55,
+      "purpose": "修复复验"
+    },
+    {
+      "slide_id": "S09",
+      "component": "body",
+      "x": 1.35,
+      "y": 5.15,
+      "w": 10.6,
+      "h": 0.8,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S09",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S10",
+      "component": "motif-bar",
+      "x": 0,
+      "y": 0,
+      "w": 0.22,
+      "h": 7.5,
+      "purpose": "视觉母题"
+    },
+    {
+      "slide_id": "S10",
+      "component": "hero-title",
+      "x": 0.85,
+      "y": 1.45,
+      "w": 8.7,
+      "h": 1.5,
+      "purpose": "核心主张"
+    },
+    {
+      "slide_id": "S10",
+      "component": "body",
+      "x": 0.9,
+      "y": 3.35,
+      "w": 7.5,
+      "h": 1,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S10",
+      "component": "metric",
+      "x": 10,
+      "y": 1.55,
+      "w": 2.35,
+      "h": 1.55,
+      "purpose": "行动"
+    },
+    {
+      "slide_id": "S10",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    }
+  ]
+}

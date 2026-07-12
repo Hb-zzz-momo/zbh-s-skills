@@ -1,0 +1,13 @@
+{
+  "source": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\VibeCoding教学_20260711_202352\\slice\\presentation-slice-v2.pptx",
+  "pdf": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\VibeCoding教学_20260711_202352\\slice\\render-v2\\presentation-slice-v2.pdf",
+  "backend": "powerpoint-com",
+  "dpi": 150,
+  "rendered_at": "2026-07-11T12:41:16.503173+00:00",
+  "slide_count": 3,
+  "slides": [
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\VibeCoding教学_20260711_202352\\slice\\render-v2\\slides\\slide-1.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\VibeCoding教学_20260711_202352\\slice\\render-v2\\slides\\slide-2.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\VibeCoding教学_20260711_202352\\slice\\render-v2\\slides\\slide-3.png"
+  ]
+}

@@ -4,6 +4,17 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
 ---
 
 # Skills 总控路由
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 目标
 
@@ -15,13 +26,15 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
 
 1. **识别任务领域**
    - 工程开发：项目理解、编码、调试、测试、review、上线；若涉及复杂工程、多方案实现、架构改造、技术 spike、工程 Gate 或候选实现池，先走 `engineering-skill-flow-zh`。
+   - 项目结构 / 文件树：新建项目、目录蓝图、前后端或 `apps/packages` 边界、模块/步骤/实验/产物位置、结构重组与漂移审计走 `project-structure-architect`。
    - 工具使用建议：VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界；优先按“四层工具建议框架”回答。
    - Web 设计 / Vibe Coding / 页面改版：网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 `DESIGN.md` 时先走 `web-design-workflow-zh`；纯局部组件交互或 UI bug 再走 `frontend-ui-engineering`。
+   - 参考驱动设计：Web/PPT/Dashboard/科研图/架构图/Coding Prompt 或 Agent 指令需要动态外部案例时，在领域工作流的设计前节点条件加载 `contextual-reference-router`；它不是领域主入口。
    - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界；若涉及机制创新、新方法构思、算法创新点、科研调用流、多痛点、多假设、多创新点、候选池或 Gap Gate，先走 `research-skill-flow-zh`，不得直接跳到 `research-coach-zh` 编机制。
    - 写作翻译：论文、翻译、报告文字。
    - 课程任务：考试、实验、实验报告。
    - 调研证据：资料收集、来源核验、证据链。
-   - 汇报软著：PPT、路演、软著材料。
+   - 汇报软著：完整 PPT、路演、答辩、PPTX 生成/修改/模板编辑/渲染验收先走 `ppt-workflow-orchestrator-zh`；只要故事线时走 `ppt-story-design-zh`；软著材料走 `software-copyright-zh`。
    - 运维产物：长任务监控、产物归档。
    - 子代理调度：`/sub`、subagents、子代理、多代理、并行委派、worker/explorer。
    - 工作流沉淀：总结流程、设计 SOP、生成新 skill。
@@ -83,6 +96,14 @@ test-driven-development
 code-review-and-quality
 ```
 
+### 项目结构 / 文件树
+
+```text
+project-structure-architect
+```
+
+默认执行方式：读取结构证据 -> 检测项目类型与技术栈 -> 选择一个主蓝图 -> dry-run -> 生成或路由文件 -> 更新结构文档 -> audit。已有一致惯例优先；不得为了套模板批量移动文件。纯内容编辑且路径已唯一确定时，不重复调用。
+
 ### 有参考计划或用户强调不要自作主张
 
 ```text
@@ -116,6 +137,15 @@ browser-testing-with-devtools
 ```
 
 默认执行方式：先判断快速原型或正式产品，再按新建、现有改版、图像先行选择分支；`DESIGN.md` 通过审美门后先实现纵向切片，再扩展、工程化和浏览器验收。局部 UI bug 不强行重建全站设计。
+
+### 参考驱动设计 / 外部案例路由
+
+```text
+领域主工作流
+contextual-reference-router（设计前阶段性辅助）
+```
+
+默认执行方式：先由领域主工作流锁定任务、受众、行业、技术栈和不可改变项，再用 `contextual-reference-router` 选择 2–5 个来源、打开具体案例、形成 Reference Brief，之后退出并回到领域实现。普通 Bug、纯算法、非设计编码、用户禁止联网、或已有完整参考图且只做严格局部修改时不触发。
 
 ### 复杂工程 / 多方案实现调用流
 
@@ -170,12 +200,15 @@ source-driven-development
 
 ### PPT/软著
 
-按实际任务二选一，不要同时加载无关技能。
+按实际任务选择唯一主入口，不要同时加载无关技能。
 
 ```text
-ppt-story-design-zh
-software-copyright-zh
+完整 PPT 闭环：ppt-workflow-orchestrator-zh
+仅大纲/故事线：ppt-story-design-zh
+软著：software-copyright-zh
 ```
+
+PPT 总控按阶段动态加载：证据阶段 `info-evidence-chain-zh`，叙事阶段 `ppt-story-design-zh`，视觉阶段 `ppt-visual-system-zh`，从零构建 `pptx-builder-zh`，模板/已有文件编辑 `pptx-template-editor-zh`，数据页 `ppt-data-storytelling-zh`，演讲备注与时间 `ppt-speaker-delivery-zh`，本地成对优秀/反例使用 `ppt-reference-library-zh`，动态外部案例使用 `contextual-reference-router`，长期回归 `pptx-ci-zh`，最终验收 `ppt-render-qa-zh`。两个参考 Skill 默认按缺口二选一，只有维度互补时才同时加载。每阶段只允许 1 个主 Skill、最多 2 个辅助 Skill；首次生成不得交付，必须至少完成一轮修复复验。用户要求全量实现参考计划时，P0、P1、示例与验证必须全部进入覆盖矩阵，任何一项缺实现/测试/证据即为 `BLOCK`。
 
 ### 长任务
 
@@ -196,6 +229,8 @@ artifact-curator-zh
 | Ship | `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch`, `documentation-and-adrs` |
 
 复杂工程任务先用 `engineering-skill-flow-zh` 做阶段总控；普通小改仍直接走对应阶段 skill。
+
+项目结构门禁横跨 Define、Plan、Build 与 Verify：任何领域工作流一旦要创建或改变持久化文件树，必须追加 `project-structure-architect`，并在阶段收口执行结构审计。
 
 ## 不要这样用
 

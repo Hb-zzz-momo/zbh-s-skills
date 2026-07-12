@@ -4,6 +4,17 @@ description: "PPTX 从零构建技能：使用 PptxGenJS 根据 slide-spec.json 
 ---
 
 # PPTX 从零构建
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 前置 Gate
 
@@ -30,9 +41,12 @@ npm exec tsx scripts/init-deck.ts -- --help
 6. 把 PPTX 交给 `ppt-render-qa-zh`；本 Skill 不自行声明视觉验收完成。
 
 ```powershell
-npm exec tsx scripts/init-deck.ts -- --spec slide-spec.json --output presentation.pptx --manifest build-manifest.json
+npm exec tsx scripts/init-deck.ts -- --spec slide-spec.json --design PRESENTATION_DESIGN.md --assets-root . --output presentation.pptx --manifest build-manifest.json
+npm exec tsx scripts/init-deck.ts -- --spec slide-spec.json --design PRESENTATION_DESIGN.md --assets-root . --slides S01,S06,S08 --output slice.pptx --manifest slice-manifest.json
 npm exec tsx scripts/check-bounds.ts -- --spec slide-spec.json --manifest build-manifest.json --output build-check.json
 ```
+
+`PRESENTATION_DESIGN.md` 必须包含 `presentation-theme` JSON 契约；构建器直接解析它，不允许再用独立 `theme.json` 绕开视觉系统。内容块支持原生 chart、table、图片、SVG、文本/形状，输出 manifest 会记录对象计数与实际页面 ID。
 
 ## 原生可编辑约束
 
@@ -59,4 +73,3 @@ npm exec tsx scripts/check-bounds.ts -- --spec slide-spec.json --manifest build-
 - 组件契约：`references/component-contract.md`
 - 常见故障：`references/common-pitfalls.md`
 - 起步项目：`assets/starter/README.md`
-

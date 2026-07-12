@@ -1,0 +1,18 @@
+{
+  "chart_id": "CH-001",
+  "slide_id": "S06",
+  "claim": "",
+  "question_type": "comparison",
+  "chart_type": "bar",
+  "data_source": {"file": "", "sheet": "", "range": "", "version_hash": ""},
+  "fields": {"x": "", "y": "", "series": ""},
+  "filters": [],
+  "aggregation": "",
+  "unit": "",
+  "metric_direction": "higher_is_better",
+  "axis": {"x_start": null, "y_start": 0, "truncated": false, "log_scale": false},
+  "style": {"highlight_series": "", "palette_tokens": [], "direct_labels": true},
+  "statistics": {"n": null, "interval": "", "effect_size": "", "notes": ""},
+  "source_footer": [],
+  "misleading_risk_checks": []
+}

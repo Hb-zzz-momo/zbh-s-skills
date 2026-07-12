@@ -1,0 +1,20 @@
+{
+  "source": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\presentation.pptx",
+  "pdf": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\presentation.pdf",
+  "backend": "powerpoint-com",
+  "dpi": 150,
+  "rendered_at": "2026-07-11T09:45:13.717810+00:00",
+  "slide_count": 10,
+  "slides": [
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-01.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-02.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-03.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-04.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-05.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-06.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-07.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-08.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-09.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\回归示例_20260711_173716\\qa\\pass2\\render\\slides\\slide-10.png"
+  ]
+}

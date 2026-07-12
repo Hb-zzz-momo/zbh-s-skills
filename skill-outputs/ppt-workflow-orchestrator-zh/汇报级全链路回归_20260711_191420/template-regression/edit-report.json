@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "source": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\presentation.pptx",
+  "output": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\template-regression\\edited.pptx",
+  "source_sha256": "7e4869abf96ddb814f6a8f9b5eed425fccdee4c55e689b5594912ff86d57d814",
+  "output_sha256": "d582839d045d5d6532e37c32faccf201afa6b77c2485f15ea0c83f65108d03a3",
+  "operations": [
+    {
+      "type": "replace_text",
+      "slide": 10,
+      "hits": 1
+    }
+  ]
+}

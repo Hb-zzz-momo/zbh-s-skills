@@ -1,0 +1,10 @@
+{
+  "status": "BLOCK",
+  "charts": [],
+  "issues": [
+    {
+      "severity": "ERROR",
+      "message": "native_chart_count 0 < 1"
+    }
+  ]
+}

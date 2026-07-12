@@ -1,0 +1,146 @@
+{
+  "deck": {
+    "title": "校园 AI 安全使用：把 AI 当助手，不把责任交给 AI",
+    "presentation_type": "课程汇报",
+    "audience": "大一新生",
+    "audience_decision": "采用",
+    "duration_minutes": 5,
+    "target_slide_count": 6,
+    "emergency_cut_slide_ids": ["S02"],
+    "fact_policy": "事实必须绑定 SRC；本校专属信息未获来源时标记待核验；推理与建议显式标注"
+  },
+  "slides": [
+    {
+      "slide_id": "S01",
+      "section": "开场",
+      "purpose": "建立安全使用 AI 的心理契约",
+      "audience_takeaway": "我可以使用 AI，但隐私、判断和最终责任仍由我承担",
+      "claim": "AI 可以辅助学习，但责任仍在你",
+      "evidence_refs": ["SRC-001", "SRC-002"],
+      "visual_type": "title_visual_with_responsibility_anchor",
+      "layout_family": "hero-with-single-contrast",
+      "dominant_asset": "学生与 AI 助手并肩、责任标识仍位于学生一侧的概念图",
+      "content_blocks": [
+        {"type": "headline", "content": "把 AI 当助手，不把隐私、判断和责任交给 AI"},
+        {"type": "micro_contrast", "content": "AI：提速与启发｜你：设边界、做核验、负责任"}
+      ],
+      "text_budget": {"title": 18, "body": 32, "footer": 24},
+      "source_footer": ["SRC-001", "SRC-002"],
+      "speaker_notes": "先承认 AI 的价值，再强调责任不能外包。不要用恐吓式事故数据开场。",
+      "duration_seconds": 35,
+      "qa_checks": ["内容：标题只表达一个核心结论", "几何：标题视觉与责任锚点无重叠", "来源：SRC-001 与 SRC-002 可在 sources.md 解析"]
+    },
+    {
+      "slide_id": "S02",
+      "section": "风险地图",
+      "purpose": "为后续规范建立四类风险的共同语言",
+      "audience_takeaway": "安全使用 AI 要同时看输入、输出、权利边界和课程要求",
+      "claim": "先识别四类风险，再决定怎么安全使用",
+      "evidence_refs": ["SRC-001", "SRC-002", "SRC-003"],
+      "visual_type": "four-quadrant-risk-map",
+      "layout_family": "2x2-cards-with-center-label",
+      "dominant_asset": "泄密、误导、越界、违规四格风险地图",
+      "content_blocks": [
+        {"type": "framework_label", "content": "【培训归纳，不是官方分类】四类风险"},
+        {"type": "risk_card", "content": "泄密：把不该公开的信息输入工具"},
+        {"type": "risk_card", "content": "误导：把未经核验的输出当事实"},
+        {"type": "risk_card", "content": "越界：侵犯隐私、版权或他人权益"},
+        {"type": "risk_card", "content": "违规：违反法律、校规或课程要求"}
+      ],
+      "text_budget": {"title": 18, "body": 58, "footer": 26},
+      "source_footer": ["SRC-001", "SRC-002", "SRC-003"],
+      "speaker_notes": "明确四分类是为了记忆而做的培训归纳。用四个词快速扫过，不扩展无来源案例。超时可整页删除。",
+      "duration_seconds": 45,
+      "qa_checks": ["内容：四格均服务于同一风险地图结论", "几何：四卡片等权、标签清晰", "来源：风险依据均能映射到三个来源，培训归纳标签可见"]
+    },
+    {
+      "slide_id": "S03",
+      "section": "输入安全",
+      "purpose": "让学生在输入提示词前识别并处理敏感信息",
+      "audience_takeaway": "拿不准能否公开的信息，不直接粘贴进公开 AI",
+      "claim": "输入前停一下：敏感信息不进公开 AI",
+      "evidence_refs": ["SRC-001", "SRC-002", "SRC-003"],
+      "visual_type": "three-zone-input-classifier",
+      "layout_family": "three-column-decision-cards",
+      "dominant_asset": "可输入、先脱敏/询问、不可输入三栏判断器",
+      "content_blocks": [
+        {"type": "allowed", "content": "【培训建议】可输入：公开材料、本人已确认可公开的内容"},
+        {"type": "caution", "content": "【培训建议】先处理：去掉姓名、学号、联系方式、内部标识；拿不准先问老师/管理员"},
+        {"type": "blocked", "content": "【培训建议】不直接输入：账号凭据、他人隐私、未公开资料、受限制数据"},
+        {"type": "pending_note", "content": "【待核验】本校是否有批准工具清单或更严格数据规则"}
+      ],
+      "text_budget": {"title": 18, "body": 72, "footer": 28},
+      "source_footer": ["SRC-001", "SRC-002", "SRC-003"],
+      "speaker_notes": "重点不是背术语，而是形成停顿动作：能否公开？是否属于别人？是否受学校或课程限制？",
+      "duration_seconds": 50,
+      "qa_checks": ["内容：三栏边界不互相矛盾", "几何：禁止项视觉优先级最高但不制造恐慌", "来源：个人信息和数据安全要求有 SRC-001/002/003 支撑；本校项标待核验"]
+    },
+    {
+      "slide_id": "S04",
+      "section": "输出核验",
+      "purpose": "把内容审查变成可执行的三步动作",
+      "audience_takeaway": "AI 输出不是提交物，必须经过事实、来源和适用性核验",
+      "claim": "输出后查一下：事实、来源、适用性都要过关",
+      "evidence_refs": ["SRC-001", "SRC-002", "SRC-003"],
+      "visual_type": "three-stage-verification-funnel",
+      "layout_family": "left-to-right-process-with-owner",
+      "dominant_asset": "事实—来源—适用性三步核验漏斗",
+      "content_blocks": [
+        {"type": "process_step", "content": "1 查事实：与教材、原始文献或官方页面对照"},
+        {"type": "process_step", "content": "2 查来源：链接是否真实、内容是否真的支持结论"},
+        {"type": "process_step", "content": "3 查适用性：是否符合题目、课程和当前语境"},
+        {"type": "responsibility_anchor", "content": "最终使用者：你"}
+      ],
+      "text_budget": {"title": 18, "body": 70, "footer": 26},
+      "source_footer": ["SRC-001", "SRC-002", "SRC-003"],
+      "speaker_notes": "演示口头检查一个看似合理的句子：先找原始来源，再确认来源是否支持它，最后看它是否适用于当前作业。不要编造具体错误案例。",
+      "duration_seconds": 55,
+      "qa_checks": ["内容：三步顺序清晰且落到本人责任", "几何：流程方向单一、每步可扫读", "来源：准确性、内容审查和事实核查要求可追溯"]
+    },
+    {
+      "slide_id": "S05",
+      "section": "提交规范",
+      "purpose": "帮助学生在作业与课程场景中守住学术诚信边界",
+      "audience_takeaway": "课程允许范围优先；AI 不能替代本人应完成的思考，使用情况按要求如实声明",
+      "claim": "提交前问一下：课程允许什么，就按什么做",
+      "evidence_refs": ["SRC-002", "SRC-003", "SRC-PENDING-001"],
+      "visual_type": "traffic-light-submission-gate",
+      "layout_family": "three-level-gate-with-rule-banner",
+      "dominant_asset": "绿黄红三色提交门禁",
+      "content_blocks": [
+        {"type": "green", "content": "绿：课程明确允许，已核验，已保留本人贡献"},
+        {"type": "yellow", "content": "黄：规则不清、声明格式不明——先问老师"},
+        {"type": "red", "content": "红：让 AI 替代本人完成核心任务、伪造数据或隐瞒使用"},
+        {"type": "pending_note", "content": "【待核验】本校/本课程允许范围与 AI 使用声明格式"}
+      ],
+      "text_budget": {"title": 18, "body": 74, "footer": 30},
+      "source_footer": ["SRC-002", "SRC-003", "SRC-PENDING-001"],
+      "speaker_notes": "明确其他高校文件只说明常见规范方向，不能代替本校规定。落到一句话：规则不清就先问，不要自己猜。",
+      "duration_seconds": 65,
+      "qa_checks": ["内容：课程规则优先于泛化建议", "几何：黄色情形和红色情形不混淆", "来源：高校规范可解析；本校专属内容醒目标记待核验"]
+    },
+    {
+      "slide_id": "S06",
+      "section": "行动收口",
+      "purpose": "让学生记住并承诺采用三步自检",
+      "audience_takeaway": "每次使用 AI 都执行输入前停、输出后查、提交前问",
+      "claim": "带走 20 秒自检：不泄密、要核验、守规范",
+      "evidence_refs": ["SRC-001", "SRC-002", "SRC-003", "SRC-PENDING-002"],
+      "visual_type": "three-check-action-card",
+      "layout_family": "large-checklist-with-commitment-footer",
+      "dominant_asset": "三项可勾选的 20 秒自检卡",
+      "content_blocks": [
+        {"type": "check", "content": "输入前停：这段信息能公开吗？"},
+        {"type": "check", "content": "输出后查：事实、来源、适用性过关吗？"},
+        {"type": "check", "content": "提交前问：课程允许且按要求声明了吗？"},
+        {"type": "incident_action", "content": "【应急建议】发现异常：先停止继续输入或传播，再求助"},
+        {"type": "pending_note", "content": "【待核验】补充本校教务/信息安全咨询与报告渠道"}
+      ],
+      "text_budget": {"title": 18, "body": 72, "footer": 30},
+      "source_footer": ["SRC-001", "SRC-002", "SRC-003", "SRC-PENDING-002"],
+      "speaker_notes": "带全场快速复述三步口令，以行动承诺收尾。不要把未确认的校内电话或邮箱写上页面。",
+      "duration_seconds": 50,
+      "qa_checks": ["内容：三步口令与前三个规范页一一对应", "几何：三项检查可在 5 秒内扫读", "来源：通用要求可追溯；校内渠道标记待核验"]
+    }
+  ]
+}

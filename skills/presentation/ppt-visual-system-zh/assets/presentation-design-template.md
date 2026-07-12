@@ -62,3 +62,18 @@
 
 - 
 
+## Machine-readable Theme Contract
+
+```presentation-theme
+{
+  "slide": {"width": 13.333, "height": 7.5, "margin": 0.55},
+  "colors": {"ink": "172033", "muted": "5E6B7A", "paper": "F7F4ED", "surface": "FFFFFF", "accent": "E05A47", "accent2": "146A65", "line": "D7D9DD"},
+  "fonts": {"head": "Microsoft YaHei", "body": "Microsoft YaHei", "mono": "Consolas"},
+  "sizes": {"hero": 30, "title": 24, "body": 15, "small": 10, "metric": 28},
+  "radius": 0.12,
+  "gap": 0.28,
+  "layout_families": ["hero", "split", "process", "comparison", "chart-native", "table", "visual-image"],
+  "motif": "左侧强调色轨道与细分隔线",
+  "forbidden_patterns": ["连续三页标题加项目符号", "无意义三列卡片", "整页截图充当幻灯片"]
+}
+```

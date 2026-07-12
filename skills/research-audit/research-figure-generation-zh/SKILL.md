@@ -4,6 +4,17 @@ description: '科研生图与论文配图总控技能：用于设计、生成、
 ---
 
 # 科研生图与论文配图总控
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 目标
 
@@ -63,6 +74,23 @@ MCP 接入与使用教程见 `references/mcp-integration-guide.md`。当前推�
 
 如果事实不完整，先产出“待确认 brief”，不要假装已经知道。
 
+<!-- contextual-reference-router:gate:v1:start -->
+### Step 2.5: 条件参考路由
+
+在科学事实锁定后、生成策略和图形 brief 前，以下任务条件调用 `contextual-reference-router`：机制图、图形摘要、系统架构图、科研汇报视觉、期刊封面，或需要重新选图/改造视觉的数据图。
+
+```text
+科学事实锁定 → contextual-reference-router → reference-brief.md
+→ 生成策略 → 科研图 brief
+```
+
+- 优先相关论文真实图、科研机制图和架构表达来源；至少使用两个互补参考并打开具体案例。
+- 外部案例不得定义科学事实、数据、机制关系、显著性或 novelty，只能指导信息组织和视觉表达。
+- 常规真实数据绘图、严格复现用户给定图片、局部缺陷修复或用户禁止外部参考时跳过。
+- `BioRender` 作为参考来源时只提供信息组织观察；作为素材/工具时仍须遵守授权和当前 MCP/导出边界。
+- Reference Brief 形成后退出参考 Skill，保持本技能负责生成策略、可编辑性和最终验收。
+<!-- contextual-reference-router:gate:v1:end -->
+
 ### Step 3: 选择生成策略
 
 按风险从低到高选择：
@@ -97,6 +125,9 @@ MCP 接入与使用教程见 `references/mcp-integration-guide.md`。当前推�
 风格：
 文字标签：
 数据/事实来源：
+具体参考与案例：
+采用/不采用规则：
+访问与许可证限制：
 输出规格：
 验收标准：
 ```
@@ -128,6 +159,7 @@ MCP 接入与使用教程见 `references/mcp-integration-guide.md`。当前推�
 - 色彩是否色盲友好，灰度下是否还能理解
 - 期刊/海报/幻灯片尺寸是否匹配
 - 是否保存了 prompt、源图或绘图代码
+- 触发参考路由时，是否把具体案例规律落实到当前图、避免直接复制并保留许可/访问边界
 
 完整验收表见 `references/quality-gates.md`。
 

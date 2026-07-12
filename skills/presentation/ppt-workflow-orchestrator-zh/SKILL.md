@@ -4,6 +4,17 @@ description: "PPT 制作总控与阶段门禁技能：把材料、证据、叙�
 ---
 
 # PPT 制作总控
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 职责边界
 
@@ -24,6 +35,8 @@ description: "PPT 制作总控与阶段门禁技能：把材料、证据、叙�
 ```
 
 只有输入足以支持当前阶段时判定 `PASS`。缺品牌素材但可使用用户认可的中性系统时为 `CAUTION`；缺主题、交付格式、关键数据或模板文件时为 `BLOCK`。
+
+正式任务使用 `scripts/ppt_workflow.py` 持久化阶段状态；不得只在对话中口头记录。先运行 `scripts/check_dependencies.py` 和 `scripts/validate_contract.py`。状态机强制逐阶段推进，三页切片未结构化批准时不能进入全量构建，最终 QA 报告未明确 `PASS` 时不能进入 Ship。
 
 ## Phase 0：Intake 与分支
 
@@ -47,13 +60,27 @@ description: "PPT 制作总控与阶段门禁技能：把材料、证据、叙�
 | Narrative | `ppt-story-design-zh` | `info-evidence-chain-zh` | `storyline.md`, `slide-spec.json` | 一页一个结论；时间预算完整 |
 | Visual System | `ppt-visual-system-zh` | 无 | `PRESENTATION_DESIGN.md` | 令牌可执行；Taste Gate 通过 |
 
+<!-- contextual-reference-router:gate:v1:start -->
+### 条件 Reference Route Gate
+
+该 Gate 是阶段内检查点，不新增 `ppt_workflow.py` 状态：
+
+- 新建或重设计 PPT 默认调用 `contextual-reference-router`；只有用户提供完整模板并要求严格局部修改、或明确禁止外部参考时跳过。需要行业 Deck、外部视觉案例或用户要求“参考优秀 PPT”时同样必须调用。
+- 结构与叙事参考：Evidence 通过后、Narrative 前形成 `reference-brief.md`。
+- 纯视觉参考：Narrative 通过后、Visual System 前形成或补充 `reference-brief.md`。
+- 事实来源仍归 `info-evidence-chain-zh`；外部设计案例不能作为数字、政策、合作或研究 claim 的证据。
+- `contextual-reference-router` 负责动态外部案例；`ppt-reference-library-zh` 负责本地成对优秀/反例与页面级审美门。默认按缺口选择一个，只有维度互补时才同时加载。
+- Reference Brief 必须记录具体多页案例、采用/不采用规律、页面转译、访问与许可限制；`BLOCK` 时不得进入依赖该参考的 Narrative 或 Visual System。
+- 完成后退出参考 Skill，不改变每阶段 1 个主 Skill、最多 2 个辅助 Skill 的预算。
+<!-- contextual-reference-router:gate:v1:end -->
+
 事实、推断、建议和示例数据必须分开标注。未经证据支持的数字、政策、案例、专家观点和合作成果不得进入正式幻灯片。
 
 ## Phase 5：三页纵向切片
 
 先构建并渲染以下代表页：封面页；最复杂的流程、架构或机制页；数据结果页，无数据时使用总结页。
 
-检查主题匹配、字体、视觉母题、信息密度、图表清晰度和 AI 模板感。方向错误时只返工三页，不得批量生成全套。
+检查主题匹配、字体、视觉母题、信息密度、图表清晰度和 AI 模板感。触发 Reference Route Gate 时，还要检查参考规律是否真实落实、是否直接复制单个案例。方向错误时只返工三页，不得批量生成全套。
 
 ## Phase 6：Build
 
@@ -77,9 +104,17 @@ PPTX → PDF → 逐页图片 → Montage
 
 ## Phase 9：Ship
 
-按 `references/delivery-contract.md` 检查交付包。最低交付包括 PPTX 与源代码、材料/证据/叙事/设计契约、素材、逐页渲染图片、Montage、`qa-report.md` 和 `fix-log.md`。
+按 `references/delivery-contract.md` 检查交付包。最低交付包括 PPTX 与源代码、材料/证据/叙事/设计契约、素材、逐页渲染图片、Montage、`qa-report.md` 和 `fix-log.md`；触发参考路由时追加 `reference-brief.md` 与参考落实状态。
 
 最终说明任务分支、使用过的 Skills、实际命令、修复项、待确认项和绝对路径。
+
+最后运行 `scripts/validate_delivery.py` 生成带 SHA-256 的交付清单。包含演讲任务时追加 `ppt-speaker-delivery-zh`；需要审美参考时按页面类型加载 `ppt-reference-library-zh`；长期维护或批量生成时用 `pptx-ci-zh` 建立同引擎基线回归。三者均按阶段加载，不与全部 PPT Skills 同时进入上下文。
+
+```powershell
+python scripts/ppt_workflow.py init --project output --mode from-scratch
+python scripts/ppt_workflow.py advance --project output --to evidence
+python scripts/validate_delivery.py output --output output/delivery-manifest.json
+```
 
 ## 资源导航
 
@@ -88,4 +123,3 @@ PPTX → PDF → 逐页图片 → Montage
 - 交付契约：`references/delivery-contract.md`
 - 外部来源与许可：`references/source-map.md`
 - 项目简报模板：`assets/project-brief-template.md`
-

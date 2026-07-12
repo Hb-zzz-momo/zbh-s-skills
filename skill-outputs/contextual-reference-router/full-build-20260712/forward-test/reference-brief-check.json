@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "issues": [],
+  "limitations": [
+    "Deck.gallery 本次搜索未返回可核查的具体案例，因此未作为正式来源。",
+    "Behance 仅用于观察公开预览图与页面说明，不下载或复用模板、字体、插画和品牌资产。",
+    "本次只生成 Reference Brief，不实际重做 PPT，因此“落实位置”是下游设计契约。"
+  ]
+}

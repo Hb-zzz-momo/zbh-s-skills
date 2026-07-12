@@ -1,4 +1,4 @@
 interface:
-  display_name: "PPTX´ÓÁã¹¹½¨"
-  short_description: "Ê¹ÓÃPptxGenJS¹¹½¨Ô­Éú¿É±à¼­PPTX²¢Ö´ĞĞÒ³Ãæ±ß½çÓë×é¼şÒ»ÖÂĞÔ¼ì²é¡£"
-  default_prompt: "°´slide-specÓëÉè¼ÆÆõÔ¼´ÓÁãÉú³É¿É±à¼­PPTX¡£"
+  display_name: "PPTXä»é›¶æ„å»º"
+  short_description: "ä½¿ç”¨ PptxGenJS æ„å»ºåŸç”Ÿå¯ç¼–è¾‘ PPTXï¼Œå¹¶æ‰§è¡Œé¡µé¢è¾¹ç•Œä¸ç»„ä»¶ä¸€è‡´æ€§æ£€æŸ¥ã€‚"
+  default_prompt: "æŒ‰ slide-spec ä¸è®¾è®¡å¥‘çº¦ä»é›¶ç”Ÿæˆå¯ç¼–è¾‘ PPTXã€‚"

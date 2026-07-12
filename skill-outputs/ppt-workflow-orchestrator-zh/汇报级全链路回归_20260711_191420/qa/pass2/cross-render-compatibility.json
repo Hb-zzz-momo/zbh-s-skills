@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "checks": [
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-01.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-02.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-03.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-04.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-05.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-06.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-07.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-08.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-09.json",
+      "status": "PASS"
+    },
+    {
+      "file": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\qa\\pass2\\cross-render-10.json",
+      "status": "PASS"
+    }
+  ],
+  "issues": []
+}

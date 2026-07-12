@@ -1,0 +1,7 @@
+{
+  "sources": [
+    {"source_id": "SRC-PLAN", "title": "PPT生成工作流.md", "type": "local-plan", "status": "verified"},
+    {"source_id": "SRC-CODE", "title": "本地 PPT Skills 实现与测试", "type": "local-code", "status": "verified"},
+    {"source_id": "SRC-DATA", "title": "delivery_metrics.csv", "type": "illustrative-regression-data", "status": "example-data"}
+  ]
+}

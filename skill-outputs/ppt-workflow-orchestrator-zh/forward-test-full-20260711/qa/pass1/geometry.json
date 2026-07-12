@@ -1,0 +1,25 @@
+{
+  "source": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\presentation-v1.pptx",
+  "slide_size": {
+    "width": 13.333333333333334,
+    "height": 7.5
+  },
+  "checked_shapes": 185,
+  "issues": [
+    {
+      "severity": "ERROR",
+      "slide": 4,
+      "shape_ids": [
+        5,
+        8
+      ],
+      "names": [
+        "Text 3",
+        "Text 6"
+      ],
+      "message": "text_boxes_overlap",
+      "overlap_ratio": 1.0
+    }
+  ],
+  "status": "FAIL"
+}

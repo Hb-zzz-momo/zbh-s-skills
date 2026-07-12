@@ -1,10 +1,22 @@
 ---
 name: research-iteration-audit-zh
 description: '科研迭代自审技能：在每次算法迭代产出数据后，针对"机制堆叠/创新模糊/机制论文可读性不足/性能退化/runtime膨胀/研究债务/失败边界"等常见科研陷阱做系统性审计，给出红黄绿三灯判定与下一步建议，阻止"越改越差"的恶性迭代。Use when: 迭代自审、算法自审、堆叠检查、机制审计、研究债务、失败边界、SOTA对比审计、迭代验收、算法体检、是不是在堆机制、创新点不清楚、机制论文不好写、机制讲不清、runtime变差、越改越差、方向是否要止损。不适用于从零分析问题或撰写论文（使用 research-coach-zh / paper-writing-zh）。'
-argument-hint: '说明当前迭代标签、基线、SOTA 对照，例如"审一下 G25 和 CapFinal 的对比"'
+metadata:
+  argument-hint: '说明当前迭代标签、基线、SOTA 对照，例如"审一下 G25 和 CapFinal 的对比"'
 ---
 
 # 科研迭代自审技能
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 技能目标
 

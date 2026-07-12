@@ -6,6 +6,17 @@ metadata:
 ---
 
 # 工程 Skill 调用流
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 目标
 
@@ -83,6 +94,22 @@ metadata:
 候选技术路径列表
 每个候选对应的证据、风险、影响面和验证方式
 ```
+
+<!-- contextual-reference-router:gate:v1:start -->
+### 条件参考研究节点
+
+Project Intake 判断交付物是否属于参考驱动设计。只有 UI/UX、Dashboard、Coding Prompt、Agent/Skill/AGENTS 指令或需要外部表达案例的架构可视化，才在 Solution Gate 前调用 `contextual-reference-router`：
+
+```text
+Project Intake → contextual-reference-router → Reference Brief
+→ Solution Gate / Implementation Design
+```
+
+- Reference Brief 可作为候选方案的结构、交互、展示或指令设计证据；不得替代 API、框架和安全规范的官方技术依据。
+- 纯后端逻辑、API 正确性、算法实现和普通 Bug 继续使用 `source-driven-development` 等工程证据，不触发本节点。
+- 仅把已确定架构画出来时，先锁架构事实，再转交 `research-figure-generation-zh` 处理参考与制图。
+- 本节点占一个辅助 Skill 名额；形成后退出，不带入 Main Build，也不列入审计/验证 Skill。
+<!-- contextual-reference-router:gate:v1:end -->
 
 ## 2. Solution Gate
 

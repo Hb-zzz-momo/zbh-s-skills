@@ -1,85 +1,80 @@
 ---
 name: ppt-render-qa-zh
-description: [TODO: Complete and informative explanation of what the skill does and when to use it. Include WHEN to use this skill - specific scenarios, file types, or tasks that trigger it.]
+description: "PPTX 渲染、内容、几何、图片与视觉质检技能：把 PPTX 转为 PDF 和逐页图片，生成 Montage，提取全文，检查越界、裁切、低分辨率、占位文本、跨页一致性与信息节奏，记录问题并强制完成至少一轮修复复验。Use when: PPT渲染、PPT验收、Montage、文字溢出、元素越界、PPTX转图片、qa-report.md、修复后复验。"
 ---
 
-# Ppt Render Qa Zh
+# PPT 渲染与修复复验
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
 
-## Overview
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
 
-[TODO: 1-2 sentences explaining what this skill enables]
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
 
-## Structuring This Skill
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
-[TODO: Choose the structure that best fits this skill's purpose. Common patterns:
+## 完成定义
 
-**1. Workflow-Based** (best for sequential processes)
-- Works well when there are clear step-by-step procedures
-- Example: DOCX skill with "Workflow Decision Tree" -> "Reading" -> "Creating" -> "Editing"
-- Structure: ## Overview -> ## Workflow Decision Tree -> ## Step 1 -> ## Step 2...
+首次生成结果不能声明完成。必须完成：
 
-**2. Task-Based** (best for tool collections)
-- Works well when the skill offers different operations/capabilities
-- Example: PDF skill with "Quick Start" -> "Merge PDFs" -> "Split PDFs" -> "Extract Text"
-- Structure: ## Overview -> ## Quick Start -> ## Task Category 1 -> ## Task Category 2...
+```text
+首次渲染 → 问题记录 → 实际修复 → 重新生成
+        → 重新渲染 → 受影响页复查 → 全局 Montage 复查
+```
 
-**3. Reference/Guidelines** (best for standards or specifications)
-- Works well for brand guidelines, coding standards, or requirements
-- Example: Brand styling with "Brand Guidelines" -> "Colors" -> "Typography" -> "Features"
-- Structure: ## Overview -> ## Guidelines -> ## Specifications -> ## Usage...
+若首次自动检查没有发现问题，仍须人工以“找缺陷”视角检查 Montage 和代表页，并记录检查结论；不得把零问题当作免修复理由。
 
-**4. Capabilities-Based** (best for integrated systems)
-- Works well when the skill provides multiple interrelated features
-- Example: Product Management with "Core Capabilities" -> numbered capability list
-- Structure: ## Overview -> ## Core Capabilities -> ### 1. Feature -> ### 2. Feature...
+## Step 1：检查依赖
 
-Patterns can be mixed and matched as needed. Most skills combine patterns (e.g., start with task-based, add workflow for complex operations).
+```powershell
+python scripts/render_slides.py --help
+python scripts/make_montage.py --help
+python scripts/extract_text.py --help
+```
 
-Delete this entire "Structuring This Skill" section when done - it's just guidance.]
+渲染后端自动按 LibreOffice → Microsoft PowerPoint → WPS Office 选择，并在 manifest 中记录实际后端。PDF 转图优先使用 Poppler `pdftoppm`。缺失时给出明确安装命令，不假设环境已具备。
 
-## [TODO: Replace with the first main section based on chosen structure]
+## Step 2：首次 QA
 
-[TODO: Add content here. See examples in existing skills:
-- Code samples for technical skills
-- Decision trees for complex workflows
-- Concrete examples with realistic user requests
-- References to scripts/templates/references as needed]
+```powershell
+python scripts/render_slides.py presentation.pptx qa/pass1/render --backend auto
+python scripts/make_montage.py qa/pass1/render/slides qa/pass1/montage.png
+python scripts/extract_text.py presentation.pptx --markdown qa/pass1/text.md --json qa/pass1/text.json
+python scripts/check_geometry.py presentation.pptx --output qa/pass1/geometry.json
+python scripts/check_image_resolution.py presentation.pptx --output qa/pass1/images.json
+python scripts/check_charts.py presentation.pptx --output qa/pass1/charts.json --min-charts 1
+python scripts/check_contrast.py presentation.pptx --output qa/pass1/contrast.json
+python scripts/check_office_layout.py presentation.pptx --output qa/pass1/office-layout.json --expected-font "Microsoft YaHei"
+```
 
-## Resources (optional)
+按 `references/acceptance-checklist.md` 人工检查逐页图片与 Montage。自动检查不能证明不存在遮挡、字体替换或视觉节奏问题。
 
-Create only the resource directories this skill actually needs. Delete this section if no resources are required.
+## Step 3：记录与修复
 
-### scripts/
-Executable code (Python/Bash/etc.) that can be run directly to perform specific operations.
+按 `references/qa-severity-levels.md` 记录 slide、严重度、问题、证据、修复动作与责任源文件。修复源代码或模板映射，不在导出的 PDF/图片上打补丁。
 
-**Examples from other skills:**
-- PDF skill: `fill_fillable_fields.py`, `extract_form_field_info.py` - utilities for PDF manipulation
-- DOCX skill: `document.py`, `utilities.py` - Python modules for document processing
+## Step 4：复验
 
-**Appropriate for:** Python scripts, shell scripts, or any executable code that performs automation, data processing, or specific operations.
+对修复后的新 PPTX 重复完整命令。受影响页需逐页比较，全套需 Montage 回归。用 `build_qa_report.py` 汇总 pass1 与 pass2：
 
-**Note:** Scripts may be executed without loading into context, but can still be read by Codex for patching or environment adjustments.
+```powershell
+python scripts/build_qa_report.py --render qa/pass2/render/render-manifest.json --text qa/pass2/text.json --geometry qa/pass2/geometry.json --images qa/pass2/images.json --extra qa/pass2/charts.json --extra qa/pass2/contrast.json --extra qa/pass2/office-layout.json --manual-review qa/pass2/manual-review.json --previous qa/pass1/geometry.json --output qa/qa-report.md --fix-log qa/fix-log.md
+```
 
-### references/
-Documentation and reference material intended to be loaded into context to inform Codex's process and thinking.
+没有符合 `assets/manual-review-template.json` 的人工复核记录时，汇总结论最多为 `CAUTION`，脚本返回非零；不得用未勾选的 Markdown 清单冒充人工验收。
 
-**Examples from other skills:**
-- Product management: `communication.md`, `context_building.md` - detailed workflow guides
-- BigQuery: API reference documentation and query examples
-- Finance: Schema documentation, company policies
+## Ship Gate
 
-**Appropriate for:** In-depth documentation, API references, database schemas, comprehensive guides, or any detailed information that Codex should reference while working.
+- `BLOCK`：Office 无法打开/渲染、元素越界、文字裁切、关键内容缺失、图表数据错误。
+- `CAUTION`：低分辨率非关键图片、轻微节奏或密度问题、有说明的字体替代。
+- `PASS`：阻断项归零，修复复验有证据，剩余风险已记录。
 
-### assets/
-Files not intended to be loaded into context, but rather used within the output Codex produces.
+## 输出
 
-**Examples from other skills:**
-- Brand styling: PowerPoint template files (.pptx), logo files
-- Frontend builder: HTML/React boilerplate project directories
-- Typography: Font files (.ttf, .woff2)
-
-**Appropriate for:** Templates, boilerplate code, document templates, images, icons, fonts, or any files meant to be copied or used in the final output.
-
----
-
-**Not every skill requires all three types of resources.**
+- PDF、逐页图片、Montage。
+- 文本、几何与图片检查 JSON。
+- `qa-report.md` 与 `fix-log.md`。
+- 实际渲染后端、命令、时间和剩余风险。

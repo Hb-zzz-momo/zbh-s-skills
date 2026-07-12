@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "mode": "from-scratch",
+  "current_stage": "ship",
+  "history": [
+    {
+      "stage": "intake",
+      "result": "PASS"
+    },
+    {
+      "stage": "evidence",
+      "result": "PASS"
+    },
+    {
+      "stage": "narrative",
+      "result": "PASS"
+    },
+    {
+      "stage": "slide-contract",
+      "result": "PASS"
+    },
+    {
+      "stage": "visual-system",
+      "result": "PASS"
+    },
+    {
+      "stage": "vertical-slice",
+      "result": "PASS"
+    },
+    {
+      "stage": "full-build",
+      "result": "PASS"
+    },
+    {
+      "stage": "render-qa",
+      "result": "PASS"
+    },
+    {
+      "stage": "fix-loop",
+      "result": "PASS"
+    },
+    {
+      "stage": "ship",
+      "result": "PASS"
+    }
+  ],
+  "updated_at": "2026-07-11T12:08:11.472249+00:00"
+}

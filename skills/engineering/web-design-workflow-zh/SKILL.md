@@ -4,6 +4,17 @@ description: "中文 Web Design 与 Vibe Coding 总控工作流：按新建网�
 ---
 
 # Web Design Workflow Zh
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
 
 ## 目标
 
@@ -111,6 +122,23 @@ frontend-ui-engineering -> browser-testing-with-devtools
 
 简单任务用一页 brief 即可；正式产品再扩展 PRD、用户流和页面结构。不要默认强制 Next.js、Tailwind 或 shadcn/ui，已有项目必须沿用现有栈。
 
+<!-- contextual-reference-router:gate:v1:start -->
+## Phase 1.5: 上下文参考路由
+
+新建网站、视觉改版、图像先行、Dashboard、Web 用户流程，或需要改进信息层级、响应式、用户体验和产品展示逻辑的任务，在需求、受众、行业、技术栈和保留项锁定后，进入 `DESIGN.md` 前条件调用 `contextual-reference-router`：
+
+```text
+规格化需求 → contextual-reference-router → reference-brief.md
+→ DESIGN.md / Taste Gate
+```
+
+- 参考阶段只选 2–5 个互补来源，打开具体案例，记录采用/不采用规则、项目转译、访问和许可限制。
+- 将 Reference Brief 的可执行规律写入 `DESIGN.md` 的“参考依据”，不能只列网站名。
+- 局部 UI Bug、用户给出完整参考并要求严格局部复刻、用户明确禁止外部参考时跳过。
+- `BLOCK`：没有具体案例、没有转译或许可不明时，不得进入 `DESIGN.md`；`CAUTION`：只能做最小切片并明确访问限制。
+- Reference Brief 形成后退出该辅助 Skill，仍由本工作流和 `frontend-ui-engineering` 负责实现与浏览器验收。
+<!-- contextual-reference-router:gate:v1:end -->
+
 ## Phase 2: DESIGN.md 与审美门
 
 先输出一行 Design Read：
@@ -136,6 +164,7 @@ Reading this as: [页面类型] for [目标用户], with a [风格语言], leani
 - Hero 是否表达页面核心，而不是固定的 H1 + 副标题 + 双 CTA？
 - 是否只有一个可解释的 signature moment，并让其余页面保持克制？
 - 文案是否真实、具体、可操作？
+- 触发参考路由时，规律是否来自具体案例、已转译到当前项目且没有直接复制？
 
 未通过时先改 `DESIGN.md`，不要进入构建。
 
@@ -198,6 +227,7 @@ https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/comm
 
 - 使用了哪个任务分支和交付级别。
 - PRD/brief、`DESIGN.md`、纵向切片和实现文件路径。
+- 触发参考路由时，`reference-brief.md` 路径、Gate 状态、核心案例与实际落实位置。
 - 执行过的验证命令、浏览器视口和结果。
 - 本地预览或 Preview URL。
 - 未覆盖风险、缺失素材和正式上线前待办。
