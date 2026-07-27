@@ -7,7 +7,10 @@
     "representative_pages": false,
     "font_and_clipping": false,
     "contrast": false,
-    "chart_readability": false
+    "chart_readability": false,
+    "connector_semantics": false,
+    "text_container_fit": false,
+    "risk_family_coverage": false
   },
   "notes": ""
 }

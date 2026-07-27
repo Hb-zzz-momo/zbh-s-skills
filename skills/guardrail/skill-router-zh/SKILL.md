@@ -25,6 +25,7 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
 ## 路由流程
 
 1. **识别任务领域**
+   - 技术知识问答：技术概念、术语、ADR、设计决策、“这是什么”“为什么这样设计”或“小白解释”走 `project-dev-zh` 的知识性问题模式；若主要任务是外部资料收集与来源核验，改走 `info-evidence-chain-zh`。
    - 工程开发：项目理解、编码、调试、测试、review、上线；若涉及复杂工程、多方案实现、架构改造、技术 spike、工程 Gate 或候选实现池，先走 `engineering-skill-flow-zh`。
    - 项目结构 / 文件树：新建项目、目录蓝图、前后端或 `apps/packages` 边界、模块/步骤/实验/产物位置、结构重组与漂移审计走 `project-structure-architect`。
    - 工具使用建议：VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界；优先按“四层工具建议框架”回答。
@@ -34,7 +35,7 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
    - 写作翻译：论文、翻译、报告文字。
    - 课程任务：考试、实验、实验报告。
    - 调研证据：资料收集、来源核验、证据链。
-   - 汇报软著：完整 PPT、路演、答辩、PPTX 生成/修改/模板编辑/渲染验收先走 `ppt-workflow-orchestrator-zh`；只要故事线时走 `ppt-story-design-zh`；软著材料走 `software-copyright-zh`。
+   - 汇报软著：完整 PPT、路演、答辩、PPTX 生成/修改/模板编辑/渲染验收先走 `ppt-workflow-orchestrator-zh`；只要故事线时走 `ppt-story-design-zh`；真实项目准备度、申请字段、用户手册、源码鉴别材料和已有软著材料审计走 `software-copyright-zh`。
    - 运维产物：长任务监控、产物归档。
    - 子代理调度：`/sub`、subagents、子代理、多代理、并行委派、worker/explorer。
    - 工作流沉淀：总结流程、设计 SOP、生成新 skill。
@@ -128,6 +129,8 @@ incremental-implementation
 test-driven-development
 ```
 
+知识性解释不涉及代码修改时只加载 `project-dev-zh`。回答开头先用一个具体类比和贯穿实例建立直觉，再用“状态如何变化”组成主链；每条箭头必须说明真实的因果、约束或输入输出关系。指标作为对应状态的证据，并行条件必须说明共同目标及独立共需、相互耦合或互为替代关系，不得强行串成直线。局部例子要明确回扣主链节点，解决动作要反向对应问题状态并给出验收证据。删除节点测试只用于状态主链；全文不更换实例，术语只在对应节点首次解释。
+
 ### Web 设计 / Vibe Coding / 页面改版
 
 ```text
@@ -209,6 +212,31 @@ source-driven-development
 ```
 
 PPT 总控按阶段动态加载：证据阶段 `info-evidence-chain-zh`，叙事阶段 `ppt-story-design-zh`，视觉阶段 `ppt-visual-system-zh`，从零构建 `pptx-builder-zh`，模板/已有文件编辑 `pptx-template-editor-zh`，数据页 `ppt-data-storytelling-zh`，演讲备注与时间 `ppt-speaker-delivery-zh`，本地成对优秀/反例使用 `ppt-reference-library-zh`，动态外部案例使用 `contextual-reference-router`，长期回归 `pptx-ci-zh`，最终验收 `ppt-render-qa-zh`。两个参考 Skill 默认按缺口二选一，只有维度互补时才同时加载。每阶段只允许 1 个主 Skill、最多 2 个辅助 Skill；首次生成不得交付，必须至少完成一轮修复复验。用户要求全量实现参考计划时，P0、P1、示例与验证必须全部进入覆盖矩阵，任何一项缺实现/测试/证据即为 `BLOCK`。
+
+软著按任务状态路由，不再把“从零开发项目”和“从已有项目生成申请材料”混为默认链路：
+
+```text
+已有项目生成材料 / 已有材料审计 / 准备度审计
+→ software-copyright-zh
+
+从零开发真实项目
+→ project-structure-architect
+→ engineering-skill-flow-zh
+→ software-copyright-zh
+
+严格按用户材料生成
+→ plan-faithful-execution-zh
+→ software-copyright-zh
+
+真实浏览器截图
+→ browser-testing-with-devtools
+→ software-copyright-zh
+
+最终产物整理
+→ artifact-curator-zh
+```
+
+软著材料必须来自真实项目证据和用户确认；当前登记页面未核验、截图缺失、源码哈希不一致或 DOCX 未完成真实渲染时，最终状态不能是 `PASS`。
 
 ### 长任务
 

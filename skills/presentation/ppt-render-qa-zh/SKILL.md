@@ -52,6 +52,12 @@ python scripts/check_office_layout.py presentation.pptx --output qa/pass1/office
 
 按 `references/acceptance-checklist.md` 人工检查逐页图片与 Montage。自动检查不能证明不存在遮挡、字体替换或视觉节奏问题。
 
+对下列高风险页面必须打开逐页原始分辨率图片，不能只依赖 Montage：
+
+- 所有流程、架构、闭环、阶梯链路和径向迁移页：逐条沿箭头阅读，确认起点、终点、箭头头部、方向标签和回流关系；任何箭头终止于空白、被节点遮住、无从判断方向或连线标签与方向不一致均为 `ERROR`。
+- 每种卡片家族中文字最多或最低位置的卡片：检查最后一行与容器底边的可见留白；`fit/shrink`、无 OOXML 越界或无文字框重叠均不能代替该检查。
+- 多种高风险版式同时存在时，代表页必须覆盖每一种风险家族，而不是只检查一张“最复杂页”。
+
 ## Step 3：记录与修复
 
 按 `references/qa-severity-levels.md` 记录 slide、严重度、问题、证据、修复动作与责任源文件。修复源代码或模板映射，不在导出的 PDF/图片上打补丁。
@@ -69,6 +75,7 @@ python scripts/build_qa_report.py --render qa/pass2/render/render-manifest.json 
 ## Ship Gate
 
 - `BLOCK`：Office 无法打开/渲染、元素越界、文字裁切、关键内容缺失、图表数据错误。
+- `BLOCK`：箭头方向无法唯一解释、箭头头部被遮挡、连线终点不对应节点，或文本越过容器视觉边界。
 - `CAUTION`：低分辨率非关键图片、轻微节奏或密度问题、有说明的字体替代。
 - `PASS`：阻断项归零，修复复验有证据，剩余风险已记录。
 

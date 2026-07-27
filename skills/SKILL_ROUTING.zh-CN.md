@@ -27,6 +27,7 @@
 
 | 领域 | 典型任务 | 首选 skill |
 |---|---|---|
+| 技术知识问答 | 技术概念、术语、ADR、设计决策、为什么这样设计、小白解释 | `project-dev-zh` |
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
 | 项目结构 / 文件树 | 新建项目、目录蓝图、前后端或 apps/packages 边界、模块/步骤/实验/产物位置、结构重组与漂移审计 | `project-structure-architect` |
 | 工具使用建议 | VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界 | `skill-router-zh`, `context-engineering`, `source-driven-development` |
@@ -46,7 +47,7 @@
 | 课程实验 | 实验排错、截图规划、实验报告 | `lab-report-coach-zh` |
 | 信息调研 | 查资料、证据链、来源核验 | `info-evidence-chain-zh` |
 | PPT 汇报 | 路演、课程汇报、答辩、生成或修改可编辑 PPTX、模板编辑、渲染验收 | `ppt-workflow-orchestrator-zh` |
-| 软著 | 软著项目、说明书、截图演示、代码材料 | `software-copyright-zh` |
+| 软著 | 真实项目准备度、申请字段、用户手册、真实截图、源码鉴别材料、已有材料审计与提交前校验 | `software-copyright-zh` |
 | 长任务 | 后台任务、轮询、卡死恢复、manifest | `agent-wait-monitor-zh` |
 | 产物整理 | skill-outputs、日志、旧产物归档 | `artifact-curator-zh` |
 | 工作流沉淀 | SOP、流程优化、新 skill 工作流 | `workflow-forge-zh` |
@@ -112,6 +113,14 @@ Skill 路由：
 若命中高风险信号，声明路由后先给出“硬门槛”五项；未命中时直接工作，不要把路由变成长篇计划。
 
 ## 3. 常见任务组合
+
+### 技术知识问答
+
+```text
+project-dev-zh
+```
+
+默认执行方式：若绑定项目先读取证据；开头先用一个具体类比和贯穿实例建立直觉，再展示状态变化主链。每条箭头必须有真实的因果、约束或输入输出关系；指标挂到对应状态作为证据，并行条件说明共同目标及彼此关系，不得强行线性化。局部例子开始和结束都要回扣主链，解决动作反向对应问题状态并给出验收证据。删除节点测试只用于状态主链；全文不更换实例，术语只在对应节点首次解释。
 
 ### 代码修改
 
@@ -274,10 +283,34 @@ ppt-workflow-orchestrator-zh
 
 ```text
 software-copyright-zh
-project-kickoff-delivery-zh
 ```
 
-默认执行方式：定题定边界、生成可演示项目、说明书和截图材料。
+默认执行方式：任务模式识别 -> 唯一项目定位 -> 环境与准备度 -> 真实证据链 -> 业务理解确认 -> 申请字段确认 -> 源码候选与用户确认 -> 真实截图 -> Markdown 草稿整体确认 -> 正式 DOCX/TXT -> 一致性、来源与渲染校验 -> 最终清单。未实现功能、第三方源码、AI 生成截图和未经确认的事实不得进入正式材料。
+
+按阶段选择最小路由：
+
+```text
+已有项目生成材料 / 已有材料审计 / 准备度审计
+→ software-copyright-zh
+
+从零开发用于申报的真实项目
+→ project-structure-architect
+→ engineering-skill-flow-zh
+→ software-copyright-zh
+
+严格按用户提供材料生成
+→ plan-faithful-execution-zh
+→ software-copyright-zh
+
+真实浏览器截图
+→ browser-testing-with-devtools
+→ software-copyright-zh
+
+最终产物整理
+→ artifact-curator-zh
+```
+
+每个阶段只加载 1 个主 Skill 和最多 2 个辅助 Skill。`software-copyright-zh` 不单独承担普通项目开发；当前登记页面未核验、截图缺失或 DOCX 未完成真实渲染时，不得宣称材料可直接提交。
 
 ### 长时间实验或后台任务
 
