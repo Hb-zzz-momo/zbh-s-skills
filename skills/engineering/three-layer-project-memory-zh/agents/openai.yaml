@@ -1,0 +1,4 @@
+interface:
+  display_name: "三层项目记忆"
+  short_description: "Create check and maintain three layer project memory entries."
+  default_prompt: "为当前项目初始化或检查三层记忆入口，并给出下一位 AI 的读取顺序。"
