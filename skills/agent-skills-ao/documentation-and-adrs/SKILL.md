@@ -1,6 +1,6 @@
 ---
 name: documentation-and-adrs
-description: Records decisions and documentation. Use when making architectural decisions, changing public APIs, shipping features, or when you need to record context that future engineers and agents will need to understand the codebase.
+description: Records decision rationale, alternatives, review challenges, change impact, ADRs, and function-level why-comments. Use when making or reviewing non-trivial implementation choices, changing code behavior or public APIs, shipping features, or preserving context that future engineers and agents need to understand why the code was changed this way.
 ---
 
 # Documentation and ADRs
@@ -19,6 +19,106 @@ description: Records decisions and documentation. Use when making architectural 
 ## Overview
 
 Document decisions, not just code. The most valuable documentation captures the *why* — the context, constraints, and trade-offs that led to a decision. Code shows *what* was built; documentation explains *why it was built this way* and *what alternatives were considered*. This context is essential for future humans and agents working in the codebase.
+
+## Decision-rationale gate
+
+For every non-trivial design or behavior-changing code modification, preserve a traceable chain:
+
+```text
+requirement or problem
+→ candidate options with pros and cons
+→ reviewer challenges and responses
+→ evidence and decision criteria
+→ chosen decision and rejected alternatives
+→ code changes and function-level why-comments
+→ expected and observed impact
+→ verification result
+```
+
+Use `PASS / CAUTION / BLOCK`:
+
+- `PASS`: the chain is complete and the evidence supports the decision.
+- `CAUTION`: the rationale exists, but impact evidence is incomplete or a stated risk remains.
+- `BLOCK`: a required decision, challenge, modification reason, impact, or function-level rationale is missing. Do not describe the change as ready to merge or complete.
+
+Do not reconstruct rationale after implementation merely to justify existing code. If the decision changes during implementation, append a new decision or change entry and explain what new evidence caused the change.
+
+## Required decision record
+
+Use an ADR for expensive-to-reverse choices. For smaller but non-trivial choices, use the same fields in the task record, PR description, or change log already defined by the repository. Do not create a new documentation tree when an existing location is authoritative.
+
+```markdown
+## Decision D-<id>: <decision title>
+
+- Problem and constraints:
+- Decision criteria, in priority order:
+- Evidence consulted:
+
+| Option | Pros | Cons | Risks | Evidence | Verdict |
+|---|---|---|---|---|---|
+| A | | | | | PASS / CAUTION / BLOCK |
+
+### Review challenges
+
+| Challenge or doubt | Raised by | Response | Evidence | Effect on decision |
+|---|---|---|---|---|
+| | | | | unchanged / revised / rejected |
+
+- Decision and rationale:
+- Rejected alternatives and why:
+- Consequences and trade-offs accepted:
+- Reversibility or rollback:
+- Verification needed:
+```
+
+The review challenge table is not a ceremonial approval list. Record concrete objections such as correctness gaps, hidden assumptions, simpler alternatives, compatibility risks, performance costs, and evidence quality. If a challenge is unresolved and could change the choice, the decision remains `BLOCK`.
+
+## Required per-change record
+
+Record every logical modification, including revisions made after review. Group mechanical edits that share one reason; do not create meaningless line-by-line entries.
+
+```markdown
+## Change C-<id>
+
+- Files and functions:
+- Previous behavior or problem:
+- Why this modification is necessary now:
+- Decision ID or requirement source:
+- Chosen change and rejected local alternative:
+- Expected impact: behavior, compatibility, performance, security, operations:
+- Actual observed impact:
+- Verification evidence:
+- Intentionally unaffected scope:
+```
+
+When a later edit changes an earlier implementation, add a new entry that references the prior change and states the trigger: review finding, failed test, new requirement, benchmark, or corrected assumption. Never overwrite the history so that the first choice appears inevitable.
+
+## Function-level why-comments
+
+For every newly added function or function whose behavior changes, add or update an idiomatic docstring/JSDoc/function-header comment that explains the non-obvious rationale at the function boundary. It must answer at least:
+
+```text
+Why: What constraint, failure mode, or requirement requires this function or behavior?
+Trade-off: Why is this approach used instead of the main alternative?
+Impact: What caller-visible behavior, compatibility, performance, or failure-path effect follows?
+Decision: Which decision/change record or source supports it, when one exists?
+```
+
+Example:
+
+```typescript
+/**
+ * Why: Validate here because this is the last trusted boundary before persistence;
+ * validating only in the UI would allow API clients to bypass the invariant.
+ * Trade-off: This duplicates a lightweight client check, but keeps the server authoritative.
+ * Impact: Invalid requests fail with 422 before any database write. Decision: D-004/C-011.
+ */
+function validateTaskInput(input: TaskInput): ValidTaskInput {
+  // ...
+}
+```
+
+Do not write `Why: this function validates input`; that only restates what the code does. Explain the constraint and consequence. Trivial accessors, framework-mandated boilerplate, generated code, and unchanged functions may be exempt, but the per-change record must state the exemption category and why comments would add no decision information.
 
 ## When to Use
 
@@ -276,6 +376,10 @@ Special consideration for AI agent context:
 - TODO comments that have been there for weeks
 - No ADRs in a project with significant architectural choices
 - Documentation that restates the code instead of explaining intent
+- A selected implementation with no explicit pros/cons comparison
+- Review feedback recorded without the actual doubt, response, evidence, and effect on the decision
+- A second or third edit that silently replaces the earlier rationale
+- New or behavior-changing functions whose comments only describe what they do
 
 ## Verification
 
@@ -287,3 +391,8 @@ After documenting:
 - [ ] Known gotchas are documented inline where they matter
 - [ ] No commented-out code remains
 - [ ] Rules files (CLAUDE.md etc.) are current and accurate
+- [ ] Every non-trivial choice records alternatives, pros, cons, decision criteria, and evidence
+- [ ] Review challenges record the doubt, response, evidence, and whether the decision changed
+- [ ] Every logical modification records its reason, expected impact, observed impact, and verification
+- [ ] Every new or behavior-changing function has a function-level why/trade-off/impact comment, or a justified exemption
+- [ ] Missing rationale evidence is reported as `BLOCK`, not inferred after the fact

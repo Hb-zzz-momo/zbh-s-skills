@@ -57,10 +57,10 @@ metadata:
 | 阶段 | 主 skill | 最多辅助 skill | 条件审计/验证 skill | 必须产出 |
 |---|---|---|---|---|
 | Project Intake | `project-dev-zh` | `context-engineering`, `source-driven-development` | `plan-faithful-execution-zh` | 项目状态卡、边界锁、候选问题列表 |
-| Solution Gate | `planning-and-task-breakdown` | `api-and-interface-design`, `project-dev-zh` | `doubt-driven-development` | 候选实现表、PASS/CAUTION/BLOCK |
+| Solution Gate | `planning-and-task-breakdown` | `api-and-interface-design`, `documentation-and-adrs` | `doubt-driven-development` | 候选优缺点、质疑记录、决策依据、PASS/CAUTION/BLOCK |
 | Implementation Design | `spec-driven-development` | `api-and-interface-design`, `documentation-and-adrs` | `plan-faithful-execution-zh` | 主路径设计、接口契约、验收标准 |
 | Candidate Spike / Slice Funnel | `incremental-implementation` | `test-driven-development`, `source-driven-development` | `debugging-and-error-recovery` | 每个候选的最小验证记录和排序 |
-| Main Build | `incremental-implementation` | `test-driven-development`, `project-dev-zh` | `security-and-hardening`, `performance-optimization` | 主实现路径、测试结果、改动清单 |
+| Main Build | `incremental-implementation` | `test-driven-development`, `documentation-and-adrs` | `security-and-hardening`, `performance-optimization` | 主实现路径、逐次修改理由与影响、函数级 why 注释、测试结果 |
 | Verify / Review | `code-review-and-quality` | `test-driven-development`, `browser-testing-with-devtools` | `security-and-hardening`, `performance-optimization` | 验证证据、风险审查、未覆盖项 |
 | Ship / Memory | `git-workflow-and-versioning` | `documentation-and-adrs`, `project-handoff-zh` | `ci-cd-and-automation`, `shipping-and-launch` | 提交/交付说明、运行命令、接班约束 |
 
@@ -137,6 +137,8 @@ Project Intake → contextual-reference-router → Reference Brief
 
 每个建议动作都必须能回填到统一硬门槛五项；如果说不清“前置证据”或“禁止越界”，只能判为 `CAUTION` 或 `BLOCK`。
 
+每个进入候选表的非平凡方案还必须按 `documentation-and-adrs` 记录：主要优点、主要缺点、评审质疑点、质疑回应、证据来源、决策标准、选择或否决理由。质疑没有证据回应且可能改变选择时，Solution Gate 为 `BLOCK`。
+
 ## 3. Implementation Design
 
 主 skill：`spec-driven-development`
@@ -203,6 +205,9 @@ Project Intake → contextual-reference-router → Reference Brief
 - 每个切片都要保持项目可运行或明确用 feature flag 隔离。
 - 不顺手清理无关文件，不借功能开发做大重构。
 - 如果出现新问题，先记录为新候选，不自动扩展当前实现范围。
+- 每次逻辑修改写入 change record：说明为什么现在要改、关联决策、预期影响、实际影响、验证证据和未触及范围；评审后的二次修改不得覆盖第一次记录。
+- 每个新增或行为变化的函数添加函数级 why 注释，至少说明约束/失败模式、主要取舍和调用方可见影响；只有“做了什么”的注释视为缺失。
+- 简单访问器、生成代码或框架样板可豁免函数注释，但必须在 change record 中记录豁免类别和理由。
 
 ## 6. 审计和验证触发
 
@@ -217,6 +222,8 @@ Project Intake → contextual-reference-router → Reference Brief
 | `browser-testing-with-devtools` | 页面、交互、布局、网络请求或真实浏览器行为是验收条件 |
 
 审计只在触发时调用，不占辅助 skill 数量，但审计结论必须写入本轮记录。
+
+`code-review-and-quality` 必须把决策可追溯性作为合并门禁：缺少优缺点对比、质疑与回应、决策依据、逐次修改原因/影响或函数级 why 注释时，结论为 `BLOCK`。
 
 ## 7. Ship / Memory
 
@@ -240,6 +247,10 @@ Project Intake → contextual-reference-router → Reference Brief
 未覆盖风险
 回滚方式
 下次必须继承的约束
+决策记录及优缺点对比
+评审质疑、回应和裁决依据
+逐次修改原因、预期/实际影响和验证证据
+函数级 why 注释覆盖及豁免
 ```
 
 ## 8. 输出格式
@@ -272,3 +283,6 @@ Skill 路由：
 - Main Build 没有未记录的混合机制。
 - 未验证候选没有写成正式交付成果。
 - 六段式工程记忆被保留并更新。
+- 候选选择保留了优缺点、质疑点、回应和证据，而不是只写最终方案。
+- 每次逻辑修改保留原因与影响，评审后修订没有覆盖历史。
+- 新增或行为变化函数的注释解释了为什么、取舍和影响，而不是复述代码。

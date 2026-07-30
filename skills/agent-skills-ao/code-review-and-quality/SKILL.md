@@ -1,13 +1,13 @@
 ---
 name: code-review-and-quality
-description: Conducts multi-axis code review. Use before merging any change. Use when reviewing code written by yourself, another agent, or a human. Use when you need to assess code quality across multiple dimensions before it enters the main branch.
+description: Conducts multi-axis code review including decision traceability. Use before merging any change, when reviewing code from an agent or human, or when verifying that alternatives, pros and cons, review challenges, decision evidence, per-change reasons and impacts, and function-level why-comments are complete.
 ---
 
 # Code Review and Quality
 
 ## Overview
 
-Multi-dimensional code review with quality gates. Every change gets reviewed before merge — no exceptions. Review covers five axes: correctness, readability, architecture, security, and performance.
+Multi-dimensional code review with quality gates. Every change gets reviewed before merge — no exceptions. Review covers six axes: correctness, readability, architecture, security, performance, and decision traceability.
 
 **The approval standard:** Approve a change when it definitely improves overall code health, even if it isn't perfect. Perfect code doesn't exist — the goal is continuous improvement. Don't block a change because it isn't exactly how you would have written it. If it improves the codebase and follows the project's conventions, approve it.
 
@@ -19,7 +19,7 @@ Multi-dimensional code review with quality gates. Every change gets reviewed bef
 - When refactoring existing code
 - After any bug fix (review both the fix and the regression test)
 
-## The Five-Axis Review
+## The Six-Axis Review
 
 Every review evaluates code across these dimensions:
 
@@ -79,6 +79,19 @@ For detailed profiling and optimization, see `performance-optimization`. Does th
 - Any unnecessary re-renders in UI components?
 - Any missing pagination on list endpoints?
 - Any large objects created in hot paths?
+
+### 6. Decision Traceability
+
+Can a reviewer reconstruct why this implementation exists and why it changed?
+
+- Are the realistic alternatives compared with concrete pros, cons, risks, and evidence?
+- Are the decision criteria explicit, ordered where priorities matter, and tied to requirements or measured facts?
+- Does the review record preserve real challenges, the author's response, supporting evidence, and whether the decision changed?
+- Does every logical modification record why it was needed, its expected and observed impact, and verification evidence?
+- Do new or behavior-changing functions have function-level comments explaining why, the main trade-off, and caller-visible impact?
+- Are comment exemptions limited to trivial accessors, generated code, framework boilerplate, or unchanged functions, with the reason recorded?
+
+If any required item is absent, do not invent the author's rationale. Ask for it and mark the verdict `Request changes / BLOCK`.
 
 ## Change Sizing
 
@@ -150,6 +163,7 @@ For each file changed:
 3. Architecture: Does this fit the system?
 4. Security: Any vulnerabilities?
 5. Performance: Any bottlenecks?
+6. Decision traceability: Can I verify why this choice and each revision were made?
 ```
 
 ### Step 4: Categorize Findings
@@ -165,6 +179,14 @@ Label every comment with its severity so the author knows what's required vs opt
 | **FYI** | Informational only | No action needed — context for future reference |
 
 This prevents authors from treating all feedback as mandatory and wasting time on optional suggestions.
+
+For every decision-level challenge, preserve this record before the verdict:
+
+| Challenge or doubt | Response | Evidence | Decision effect | Status |
+|---|---|---|---|---|
+| | | | unchanged / revised / rejected | resolved / BLOCK |
+
+Do not reduce the review history to “addressed”. The specific doubt and the evidence-based resolution are part of the delivery record.
 
 ### Step 5: Verify the Verification
 
@@ -301,6 +323,14 @@ Part of code review is dependency review:
 - [ ] No unbounded operations
 - [ ] Pagination on list endpoints
 
+### Decision traceability
+- [ ] Alternatives include concrete pros, cons, risks, and evidence
+- [ ] Decision criteria and selected/rejected reasons are explicit
+- [ ] Review challenges preserve the doubt, response, evidence, and decision effect
+- [ ] Every logical revision records its reason and expected/observed impact
+- [ ] New or behavior-changing functions explain why, trade-off, and impact at function level
+- [ ] Comment exemptions are justified rather than silently omitted
+
 ### Verification
 - [ ] Tests pass
 - [ ] Build succeeds
@@ -345,3 +375,4 @@ After review is complete:
 - [ ] Tests pass
 - [ ] Build succeeds
 - [ ] The verification story is documented (what changed, how it was verified)
+- [ ] Decision rationale and per-change impact records are complete; otherwise verdict is `BLOCK`
