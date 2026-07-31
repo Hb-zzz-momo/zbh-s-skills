@@ -2,7 +2,7 @@
 
 > 适用目录：`C:\Users\zbh\.agents\skills\agent-skills-ao`
 >
-> 依据：`agent-skills-github.md` 中对 `addyosmani/agent-skills` 的定位、Define -> Plan -> Build -> Verify -> Review -> Ship 生命周期，以及本目录已安装的 22 个工程工作流 skill。
+> 依据：`addyosmani/agent-skills` 的 Define -> Plan -> Build -> Verify -> Review -> Ship 生命周期，以及本目录已安装的 24 个工程工作流 skill；本轮新增项固定于提交 `7829ffd90d973b6325f5f12f1b1226dcace74443`。
 
 ## 1. 这套 skill 的定位
 
@@ -12,7 +12,7 @@
 Define 定义 -> Plan 计划 -> Build 开发 -> Verify 验证 -> Review 评审 -> Ship 发布
 ```
 
-日常使用时，不需要一次性加载全部 22 个 skill。更稳妥的方式是：
+日常使用时，不需要一次性加载全部 24 个 skill。更稳妥的方式是：
 
 1. 先判断当前任务处在哪个阶段。
 2. 只点名当前阶段需要的 1-3 个 skill。
@@ -48,6 +48,7 @@ Define 定义 -> Plan 计划 -> Build 开发 -> Verify 验证 -> Review 评审 -
 |---|---|---|---|
 | Meta | `using-agent-skills` | 判断当前任务该用哪些 skill | 先判断这次任务该走哪个工作流 |
 | Meta | `engineering-skill-flow-zh` | 复杂工程任务总控：多方案、Gate、spike、主路径收敛 | 按工程调用流先比较多个实现方案再开发 |
+| Define | `interview-me` | 在计划前逐问澄清真实目标、受众、成功标准和关键约束 | 用 interview-me 先确认我真正需要解决什么 |
 | Define | `idea-refine` | 把模糊想法收敛成可执行方案 | 用 idea-refine 帮我把这个功能想清楚 |
 | Define | `spec-driven-development` | 先写规格、验收标准，再编码 | 使用 spec-driven-development，先输出 SPEC |
 | Plan | `planning-and-task-breakdown` | 把需求拆成任务、依赖和验收标准 | 用 planning-and-task-breakdown 拆任务 |
@@ -60,6 +61,7 @@ Define 定义 -> Plan 计划 -> Build 开发 -> Verify 验证 -> Review 评审 -
 | Build | `api-and-interface-design` | API、模块边界、接口契约 | 用 api-and-interface-design 设计这个接口 |
 | Verify | `browser-testing-with-devtools` | 真实浏览器验证、DOM、网络、控制台 | 用 browser-testing-with-devtools 验证页面交互 |
 | Verify | `debugging-and-error-recovery` | 复现、定位、最小修复、加保护 | 用 debugging-and-error-recovery 查这个 bug |
+| Verify | `observability-and-instrumentation` | 用日志、指标、追踪和告警提供生产证据 | 用 observability-and-instrumentation 补齐这个功能的遥测 |
 | Review | `code-review-and-quality` | 多维代码审查 | 用 code-review-and-quality review 当前 diff |
 | Review | `code-simplification` | 降复杂度，保持行为不变 | 用 code-simplification 简化这段代码 |
 | Review | `security-and-hardening` | 输入、认证、依赖、密钥、安全边界 | 用 security-and-hardening 做安全审查 |
@@ -189,7 +191,7 @@ documentation-and-adrs
 
 ## 7. 使用边界
 
-- 不要一次性要求加载全部 22 个 skill，容易稀释上下文。
+- 不要一次性要求加载全部 24 个 skill，容易稀释上下文。
 - 不要把 `code-review-and-quality` 当成“润色总结”，它应该优先找问题。
 - 不要把 `spec-driven-development` 跳过成直接编码；它的价值在于先锁定验收标准。
 - 不要把 `source-driven-development` 用成凭记忆写法；它要求关键实现依据官方文档。

@@ -43,6 +43,10 @@ Write a failing test before writing the code that makes it pass. For bug fixes, 
    Test FAILS        Test PASSES         Tests still PASS
 ```
 
+## TestGen-Assisted Flow
+
+Use `testgen` only when generation saves work: define expected behavior first, analyze the narrowest scope, inspect a JSON dry-run patch, confirm each test fails for the intended reason, then write and run both the focused test and the repository's native suite. Generated assertions are candidates, not the behavior oracle; generation requires a provider key and may send selected source context to that provider.
+
 ### Step 1: RED — Write a Failing Test
 
 Write the test first. It must fail. A test that passes immediately proves nothing.

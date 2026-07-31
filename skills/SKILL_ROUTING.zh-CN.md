@@ -57,10 +57,10 @@
 
 | 阶段 | 目标 | 工程 skill |
 |---|---|---|
-| Define | 想清楚做什么、为什么做、验收什么 | `idea-refine`, `spec-driven-development` |
+| Define | 想清楚做什么、为什么做、验收什么 | `interview-me`, `idea-refine`, `spec-driven-development` |
 | Plan | 拆任务、排顺序、设检查点 | `planning-and-task-breakdown` |
 | Build | 小步实现、少量改动、持续验证 | `incremental-implementation` |
-| Verify | 测试、浏览器验证、复现问题 | `test-driven-development`, `browser-testing-with-devtools`, `debugging-and-error-recovery` |
+| Verify | 测试、浏览器验证、复现问题、生产可诊断性 | `test-driven-development`, `browser-testing-with-devtools`, `debugging-and-error-recovery`, `observability-and-instrumentation` |
 | Review | 代码质量、安全、性能、简化 | `code-review-and-quality`, `security-and-hardening`, `performance-optimization`, `code-simplification` |
 | Ship | Git、CI/CD、文档、上线、回滚 | `git-workflow-and-versioning`, `ci-cd-and-automation`, `documentation-and-adrs`, `shipping-and-launch` |
 
@@ -140,6 +140,15 @@ project-structure-architect
 ```
 
 默认执行方式：读取现有结构证据 -> 检测项目类型与技术栈 -> 选择一个主蓝图 -> dry-run -> 生成或路由文件 -> 更新结构文档 -> audit。已有一致惯例优先；不因偏好模板批量移动文件。纯内容编辑且路径已唯一确定时，不重复调用。
+
+### 代码库架构深化
+
+```text
+improve-codebase-architecture
+codebase-design
+```
+
+默认执行方式：先按近期热点、领域词汇和 ADR 扫描浅模块，生成候选报告；用户选定候选后再用 `grilling` 澄清决策，并在术语或决策确实变化时追加 `domain-modeling`。未获用户明确授权时由主代理本地探索，不调度子代理。
 
 ### 复杂工程 / 多方案实现
 

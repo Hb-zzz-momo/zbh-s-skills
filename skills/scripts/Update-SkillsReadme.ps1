@@ -20,7 +20,8 @@ $agentSkillsAo = @(
     'api-and-interface-design','browser-testing-with-devtools','ci-cd-and-automation',
     'code-review-and-quality','code-simplification','context-engineering','debugging-and-error-recovery',
     'deprecation-and-migration','documentation-and-adrs','doubt-driven-development','frontend-ui-engineering',
-    'git-workflow-and-versioning','idea-refine','incremental-implementation','performance-optimization',
+    'git-workflow-and-versioning','idea-refine','incremental-implementation','interview-me',
+    'observability-and-instrumentation','performance-optimization',
     'planning-and-task-breakdown','security-and-hardening','shipping-and-launch','source-driven-development',
     'spec-driven-development','test-driven-development','using-agent-skills'
 )
@@ -40,6 +41,8 @@ $agentSkillsAoDescZh = @{
     'git-workflow-and-versioning' = '规范 Git 工作流与版本管理，适用于分支、提交、变更组织、冲突处理、发布版本和协作流程。'
     'idea-refine' = '通过发散与收敛思考迭代打磨想法，适用于创意澄清、方案压力测试、MVP 范围收敛和一页纸产出。'
     'incremental-implementation' = '按小步可验证方式交付改动，适用于多文件功能、较大重构、风险分阶段落地和持续验证。'
+    'interview-me' = '在计划或编码前逐问澄清真实需求，适用于目标、受众、成功标准或关键约束缺失的任务。'
+    'observability-and-instrumentation' = '为生产代码增加日志、指标、追踪与告警，适用于上线功能、外部集成和难以诊断的生产问题。'
     'performance-optimization' = '优化应用性能，适用于性能回归、加载速度、Core Web Vitals、热点剖析、资源瓶颈和响应时间问题。'
     'planning-and-task-breakdown' = '把需求拆解为有序任务，适用于规格明确但规模较大的功能、实施排期、范围评估和依赖梳理。'
     'security-and-hardening' = '加固代码安全性，适用于用户输入、认证授权、数据存储、外部集成、会话管理和漏洞风险面。'
@@ -65,6 +68,8 @@ $agentSkillsAoTrigZh = @{
     'git-workflow-and-versioning' = 'Git工作流、分支、提交、冲突、版本管理、发布版本、协作变更。'
     'idea-refine' = '想法打磨、创意迭代、ideate、方案压力测试、MVP范围、一页纸。'
     'incremental-implementation' = '增量实现、小步交付、多文件改动、分阶段落地、持续验证、降低变更风险。'
+    'interview-me' = '访谈需求、逐问澄清、真实目标、受众、成功标准、关键约束、需求不明确。'
+    'observability-and-instrumentation' = '可观测性、日志、指标、链路追踪、告警、生产诊断、遥测。'
     'performance-optimization' = '性能优化、性能回归、加载速度、Core Web Vitals、剖析、瓶颈、响应时间。'
     'planning-and-task-breakdown' = '任务拆解、实施计划、需求拆分、范围评估、依赖梳理、排期。'
     'security-and-hardening' = '安全加固、输入校验、认证授权、数据存储、外部集成、会话安全、漏洞风险。'
@@ -114,7 +119,9 @@ $scenarioBySkill = @{
     'software-copyright-zh'      = 'presentation'
     'skill-router-zh'            = 'guardrail'
     'subagent-orchestration-zh'  = 'guardrail'
+    'testgen'                    = 'engineering'
     'translation-zh'             = 'writing'
+    'ui-ux-pro-max'              = 'engineering'
     'workflow-forge-zh'          = 'guardrail'
 }
 
