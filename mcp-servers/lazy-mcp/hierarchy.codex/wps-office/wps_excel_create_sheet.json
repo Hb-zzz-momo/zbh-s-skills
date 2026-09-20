@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_excel_create_sheet": {
+      "description": "在当前工作簿中创建新的工作表。可指定名称和插入位置。",
+      "maps_to": "wps_excel_create_sheet",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "description": "新工作表的名称",
+            "type": "string"
+          },
+          "position": {
+            "description": "插入位置索引（从0开始），不填则添加到末尾",
+            "type": "number"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

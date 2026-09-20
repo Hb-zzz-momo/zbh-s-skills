@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_ppt_get_open_presentations": {
+      "description": "获取当前所有已打开的演示文稿列表。\n\n使用场景：\n- \"有哪些PPT打开着\"\n- \"列出所有演示文稿\"\n- \"查看打开的PPT\"",
+      "maps_to": "wps_ppt_get_open_presentations",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "tools": {
+    "wps_excel_export_chart_as_image": {
+      "description": "将工作表中指定的图表导出为位图图片（PNG/JPG/JPEG/GIF/BMP）。\n\n调用底层 WPS Excel 原生接口 Chart.Export(FileName, FilterName)，最简单可靠，\n实现 1:1 像素级还原，避免通过 PDF + pdf2image 中转造成的版式/字体/坐标轴失真。\n\n支持的 format（FilterName）取值：\n- PNG（默认，推荐用于截图与无损展示）\n- JPG / JPEG（自动按 JPG 滤镜处理，体积更小）\n- GIF（限 256 色，适合简单图形）\n- BMP（无压缩位图，文件最大）\n\n使用场景：\n- \"把 Sheet1 上的 Chart 1 导出成 PNG\"\n- \"导出销售分析柱状图给我\"\n- \"把图表保存为高清图片用于报告\"\n\n注意：\n- outputPath 必须是绝对路径\n- chartName 通常为 \"Chart 1\"、\"图表 1\" 等，可通过 wps_excel_create_chart 返回值或界面查看\n- macOS 上建议输出到 ~/Downloads 等用户可写目录，避免沙箱权限拒绝",
+      "maps_to": "wps_excel_export_chart_as_image",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "chartName": {
+            "description": "图表名称（如 \"Chart 1\" 或 \"图表 1\"）",
+            "type": "string"
+          },
+          "format": {
+            "description": "图片格式，默认 PNG",
+            "enum": [
+              "PNG",
+              "JPG",
+              "JPEG",
+              "GIF",
+              "BMP"
+            ],
+            "type": "string"
+          },
+          "outputPath": {
+            "description": "输出图片文件的绝对路径（如 /Users/xxx/Downloads/chart1.png）",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "chartName",
+          "outputPath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

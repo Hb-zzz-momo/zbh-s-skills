@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_set_array_formula": {
+      "description": "为Excel指定范围设置数组公式（CSE数组公式）。",
+      "maps_to": "wps_excel_set_array_formula",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "formula": {
+            "description": "数组公式，如 =A1:A10*B1:B10",
+            "type": "string"
+          },
+          "range": {
+            "description": "数组公式应用的范围，如 A1:A10",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "formula"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

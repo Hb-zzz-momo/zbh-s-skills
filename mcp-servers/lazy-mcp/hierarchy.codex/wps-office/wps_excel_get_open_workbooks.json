@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_excel_get_open_workbooks": {
+      "description": "获取当前所有已打开的Excel工作簿列表。",
+      "maps_to": "wps_excel_get_open_workbooks",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_ppt_smart_distribute": {
+      "description": "将指定形状进行等距分布排列。\n\n自动计算间距，让选中的形状均匀分布。\n\n使用场景：\n- \"让这些形状等距排列\"\n- \"均匀分布选中的对象\"\n- \"智能排列这些元素\"",
+      "maps_to": "wps_ppt_smart_distribute",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "shapeIndices": {
+            "description": "要分布的形状索引数组，如 [1,2,3,4]",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndices"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

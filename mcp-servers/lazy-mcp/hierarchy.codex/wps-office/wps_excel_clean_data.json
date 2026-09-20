@@ -1,0 +1,39 @@
+{
+  "tools": {
+    "wps_excel_clean_data": {
+      "description": "数据清洗工具，支持多种清洗操作的组合。\n\n使用场景：\n- \"把A列的前后空格去掉\" -\u003e 使用 trim 操作\n- \"把日期格式统一成年-月-日\" -\u003e 使用 unify_date 操作\n- \"删除空行\" -\u003e 使用 remove_empty_rows 操作\n\n支持的操作：\n- trim: 去除单元格前后空格\n- remove_duplicates: 删除重复行\n- unify_date: 统一日期格式为 yyyy-mm-dd\n- remove_empty_rows: 删除空行",
+      "maps_to": "wps_excel_clean_data",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "operations": {
+            "description": "要执行的清洗操作列表",
+            "items": {
+              "enum": [
+                "trim",
+                "remove_duplicates",
+                "unify_date",
+                "remove_empty_rows"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "range": {
+            "description": "要清洗的数据范围，如 A1:D100",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "operations"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

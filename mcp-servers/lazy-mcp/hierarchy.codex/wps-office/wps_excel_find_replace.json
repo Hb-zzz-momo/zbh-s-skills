@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_find_replace": {
+      "description": "在Excel中查找并替换内容。",
+      "maps_to": "wps_excel_find_replace",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "find": {
+            "description": "要查找的文本",
+            "type": "string"
+          },
+          "matchCase": {
+            "description": "是否区分大小写，默认false",
+            "type": "boolean"
+          },
+          "replace": {
+            "description": "替换为的文本",
+            "type": "string"
+          }
+        },
+        "required": [
+          "find",
+          "replace"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

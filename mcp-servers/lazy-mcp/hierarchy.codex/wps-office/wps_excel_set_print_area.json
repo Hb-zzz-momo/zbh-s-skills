@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_excel_set_print_area": {
+      "description": "设置打印区域",
+      "maps_to": "wps_excel_set_print_area",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "range": {
+            "description": "打印区域，如 A1:D20",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

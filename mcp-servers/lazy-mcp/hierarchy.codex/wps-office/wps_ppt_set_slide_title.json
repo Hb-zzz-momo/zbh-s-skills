@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_ppt_set_slide_title": {
+      "description": "设置幻灯片的标题文本。\n\n使用场景：\n- \"把第1页标题改成'年度总结'\"\n- \"设置标题为'项目进展'\"\n- \"修改幻灯片标题\"",
+      "maps_to": "wps_ppt_set_slide_title",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始），默认1",
+            "type": "number"
+          },
+          "title": {
+            "description": "标题文本",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

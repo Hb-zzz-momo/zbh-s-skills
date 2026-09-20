@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_set_slide_theme": {
+      "description": "设置演示文稿主题。\n\n使用场景：\n- \"切换PPT主题\"\n- \"应用商务主题\"\n- \"更换演示文稿风格\"",
+      "maps_to": "wps_ppt_set_slide_theme",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "theme": {
+            "description": "主题名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "theme"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

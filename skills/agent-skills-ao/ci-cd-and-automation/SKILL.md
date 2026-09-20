@@ -1,6 +1,6 @@
 ---
 name: ci-cd-and-automation
-description: Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines. Use when you need to automate quality gates, configure test runners in CI, or establish deployment strategies.
+description: Automates CI/CD pipeline setup. Use when setting up or modifying build and deployment pipelines, quality gates, test runners, or deployment strategies. For failing GitHub PR Actions checks, use github:gh-fix-ci instead.
 ---
 
 # CI/CD and Automation
@@ -30,7 +30,7 @@ Automate quality gates so that no change reaches production without passing test
 - Adding or modifying automated checks
 - Configuring deployment pipelines
 - When a change should trigger automated verification
-- Debugging CI failures
+- Debugging CI pipeline definitions; use `github:gh-fix-ci` for failing GitHub PR Actions checks
 
 ## The Quality Gate Pipeline
 

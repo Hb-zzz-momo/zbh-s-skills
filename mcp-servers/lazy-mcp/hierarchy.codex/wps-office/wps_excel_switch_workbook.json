@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_excel_switch_workbook": {
+      "description": "切换到指定名称的Excel工作簿。",
+      "maps_to": "wps_excel_switch_workbook",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "description": "工作簿名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

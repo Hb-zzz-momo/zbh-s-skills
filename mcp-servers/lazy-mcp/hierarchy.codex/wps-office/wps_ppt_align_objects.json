@@ -1,0 +1,36 @@
+{
+  "tools": {
+    "wps_ppt_align_objects": {
+      "description": "对齐幻灯片中的对象。\n\n支持的对齐方式：\n- left: 左对齐\n- center: 水平居中\n- right: 右对齐\n- top: 顶部对齐\n- middle: 垂直居中\n- bottom: 底部对齐\n- distribute_h: 水平等距分布\n- distribute_v: 垂直等距分布\n\n使用场景：\n- \"把这些元素居中对齐\"\n- \"让所有对象左对齐\"\n- \"等距分布这些形状\"",
+      "maps_to": "wps_ppt_align_objects",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "alignment": {
+            "description": "对齐方式",
+            "enum": [
+              "left",
+              "center",
+              "right",
+              "top",
+              "middle",
+              "bottom",
+              "distribute_h",
+              "distribute_v"
+            ],
+            "type": "string"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "alignment"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

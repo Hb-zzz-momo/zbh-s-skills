@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_excel_get_cell_info": {
+      "description": "获取单元格的详细信息（值、公式、格式等）。",
+      "maps_to": "wps_excel_get_cell_info",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "cell": {
+            "description": "单元格地址，如 A1",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "sheet",
+          "cell"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

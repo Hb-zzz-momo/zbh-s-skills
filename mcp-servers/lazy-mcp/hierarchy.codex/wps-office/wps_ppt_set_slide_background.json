@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_set_slide_background": {
+      "description": "设置幻灯片背景，支持多种背景类型。\n\n支持的背景类型（background.type）：\n- solid: 纯色背景，需提供 color 字段\n- gradient: 渐变背景，需提供 colors 数组\n- image: 图片背景，需提供 imagePath 字段\n- pattern: 图案背景，需提供 pattern 和 color 字段\n\n使用场景：\n- \"给第1页设置蓝色背景\"\n- \"设置渐变背景\"\n- \"用图片做背景\"",
+      "maps_to": "wps_ppt_set_slide_background",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "background": {
+            "description": "背景配置对象，包含 type/color/colors/imagePath/pattern 等字段",
+            "type": "object"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "background"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

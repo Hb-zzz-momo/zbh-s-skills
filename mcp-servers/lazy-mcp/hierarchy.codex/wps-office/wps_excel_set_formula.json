@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_set_formula": {
+      "description": "在指定单元格设置Excel公式。公式必须以=开头，支持所有Excel内置函数。",
+      "maps_to": "wps_excel_set_formula",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "formula": {
+            "description": "Excel公式，必须以=开头，如 =SUM(A1:A10)、=VLOOKUP(A1,B:C,2,0)",
+            "type": "string"
+          },
+          "range": {
+            "description": "目标单元格地址，如 A1、B2:B10",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "formula"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

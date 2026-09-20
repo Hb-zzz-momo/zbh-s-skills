@@ -1,0 +1,39 @@
+{
+  "tools": {
+    "wps_ppt_add_animation_preset": {
+      "description": "为形状添加预设入场动画效果。\n\n支持的预设：\n- fadeIn: 淡入\n- flyIn: 飞入\n- wipe: 擦除\n- zoom: 缩放\n- bounce: 弹跳\n- spin: 旋转\n\n使用场景：\n- \"给标题加个淡入效果\"\n- \"让这个形状飞入\"\n- \"添加弹跳入场动画\"",
+      "maps_to": "wps_ppt_add_animation_preset",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "preset": {
+            "description": "预设动画类型",
+            "enum": [
+              "fadeIn",
+              "flyIn",
+              "wipe",
+              "zoom",
+              "bounce",
+              "spin"
+            ],
+            "type": "string"
+          },
+          "shapeIndex": {
+            "description": "形状索引（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndex",
+          "preset"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

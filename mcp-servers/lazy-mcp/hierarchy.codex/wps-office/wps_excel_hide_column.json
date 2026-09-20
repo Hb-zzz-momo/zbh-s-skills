@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_excel_hide_column": {
+      "description": "隐藏或显示指定列。可指定起始列号、列数和隐藏/显示状态。",
+      "maps_to": "wps_excel_hide_column",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "column": {
+            "description": "起始列号（从1开始）",
+            "type": "number"
+          },
+          "count": {
+            "description": "列数，默认1",
+            "type": "number"
+          },
+          "hide": {
+            "description": "是否隐藏，true为隐藏，false为显示",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "column",
+          "count",
+          "hide"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

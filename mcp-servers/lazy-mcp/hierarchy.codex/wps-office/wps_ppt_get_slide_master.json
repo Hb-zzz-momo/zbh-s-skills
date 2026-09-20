@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_ppt_get_slide_master": {
+      "description": "获取当前演示文稿的母版信息。\n\n返回母版的布局、背景、元素等详细信息。\n\n使用场景：\n- \"查看母版信息\"\n- \"获取母版布局\"\n- \"看看母版有什么元素\"",
+      "maps_to": "wps_ppt_get_slide_master",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

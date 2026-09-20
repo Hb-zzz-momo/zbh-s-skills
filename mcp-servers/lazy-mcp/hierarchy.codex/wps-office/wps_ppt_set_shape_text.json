@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_ppt_set_shape_text": {
+      "description": "设置幻灯片中指定形状的文字内容。\n\n使用场景：\n- \"把第1页的第2个形状文字改成'销售额'\"\n- \"修改形状里的文字\"",
+      "maps_to": "wps_ppt_set_shape_text",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "shapeIndex": {
+            "description": "形状索引（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          },
+          "text": {
+            "description": "要设置的文字内容",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndex",
+          "text"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

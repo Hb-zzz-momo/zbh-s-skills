@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_set_background_image": {
+      "description": "设置幻灯片背景为指定图片。\n\n使用场景：\n- \"用这张图片做背景\"\n- \"设置第2页的背景图片\"\n- \"把图片设为幻灯片背景\"",
+      "maps_to": "wps_ppt_set_background_image",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "imagePath": {
+            "description": "图片文件的完整路径",
+            "type": "string"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "imagePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

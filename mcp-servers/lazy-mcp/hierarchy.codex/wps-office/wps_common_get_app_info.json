@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_common_get_app_info": {
+      "description": "获取WPS应用的基本信息。\n\n使用场景：\n- \"WPS是什么版本\"\n- \"查看WPS信息\"\n- \"获取应用状态\"\n\n特点：\n- 返回WPS版本号、构建信息\n- 返回当前打开的文档信息\n- 返回运行平台信息",
+      "maps_to": "wps_common_get_app_info",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

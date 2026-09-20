@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_set_cell_style": {
+      "description": "应用预定义样式到Excel单元格，如标题、强调、输入、输出等内置样式。",
+      "maps_to": "wps_excel_set_cell_style",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "range": {
+            "description": "要应用样式的范围，如 A1:C10",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "style": {
+            "description": "预定义样式名称，如 标题、强调、好、差、适中、输入、输出、计算、检查单元格、解释性文本、汇总 等",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "style"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "tools": {
+    "wps_ppt_start_slide_show": {
+      "description": "开始幻灯片放映。\n\n可以从指定页面开始放映，默认从第1页开始。\n\n使用场景：\n- \"放映幻灯片\"\n- \"从第3页开始演示\"\n- \"开始PPT放映\"",
+      "maps_to": "wps_ppt_start_slide_show",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "fromSlide": {
+            "description": "从第几页开始放映（从1开始），默认从第1页开始",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

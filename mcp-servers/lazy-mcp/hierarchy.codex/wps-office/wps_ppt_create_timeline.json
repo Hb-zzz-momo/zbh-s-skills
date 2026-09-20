@@ -1,0 +1,47 @@
+{
+  "tools": {
+    "wps_ppt_create_timeline": {
+      "description": "在幻灯片中创建时间线。\n\nevents 数组中每个事件包含：\n- date: 日期/时间标签\n- title: 事件标题\n- description: 事件描述（可选）\n\n使用场景：\n- \"创建项目里程碑时间线\"\n- \"画一个公司发展时间线\"\n- \"制作历史大事记时间线\"",
+      "maps_to": "wps_ppt_create_timeline",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "events": {
+            "description": "时间线事件数组",
+            "items": {
+              "properties": {
+                "date": {
+                  "description": "日期/时间标签",
+                  "type": "string"
+                },
+                "description": {
+                  "description": "事件描述",
+                  "type": "string"
+                },
+                "title": {
+                  "description": "事件标题",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "date",
+                "title"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "events"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

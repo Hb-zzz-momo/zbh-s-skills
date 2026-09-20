@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_convert_format": {
+      "description": "将当前文档转换为其他格式。\n\n使用场景：\n- \"把docx转成doc格式\"\n- \"保存为旧版Excel格式兼容老系统\"\n- \"把PPT转成pptx\"\n- \"导出为RTF格式\"\n- \"转换成HTML网页格式\"\n\n支持的格式：\n- Word: doc, docx, rtf, txt, html, xml\n- Excel: xls, xlsx, xlsm, xlsb, csv, html\n- PPT: ppt, pptx, pptm, html, png, jpg, gif, bmp\n\n注意：\n- 转换时会保留原文档，另存为新格式\n- 某些格式转换可能会丢失部分效果（如doc不支持的新特性）",
+      "maps_to": "wps_convert_format",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "outputPath": {
+            "description": "输出路径（包含文件名），如不指定则使用原文件名改为新扩展名",
+            "type": "string"
+          },
+          "targetFormat": {
+            "description": "目标格式扩展名，如 doc, xlsx, ppt, rtf, csv, html 等",
+            "type": "string"
+          }
+        },
+        "required": [
+          "targetFormat"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

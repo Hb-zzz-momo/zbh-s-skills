@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_remove_ppt_hyperlink": {
+      "description": "移除幻灯片中形状的超链接。\n\n使用场景：\n- \"删除按钮的链接\"\n- \"移除超链接\"\n- \"取消链接\"",
+      "maps_to": "wps_ppt_remove_ppt_hyperlink",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "shapeIndex": {
+            "description": "形状索引（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

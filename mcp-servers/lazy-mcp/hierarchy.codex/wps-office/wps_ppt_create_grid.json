@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_ppt_create_grid": {
+      "description": "在幻灯片中创建网格布局。\n\n按行列数自动生成均匀分布的网格占位区域。\n\n使用场景：\n- \"创建一个2x3的网格布局\"\n- \"做一个九宫格\"\n- \"建立4列的网格排版\"",
+      "maps_to": "wps_ppt_create_grid",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "cols": {
+            "description": "列数",
+            "type": "number"
+          },
+          "rows": {
+            "description": "行数",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "rows",
+          "cols"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "tools": {
+    "wps_ppt_close_presentation": {
+      "description": "关闭演示文稿。可指定文稿名称，不指定则关闭当前活动文稿。\n\n使用场景：\n- \"关闭这个PPT\"\n- \"关闭演示文稿不保存\"\n- \"关闭指定的PPT\"",
+      "maps_to": "wps_ppt_close_presentation",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "description": "要关闭的演示文稿名称，不填则关闭当前活动文稿",
+            "type": "string"
+          },
+          "save": {
+            "description": "关闭前是否保存，默认true",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

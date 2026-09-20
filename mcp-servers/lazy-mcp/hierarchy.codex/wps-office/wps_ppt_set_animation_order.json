@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_ppt_set_animation_order": {
+      "description": "调整动画在时间线上的播放顺序。\n\n使用场景：\n- \"把第3个动画移到第1个播放\"\n- \"调整动画顺序\"",
+      "maps_to": "wps_ppt_set_animation_order",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "animationIndex": {
+            "description": "当前动画索引（从1开始）",
+            "type": "number"
+          },
+          "newOrder": {
+            "description": "新的播放顺序位置（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "animationIndex",
+          "newOrder"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "tools": {
+    "wps_ppt_add_emphasis_animation": {
+      "description": "为形状添加强调动画效果，用于在演示时突出显示元素。\n\n支持的效果：\n- pulse: 脉冲\n- spin: 陀螺旋\n- grow: 放大/缩小\n- teeter: 跷跷板\n- colorPulse: 颜色脉冲\n\n使用场景：\n- \"让这个元素闪烁突出\"\n- \"添加脉冲强调效果\"\n- \"让图片旋转强调\"",
+      "maps_to": "wps_ppt_add_emphasis_animation",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "effect": {
+            "description": "强调动画效果",
+            "enum": [
+              "pulse",
+              "spin",
+              "grow",
+              "teeter",
+              "colorPulse"
+            ],
+            "type": "string"
+          },
+          "shapeIndex": {
+            "description": "形状索引（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndex",
+          "effect"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

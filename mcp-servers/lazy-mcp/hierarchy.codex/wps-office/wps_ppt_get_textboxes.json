@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_get_textboxes": {
+      "description": "获取幻灯片上所有文本框的列表。",
+      "maps_to": "wps_ppt_get_textboxes",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

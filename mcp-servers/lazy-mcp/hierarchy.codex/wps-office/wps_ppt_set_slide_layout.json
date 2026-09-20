@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_set_slide_layout": {
+      "description": "设置幻灯片的版式布局。\n\n支持的布局类型：\n- title: 标题页\n- title_content: 标题+内容\n- blank: 空白页\n- two_column: 两栏内容\n- comparison: 对比布局\n- section_header: 节标题\n- title_only: 仅标题\n\n使用场景：\n- \"把这页改成空白布局\"\n- \"设置为两栏内容\"\n- \"改成标题页版式\"",
+      "maps_to": "wps_ppt_set_slide_layout",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "layout": {
+            "description": "布局名称",
+            "type": "string"
+          },
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "layout"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

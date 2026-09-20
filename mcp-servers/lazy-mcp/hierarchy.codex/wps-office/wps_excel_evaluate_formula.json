@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_excel_evaluate_formula": {
+      "description": "计算并返回公式结果",
+      "maps_to": "wps_excel_evaluate_formula",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "cell": {
+            "description": "目标单元格（可选），如 A1",
+            "type": "string"
+          },
+          "formula": {
+            "description": "要计算的公式，如 =SUM(A1:A10)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "formula"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

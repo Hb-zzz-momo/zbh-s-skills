@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_ppt_set_ppt_date_time": {
+      "description": "设置演示文稿日期时间显示。\n\n支持的日期格式（format）：\n- \"YYYY-MM-DD\": 如 2026-03-21\n- \"YYYY/MM/DD\": 如 2026/03/21\n- \"MM/DD/YYYY\": 如 03/21/2026\n- \"DD/MM/YYYY\": 如 21/03/2026\n\n使用场景：\n- \"显示日期时间\"\n- \"设置自动更新日期\"\n- \"隐藏日期\"",
+      "maps_to": "wps_ppt_set_ppt_date_time",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "autoUpdate": {
+            "description": "是否自动更新日期时间，默认为true",
+            "type": "boolean"
+          },
+          "format": {
+            "description": "日期时间格式，如 \"YYYY-MM-DD\"",
+            "type": "string"
+          },
+          "show": {
+            "description": "是否显示日期时间",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "show"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

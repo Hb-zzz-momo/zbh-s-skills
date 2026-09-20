@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_excel_text_to_columns": {
+      "description": "将文本按分隔符拆分到多列。",
+      "maps_to": "wps_excel_text_to_columns",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "delimiter": {
+            "description": "分隔符，默认逗号",
+            "type": "string"
+          },
+          "range": {
+            "description": "要拆分的范围，如 A1:A100",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

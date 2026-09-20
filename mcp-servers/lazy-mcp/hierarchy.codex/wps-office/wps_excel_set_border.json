@@ -1,0 +1,53 @@
+{
+  "tools": {
+    "wps_excel_set_border": {
+      "description": "设置Excel单元格边框样式，支持不同粗细、位置和颜色。",
+      "maps_to": "wps_excel_set_border",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "borderStyle": {
+            "description": "边框线条样式",
+            "enum": [
+              "thin",
+              "medium",
+              "thick",
+              "double",
+              "none"
+            ],
+            "type": "string"
+          },
+          "color": {
+            "description": "边框颜色，十六进制如 #000000，默认黑色",
+            "type": "string"
+          },
+          "position": {
+            "description": "边框位置，默认 all（全部边框）",
+            "enum": [
+              "all",
+              "top",
+              "bottom",
+              "left",
+              "right",
+              "outline"
+            ],
+            "type": "string"
+          },
+          "range": {
+            "description": "要设置边框的范围，如 A1:C10",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "borderStyle"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

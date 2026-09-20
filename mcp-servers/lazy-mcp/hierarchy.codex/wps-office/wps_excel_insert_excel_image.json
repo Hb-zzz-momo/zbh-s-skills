@@ -1,0 +1,37 @@
+{
+  "tools": {
+    "wps_excel_insert_excel_image": {
+      "description": "在Excel中插入图片到指定位置。",
+      "maps_to": "wps_excel_insert_excel_image",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "cell": {
+            "description": "插入位置的单元格地址，如 A1。不填则插入到当前选中位置",
+            "type": "string"
+          },
+          "filePath": {
+            "description": "图片文件路径",
+            "type": "string"
+          },
+          "height": {
+            "description": "图片高度（像素），不填则使用原始高度",
+            "type": "number"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "width": {
+            "description": "图片宽度（像素），不填则使用原始宽度",
+            "type": "number"
+          }
+        },
+        "required": [
+          "filePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

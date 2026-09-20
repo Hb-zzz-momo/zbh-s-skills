@@ -1,0 +1,36 @@
+{
+  "tools": {
+    "wps_excel_remove_duplicates": {
+      "description": "删除指定范围内的重复行。可以指定根据哪些列判断重复。",
+      "maps_to": "wps_excel_remove_duplicates",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "columns": {
+            "description": "用于判断重复的列，如 [\"A\", \"B\"]。不填则根据所有列判断",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "has_header": {
+            "description": "第一行是否为表头，默认true",
+            "type": "boolean"
+          },
+          "range": {
+            "description": "要处理的数据范围，如 A1:D100",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

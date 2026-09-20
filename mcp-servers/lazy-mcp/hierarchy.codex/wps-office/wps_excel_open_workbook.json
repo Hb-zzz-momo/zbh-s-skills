@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_excel_open_workbook": {
+      "description": "打开指定路径的Excel工作簿文件。",
+      "maps_to": "wps_excel_open_workbook",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "filePath": {
+            "description": "工作簿文件路径",
+            "type": "string"
+          }
+        },
+        "required": [
+          "filePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

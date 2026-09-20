@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_set_transition": {
+      "description": "设置幻灯片切换效果。\n\n支持的切换类型：\n- fade: 淡出\n- push: 推入\n- wipe: 擦除\n- split: 拆分\n- reveal: 揭开\n- cover: 覆盖\n- dissolve: 溶解\n- curtains: 帷幕\n\n使用场景：\n- \"给第2页设置淡出切换效果\"\n- \"设置幻灯片切换为推入\"\n- \"修改页面切换动画\"",
+      "maps_to": "wps_ppt_set_transition",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          },
+          "transition": {
+            "description": "切换效果类型，如 fade, push, wipe, split, reveal, cover, dissolve, curtains",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "transition"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_create_org_chart": {
+      "description": "在幻灯片中创建组织架构图。\n\ndata 对象格式（树形结构）：\n- name: 节点名称（如人名/职位）\n- title: 节点副标题（如部门/角色）\n- children: 子节点数组（递归结构）\n\n使用场景：\n- \"创建公司组织架构图\"\n- \"画一个部门层级图\"\n- \"生成团队架构图\"",
+      "maps_to": "wps_ppt_create_org_chart",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "data": {
+            "description": "组织架构数据（树形结构），含 name、title、children 字段",
+            "type": "object"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "data"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_delete_shape": {
+      "description": "删除幻灯片中指定的形状。\n\n使用场景：\n- \"删除第2页的第3个形状\"\n- \"移除这个形状\"",
+      "maps_to": "wps_ppt_delete_shape",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "shapeIndex": {
+            "description": "形状索引（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

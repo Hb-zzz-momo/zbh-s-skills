@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_get_slide_info": {
+      "description": "获取指定幻灯片的详细信息，包括布局、元素列表等。\n\n使用场景：\n- \"查看第3页的信息\"\n- \"这页有什么内容\"\n- \"获取幻灯片详情\"",
+      "maps_to": "wps_ppt_get_slide_info",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

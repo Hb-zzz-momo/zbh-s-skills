@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_common_get_selected_text": {
+      "description": "获取当前文档中选中的文本内容。\n\n使用场景：\n- \"读取我选中的内容\"\n- \"获取当前选区的文字\"\n- \"看看我选了什么\"\n\n特点：\n- 返回当前选区的纯文本内容\n- 适用于Word、Excel、PPT",
+      "maps_to": "wps_common_get_selected_text",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

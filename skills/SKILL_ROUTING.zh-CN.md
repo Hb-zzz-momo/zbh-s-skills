@@ -13,11 +13,7 @@
 1. **路由层**：`skill-router-zh`、`using-agent-skills`、`plan-faithful-execution-zh`。
 2. **执行层**：科研、工程、写作、课程、调研、汇报、运维等具体 skill。
 
-每次任务只选择必要组合：
-
-```text
-1 个主 skill + 0-2 个辅助 skill + 必要验证/审计
-```
+每次任务只选择必要组合：**1 个主 skill + 0-2 个辅助 skill + 必要验证/审计**。
 
 不要一次性加载全部技能。若任务跨领域，分阶段切换 skill。
 
@@ -29,6 +25,7 @@
 |---|---|---|
 | 技术知识问答 | 技术概念、术语、ADR、设计决策、为什么这样设计、小白解释 | `project-dev-zh` |
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
+| GitHub PR CI | GitHub Actions 检查失败、PR checks、Actions 日志定位与修复计划 | `github:gh-fix-ci` |
 | 项目结构 / 文件树 | 新建项目、目录蓝图、前后端或 apps/packages 边界、模块/步骤/实验/产物位置、结构重组与漂移审计 | `project-structure-architect` |
 | 工具使用建议 | VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界 | `skill-router-zh`, `context-engineering`, `source-driven-development` |
 | Web 设计 / Vibe Coding / 页面改版 | 网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
@@ -60,7 +57,7 @@
 | Define | 想清楚做什么、为什么做、验收什么 | `interview-me`, `idea-refine`, `spec-driven-development` |
 | Plan | 拆任务、排顺序、设检查点 | `planning-and-task-breakdown` |
 | Build | 小步实现、少量改动、持续验证 | `incremental-implementation` |
-| Verify | 测试、浏览器验证、复现问题、生产可诊断性 | `test-driven-development`, `browser-testing-with-devtools`, `debugging-and-error-recovery`, `observability-and-instrumentation` |
+| Verify | 测试、浏览器验证、复现问题、PR Actions 失败定位、生产可诊断性 | `test-driven-development`, `browser-testing-with-devtools`, `debugging-and-error-recovery`, `github:gh-fix-ci`, `observability-and-instrumentation` |
 | Review | 代码质量、安全、性能、简化 | `code-review-and-quality`, `security-and-hardening`, `performance-optimization`, `code-simplification` |
 | Ship | Git、CI/CD、文档、上线、回滚 | `git-workflow-and-versioning`, `ci-cd-and-automation`, `documentation-and-adrs`, `shipping-and-launch` |
 
@@ -101,14 +98,7 @@
 
 ### Step 4：声明并执行
 
-执行前只需简短说明：
-
-```text
-Skill 路由：
-- 主 skill：project-dev-zh，因为任务是代码理解和修改。
-- 辅助 skill：incremental-implementation，用于小步落地。
-- 收尾 skill：code-review-and-quality，用于风险审查。
-```
+执行前只需用 2-4 行说明：主 skill 是哪个、为什么选它、辅助 skill 用来做什么、哪些明显不加载。用普通列表写，不要包成代码块。
 
 若命中高风险信号，声明路由后先给出“硬门槛”五项；未命中时直接工作，不要把路由变成长篇计划。
 
@@ -116,183 +106,129 @@ Skill 路由：
 
 ### 技术知识问答
 
-```text
-project-dev-zh
-```
+`project-dev-zh`
 
-默认执行方式：若绑定项目先读取证据；开头先用一个具体类比和贯穿实例建立直觉，再展示状态变化主链。每条箭头必须有真实的因果、约束或输入输出关系；指标挂到对应状态作为证据，并行条件说明共同目标及彼此关系，不得强行线性化。局部例子开始和结束都要回扣主链，解决动作反向对应问题状态并给出验收证据。删除节点测试只用于状态主链；全文不更换实例，术语只在对应节点首次解释。
+默认执行方式：若绑定项目先读取证据；先给结论，再用一个具体类比和贯穿实例建立直觉，然后按因果讲清为什么。每条箭头必须有真实的因果、约束或输入输出关系，补不出理由就改成并列或删掉；指标挂到对应判断下作为证据，并行条件说明共同目标及彼此关系，不得强行线性化。全文不更换实例，术语只在首次出现的位置解释；只有用户本身在排查故障时，才改用“现状 → 症状 → 根因 → 修复动作 → 验收证据”。
 
 ### 代码修改
 
-```text
-project-dev-zh
-incremental-implementation
-test-driven-development
-code-review-and-quality
-```
+`project-dev-zh`、`incremental-implementation`、`test-driven-development`、`code-review-and-quality`
 
 默认执行方式：读现有代码 -> 小步修改 -> 跑测试/检查 -> review 风险。
 
 ### 项目结构 / 文件树
 
-```text
-project-structure-architect
-```
+`project-structure-architect`
 
 默认执行方式：读取现有结构证据 -> 检测项目类型与技术栈 -> 选择一个主蓝图 -> dry-run -> 生成或路由文件 -> 更新结构文档 -> audit。已有一致惯例优先；不因偏好模板批量移动文件。纯内容编辑且路径已唯一确定时，不重复调用。
 
 ### 代码库架构深化
 
-```text
-improve-codebase-architecture
-codebase-design
-```
+`improve-codebase-architecture`、`codebase-design`
 
 默认执行方式：先按近期热点、领域词汇和 ADR 扫描浅模块，生成候选报告；用户选定候选后再用 `grilling` 澄清决策，并在术语或决策确实变化时追加 `domain-modeling`。未获用户明确授权时由主代理本地探索，不调度子代理。
 
 ### 复杂工程 / 多方案实现
 
-```text
-engineering-skill-flow-zh
-```
+`engineering-skill-flow-zh`
 
 默认执行方式：Project Intake -> Solution Gate -> Implementation Design -> Candidate Spike / Slice Funnel -> Main Build -> Verify / Review -> Ship / Memory。进入 Main Build 前必须收敛到一个主实现路径或明确组合路径；普通小改不走这个总控流。
 
 ### 有明确参考计划的工程任务
 
-```text
-plan-faithful-execution-zh
-incremental-implementation
-test-driven-development
-```
+`plan-faithful-execution-zh`、`incremental-implementation`、`test-driven-development`
 
 默认执行方式：先锁定计划边界；缺口先问；禁止擅自扩大参数、目标、文件结构和结论。
 
 ### 子代理 / 多代理委派
 
-```text
-subagent-orchestration-zh
-```
+`subagent-orchestration-zh`
 
 默认执行方式：只有用户明确授权 subagent、`/sub`、并行代理、委派、worker/explorer 时才真实调度。父代理保留本地主 skill、写范围、最终集成和验收；子代理默认使用只读 explorer/reviewer。当父代理明确给出最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛时，可以使用 worker 修改文件，且 worker 改动必须由父代理复核、集成、测试和最终验收。
 
 ### Web 设计 / Vibe Coding / 前端页面
 
-```text
-web-design-workflow-zh
-frontend-ui-engineering
-browser-testing-with-devtools
-```
+`web-design-workflow-zh`、`frontend-ui-engineering`、`browser-testing-with-devtools`
 
 默认执行方式：先判断快速原型或正式产品，再按新建、现有改版、图像先行选择分支；需要动态外部案例时，在需求锁定后、`DESIGN.md` 前阶段性调用 `contextual-reference-router` 形成 Reference Brief；生成/修订 `DESIGN.md` 后先做纵向切片，再工程实现和浏览器验收。纯局部组件交互或 UI bug 可直接走 `frontend-ui-engineering`。
 
 ### 参考驱动设计
 
-```text
-领域主工作流
-contextual-reference-router（只在参考阶段加载）
-```
+领域主工作流，加 `contextual-reference-router`（只在参考阶段加载）。
 
 默认执行方式：领域工作流先锁定交付物、受众、行业、技术栈和不可改变项；Router 再选择 2–5 个互补来源、打开具体案例、形成 Reference Brief，并在进入实现前退出。它不替代事实证据、官方技术文档、设计契约、工程测试或最终视觉验收。普通 Bug、纯算法、用户禁止联网或严格按完整参考图做局部修改时不触发。
 
 ### API / 模块边界
 
-```text
-api-and-interface-design
-test-driven-development
-documentation-and-adrs
-```
+`api-and-interface-design`、`test-driven-development`、`documentation-and-adrs`
 
 默认执行方式：先定义契约、错误语义、兼容边界，再实现和测试。
 
 ### Bug 排查
 
-```text
-debugging-and-error-recovery
-test-driven-development
-code-review-and-quality
-```
+`debugging-and-error-recovery`、`test-driven-development`、`code-review-and-quality`
 
 默认执行方式：复现 -> 定位最小根因 -> 修复 -> 加回归测试 -> review。
 
+### GitHub PR CI 失败
+
+`github:gh-fix-ci`
+
+默认执行方式：`gh auth status` -> 解析 PR checks -> 获取 GitHub Actions 日志 -> 总结根因和失败证据 -> 提出聚焦修复计划 -> 用户批准后修改与本地复验。非 GitHub Actions 检查只报告链接；新建或修改流水线改走 `ci-cd-and-automation`。
+
 ### 科研多候选探索 / 调用流
 
-```text
-research-skill-flow-zh
-info-evidence-chain-zh
-```
+`research-skill-flow-zh`、`info-evidence-chain-zh`
 
 默认执行方式：Memory Intake -> 文献检索门 -> Gap Gate -> Research Design -> Candidate Smoke Funnel -> Dev/Formal -> Paper Memory。凡是机制创新、新方法构思、算法创新点、novelty 或 gap 判断，必须先用 `info-evidence-chain-zh` 或等价文献检索产出证据链；未检索只能输出“待检索假设”，不得进入机制设计、编码或论文贡献 claim。每阶段只允许 1 个主 skill、最多 2 个辅助 skill；审计 skill 只在触发条件满足时调用。
 
 ### 科研实验
 
-```text
-research-experiment-ops-zh
-agent-wait-monitor-zh
-artifact-curator-zh
-```
+`research-experiment-ops-zh`、`agent-wait-monitor-zh`、`artifact-curator-zh`
 
 默认执行方式：smoke/dev/formal 分阶段；检查 raw、summary、metric、seed、配置一致性；固定计划触发 `plan-faithful-execution-zh`，formal、冻结版本或论文 claim 触发 `decisive-result-audit-zh`。
 
 ### 论文写作
 
-```text
-paper-writing-zh
-research-coach-zh
-research-statistics-reporting-zh
-```
+`paper-writing-zh`、`research-coach-zh`、`research-statistics-reporting-zh`
 
 默认执行方式：材料驱动写作；事实、推理、建议分开；实验结论必须被结果支撑；正式 claim 触发 `decisive-result-audit-zh`。
 
 ### 论文格式修正
 
-```text
-paper-format-fixer-zh
-paper-writing-zh
-```
+`paper-format-fixer-zh`、`paper-writing-zh`
 
 默认执行方式：优先读取用户给的学校/期刊格式要求、样例 `.docx` 或模板文件；先审计 `.docx` 页面、样式、段落、表格、图表题注和参考文献格式，再保守修正并输出新文件。内容写作仍交给 `paper-writing-zh`，不要把格式修正扩展成论文 claim 或实验结论改写。
 
 ### 信息调研
 
-```text
-info-evidence-chain-zh
-source-driven-development
-```
+`info-evidence-chain-zh`、`source-driven-development`
 
 默认执行方式：查来源、分级证据、保留链接、标注时效和不确定性。
 
 ### 工具使用建议
 
-```text
-skill-router-zh
-context-engineering
-source-driven-development
-```
+`skill-router-zh`、`context-engineering`、`source-driven-development`
 
 默认执行方式：当用户询问工具怎么选、怎么装、怎么接入、某能力该放在哪一层时，按四层回答：VS Code 插件（编辑器侧能力）、Codex 插件（Codex 内能力和 skill/plugin）、语言本身安装包/生态依赖（运行时、库、CLI、包管理器）、Codex MCP（外部服务、账号、数据源和自动化连接）。每层说明适用场景、当前是否可用或需要安装、配置位置、验证方式和优先级；不要把 MCP、编辑器插件、Codex 插件和语言包混成一类。
 
 ### 汇报 / PPT
 
-```text
-ppt-workflow-orchestrator-zh
-```
+`ppt-workflow-orchestrator-zh`
 
 默认执行方式：材料读取 -> 分支判断 -> 证据链 -> 叙事与 Slide Contract -> PRESENTATION_DESIGN.md -> 三页纵向切片 -> 构建或模板编辑 -> 全量渲染 -> QA -> 至少一轮修复复验 -> 交付。动态外部案例按需使用 `contextual-reference-router`，本地成对优秀/反例使用 `ppt-reference-library-zh`，默认按缺口二选一；演讲备注追加 `ppt-speaker-delivery-zh`，长期回归使用 `pptx-ci-zh`。每阶段仅 1 个主 Skill，最多 2 个辅助 Skill，不一次加载全部 PPT Skills；全量实现请求必须覆盖计划中的 P0、P1、示例与验证。
 
-```text
-仅规划：ppt-story-design-zh + info-evidence-chain-zh
-从零生成：pptx-builder-zh + ppt-render-qa-zh
-模板/已有文件编辑：pptx-template-editor-zh + ppt-render-qa-zh
-数据型汇报：ppt-data-storytelling-zh + ppt-render-qa-zh
-视觉系统：ppt-visual-system-zh（只在 Visual System 阶段加载）
-```
+按任务形态选择最小组合：
+
+- 仅规划：`ppt-story-design-zh` + `info-evidence-chain-zh`
+- 从零生成：`pptx-builder-zh` + `ppt-render-qa-zh`
+- 模板/已有文件编辑：`pptx-template-editor-zh` + `ppt-render-qa-zh`
+- 数据型汇报：`ppt-data-storytelling-zh` + `ppt-render-qa-zh`
+- 视觉系统：`ppt-visual-system-zh`（只在 Visual System 阶段加载）
 
 ### 软著
 
-```text
-software-copyright-zh
-```
+`software-copyright-zh`
 
 默认执行方式：任务模式识别 -> 唯一项目定位 -> 环境与准备度 -> 真实证据链 -> 业务理解确认 -> 申请字段确认 -> 源码候选与用户确认 -> 真实截图 -> Markdown 草稿整体确认 -> 正式 DOCX/TXT -> 一致性、来源与渲染校验 -> 最终清单。未实现功能、第三方源码、AI 生成截图和未经确认的事实不得进入正式材料。
 
@@ -323,10 +259,7 @@ software-copyright-zh
 
 ### 长时间实验或后台任务
 
-```text
-agent-wait-monitor-zh
-artifact-curator-zh
-```
+`agent-wait-monitor-zh`、`artifact-curator-zh`
 
 默认执行方式：后台启动、进度文件、日志轮询、卡死判断、结果归档。
 
@@ -349,23 +282,11 @@ artifact-curator-zh
 
 ## 5. 给 Codex 的固定提示
 
-可以在任务开头直接说：
+可以在任务开头直接说：`先用 skill-router-zh 做技能路由，只选择必要的 1-3 个 skill，然后直接执行。`
 
-```text
-先用 skill-router-zh 做技能路由，只选择必要的 1-3 个 skill，然后直接执行。
-```
+或者：`这次任务按 skills/SKILL_ROUTING.zh-CN.md 统筹，不要全量加载 skills。`
 
-或者：
-
-```text
-这次任务按 skills/SKILL_ROUTING.zh-CN.md 统筹，不要全量加载 skills。
-```
-
-如果任务是工程类：
-
-```text
-按 agent-skills-ao 的 Define -> Plan -> Build -> Verify -> Review -> Ship 生命周期判断阶段，再调用对应 skill。
-```
+如果任务是工程类：`按 agent-skills-ao 的 Define -> Plan -> Build -> Verify -> Review -> Ship 生命周期判断阶段，再调用对应 skill。`
 
 ## 6. 维护方式
 

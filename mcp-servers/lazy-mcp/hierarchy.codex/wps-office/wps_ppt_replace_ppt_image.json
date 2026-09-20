@@ -1,0 +1,34 @@
+{
+  "tools": {
+    "wps_ppt_replace_ppt_image": {
+      "description": "原位替换幻灯片中的某张图片：保留原图的位置、尺寸、旋转角度，删除旧图后在同一矩形内插入新图。用于在保持版式不变的前提下把模板里的旧图换成自己的图。\n\n使用场景：\n- \"把第5页的第2个形状（图片）换成 D:/figs/图15.png，位置大小不变\"\n- \"替换封面主视觉图，但保持原来的排版\"\n- \"把这页的配图换掉，别动版式\"\n\n说明：\n- 先用 wps_ppt_get_shapes 查到目标图片的形状索引(shapeIndex)\n- 新图会被拉伸/适配到旧图原有的位置与尺寸，从而不破坏版式",
+      "maps_to": "wps_ppt_replace_ppt_image",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "filePath": {
+            "description": "新图片文件的完整路径",
+            "type": "string"
+          },
+          "name": {
+            "description": "要替换的图片形状名称（与 shapeIndex 二选一）",
+            "type": "string"
+          },
+          "shapeIndex": {
+            "description": "要替换的图片形状索引（从1开始，通过 get_shapes 获取）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "filePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

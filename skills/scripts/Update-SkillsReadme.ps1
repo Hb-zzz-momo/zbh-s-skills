@@ -84,6 +84,7 @@ $scenarioBySkill = @{
     'agent-wait-monitor-zh'        = 'ops'
     'artifact-curator-zh'        = 'ops'
     'decisive-result-audit-zh'   = 'research-audit'
+    'course-lab-workflow-zh'    = 'course'
     'exam-answer-zh'             = 'course'
     'info-evidence-chain-zh'     = 'info'
     'iteration-reflection-guard-zh' = 'guardrail'
@@ -155,6 +156,9 @@ foreach ($dir in $skillDirs) {
     $d = ''
     if ($frontDesc -and $frontDesc -match '(.+?)\s*Use when') {
         $d = $Matches[1].Trim().TrimEnd(':').TrimEnd('。').TrimEnd('.')
+    }
+    elseif ($frontDesc) {
+        $d = $frontDesc.TrimEnd(':').TrimEnd('。').TrimEnd('.')
     }
     elseif ($raw -match '(?ms)^description:\s*[''"]?(.+?)Use when') {
         $d = $Matches[1].Trim().TrimEnd(':').TrimEnd('。').TrimEnd('.')

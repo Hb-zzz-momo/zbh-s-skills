@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_excel_freeze_panes": {
+      "description": "冻结/取消冻结窗格。可指定冻结的行和列位置。",
+      "maps_to": "wps_excel_freeze_panes",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "column": {
+            "description": "冻结到第几列（从1开始），不填则不冻结列",
+            "type": "number"
+          },
+          "freeze": {
+            "description": "是否冻结，默认true。设为false则取消冻结",
+            "type": "boolean"
+          },
+          "row": {
+            "description": "冻结到第几行（从1开始），不填则不冻结行",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

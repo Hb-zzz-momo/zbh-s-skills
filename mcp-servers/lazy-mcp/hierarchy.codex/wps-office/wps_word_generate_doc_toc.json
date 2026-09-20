@@ -1,0 +1,19 @@
+{
+  "tools": {
+    "wps_word_generate_doc_toc": {
+      "description": "自动生成文档目录。根据文档中的标题样式自动生成目录。\n\n前提条件：文档中的标题必须使用\"标题1\"、\"标题2\"等样式。\n\n使用场景：\n- \"帮我生成目录\"\n- \"在文档开头插入目录\"\n- \"自动生成文档目录\"",
+      "maps_to": "wps_word_generate_doc_toc",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "levels": {
+            "default": 3,
+            "description": "目录包含的标题级别数，如3表示包含标题1-3，默认3",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

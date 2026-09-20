@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_excel_auto_sum": {
+      "description": "对指定范围的列或行自动求和，并将结果写入目标单元格。",
+      "maps_to": "wps_excel_auto_sum",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "range": {
+            "description": "要求和的数据范围，如 \"A1:A10\" 或 \"B2:F2\"",
+            "type": "string"
+          },
+          "targetCell": {
+            "description": "求和结果写入的目标单元格，如 \"A11\" 或 \"G2\"",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "targetCell"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

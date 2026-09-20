@@ -1,0 +1,36 @@
+{
+  "tools": {
+    "wps_excel_write_range": {
+      "description": "向Excel指定范围写入数据。数据格式为二维数组，从指定单元格开始向右下方填充。",
+      "maps_to": "wps_excel_write_range",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "data": {
+            "description": "二维数组数据，如 [[\"姓名\",\"年龄\"],[\"张三\",25],[\"李四\",30]]",
+            "items": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "array"
+          },
+          "range": {
+            "description": "起始单元格地址，如 A1、B2",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "data"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

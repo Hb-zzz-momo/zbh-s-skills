@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_common_ping": {
+      "description": "检测WPS应用连接状态。\n\n使用场景：\n- \"WPS连上了吗\"\n- \"检查一下WPS是否在线\"\n- \"测试WPS连接\"\n\n特点：\n- 快速检测WPS加载项是否可达\n- 返回连接状态信息",
+      "maps_to": "wps_common_ping",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

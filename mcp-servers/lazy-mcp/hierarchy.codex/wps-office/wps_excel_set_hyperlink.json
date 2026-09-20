@@ -1,0 +1,34 @@
+{
+  "tools": {
+    "wps_excel_set_hyperlink": {
+      "description": "为Excel单元格设置超链接。",
+      "maps_to": "wps_excel_set_hyperlink",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "cell": {
+            "description": "单元格地址，如 A1",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "text": {
+            "description": "显示文本，不填则显示URL",
+            "type": "string"
+          },
+          "url": {
+            "description": "超链接URL地址",
+            "type": "string"
+          }
+        },
+        "required": [
+          "cell",
+          "url"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_ppt_set_background": {
+      "description": "设置幻灯片的背景颜色或背景图片。\n\n使用场景：\n- \"把第1页背景改成蓝色\"\n- \"设置幻灯片背景图片\"\n- \"修改背景颜色为#FF0000\"",
+      "maps_to": "wps_ppt_set_background",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "color": {
+            "description": "背景颜色，十六进制如 #FF0000（与imagePath二选一）",
+            "type": "string"
+          },
+          "imagePath": {
+            "description": "背景图片路径（与color二选一）",
+            "type": "string"
+          },
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

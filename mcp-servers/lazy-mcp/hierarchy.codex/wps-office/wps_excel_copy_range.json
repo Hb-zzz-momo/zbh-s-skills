@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_copy_range": {
+      "description": "复制Excel指定范围到目标位置。",
+      "maps_to": "wps_excel_copy_range",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "destination": {
+            "description": "目标位置，如 E1",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称",
+            "type": "string"
+          },
+          "source": {
+            "description": "源范围，如 A1:C10",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "destination"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

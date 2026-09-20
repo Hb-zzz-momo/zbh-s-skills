@@ -1,0 +1,33 @@
+{
+  "tools": {
+    "wps_ppt_insert_slides_from_file": {
+      "description": "从另一个 PPT 文件把整页幻灯片插入到【当前活动演示文稿】，并保留来源幻灯片的原始格式（字体/配色/版式/图片）。用于把多个 PPT 整合成一个。\n\n使用场景：\n- \"把可行性报告.pptx 的第3到5页插到当前PPT第10页后面\"\n- \"整合多个PPT：把另一个演示文稿的所有幻灯片合并进来\"\n- \"从某个PPT复制整页过来，保持原样式\"\n\n说明：\n- 先用 wps_ppt_switch_presentation 切换到【目标/接收页】演示文稿，再调用本工具\n- afterIndex 表示插入到第几页之后（0=插到最前，不填=追加到末尾）\n- slideStart/slideEnd 指定只导入来源文件的某段页码范围，不填则导入全部\n- 底层调用 WPS COM Slides.InsertFromFile，原样保留来源格式，避免AI重排导致的版式失真",
+      "maps_to": "wps_ppt_insert_slides_from_file",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "afterIndex": {
+            "description": "插入到当前演示文稿第几页之后（0=最前，不填=末尾追加）",
+            "type": "number"
+          },
+          "filePath": {
+            "description": "来源 PPT 文件的完整路径",
+            "type": "string"
+          },
+          "slideEnd": {
+            "description": "来源文件结束页码（可选，与slideStart配合）",
+            "type": "number"
+          },
+          "slideStart": {
+            "description": "来源文件起始页码（从1开始，可选）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "filePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}
