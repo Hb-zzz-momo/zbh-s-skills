@@ -116,10 +116,11 @@ def apply_page_rules(doc: Any, page_rule: dict[str, Any]) -> int:
 
 
 def collapse_blank_paragraphs(doc: Any) -> int:
+    from journal_profile import has_payload
     removed = 0
     previous_blank = False
     for paragraph in list(doc.paragraphs):
-        is_blank = not paragraph.text.strip()
+        is_blank = not has_payload(paragraph)
         if is_blank and previous_blank:
             element = paragraph._element
             element.getparent().remove(element)
@@ -146,25 +147,13 @@ def normalize_abnormal_run_sizes(doc: Any, rule: dict[str, Any]) -> int:
 
 
 def iter_all_paragraphs(doc: Any):
-    for paragraph in doc.paragraphs:
+    from journal_profile import iter_paragraphs
+    for _, paragraph in iter_paragraphs(doc):
         yield paragraph
-    for table in doc.tables:
-        for row in table.rows:
-            for cell in row.cells:
-                for paragraph in cell.paragraphs:
-                    yield paragraph
-    for section in doc.sections:
-        for container in (section.header, section.footer):
-            for paragraph in container.paragraphs:
-                yield paragraph
-            for table in container.tables:
-                for row in table.rows:
-                    for cell in row.cells:
-                        for paragraph in cell.paragraphs:
-                            yield paragraph
 
 
 def force_font_color(doc: Any, color_value: str | None = "000000") -> dict[str, Any]:
+    from journal_profile import iter_runs
     color = parse_rgb(color_value)
     if color is None:
         return {"enabled": False, "runs_seen": 0, "runs_changed": 0, "styles_changed": 0, "color": None}
@@ -179,7 +168,7 @@ def force_font_color(doc: Any, color_value: str | None = "000000") -> dict[str, 
     runs_seen = 0
     runs_changed = 0
     for paragraph in iter_all_paragraphs(doc):
-        for run in paragraph.runs:
+        for run in iter_runs(paragraph):
             if not run.text.strip():
                 continue
             runs_seen += 1
@@ -201,8 +190,12 @@ def apply_table_style(doc: Any, style_name: str) -> int:
 
 
 def fix_docx(input_path: Path, out_path: Path, rules: dict[str, Any], overwrite: bool) -> dict[str, Any]:
+    from journal_profile import content_signature
+    if input_path.resolve() == out_path.resolve():
+        raise ValueError("Use a separate output path; in-place modification is disabled")
     ensure_can_write(out_path, overwrite)
     doc = Document(str(input_path))
+    original_content = content_signature(doc)
     summary = {
         "input": str(input_path.resolve()),
         "output": str(out_path.resolve()),
@@ -238,8 +231,11 @@ def fix_docx(input_path: Path, out_path: Path, rules: dict[str, Any], overwrite:
     if "table_style" in rules:
         summary["tables_styled"] = apply_table_style(doc, str(rules["table_style"]))
 
+    if content_signature(doc) != original_content:
+        raise ValueError("Formatting changed document text or media")
     doc.save(str(out_path))
-    Document(str(out_path))
+    if content_signature(Document(str(out_path))) != original_content:
+        raise ValueError("Saved output changed document text or media")
     return summary
 
 
@@ -249,6 +245,9 @@ def main() -> int:
     parser.add_argument("--rules", help="Optional JSON rules path")
     parser.add_argument("--out", required=True, help="Output .docx path")
     parser.add_argument("--overwrite", action="store_true", help="Allow replacing an existing output file")
+    parser.add_argument("--profile", help="Journal profile JSON; cannot be combined with --rules")
+    parser.add_argument("--map", help="Semantic paragraph map and table overrides JSON")
+    parser.add_argument("--report", help="Save machine-readable summary JSON")
     args = parser.parse_args()
 
     input_path = Path(args.input)
@@ -262,13 +261,23 @@ def main() -> int:
         return 2
 
     try:
-        rules = load_rules(rules_path)
-        summary = fix_docx(input_path, out_path, rules, args.overwrite)
+        if args.profile and args.rules:
+            raise ValueError("Choose either --profile or legacy --rules")
+        if args.profile:
+            from journal_profile import load_profile, format_file
+            mapping = load_rules(Path(args.map)) if args.map else None
+            summary = format_file(input_path, out_path, load_profile(args.profile), mapping, args.overwrite)
+        else:
+            rules = load_rules(rules_path)
+            summary = fix_docx(input_path, out_path, rules, args.overwrite)
     except Exception as exc:
         print(f"Failed: {exc}", file=sys.stderr)
         return 1
-    print(json.dumps(summary, ensure_ascii=False, indent=2))
-    return 0
+    if args.report:
+        from journal_profile import write_json
+        write_json(args.report, summary)
+    print(json.dumps(summary, ensure_ascii=True, indent=2))
+    return 1 if summary.get("conformance", {}).get("errors") else 0
 
 
 if __name__ == "__main__":

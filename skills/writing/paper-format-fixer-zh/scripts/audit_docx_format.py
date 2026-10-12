@@ -43,10 +43,10 @@ def alignment_name(value: Any) -> str | None:
 def line_spacing_value(value: Any) -> float | str | None:
     if value is None:
         return None
-    if isinstance(value, (int, float)):
-        return value
     if hasattr(value, "pt"):
         return f"{round(float(value.pt), 2)} pt"
+    if isinstance(value, (int, float)):
+        return value
     return str(value)
 
 
@@ -64,28 +64,16 @@ def collect_run_sizes(doc: Any) -> Counter:
 
 
 def iter_all_paragraphs(doc: Any):
-    for paragraph in doc.paragraphs:
+    from journal_profile import iter_paragraphs
+    for _, paragraph in iter_paragraphs(doc):
         yield paragraph
-    for table in doc.tables:
-        for row in table.rows:
-            for cell in row.cells:
-                for paragraph in cell.paragraphs:
-                    yield paragraph
-    for section in doc.sections:
-        for container in (section.header, section.footer):
-            for paragraph in container.paragraphs:
-                yield paragraph
-            for table in container.tables:
-                for row in table.rows:
-                    for cell in row.cells:
-                        for paragraph in cell.paragraphs:
-                            yield paragraph
 
 
 def collect_run_colors(doc: Any) -> Counter:
+    from journal_profile import iter_runs
     colors: Counter = Counter()
     for paragraph in iter_all_paragraphs(doc):
-        for run in paragraph.runs:
+        for run in iter_runs(paragraph):
             if run.text.strip():
                 colors[str(run.font.color.rgb)] += 1
     return colors
@@ -174,7 +162,7 @@ def audit_docx(path: Path) -> dict[str, Any]:
         )
 
     run_font_colors = dict(collect_run_colors(doc).most_common())
-    non_black_colors = {color: count for color, count in run_font_colors.items() if color != "000000"}
+    non_black_colors = {color: count for color, count in run_font_colors.items() if color not in ("000000", "None")}
 
     issues = []
     if blank_runs:
@@ -187,7 +175,7 @@ def audit_docx(path: Path) -> dict[str, Any]:
         issues.append(
             {
                 "severity": "warning",
-                "message": "Found font colors that are not explicit black (#000000).",
+                "message": "Found directly specified non-black colors. Inherited colors require profile resolution.",
                 "details": non_black_colors,
             }
         )
@@ -276,6 +264,8 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Audit formatting signals in a .docx paper.")
     parser.add_argument("--input", required=True, help="Input .docx path")
     parser.add_argument("--out", required=True, help="Output .md or .json report path")
+    parser.add_argument("--profile", help="Optional semantic journal profile JSON; enables conformance gate")
+    parser.add_argument("--map", help="Optional table exception and semantic map JSON")
     args = parser.parse_args()
 
     input_path = Path(args.input)
@@ -288,14 +278,23 @@ def main() -> int:
         return 2
 
     report = audit_docx(input_path)
+    if args.profile:
+        from journal_profile import load_profile, audit_profile, sha256
+        profile_path = Path(args.profile)
+        mapping = json.loads(Path(args.map).read_text(encoding="utf-8")) if args.map else None
+        report["docx_sha256"] = sha256(input_path)
+        report["profile_sha256"] = sha256(profile_path)
+        report["conformance"] = audit_profile(Document(input_path), load_profile(profile_path), mapping)
     out_path.parent.mkdir(parents=True, exist_ok=True)
     if out_path.suffix.lower() == ".json":
         out_path.write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
     else:
         out_path.write_text(to_markdown(report), encoding="utf-8")
     print(str(out_path.resolve()))
-    return 0
+    return 1 if report.get("conformance", {}).get("errors") else 0
 
 
 if __name__ == "__main__":
+    if hasattr(sys.stdout, "reconfigure"):
+        sys.stdout.reconfigure(encoding="utf-8")
     raise SystemExit(main())

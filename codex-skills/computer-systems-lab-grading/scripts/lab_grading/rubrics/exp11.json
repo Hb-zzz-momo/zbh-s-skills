@@ -1,0 +1,291 @@
+{
+  "schema_version": "1.0",
+  "rubric_version": "1.1.0-calibration",
+  "experiment_id": "exp11",
+  "title": "算术和逻辑操作的机器级表示",
+  "max_points": 100,
+  "status": "draft_for_calibration",
+  "weight_basis": "根据用户确认按100分新设计；原材料未提供这些分值，不冒充教师原评分标准。",
+  "source": {
+    "path": "实验报告标准答案\\hct+实验11.doc",
+    "sha256": "d91794626ada03a69119c7af011fdc68ffe7272791916a9a6046c4cbb15efcdc",
+    "text": "evidence/sources/exp11.txt",
+    "images": "evidence/sources/exp11.files"
+  },
+  "environment": "课程目标环境为 IA-32、32位 int、16位 short、8位 char、IEEE 754 float32/double64、GCC 4.4.7。可接受保持本题目标语义的等价环境；宽度、ABI、优化或编译标准影响结论时，先核对实际环境，不能照抄固定地址。",
+  "scoring": "每项只允许 full/partial/zero/unresolved；partial 为该项明确规定的固定分数。章节部分分为逐项相加，不另扣格式、截图数量或整体印象分。",
+  "sections": [
+    {
+      "title": "算术逻辑汇编调试（35分）",
+      "source_anchor": "步骤1：test1.s，image002.gif",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "程序可汇编链接，进入GDB并设置有效断点。",
+          "partial_credit": "构建完成但调试停点不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "依次观察初值、incl和decl的结果，含eax从100到101、ecx从200到1ff（十六进制）。",
+          "partial_credit": "仅部分指令结果有证据。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "negl/notl对FFFF得FFFF0001/0000FFFE，区分相反数和逐位反转。",
+          "partial_credit": "只正确完成一种操作。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "100+200得300（十六进制），后续200-300为FFFFFF00，调试记录与顺序一致。",
+          "partial_credit": "只正确展示加法或减法。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "十进制100*200=20000=4E20，正确读取imull结果。",
+          "partial_credit": "结果正确但操作数进制或观察证据不足。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C05",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "xor/or/and按给定序列展示0、FFFFFFFF、0，说明逻辑运算。",
+          "partial_credit": "三步仅部分结果正确。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C06",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "初值1左移2为4，再算术右移2为1，再逻辑右移2为0；指令与停点对应。",
+          "partial_credit": "只展示部分移位结果。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S01.C07",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S01",
+      "max_points": 35
+    },
+    {
+      "title": "移位函数补全（20分）",
+      "source_anchor": "步骤2：test(x,n)",
+      "criteria": [
+        {
+          "max_points": 8,
+          "full_credit": "补全先x<<2再有符号右移n的sal/sar，变量移位计数使用cl。",
+          "partial_credit": "操作顺序正确但寄存器宽度/算术右移有局部错误。",
+          "partial_points": 4.0,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S02.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "逐行解释参数加载、移位、返回；区分sal与sar。",
+          "partial_credit": "只解释运算核心，漏参数或返回。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S02.C02",
+          "minor_points": 5.1,
+          "minor_credit": "参数、sal/sar、cl计数和返回数据流均正确；只有一处辅助栈指令注释遗漏，不得把算术右移写成逻辑右移。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "-O1编译截图与填写的功能一致。",
+          "partial_credit": "有汇编但编译过程或对应关系不全。",
+          "partial_points": 3.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S02.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S02",
+      "max_points": 20
+    },
+    {
+      "title": "suan1注释（20分）",
+      "source_anchor": "步骤3：算术逻辑注释",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "正确标注参数和x+y的数据流。",
+          "partial_credit": "核心加法正确但加载映射不全。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S03.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "lea形成3*z再sal4得到48*z。",
+          "partial_credit": "结论48*z正确但推导不全。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S03.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "and 65535表示保留低16位，不是对65535求模。",
+          "partial_credit": "指出掩码但位宽或数学意义不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S03.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "最终乘法、返回及其余栈指令解释完整。",
+          "partial_credit": "乘法正确但返回/栈注释不全。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S03.C04",
+          "minor_points": 4.25,
+          "minor_credit": "最终乘法与eax返回正确，栈恢复方向正确；仅少一处非关键栈指令的详细解释。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        }
+      ],
+      "id": "S03",
+      "max_points": 20
+    },
+    {
+      "title": "suan2反推（20分）",
+      "source_anchor": "步骤4：C表达式填空",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "第一步恢复y^x。",
+          "partial_credit": "识别异或但操作数映射有局部错误。",
+          "partial_points": 2.5,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S04.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "恢复有符号算术右移3。",
+          "partial_credit": "右移数量正确但符号类型不清。",
+          "partial_points": 2.5,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S04.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "恢复逐位取反，再减z，保持运算顺序。",
+          "partial_credit": "取反或减z只有一项正确。",
+          "partial_points": 2.5,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S04.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "用-O1生成汇编截图，逐步与目标数据流对应。",
+          "partial_credit": "有编译结果但比较不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S04.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S04",
+      "max_points": 20
+    },
+    {
+      "title": "实验心得",
+      "source_anchor": "实验心得与体会",
+      "criteria": [
+        {
+          "max_points": 3,
+          "full_credit": "结合本次算术和逻辑指令的具体步骤或观察，说明学到的机制。",
+          "partial_credit": "提到本实验知识点，但未联系具体操作或观察。",
+          "partial_points": 1.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S05.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 2,
+          "full_credit": "给出一条与上述观察相符的原因、改进办法或适用条件。无需虚构故障。",
+          "partial_credit": "给出相关建议但原因或适用条件不清楚。",
+          "partial_points": 1.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp11.S05.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S05",
+      "max_points": 5
+    }
+  ],
+  "reference_corrections": [
+    "变量移位指令应为sarl %cl,%eax，不能采用材料表格中的%ecx。",
+    "suan1的and 65535是低16位掩码；若表述为模运算，应是对2^16的非负余数意义。"
+  ],
+  "optional_no_penalty": [],
+  "equivalence_policy": [
+    "代码和解释按语义判断，不按文字相似度；正确等价实现同分。",
+    "截图中命令、关键输入及结果可辨认即可；一张图可支持多个不同评分点。",
+    "题面明确要求截图的结果项接受截图或可定位的原始终端记录；只有文字声称做过不等于运行证据。",
+    "同一根因影响后续推导时，保留正确方法分；不得在本标准之外追加连带扣分。"
+  ],
+  "calibration_status": "待教师标注样本校准；85为良好完成参考，不实施分布强制映射"
+}

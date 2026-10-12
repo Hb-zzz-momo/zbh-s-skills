@@ -1,0 +1,35 @@
+{
+  "diagnostics_status": "BLOCK",
+  "completion_status": "BLOCK",
+  "can_claim_full_completion": false,
+  "warning_count": 1,
+  "error_count": 0,
+  "integrity_issue_count": 0,
+  "stderr_count": 1,
+  "inputs": [
+    {
+      "path": "D:\\wps\\1286397831\\WPS云盘\\学习安排\\26\\数据挖掘 机器学习\\实验\\实验三-逻辑回归\\evidence\\讲义逐格重做-20261010\\历史执行\\警告修复前-20261011-104629\\实验3-正式逐格执行-内核原始执行.ipynb",
+      "sha256": "f55552477c939cde226b8f7061c7f309c9e4f88dd792b0546b00fdb3f61ae2d2",
+      "kind": "notebook",
+      "code_cells": 32,
+      "executed_code_cells": 32
+    }
+  ],
+  "findings": [
+    {
+      "id": "09af1ff3f9279981aff1d1291777bcd5c077708c57827f61e43200b04405e6c7",
+      "path": "D:\\wps\\1286397831\\WPS云盘\\学习安排\\26\\数据挖掘 机器学习\\实验\\实验三-逻辑回归\\evidence\\讲义逐格重做-20261010\\历史执行\\警告修复前-20261011-104629\\实验3-正式逐格执行-内核原始执行.ipynb",
+      "source_sha256": "f55552477c939cde226b8f7061c7f309c9e4f88dd792b0546b00fdb3f61ae2d2",
+      "location": "cell-53:In[31]:output-0:line-1:offset-100",
+      "severity": "warning",
+      "category": "FutureWarning",
+      "message": "C:\\Users\\zbh\\AppData\\Roaming\\Python\\Python314\\site-packages\\sklearn\\linear_model\\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.\n  warnings.warn(\n",
+      "decision": "unreviewed"
+    }
+  ],
+  "review_errors": [],
+  "acceptance_errors": [
+    "Completion checklist not supplied; diagnostics-only success is not full acceptance."
+  ],
+  "limits": "Checks common runtime diagnostics and declared evidence hashes only; does not establish correctness, complete requirement coverage, GUI review or official grading."
+}

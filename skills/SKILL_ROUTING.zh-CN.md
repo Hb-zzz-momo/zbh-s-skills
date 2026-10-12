@@ -17,7 +17,11 @@
 
 不要一次性加载全部技能。若任务跨领域，分阶段切换 skill。
 
+课程实验先查与当前课程、实验编号及版本匹配的专属skill，全文读取后以其为主入口：**本实验专属skill第一遵循，通用/全局skill第二遵循，仅补充未规定事项。**没有实验专属skill时先课程规则，再用通用实验流程补缺。本次用户明确要求仍优先，通用输出、步骤、注释或补代码建议不能覆盖专属规定。
+
 ## 2. 路由四步法
+
+需要真实执行或制品验收时，收尾读取[执行输出与完成声明规则](course/course-lab-workflow-zh/references/verification-completion.md)。检查完整原始日志/输出中的警告和异常，保留独立验收维度；不能把退出成功、零异常或元skill测试通过推广成全量完成。
 
 ### Step 1：判定领域
 
@@ -37,11 +41,11 @@
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
 | 科研迭代复盘 | 判断是不是越改越差、机制是否可写 | `research-iteration-audit-zh` |
-| 论文写作 | 摘要、引言、方法、实验、结论、润色 | `paper-writing-zh` |
-| 论文格式修正 | Word论文排版、毕业论文格式、期刊模板、docx格式检查、图表题注、页边距、标题样式、参考文献格式统一 | `paper-format-fixer-zh` |
+| 论文写作 | 期刊稿、案例论文、标题与逻辑重组、摘要、引言、方法、结果、讨论、结论 | `paper-writing-zh` |
+| 论文格式验收 | Word论文排版、期刊模板、通用期刊稿、字体字间距、三线表、图表题注、渲染与逐页复核 | `paper-format-fixer-zh` |
 | 翻译 | 英文学术/技术文本英译中 | `translation-zh` |
 | 课程考试 | 选择题、简答题、计算题、作业 | `exam-answer-zh` |
-| 课程实验 | 实验排错、截图规划、实验报告 | `lab-report-coach-zh` |
+| 课程实验 | 实验排错、截图规划、实验报告 | 本实验专属skill优先；没有时先课程规则，再由 `course-lab-workflow-zh` / `lab-report-coach-zh` 补缺 |
 | 信息调研 | 查资料、证据链、来源核验 | `info-evidence-chain-zh` |
 | PPT 汇报 | 路演、课程汇报、答辩、生成或修改可编辑 PPTX、模板编辑、渲染验收 | `ppt-workflow-orchestrator-zh` |
 | 软著 | 真实项目准备度、申请字段、用户手册、真实截图、源码鉴别材料、已有材料审计与提交前校验 | `software-copyright-zh` |
@@ -192,13 +196,13 @@
 
 `paper-writing-zh`、`research-coach-zh`、`research-statistics-reporting-zh`
 
-默认执行方式：材料驱动写作；事实、推理、建议分开；实验结论必须被结果支撑；正式 claim 触发 `decisive-result-audit-zh`。
+默认执行方式：围绕研究问题与材料组织稿件；核对方法是否实际执行、数据口径与引用双向对应；区分事实、推理与建议。按研究类型组织，不把算法实验结构套用到案例研究；内容、格式和投稿贡献独立判断。决定性科研 claim 结合 `decisive-result-audit-zh`。
 
 ### 论文格式修正
 
 `paper-format-fixer-zh`、`paper-writing-zh`
 
-默认执行方式：优先读取用户给的学校/期刊格式要求、样例 `.docx` 或模板文件；先审计 `.docx` 页面、样式、段落、表格、图表题注和参考文献格式，再保守修正并输出新文件。内容写作仍交给 `paper-writing-zh`，不要把格式修正扩展成论文 claim 或实验结论改写。
+默认执行方式：用户模板优先；无指定期刊且用户接受通用稿时使用明确标注的中英文配置。先审计有效字体、字间距、页面、段落、真实表格边框和题注，再输出独立 Word；真实渲染、逐页查看，最终验收须绑定当前文件指纹。原生公式、双栏等复杂稿件使用对应模板及专门流程；内容写作交给 `paper-writing-zh`。
 
 ### 信息调研
 
@@ -265,7 +269,7 @@
 
 ## 4. 默认守门规则
 
-以下规则优先级高于具体 skill 的便利性：
+以下规则用于通用任务守门；课程实验发生Skill规则冲突时按第1节专属优先处理，通用检查只补充未规定事项，不覆盖原实验步骤或专属规定：
 
 - 有参考计划时，先用 `plan-faithful-execution-zh` 锁边界。
 - 任何工作流将创建或改变项目文件树时，先用 `project-structure-architect` 做搭建前检测、运行期路径路由和阶段收口审计。

@@ -1,8 +1,9 @@
 ---
 name: paper-format-fixer-zh
-description: "中文论文格式修正技能：用于审计和保守修正 Word .docx 论文、毕业论文、课程论文、期刊投稿稿件的页面设置、页边距、标题样式、正文字体字号、字体颜色、段落间距、表格样式、图表题注、参考文献格式和模板一致性。Use when: 论文格式修正、Word论文排版、毕业论文格式、期刊模板、docx格式检查、图表题注、字体颜色、页边距、标题样式、参考文献格式统一、按学校/期刊模板调整论文。不适用于论文内容创作或学术论证改写（使用 paper-writing-zh）。"
+description: "论文 Word 排版与格式验收：依据学校或期刊模板审计、修正并渲染检查字体、字间距、段落、图表与参考文献；无指定期刊时可使用明确标注的中英文通用稿配置。Use when: 论文格式、期刊排版、Word论文、三线表、字体字间距、docx格式检查。内容论证由 paper-writing-zh 处理。"
 ---
-# 论文格式修正
+# 论文排版与格式验收
+
 <!-- project-structure-architect:gate:v1:start -->
 ## Project structure gate / 文件树结构门禁
 
@@ -15,73 +16,47 @@ description: "中文论文格式修正技能：用于审计和保守修正 Word 
 纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
 <!-- project-structure-architect:gate:v1:end -->
 
-## 目标
+## 决定模式
 
-按用户提供的学校、期刊、会议或课程格式要求，对 Word `.docx` 论文做格式审计、保守修正和模板生成辅助。默认用户模板优先；没有明确规范时只审计并做低风险修复，不套用未知学校或期刊格式。
+先锁定用户模板、投稿说明、指定样例及版本，依据优先于此技能默认参数。只请求缺少且影响结果的信息；用户已经接受通用格式时继续完成。
 
-## 分工
+- **原稿保守修复**：没有具体格式依据，也未授权套用新规范时，审计并保守修复，保留原稿身份与结构。
+- **按明确模板排版**：提取可执行规则、字体与语义映射，另存新稿。模板有原生公式、脚注、双栏等结构时采用保留模板的专门编辑路径。
+- **通用期刊稿示范**：用户无指定期刊且接受通用稿时，使用 `references/general-journal-en.json` 或 `general-journal-zh.json`，稿件和验收注明“通用期刊稿格式示范，非指定期刊模板”。语言按用户需求和原稿确定。
 
-- 内容写作、摘要、引言、方法、实验、结论、润色：使用 `paper-writing-zh`。
-- `.docx` 页面、样式、字体颜色、段落、表格、图题、参考文献、模板变量：使用本 skill。
-- 引用真实性和参考文献元数据核查：优先结合 Zotero 或 citecheck MCP。
+进入配置、构建或正式验收模式时读 [journal-workflow.md](references/journal-workflow.md)，其中包含配置单位、语义块、命令、渲染回执及审阅记录接口。格式参数是配置，不是“所有期刊的标准”。
 
-## 工作流
+## 格式验收闭环
 
-1. **锁定依据**
-   - 优先读取用户给的格式要求、模板 `.docx`、样例论文、投稿指南或学校文档。
-   - 没有格式依据时，先运行审计脚本，标明“缺少外部格式规范”，只做保守修复。
-2. **审计**
-   - 运行 `scripts/audit_docx_format.py --input paper.docx --out report.md`。
-   - 报告必须列出页面设置、样式、字号分布、字体颜色分布、段落异常、表格概况、图表题注线索和参考文献段落线索。
-   - 除非用户明确要求彩色或模板强制彩色，字体颜色必须作为硬性检查项：正文、标题、目录、题注、表格、参考文献均应显式写入黑色 `#000000`。
-3. **制定规则**
-   - 若用户提供明确要求，整理为 `rules.json` 后再修正。
-   - 若只有样例模板，优先从模板读取样式和页面设置，避免手写默认值。
-   - 本 skill 的默认颜色规则为 `force_font_color: "000000"`；不要把 Word 的“自动颜色”当作已修正。
-4. **保守修正**
-   - 运行 `scripts/fix_docx_format.py --input paper.docx --rules rules.json --out paper_formatted.docx`。
-   - 默认不覆盖原文件；覆盖必须显式使用 `--overwrite`。
-5. **复核**
-   - 用 `python-docx` 重新打开输出文件。
-   - 必须再次运行审计脚本，对比修正前后报告，确认 `字体颜色分布` 只有 `000000`，且没有 `None`、蓝色或其它颜色残留。
+1. 保存原稿/配置版本与哈希，检查当前机器字体及文档结构。先审计，再区分内容缺陷与格式缺陷。
+2. 明确题名、摘要、关键词、各级标题、正文、图表题注、注释、参考文献等段落角色；旧稿角色混杂时人工映射，避免仅按字号猜测。
+3. 用配置修正或语义块构建原生可编辑 DOCX。黑字为此用户的默认偏好，模板/用户指定的颜色优先。检查继承字体、东亚字体、超链接文字，字间距与字符缩放；固定行距和倍数行距分别处理。
+4. 修正后重开并运行配置审计；格式修正须保持原文、数据、图片、域和外部链接的内容指纹。表格检查真实边框、列宽、内容密度、重复表头与行分页，不能只看样式名。表题在上、图题在下并控制分页。
+5. 通过 documents 的渲染流程导出真实 PDF 和全部页图。Windows 标准渲染器缺少 LibreOffice 时，可使用 `render_docx_word.ps1` 对独立副本只读导出；记录实际渲染器、字体、页数与版本。
+6. 逐页打开图片检查，修正后重新渲染。脚本输出、文字提取和总览缩略图不能替代逐页阅读。
+7. 运行 `verify_release.py`：结构、渲染、全部页审阅均对应当前 DOCX/配置/PDF/图片且无未解决缺陷才记格式 PASS。旧回执、漏看页、缺渲染或错字体均阻断该声明。
 
-## 脚本
+格式 PASS 的范围仅是当前规则与当前渲染版本；研究贡献、来源真实性和投稿适用性分别由内容验收判断。不能说“保证发表”或把通用稿称为已满足某一期刊。
 
-### 审计
+## 工具入口
 
-```powershell
-python scripts/audit_docx_format.py --input paper.docx --out report.md
-```
+- `scripts/audit_docx_format.py`：概况审计；加 `--profile` 后执行配置合规检查并记录文件指纹。
+- `scripts/fix_docx_format.py`：原有 `--rules` 保守模式；`--profile` 语义格式模式；可用 `--map` 指定角色和表格例外。
+- `scripts/build_manuscript.py`：从已审内容的 JSON 语义块创建 Word。
+- `scripts/render_docx_word.ps1`、`record_render.py`、`verify_release.py`：只读导出、渲染绑定、最终验收。
+- `scripts/render_docx_template.py`：保留现有 docxtpl 模板填充能力，填充后仍须审计与渲染。
 
-输出 Markdown；如果 `--out` 以 `.json` 结尾则输出 JSON。
+使用 workspace dependency loader 提供的运行环境。脚本测试：`PYTHON -m unittest discover -s tests -v`；实际稿仍须真实渲染。
 
-### 修正
+## 支持边界
 
-```powershell
-python scripts/fix_docx_format.py --input paper.docx --rules rules.json --out paper_formatted.docx
-```
+内置配置路径支持单栏、普通段落、原生表格、内嵌图片、超链接与页眉页脚。原生公式、修订、脚注尾注、批注、文本框和导入块会阻断此路径，转为保持结构的专用流程；不能删去学术内容换取通过。双栏与特殊期刊元素需要对应模板及追加回归样本。
 
-`rules.json` 可包含 `page`、`styles`、`table_style`、`collapse_blank_paragraphs`、`run_font`、`force_font_color` 等字段。没有规则文件时只执行低风险修复，并默认把所有文本颜色显式设为黑色 `#000000`。
+不覆盖原稿；`--overwrite` 只允许覆盖独立输出路径。格式技能不改学术事实或自行补写内容；若需重组或方法纠错，先按用户授权调用 `paper-writing-zh`。交付包含最终 Word、采用规则、内容和格式各自状态；原始材料与审计证据放在现有项目的 evidence/qa，避免进入正文。
 
-### 模板生成
+## 按需参考
 
-```powershell
-python scripts/render_docx_template.py --template template.docx --data data.json --out generated.docx
-```
-
-此脚本依赖 `docxtpl`。若未安装，提示运行 `python -m pip install docxtpl`。
-
-## 参考资料
-
-- `references/docx-format-workflow.md`：论文格式审计、修正、复核流程。
-- `references/python-docx-notes.md`：从 `python-docx-master.zip` 提炼的样式、节、段落、表格规则。
-- `references/docxtpl-template-notes.md`：从 `python-docx-template-master.zip` 提炼的模板变量和 Jinja 标签规则。
-
-## 约束
-
-- 不覆盖原论文，除非用户明确要求并使用脚本 `--overwrite`。
-- 不内置声称适用于所有学校/期刊的格式默认值。
-- 后续默认所有字体颜色全黑；除非用户明确要求彩色或模板强制彩色，不得把标题、封面、目录、题注或参考文献改成其它颜色。
-- 不修改论文内容事实、实验结论或学术 claim。
-- 不把 `.docx` 直接改成 `.tex` 或 `.md`，除非用户另行要求。
-- 不复制大型第三方源码进 skill；只保留必要规则和可维护脚本。
+- [journal-workflow.md](references/journal-workflow.md)：正式期刊稿配置与验收。
+- [docx-format-workflow.md](references/docx-format-workflow.md)：旧规则兼容模式。
+- [python-docx-notes.md](references/python-docx-notes.md)：样式、节、段落与表格接口。
+- [docxtpl-template-notes.md](references/docxtpl-template-notes.md)：模板填充注意事项。

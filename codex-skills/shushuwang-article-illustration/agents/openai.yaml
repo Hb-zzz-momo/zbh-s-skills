@@ -1,0 +1,4 @@
+interface:
+  display_name: "炒技鼠鼠王文章与配图"
+  short_description: "以文章为主，基于原Logo制作必要的模块插画，减少海报感与模板腔"
+  default_prompt: "使用 $shushuwang-article-illustration 整理我的技术经历，以文章为主，必要配图沿用原Logo并服务具体段落。"

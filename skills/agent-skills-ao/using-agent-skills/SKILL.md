@@ -22,6 +22,8 @@ Agent Skills is a collection of engineering workflow skills organized by develop
 
 ## Skill Discovery
 
+For course experiments, first locate and read the skill specific to the current course, experiment, and version. Follow that experiment-specific skill first; global skills come second and fill only unspecified requirements. If none exists, load the matching course rules before the general lab workflow. Current user instructions take precedence. Do not force the engineering lifecycle, extra code, or a general report structure onto a prescribed experiment.
+
 When a task arrives, identify the development phase and apply the corresponding skill:
 
 ```
@@ -50,7 +52,9 @@ Task arrives
 
 ## Core Operating Behaviors
 
-These behaviors apply at all times, across all skills. They are non-negotiable.
+For execution or artifact acceptance, follow [runtime-output and completion verification](../../course/course-lab-workflow-zh/references/verification-completion.md). Inspect complete outputs and warnings; separate execution, correctness, required visual review and final-package consistency. An exit code of zero or meta-skill tests cannot establish full completion. This adds verification and claim limits, not permission to expand prescribed work.
+
+These behaviors apply across general engineering tasks. For course experiments, the specific-skill precedence above governs; these shared behaviors fill gaps rather than override the prescribed experiment.
 
 ### 1. Surface Assumptions
 

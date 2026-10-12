@@ -1,0 +1,19 @@
+usage: audit_run_outputs.py [-h] [--notebook NOTEBOOK] [--log LOG]
+                            [--stderr-log STDERR_LOG]
+                            [--expected-code-cells EXPECTED_CODE_CELLS]
+                            [--reviews REVIEWS] [--checklist CHECKLIST]
+                            [--diagnostics-only]
+
+Read-only runtime diagnostic and completion-evidence gate (stdlib only). Scans
+full files, never executes or edits experiment code. This checks common
+diagnostics and evidence consistency, not correctness or requirement coverage.
+
+options:
+  -h, --help            show this help message and exit
+  --notebook NOTEBOOK
+  --log LOG
+  --stderr-log STDERR_LOG
+  --expected-code-cells EXPECTED_CODE_CELLS
+  --reviews REVIEWS
+  --checklist CHECKLIST
+  --diagnostics-only

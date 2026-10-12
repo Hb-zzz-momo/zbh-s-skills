@@ -1,0 +1,207 @@
+{
+  "schema_version": "1.0",
+  "rubric_version": "1.1.0-calibration",
+  "experiment_id": "exp14",
+  "title": "数组的机器级表示",
+  "max_points": 100,
+  "status": "draft_for_calibration",
+  "weight_basis": "根据用户确认按100分新设计；原材料未提供这些分值，不冒充教师原评分标准。",
+  "source": {
+    "path": "实验报告标准答案\\hct+实验14.doc",
+    "sha256": "b491e01c4301222ec4deac4e33d8497da48e3d2c1dadd5d92c1f5ff1e809e275",
+    "text": "evidence/sources/exp14.txt",
+    "images": "evidence/sources/exp14.files"
+  },
+  "environment": "课程目标环境为 IA-32、32位 int、16位 short、8位 char、IEEE 754 float32/double64、GCC 4.4.7。可接受保持本题目标语义的等价环境；宽度、ABI、优化或编译标准影响结论时，先核对实际环境，不能照抄固定地址。",
+  "scoring": "每项只允许 full/partial/zero/unresolved；partial 为该项明确规定的固定分数。章节部分分为逐项相加，不另扣格式、截图数量或整体印象分。",
+  "sections": [
+    {
+      "title": "二维数组寻址（40分）",
+      "source_anchor": "步骤1：sum_element，image003/004.png",
+      "criteria": [
+        {
+          "max_points": 8,
+          "full_credit": "逐行注释参数i/j获取、建帧和返回。",
+          "partial_credit": "参数映射正确但外围指令遗漏。",
+          "partial_points": 4.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S01.C01",
+          "minor_points": 6.8,
+          "minor_credit": "i/j参数来源、寄存器用途及返回关系正确；仅一处辅助建帧指令注释缺漏。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 10,
+          "full_credit": "推导mat1[i][j]偏移4*(7*i+j)，由此N=7。",
+          "partial_credit": "N正确但偏移/乘4推导不全。",
+          "partial_points": 5.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S01.C02",
+          "minor_points": 8.5,
+          "minor_credit": "4*(7*i+j)和N=7均正确，能解释行主序；仅少一段乘法转lea/移位的中间展开。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 10,
+          "full_credit": "推导mat2[j][i]偏移4*(5*j+i)，由此M=5。",
+          "partial_credit": "M正确但下标次序或推导不全。",
+          "partial_points": 5.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S01.C03",
+          "minor_points": 8.5,
+          "minor_credit": "4*(5*j+i)和M=5均正确，正确交换索引位置；仅少一段乘法寻址中间展开。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "解释两次取数组元素、相加和eax返回，区分lea算地址与mov访存。",
+          "partial_credit": "主线正确但一处lea/mov语义不清。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S01.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "将M=5、N=7写入C并实际-O1编译，汇编寻址验证一致。",
+          "partial_credit": "代码正确但缺编译验证或比较。",
+          "partial_points": 3.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S01.C05",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S01",
+      "max_points": 40
+    },
+    {
+      "title": "两个数组栈帧（45分）",
+      "source_anchor": "步骤2：addbuf/addbuffer执行leave前",
+      "criteria": [
+        {
+          "max_points": 12,
+          "full_credit": "addbuf图/表标出main与addbuf的EBP/ESP、旧EBP和返回地址，与调试位置一致。",
+          "partial_credit": "栈层次正确但部分指针/返回项缺失。",
+          "partial_points": 6.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S02.C01",
+          "minor_points": 10.2,
+          "minor_credit": "main/addbuf的EBP、ESP、保存帧及返回地址均位置正确；仅一个辅助标签未写全且可从图表唯一确定。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 10,
+          "full_credit": "addbuf局部buf[0]=10、buf[1]=20、sum=30、i=2，位置和连续元素关系正确。",
+          "partial_credit": "四类信息部分正确但有遗漏/局部错位。",
+          "partial_points": 5.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S02.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 12,
+          "full_credit": "addbuffer图/表标出main与addbuffer的当前帧、保存关系、sum=30、i=2及main的已返回sum1=30。",
+          "partial_credit": "帧关系或变量值有一部分正确。",
+          "partial_points": 6.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S02.C03",
+          "minor_points": 10.2,
+          "minor_credit": "main/addbuffer当前帧、保存关系、sum=30、i=2和sum1=30均正确；仅一个辅助文字标签缺漏。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 11,
+          "full_credit": "区分全局buffer在静态数据区；当前栈上的10/20残留可为上次addbuf遗留，不把它当当前函数局部数组。",
+          "partial_credit": "知道全局数据不在本帧，但残留槽或地址说明不清。",
+          "partial_points": 5.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S02.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S02",
+      "max_points": 45
+    },
+    {
+      "title": "代码段和数据段（10分）",
+      "source_anchor": "objdump两个命令截图",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "展示.text反汇编，能定位addbuf/addbuffer并关联指令与机器码地址。",
+          "partial_credit": "有.text输出但缺函数对应。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S03.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "展示.data内容及buffer的10/20存储；可用objdump -s -j .data等正确显示方式。",
+          "partial_credit": "有数据输出但未关联buffer/值。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S03.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S03",
+      "max_points": 10
+    },
+    {
+      "title": "实验心得",
+      "source_anchor": "实验心得与体会",
+      "criteria": [
+        {
+          "max_points": 3,
+          "full_credit": "结合本次数组寻址和存储期的具体步骤或观察，说明学到的机制。",
+          "partial_credit": "提到本实验知识点，但未联系具体操作或观察。",
+          "partial_points": 1.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S04.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 2,
+          "full_credit": "给出一条与上述观察相符的原因、改进办法或适用条件。无需虚构故障。",
+          "partial_credit": "给出相关建议但原因或适用条件不清楚。",
+          "partial_points": 1.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp14.S04.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S04",
+      "max_points": 5
+    }
+  ],
+  "reference_corrections": [
+    "模板已有“评定成绩A（95）”必须排除，不能作为学生得分证据。",
+    "addbuffer栈帧里残留10/20不等于全局数组在栈上，这是标准答案表格易误导处。",
+    "objdump -d仅反汇编可执行段的行为可能不输出.data；接受-s等实际查看数据方式。"
+  ],
+  "optional_no_penalty": [],
+  "equivalence_policy": [
+    "代码和解释按语义判断，不按文字相似度；正确等价实现同分。",
+    "截图中命令、关键输入及结果可辨认即可；一张图可支持多个不同评分点。",
+    "题面明确要求截图的结果项接受截图或可定位的原始终端记录；只有文字声称做过不等于运行证据。",
+    "同一根因影响后续推导时，保留正确方法分；不得在本标准之外追加连带扣分。"
+  ],
+  "calibration_status": "待教师标注样本校准；85为良好完成参考，不实施分布强制映射"
+}

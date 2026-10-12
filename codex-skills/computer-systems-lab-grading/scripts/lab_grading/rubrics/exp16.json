@@ -1,0 +1,278 @@
+{
+  "schema_version": "1.0",
+  "rubric_version": "1.1.0-calibration",
+  "experiment_id": "exp16",
+  "title": "程序的链接",
+  "max_points": 100,
+  "status": "draft_for_calibration",
+  "weight_basis": "根据用户确认按100分新设计；原材料未提供这些分值，不冒充教师原评分标准。",
+  "source": {
+    "path": "实验报告标准答案\\hct+实验16.doc",
+    "sha256": "22e8e2466352d035e08c8a6aa867ebd4b518a64b4c3a25b1e08a89143d00facb",
+    "text": "evidence/sources/exp16.txt",
+    "images": "evidence/sources/exp16.files"
+  },
+  "environment": "课程目标环境为 IA-32、32位 int、16位 short、8位 char、IEEE 754 float32/double64、GCC 4.4.7。可接受保持本题目标语义的等价环境；宽度、ABI、优化或编译标准影响结论时，先核对实际环境，不能照抄固定地址。",
+  "scoring": "每项只允许 full/partial/zero/unresolved；partial 为该项明确规定的固定分数。章节部分分为逐项相加，不另扣格式、截图数量或整体印象分。",
+  "sections": [
+    {
+      "title": "双文件构建与观察（20分）",
+      "source_anchor": "步骤1：main.c、swap.c、目标文件观察",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "两个C文件定义/extern关系正确：buf[2]={1,2}，bufp0=&buf[0]，静态bufp1，swap交换。",
+          "partial_credit": "文件关系正确但一处定义/初始化遗漏。",
+          "partial_points": 2.5,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S01.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "分别-c生成main.o和swap.o，保持题目32位重定位目标。",
+          "partial_credit": "只有一个文件或目标格式证据不全。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S01.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "查看重定位表与.text反汇编，关联main的调用和swap的引用位置。",
+          "partial_credit": "仅重定位表或反汇编其一。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S01.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "查看.data/.bss相关对象，区分初始化数据与零初始化存储；不要求.bss有实际文件字节。",
+          "partial_credit": "正确区分一部分对象但观察/说明不全。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S01.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S01",
+      "max_points": 20
+    },
+    {
+      "title": "七个重定位点（42分）",
+      "source_anchor": "步骤2：七行表格及给定链接地址",
+      "criteria": [
+        {
+          "max_points": 6,
+          "full_credit": "第1处：符号swap、符号定义节.text、类型R_386_PC32，修补字段原值FFFFFFFC，按题设地址得00000009；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "第2处：符号bufp1（可表示为.bss节符号加偏移）、符号定义节.bss、类型R_386_32，修补字段原值00000000，按题设地址得0804A02C；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "第3处：符号buf+4、符号定义节.data、类型R_386_32，修补字段原值00000004，按题设地址得0804A01C；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "第4处：符号bufp0、符号定义节.data、类型R_386_32，修补字段原值00000000，按题设地址得0804A020；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "第5处：符号bufp0、符号定义节.data、类型R_386_32，修补字段原值00000000，按题设地址得0804A020；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C05",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "第6处：符号bufp1、符号定义节.bss、类型R_386_32，修补字段原值00000000，按题设地址得0804A02C；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C06",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 6,
+          "full_credit": "第7处：符号bufp1、符号定义节.bss、类型R_386_32，修补字段原值00000000，按题设地址得0804A02C；注意这里节是目标符号所属节，不是重定位表存放节。",
+          "partial_credit": "符号/节/类型/原值/新值中至少两项正确，但推导或其他字段有错误。",
+          "partial_points": 3.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S02.C07",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S02",
+      "max_points": 42
+    },
+    {
+      "title": "修补计算方法（10分）",
+      "source_anchor": "步骤2计算说明",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "绝对重定位R_386_32使用S+A；解释buf+4指向第二个int。",
+          "partial_credit": "公式或第二元素关系只正确一项。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S03.C01",
+          "minor_points": 4.25,
+          "minor_credit": "S+A公式、符号含义及buf+4指向第二个int均正确；仅一个代入中间步骤未展开。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "R_386_PC32使用S+A-P，P是修补字段地址，A=-4；或等价目标减下一指令地址，不重复减4。",
+          "partial_credit": "理解相对位移但P/附加数界定不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S03.C02",
+          "minor_points": 4.25,
+          "minor_credit": "S+A-P、P位置、A=-4及下一指令等价关系正确，未重复减4；仅一个算术中间步骤未展开。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        }
+      ],
+      "id": "S03",
+      "max_points": 10
+    },
+    {
+      "title": "链接并验证（18分）",
+      "source_anchor": "步骤3：链接p并反汇编标记",
+      "criteria": [
+        {
+          "max_points": 6,
+          "full_credit": "实际将main.o和swap.o链接成p，并展示.text反汇编。",
+          "partial_credit": "完成链接但反汇编证据不全。",
+          "partial_points": 3.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S04.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 12,
+          "full_credit": "在最终程序中标记七处修补字段，值与本次实际符号布局自洽；与题设固定地址计算可不同但应说明。",
+          "partial_credit": "至少三处正确对应，其余未标或局部错误。",
+          "partial_points": 6.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S04.C02",
+          "minor_points": 10.2,
+          "minor_credit": "七处修补字段与实际布局均正确，能区分题设固定地址与本次地址；仅一处解释性标签不完整，可由反汇编与表唯一对应。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        }
+      ],
+      "id": "S04",
+      "max_points": 18
+    },
+    {
+      "title": "思考题（5分）",
+      "source_anchor": "静态链接与动态链接",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "区分链接/运行时解析、库代码装入与依赖关系，说明体积和更新等差别；不说静态链接必复制整个库。",
+          "partial_credit": "基本区别正确但时机/代码选择有不完整概括。",
+          "partial_points": 2.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S05.C01",
+          "minor_points": 4.25,
+          "minor_credit": "解析时机、装入和依赖关系正确，体积/更新差别说明无概念错误；其中一处比较未充分展开，不得声称静态链接复制整个库。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        }
+      ],
+      "id": "S05",
+      "max_points": 5
+    },
+    {
+      "title": "实验心得",
+      "source_anchor": "实验心得与体会",
+      "criteria": [
+        {
+          "max_points": 3,
+          "full_credit": "结合本次链接和重定位的具体步骤或观察，说明学到的机制。",
+          "partial_credit": "提到本实验知识点，但未联系具体操作或观察。",
+          "partial_points": 1.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S06.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 2,
+          "full_credit": "给出一条与上述观察相符的原因、改进办法或适用条件。无需虚构故障。",
+          "partial_credit": "给出相关建议但原因或适用条件不清楚。",
+          "partial_points": 1.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp16.S06.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S06",
+      "max_points": 5
+    }
+  ],
+  "reference_corrections": [
+    "题设固定地址计算与学生实际构建验证是两种任务，前者按题设算，后者按实际地址判断。",
+    "已链接可执行文件可能不保留原重定位条目；应核对修补后字节，不要求仍显示相同重定位表。",
+    "模板尾部若有缓冲区溢出防护文字，属于复制残留，不纳入本实验评分。"
+  ],
+  "optional_no_penalty": [],
+  "equivalence_policy": [
+    "代码和解释按语义判断，不按文字相似度；正确等价实现同分。",
+    "截图中命令、关键输入及结果可辨认即可；一张图可支持多个不同评分点。",
+    "题面明确要求截图的结果项接受截图或可定位的原始终端记录；只有文字声称做过不等于运行证据。",
+    "同一根因影响后续推导时，保留正确方法分；不得在本标准之外追加连带扣分。"
+  ],
+  "calibration_status": "待教师标注样本校准；85为良好完成参考，不实施分布强制映射"
+}

@@ -1,0 +1,272 @@
+{
+  "schema_version": "1.0",
+  "rubric_version": "1.1.0-calibration",
+  "experiment_id": "exp03",
+  "title": "GCC和GDB的使用",
+  "max_points": 100,
+  "status": "draft_for_calibration",
+  "weight_basis": "根据用户确认按100分新设计；原材料未提供这些分值，不冒充教师原评分标准。",
+  "source": {
+    "path": "实验报告标准答案\\hct+实验3.doc",
+    "sha256": "452b99312f8eb07863dc825cd3e1b769eed6fe5c1f18fb2e1b1b044f2582e573",
+    "text": "evidence/sources/exp03.txt",
+    "images": "evidence/sources/exp03.files"
+  },
+  "environment": "课程目标环境为 IA-32、32位 int、16位 short、8位 char、IEEE 754 float32/double64、GCC 4.4.7。可接受保持本题目标语义的等价环境；宽度、ABI、优化或编译标准影响结论时，先核对实际环境，不能照抄固定地址。",
+  "scoring": "每项只允许 full/partial/zero/unresolved；partial 为该项明确规定的固定分数。章节部分分为逐项相加，不另扣格式、截图数量或整体印象分。",
+  "sections": [
+    {
+      "title": "hello源程序（10分）",
+      "source_anchor": "实验步骤：1，vi编辑hello.c",
+      "criteria": [
+        {
+          "max_points": 6,
+          "full_credit": "hello.c主函数、头文件和输出语句完整正确。",
+          "partial_credit": "主干正确但存在局部可修正错误。",
+          "partial_points": 3.0,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S01.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 4,
+          "full_credit": "编辑过程截图能辨认源文件及内容。",
+          "partial_credit": "文件名或代码只有一部分可辨。",
+          "partial_points": 2.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S01.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S01",
+      "max_points": 10
+    },
+    {
+      "title": "四阶段编译（40分）",
+      "source_anchor": "实验步骤：GCC编译四个中间文件",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "-E生成i，前后文件衔接和阶段正确。",
+          "partial_credit": "命令主要正确但输入输出或阶段标注缺一项。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "查看i内容的截图正确；预处理结果含展开的声明等，尚非机器码。二进制可用xxd或等价工具查看。",
+          "partial_credit": "观察文件正确但内容展示或解释不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "-S生成s，前后文件衔接和阶段正确。",
+          "partial_credit": "命令主要正确但输入输出或阶段标注缺一项。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "查看s内容的截图正确；汇编文本。二进制可用xxd或等价工具查看。",
+          "partial_credit": "观察文件正确但内容展示或解释不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "-c生成o，前后文件衔接和阶段正确。",
+          "partial_credit": "命令主要正确但输入输出或阶段标注缺一项。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C05",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "查看o内容的截图正确；可重定位目标二进制。二进制可用xxd或等价工具查看。",
+          "partial_credit": "观察文件正确但内容展示或解释不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C06",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "链接hello.o生成hello，前后文件衔接和阶段正确。",
+          "partial_credit": "命令主要正确但输入输出或阶段标注缺一项。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C07",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "查看hello内容的截图正确；可执行二进制，与目标文件不同。二进制可用xxd或等价工具查看。",
+          "partial_credit": "观察文件正确但内容展示或解释不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S02.C08",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S02",
+      "max_points": 40
+    },
+    {
+      "title": "GDB调试（45分）",
+      "source_anchor": "实验步骤：tst.c和调试命令示例",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "tst.c包含1至100求和及func(250)求和，代码与被调试文件一致。",
+          "partial_credit": "主程序或func只完整展示其一。",
+          "partial_points": 2.5,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "以-g编译并成功载入GDB，list显示对应源码。",
+          "partial_credit": "编译/载入/list只展示一部分。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 7,
+          "full_credit": "设置有效断点、查看断点并run停在对应位置。",
+          "partial_credit": "只展示断点设置或仅运行。",
+          "partial_points": 3.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C03",
+          "minor_points": 5.95,
+          "minor_credit": "有效断点设置和run命中位置均有实际记录；仅缺少独立的断点列表展示，命中信息可明确对应断点。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 8,
+          "full_credit": "next/step展示单步操作；能区分越过与进入函数。",
+          "partial_credit": "仅一种单步命令或语义解释不完整。",
+          "partial_points": 4.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 8,
+          "full_credit": "print检查i、sum等变量，数值与当前停点相符；不要求未初始化值等于样例。",
+          "partial_credit": "能查看变量，但停点或变化过程不完整。",
+          "partial_points": 4.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C05",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 7,
+          "full_credit": "continue/finish及函数调用关系有对应调试记录。",
+          "partial_credit": "只展示其中一部分有效操作。",
+          "partial_points": 3.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C06",
+          "minor_points": 5.95,
+          "minor_credit": "continue和finish的实际执行及正确停止位置可辨，函数调用关系基本说明正确；仅少一处非关键调用上下文说明。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "运行结果包含5050与31375，并正常结束/退出调试。",
+          "partial_credit": "只证明一组正确求和结果。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S03.C07",
+          "minor_points": 4.25,
+          "minor_credit": "5050与31375两个正确运行结果均可核查；仅未记录退出调试的最后一步，没有异常中止证据。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        }
+      ],
+      "id": "S03",
+      "max_points": 45
+    },
+    {
+      "title": "实验心得",
+      "source_anchor": "实验心得与体会",
+      "criteria": [
+        {
+          "max_points": 3,
+          "full_credit": "结合本次GCC与GDB的具体步骤或观察，说明学到的机制。",
+          "partial_credit": "提到本实验知识点，但未联系具体操作或观察。",
+          "partial_points": 1.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S04.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 2,
+          "full_credit": "给出一条与上述观察相符的原因、改进办法或适用条件。无需虚构故障。",
+          "partial_credit": "给出相关建议但原因或适用条件不清楚。",
+          "partial_points": 1.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp03.S04.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S04",
+      "max_points": 5
+    }
+  ],
+  "reference_corrections": [
+    "例程的全角符号、Printf/Return大小写等为材料笔误，允许正确修复。",
+    "GDB断点行号、地址、未初始化值、机器码长度随环境变，不作为固定答案。"
+  ],
+  "optional_no_penalty": [],
+  "equivalence_policy": [
+    "代码和解释按语义判断，不按文字相似度；正确等价实现同分。",
+    "截图中命令、关键输入及结果可辨认即可；一张图可支持多个不同评分点。",
+    "题面明确要求截图的结果项接受截图或可定位的原始终端记录；只有文字声称做过不等于运行证据。",
+    "同一根因影响后续推导时，保留正确方法分；不得在本标准之外追加连带扣分。"
+  ],
+  "calibration_status": "待教师标注样本校准；85为良好完成参考，不实施分布强制映射"
+}

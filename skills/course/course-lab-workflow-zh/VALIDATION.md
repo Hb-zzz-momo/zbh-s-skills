@@ -129,3 +129,81 @@
 | 判定“偏空”的页 | 5 页（含只有边框的整页） | 0 页 |
 | 每页墨迹 | 0.7%–11.9% | 6.5%–11.5% |
 | 正文框宽度 | 17.5cm（已合规） | 17.5cm |
+
+## v1.1.0 课程路由修订复检（2026-09-20）
+
+通用规则、Web课程与实验1—5分层路由；代码/结果呈现分别按课程控制；移除跨课程截图与章节限制。结构检查通过，23项既有单元测试通过，4项新增呈现检查通过（默认文字、源码与结果独立策略、嵌套表格、自动编号栏目缺失识别）。三个修改后的skill均通过quick_validate。原始输出见 tests/results/course-rule-*。20个模型行为用例仅定义，未执行；不能把这些脚本测试当作独立模型行为评测。
+
+## 注释与正文验收修订（2026-09-20）
+
+增加最终Word与源码双处注释校核、逐模块缺口、显式步骤子标题及不可靠评分撤回。结构检查输出见tests/results/comment-depth-structure.json；course-lab-workflow-zh与artifact-template-lab-report的quick_validate均实际通过。实际报告注释校核与源码非注释内容比较见本课程完成目录evidence/注释覆盖复核.json；没有把结构检查当成模型行为测试。
+
+## 数据挖掘机器学习课程 HTML 流程复检（2026-09-29）
+
+课程索引增加“数据挖掘 机器学习”路由，`references/courses/machine-learning.md` 记录实验四讲义填空、真实运行、单文件 HTML、图片内嵌和浏览器核验的工作流。原始结构检查输出见 `tests/results/machine-learning-structure-check.json`（`ok: true`、无错误与警告），单元测试输出见 `tests/results/machine-learning-unit-tests.txt`（23 项通过）。这两项只验证 Skill 包结构与既有测试；当前实验的真实执行和 HTML 视觉核验记录保存在课程目录 `实验/实验四/evidence/`。
+
+## 机器学习课程正式报告 HTML 流程复检（2026-09-29）
+
+用户将实验四的交付从纯讲义填空版改为正式实验报告 HTML，因此 `references/courses/machine-learning.md` 新增正式报告的章节、证据、图表、交叉验证和打印核验规则，课程索引同步增加入口。本轮重新运行 `scripts/validate.py`，原始输出覆盖 `tests/results/machine-learning-structure-check.json`：`ok: true`、无错误与警告、69 条本地链接已检查。`tests/results/machine-learning-unit-tests.txt` 记录 23 项单元测试通过。报告本身另由课程目录中的 `evidence/verify_html.py` 和 Chrome 打印预览核验；Skill 检查不代表教师认可或实验结果正确。
+
+## 实验四首页与正文措辞修订复检（2026-09-29）
+
+按用户补充要求，课程规则明确正式报告仍沿用原讲义的标题及“学号、姓名、班级”顺序，并把报告制作过程措辞留在证据记录中。重新运行 `scripts/validate.py`，`tests/results/machine-learning-structure-check.json` 为 `ok: true`、无错误与警告、69 条本地链接通过；`tests/results/machine-learning-unit-tests.txt` 记录 23 项通过。最终 HTML 的首页顺序、代码、日志、指标和图片另由课程目录的 `evidence/verify_html.py` 校验。修订后的 HTML 尚未完成新的浏览器逐页视觉复核，旧预览只对应早前版本。
+
+## v1.1.1 教程逐项覆盖与修订闭环（2026-10-09）
+
+本次用户要求把实验执行缺口写入相关 skill。主流程和端到端参考补充全文与逐页图像阅读、关联教程核查、原编号子步骤覆盖、必做/可选/条件与冲突判定、规则修订后的保留与重跑、从原教程向正文和最终包反查。任务卡、过程记录、报告规则和验收清单同步更新；带练与模板报告 skill 使用同一流程，不增加任务模式或强制扩展用户范围。
+
+- [主包结构与链接检查](tests/results/tutorial-coverage-structure.json)：原始输出包含主文件行数、链接和行为用例数；只证明结构与引用检查结果。
+- [三个 skill 的基础检查](tests/results/tutorial-coverage-skill-checks.json)：运行 skill-creator 的 `quick_validate.py`，另核对带练 skill 的相对链接；检查结果与实际行数保存在原始输出。
+- [既有单元测试日志](tests/results/tutorial-coverage-unit-tests.txt)：实际运行 `unittest discover`，验证既有检查脚本的合成夹具行为；不证明课程实验通过。
+
+`evals/cases.json` 增加 C21—C23，分别覆盖图中要求与关联教程/子步骤、判据修订与重跑、模板提示及最终目录。新增模型行为用例仅定义、未实际执行，保持 `execution_status: not_executed`，未生成通过率。本次未重跑课程实验、生成新报告或向平台提交。
+
+## v1.1.3 Notebook原始输出与正文清理（2026-10-10）
+
+新增 `references/notebook-output-fidelity.md`，统一真实Jupyter干净内核逐格运行、未经后处理的执行快照、输入/输出哈希、原生导出、空输出不加占位句、制作/带练提示清理及旧示例输出归档。主流程、模板保留规则、机器学习课程规则、报告证据规则及另外两个报告skill同步使用该规则。
+
+- [结构与本地链接检查](tests/results/notebook-output-structure.json)：运行本包 `scripts/validate.py` 得到的原始输出；只证明包结构与链接检查结果，不证明后续模型一定遵守规则。
+- [三个skill的基础检查](tests/results/notebook-output-skill-checks.json)：逐一运行skill-creator的 `quick_validate.py`，退出码、stdout、stderr原样记录。
+- [既有检查脚本单元测试](tests/results/notebook-output-unit-tests.txt)：实际运行 `unittest discover`；合成夹具测试不能替代课程实验复核。
+
+此次规则来自数据挖掘机器学习实验五的实际修订。该实验重新启动干净Jupyter内核，由nbclient按序运行全部46个代码格，保存原始Notebook快照；每格输入与outputs哈希和执行时台账一致，正文全部有输出格与同一快照的nbconvert原生输出块一致，空输出格没有输出区。六种搜索的指标另从保存的预测对象独立复算。原始核验文件在课程目录 `实验/实验五/evidence/全量完成-20261010/Jupyter输出一致性核验.json` 和 `全量验收.json`，不是Skill包内的示例结果。浏览器视觉复核仍单独记录实际状态；此记录不宣称模型行为评测或教师认可。
+
+
+## 2026-10-10 机器学习教师代码与最终 HTML 复验
+
+按用户本次明确要求，版本 1.1.4 取消机器学习追加诊断格、显示表达式、种子、交叉验证和图表代码的旧建议，增加最终 HTML 输入代码恢复及干净 Jupyter 内核全量复验，教师非填空代码错误按已授权最小修复处理。原始检查输出见 `tests/results/ml-teacher-code-html-roundtrip-structure.json` 和 `tests/results/ml-teacher-code-html-roundtrip-unit-tests.txt`；三个相关 skill 的 quick_validate 均返回 Skill is valid。本次只运行结构与单元检查，未把它们当作模型行为评估或教师官方验收。实验二至四的实际执行和 HTML 回读复验另保存在课程实验目录。
+
+## v1.1.5 所有实验的步骤与扩展边界（2026-10-11）
+
+按用户明确要求，所有有明确步骤的课程实验严格按原步骤与原顺序完成，除题目所需的自行编写外默认不补实验代码、输出表达式、单元或功能；只有用户明确允许适当扩展时，才在完成原实验后单独延伸。模板保留、Notebook输出、机器学习、端到端流程、验收清单及另外两个报告skill同步修订。旧的“只能追加”不再被视为默认扩展授权；“详细一点”也不构成扩展授权。
+
+- [结构与本地链接检查](tests/results/experiment-steps-scope-structure.json)：实际运行本包检查脚本，原始结果为 `ok: true`，无错误与警告。
+- [三个skill的基础检查](tests/results/experiment-steps-scope-skill-checks.json)：实际运行三个 `quick_validate.py`，退出码均为0，原样保存输出。
+- [既有检查脚本单元测试](tests/results/experiment-steps-scope-unit-tests.txt)：实际运行 `unittest discover`，23项通过；不代表模型行为评估或课程实验验收。
+
+本次只修改持久规则，未修改实验报告或重新执行课程实验。
+
+## v1.1.6 机器学习执行与实验专属skill优先（2026-10-11）
+
+按用户本次明确要求，机器学习规则加强教师代码与原顺序、真实Jupyter全格执行及输出、不新增AI注释、内容与格式全量检查、最终HTML实际执行复验。教师HTML评测脚本可用时须真实调用；未提供时恢复最终HTML代码并在新Jupyter内核全量执行，不能冒称官方评测通过。
+
+全局维护规则、总控路由及手册、元skill、课程索引、主流程和两个报告skill统一为：本实验专属skill第一遵循，通用/全局skill第二遵循，只补充未规定事项；本次用户明确要求仍优先。修正课程索引中的旧章节入口；README生成器保留该优先级，实际重新生成总览并检查新路由协议已出现。
+
+- [结构与本地链接检查](tests/results/ml-specific-priority-structure.json)：实际运行主skill检查脚本的原始输出。
+- [五个skill的基础检查](tests/results/ml-specific-priority-skill-checks.json)：实际运行quick_validate，五项退出码均为0，原样保存输出。
+- [既有检查脚本单元测试](tests/results/ml-specific-priority-unit-tests.txt)：实际运行unittest，23项通过；不等同模型行为评估或教师验收。
+
+本次仅更新持久规则及其索引，未修改实验报告或重新执行课程实验。
+
+## v1.1.7 警告漏检与完成声明修订（2026-10-11）
+
+根据实验三的真实旧快照追查：旧验收脚本只排除 `output_type=error`，仍允许 In[31] 的 FutureWarning 通过；原生输出保留规则缺少诊断影响判定，且运行结束被扩大解释为全量验收。新增[统一验收规则](references/verification-completion.md)及只读输出检查工具，并接入全局维护规则、路由、元skill和课程报告入口。本实验专属规则仍决定实际验收要求；不增加教师实验代码、不隐藏输出、不把正常或题目要求的诊断一律判失败。
+
+- [新增及既有单元测试日志](tests/results/warning-completion-unit-tests.txt)：42项实际通过，其中19项覆盖新的诊断、完成声明、版本和路径反例；这些是合成夹具测试，不证明后续模型一定遵守规则。
+- [五个skill的基础检查](tests/results/warning-completion-skill-checks.json)：五项 `quick_validate.py` 实际退出码均为0，stdout/stderr原样记录，仅证明元数据检查结果。
+- [结构与包内链接检查](tests/results/warning-completion-structure.json)：本包检查脚本的原始结果；不代表报告版式或实验算法正确。
+- [真实快照回归汇总](tests/results/warning-completion-real-checks.json)：旧实验三快照为0异常、1条FutureWarning，新工具返回BLOCK/退出码2；当前两份原始执行快照及完整驱动日志诊断检查返回PASS/退出码0。两次均为 `--diagnostics-only`，`can_claim_full_completion=false`，不单凭零警告获得全量完成判定。
+
+`evals/cases.json` 新增 C24—C26，覆盖警告误判、题目明确要求的诊断及ZIP内旧复验文件；全部26项模型行为用例仅定义，实际模型行为测试未执行。本次只读检查既有实验输出，没有重新运行实验、修改报告或调用教师官方评分脚本。旧CAUTION规则改为允许说明限制的交付，仍禁止宣称全量通过。

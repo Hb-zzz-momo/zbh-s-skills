@@ -92,3 +92,11 @@ python scripts/validate.py --evidence "实际工作目录/evidence-register.json
 `validate.py` 只检查本包结构与台账逻辑：主文件元数据、包内相对链接、可选台账 JSON 的字段与状态一致性。它**不能**打开 docx、读取页数、量图片比例、判断表格宽度、检查文字是否越过版心或页面是否留白过多。
 
 报告版式必须用[版式自检脚本](../assets/scripts/check_layout.ps1)在装有 Word 与 poppler 的机器上实测（输出页数、图片宽高比、表格宽度、文字边界、逐页墨迹）。「结构检查通过」与「版式检查通过」是两件事，任何一方通过都不能代替另一方。
+
+## 7. 原始输出与完成声明检查
+
+[输出检查工具](../scripts/audit_run_outputs.py)按[验收规则](../references/verification-completion.md)读取完整原始 Notebook 和日志，识别常见警告、错误及未解释 stderr；不会运行或修改教师代码。哈希校验用于识别旧证据和 ZIP 内过期正式文件，不能证明截图真假、算法正确或本次要求已经摘全。
+
+`test_run_outputs.py` 的合成反例覆盖有数值结果仍有 FutureWarning、stdout/HTML MIME 诊断、未知 stderr、预期诊断、未执行单元、缺失视觉验收、过期审阅/证据、ZIP CRC 通过但复验文件过期，以及不同 JSON 目录的证据路径解析。它们测试工具的判定分支，不是课程实验或模型行为评测。
+
+真实历史快照的只读检查另存为 `results/warning-completion-real-old.json` 和 `results/warning-completion-real-current.json`；以实际原始文件及当前哈希为准。诊断检查通过且退出码为0，也不能独立获得“全量完成”声明。

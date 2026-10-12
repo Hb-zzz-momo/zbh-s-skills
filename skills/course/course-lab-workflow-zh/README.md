@@ -1,6 +1,6 @@
 # 通用实验课 Skill · course-lab-workflow-zh
 
-版本：1.0.3｜整理日期：2026-09-15｜修订：2026-09-18（P0 模式与课程规则、内容全量自检、去 AI 痕迹、格式全量自检）｜默认语言：中文
+版本：1.1.7｜整理日期：2026-09-15｜修订：2026-10-11（完整输出诊断、完成声明、当前交付版本验收）｜默认语言：中文
 
 ## 1. 用于什么
 
@@ -37,6 +37,7 @@ course-lab-workflow-zh/
 │   ├── teaching-engineering.md    # 带练、代码、环境与排错
 │   ├── e2e-lab-workflow.md        # 端到端代做：材料—方案—执行—证据—两份成稿
 │   ├── report-evidence.md         # 母版、结果、AI Report 与交付
+│   ├── verification-completion.md # 完整输出、诊断分类与完成声明验收
 │   ├── course-adapters.md         # 课程差异规则
 │   └── project-basis.md           # 项目依据、可信边界与知识迁移
 ├── assets/                        # 每个新实验可复制使用的空模板
@@ -47,7 +48,8 @@ course-lab-workflow-zh/
 │   ├── course-registry.md         # 课程登记表：材料根目录、模板、地点、命名规则
 │   └── evidence-register.json
 ├── scripts/
-│   └── validate.py                # 可选的只读结构/台账检查
+│   ├── validate.py                # 可选的只读结构/台账检查
+│   └── audit_run_outputs.py       # 原始执行诊断及声明证据一致性检查
 ├── assets/scripts/                # 可复用执行脚本（版式自检、版式修正、母版填充、截图、裁剪）
 │   ├── check_layout.ps1
 │   ├── fix_docx_layout.ps1
@@ -57,6 +59,7 @@ course-lab-workflow-zh/
 ├── tests/
 │   ├── README.md
 │   ├── test_validate.py           # 使用合成夹具的单元测试
+│   ├── test_run_outputs.py        # 警告漏检与完成误判的合成反例
 │   └── results/                   # 本次结构检查与单元测试原始输出
 └── evals/
     └── cases.json                 # 行为测试设计，未自动执行
@@ -115,7 +118,7 @@ Claude Code 官方技能说明：https://code.claude.com/docs/en/skills
 
 需要 Word 时提供本课程原始模板，并注明其他报告仅供内容还是视觉参考。证据不完整时生成待补充版，不让格式完整掩盖实验缺口。
 
-多人服务器、数据库删除、权限变更和评测提交等操作必须先明确权限与范围。只有本人有权限执行的动作才进入实际步骤。AI Report 记录真实参与，不用统一“仅润色”替代实际情况。
+多人服务器、数据库删除、权限变更和评测提交等操作必须先明确权限与范围。只有本人有权限执行的动作才进入实际步骤。AI Report 记具体知识点疑问、解答与实机验证证据，不用统一“仅润色”替代实际情况。
 
 ## 7. 检查与限制
 
