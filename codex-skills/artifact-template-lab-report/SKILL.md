@@ -18,9 +18,9 @@ description: 按教师指定或用户选定的实验报告模板编辑Word并执
 
 有本课模板必须使用本课当前实验的模板副本，禁止套用其他课程模板、历史参考件或通用模板。只有确实没有本课模板且用户允许自行设计时，才考虑参考件，不能冒充本课模板。
 
-所有课程实验只要有明确步骤，就保留全部原内容、完整代码、图片、理论及原顺序，不删减、合并、重排或只保留关键实现。除题目要求自行编写的代码外，默认不额外补代码、输出表达式、单元或功能；只有用户明确允许适当扩展时，才在完成原步骤后单独做授权范围内的延伸，不替换原要求。“详细一点”不等于允许扩展。必须读取[完整执行与验收规则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/template-lecture-fidelity.md)，逐项核对后才称全部完成。
+所有课程实验只要有明确步骤，就保留全部原内容、完整代码、图片、理论及原顺序，不删减、合并、重排或只保留关键实现。除题目要求自行编写的代码外，默认不额外补代码、输出表达式、单元或功能；只有用户明确允许适当扩展时，才在完成原步骤后单独做授权范围内的延伸，不替换原要求。机器学习允许并尽可能补充仅展示已有数据或计算结果的代码，具体边界见课程规则；该例外不授权其他新增代码。“详细一点”不等于允许扩展。必须读取[完整执行与验收规则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/template-lecture-fidelity.md)，逐项核对后才称全部完成。
 
-机器学习执行[本课程规则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/courses/machine-learning.md)：只填原作业，教师代码及原参数逐格实际执行，有输出全部展示，无输出不占位，不新增AI注释，内容和格式全量自检；最终HTML必须经教师脚本或代码回读后在新Jupyter内核全量复验。授权扩展另列。其他Notebook同样遵守默认不补代码及明确扩展授权的边界。
+机器学习执行[本课程规则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/courses/machine-learning.md)：填原作业并尽可能在原格后添加仅展示已有数据或结果的独立代码格，其他代码不额外添加；教师代码及原参数逐格实际执行，有输出全部展示，无输出不占位，不新增AI注释，内容和格式全量自检；最终HTML必须经教师脚本或代码回读后在新Jupyter内核全量复验。授权扩展另列。其他Notebook同样遵守默认不补代码及明确扩展授权的边界。
 
 Notebook及其导出报告同时遵守[逐格执行与原始输出规则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/notebook-output-fidelity.md)：干净Jupyter内核从头逐格执行，保存未经后处理的快照，正文使用原生输出并比对哈希及原生导出；不手写、改写或拼装结果。无输出不放“已执行”“无显示输出”等占位说明。正文与代码注释清理制作/带练提示和对照提示，旧示例输出留在原件备份，完成版默认显示当前实测输出；此例外不删除实验要求、原代码、理论或步骤。发现与旧保留规则冲突时向用户说明采用依据。
 
