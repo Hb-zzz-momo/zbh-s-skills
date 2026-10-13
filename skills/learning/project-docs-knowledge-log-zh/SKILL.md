@@ -22,6 +22,8 @@ description: '项目 docs 知识点沉淀技能：在完成有复用价值的项
 
 ## 触发判断
 
+项目已有三层记忆 v2 时，知识文章只保存解释；若本轮改变现行规则、有效结果或下一步，同时调用 `three-layer-project-memory-zh` 更新 records 与当前总览并 seal。通用经验不自动推广为其他项目授权；跨项目员工经验仅写用户指定的 agent 存储。
+
 触发本技能前先做三步判断：
 
 1. 当前任务是否有项目上下文：当前目录或用户指定目录包含 `.git`、`README`、`docs`、`src`、`package.json`、`pyproject.toml`、`Cargo.toml`、`go.mod`、`pom.xml` 等项目特征之一。
