@@ -238,3 +238,12 @@
 - [基础检查](tests/results/web-notice-authority-20261013-basic.txt)、[结构与链接](tests/results/web-notice-authority-20261013-structure.txt)、[42项既有单元测试](tests/results/web-notice-authority-20261013-unit-tests.txt)均为实际输出。
 
 规则核对与测试不代表任何课程实验已执行、教师已打分或独立模型行为通过。完整逐条解读与回填表已写回课程目录，未改原件或自动改写现有报告。
+
+## 心得先给AI草稿再由本人修改（2026-10-13最新授权）
+
+用户明确要求用“按教师要求生成完整心得草稿→本人结合想法修改”替代先前“无本人文字只能给提纲、不能起草”的限制。已同步Web规则、W-N05f/13/16/17、报告处理与验收清单；至少80字、具体细节、事实来源、原创和AI参与位置核对保留。缺本人修改时交付草稿并单列待办，不因此中断其余已授权实验。
+
+- [基础检查](tests/results/web-reflection-draft-20261013-basic.txt)、[结构与链接](tests/results/web-reflection-draft-20261013-structure.txt)、[范围与同步记录](tests/results/web-reflection-draft-20261013-validation.json)均为实际校验记录。
+- 边界复核：允许没本人文字时先交完整草稿；无真实故障不编排错；本人修改后重验字数与事实；AI初稿不冒称本人独立写作；教师原件不改写，只有心得协作方式按最新授权替代。
+
+本批次仅改规则与随附逐条解读，未生成某次实验的实际心得或重跑课程实验；未将结构检查当作模型行为评估。
