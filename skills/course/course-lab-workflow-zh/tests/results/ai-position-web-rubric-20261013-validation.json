@@ -1,0 +1,45 @@
+{
+  "checks": [
+    {
+      "check": "workflow-basic",
+      "exitCode": 0,
+      "output": "tests\\results\\ai-position-web-rubric-20261013-workflow-basic.txt"
+    },
+    {
+      "check": "coach-basic",
+      "exitCode": 0,
+      "output": "tests\\results\\ai-position-web-rubric-20261013-coach-basic.txt"
+    },
+    {
+      "check": "template-basic",
+      "exitCode": 0,
+      "output": "tests\\results\\ai-position-web-rubric-20261013-template-basic.txt"
+    },
+    {
+      "check": "structure",
+      "exitCode": 0,
+      "output": "tests\\results\\ai-position-web-rubric-20261013-structure.txt"
+    },
+    {
+      "check": "unit-tests",
+      "exitCode": 0,
+      "output": "tests\\results\\ai-position-web-rubric-20261013-unit-tests.txt"
+    }
+  ],
+  "changedFiles": [
+    "skills/course/course-lab-workflow-zh/SKILL.md",
+    "skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md",
+    "skills/course/course-lab-workflow-zh/references/report-evidence.md",
+    "skills/course/course-lab-workflow-zh/references/courses/web-app.md",
+    "skills/course/course-lab-workflow-zh/references/courses/web-app-labs.md",
+    "skills/course/course-lab-workflow-zh/assets/acceptance-checklist.md",
+    "skills/course/course-lab-workflow-zh/assets/task-card.md",
+    "skills/course/course-lab-workflow-zh/references/verification-completion.md",
+    "skills/course/lab-report-coach-zh/SKILL.md",
+    "skills/course/lab-report-coach-zh/references/iteration-log.md",
+    "codex-skills/artifact-template-lab-report/SKILL.md",
+    "skills/course/course-lab-workflow-zh/VALIDATION.md"
+  ],
+  "templateMirrorMatches": true,
+  "limits": "Structure and existing unit tests only; manual rule scenario review does not establish future model behavior or any course report completion."
+}

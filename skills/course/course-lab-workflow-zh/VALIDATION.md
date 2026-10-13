@@ -216,3 +216,14 @@
 - [结构与包内链接检查的原始输出](tests/results/ml-display-only-structure.json)。
 
 本次仅修订持久规则。检查范围为元数据、结构与链接，不等同模型行为测试或课程实验验收；未修改报告或重新执行课程实验。
+
+## AI声明位置强制交付与Web全部踩分点（2026-10-13）
+
+本批次把AI位置核对从“用户要求时”改为所有实验报告交付的默认必做项；报告显式声明与实际参与分别列全，有声明提供编号标注核对预览，最终回复展示位置。Web从当前教师原文拆全部踩分点，源码与最终Word正文分别统计逐语言/模块注释率并核对有效性。通用流程、带练、模板入口与验收清单同步，其他课程代码边界不变。
+
+- [汇总与能力边界](tests/results/ai-position-web-rubric-20261013-validation.json)。
+- [主工作流基础检查](tests/results/ai-position-web-rubric-20261013-workflow-basic.txt)、[带练基础检查](tests/results/ai-position-web-rubric-20261013-coach-basic.txt)、[模板基础检查](tests/results/ai-position-web-rubric-20261013-template-basic.txt)均为实际运行输出。
+- [本包结构与链接检查](tests/results/ai-position-web-rubric-20261013-structure.txt)无错误/警告；[既有单元测试](tests/results/ai-position-web-rubric-20261013-unit-tests.txt)42项通过。检查器未执行模型行为用例。
+- 人工规则审查覆盖：无显式声明仍有实际参与；声明在图片/附录；分页后旧定位失效；代码外文字/字符串中的//不算注释；总比例达标但个别模块缺解释；源码与正文注释不一致；新通知替代历史阈值；只读实验一不能冒称同题样例已对照；“只输出正文”不能省略交付位置表。上述为指令边界审查，不虚构独立模型行为通过率。
+
+本次未修改课程报告或运行课程实验。原有未提交的效果达标、项目记忆等修改保留，仅同步本批次规则差异与这些验证输出。
