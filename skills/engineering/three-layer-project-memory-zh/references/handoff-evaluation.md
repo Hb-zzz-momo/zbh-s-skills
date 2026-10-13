@@ -7,13 +7,14 @@
 | task | 找到材料与下一步，不把模板说成完成 |
 | current-rule | 使用最新且范围适用规则，返回来源 |
 | history | 排除被替代/失效事实，保留历史条件 |
+| project-history | 声明历史范围时必测：逐项定位此前工作的任务、过程、结果、修订和经验，指出证据缺口 |
 | identity | 不串项目、学生、员工或机器 |
 | unknown | 缺证据时明确未核验，不编造成绩 |
 | sync | 隔离副本模拟缺失、变更或锁，应拒绝半同步 |
 
 不改正式实验、不对外提交。破坏性案例仅在临时副本，清理前核对目标属于临时目录。
 
-观察 JSON 必须有 snapshot_id、evaluator、method、cases；每个 case 包含 category、passed、observation（真实回答或工具证据）。六类全通过后 accept-handoff --input report.json。失败记录留 validation，修复后重测，不能自填 passed。
+观察 JSON 必须有 snapshot_id、evaluator、method、cases；每个 case 包含 category、passed、observation（真实回答或工具证据）。基础六类及项目声明的历史案例全通过后 accept-handoff --input report.json。失败记录留 validation，修复后重测，不能自填 passed。
 
 报告不参与同一 seal，避免循环；测试绑定 snapshot_id。程序只校验字段和绑定，不能证明语义正确。结构、内容、证据、快照、接班与实验验收分别报告。
 

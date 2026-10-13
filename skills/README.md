@@ -42,7 +42,7 @@
 |---|-------|-------|-------------|
 | 8 | `engineering-skill-flow-zh` | 288 | 中文工程 Skill 调用流总控技能：用于复杂工程实现、多方案工程设计、架构改造、跨文件功能开发、技术 spike、候选实现筛选、工程 Gate、增量切片、验证审计和交付记忆 |
 | 9 | `project-dev-zh` | 366 | 项目理解、技术知识问答与工程开发技能：覆盖代码阅读理解、逐行代码讲解、语法拆解、技术概念与术语的小白解析、ADR/设计决策解读、项目架构解析、后端链路分析和工程化开发规范 |
-| 10 | `project-handoff-zh` | 127 | 生成和更新中文项目接班与上下文入口文档，用于项目切换 AI、长期科研/工程项目丢失上下文、需要沉淀项目统一认知、AI接班手册、工作流细化、单文件记忆桥、三层记忆入口、总览索引、当前状态补丁、下一步优先级和文档更新规则时使用 |
+| 10 | `project-handoff-zh` | 128 | 生成和更新中文项目接班与上下文入口文档，用于项目切换 AI、长期科研/工程项目丢失上下文、需要沉淀项目统一认知、AI接班手册、工作流细化、单文件记忆桥、三层记忆入口、总览索引、当前状态补丁、下一步优先级和文档更新规则时使用。Use when: 接班手册、新AI继承、项目统一认知、工作流细化、上下文恢复、交接文档、科研项目交接、AI换人继续项目、单文件记忆、记忆文档分层、AGENTS/CLAUDE规则整理。 |
 | 11 | `project-kickoff-delivery-zh` | 67 | 项目启动交付技能：用于外包、比赛、课程和工程项目从读题、调研、需求拆解、技术选型、团队分工、接口/数据库设计、启动命令到启动记忆入口的交付流程 |
 | 12 | `project-structure-architect` | 175 | 项目文件树架构与持续治理技能：识别 Web、前端、后端、Monorepo、微服务、科研、数据科学、机器学习、Python 库或 CLI 项目，选择并生成标准蓝图，记录目录职责，在新增页面、接口、模型、服务、包、研究步骤、实验、流水线、脚本、数据、产物或文档前给出唯一合理路径，并审计结构漂移 |
 | 13 | `testgen` | 169 | Generate, review, and validate tests with the TestGen agent skill |
@@ -156,7 +156,7 @@
 | 76 | `opencli-browser-sitemap` | 96 | Use when driving a website with opencli browser and sitemap context is available, requested, or needed to avoid blind navigation. Guides agents to consume site sitemap files lazily, choose adapter/browser fallback paths, resume from state signatures, and mark stale sitemap entries without trusting them over live browser state |
 | 77 | `opencli-sitemap-author` | 161 | Use when creating or maintaining OpenCLI site sitemaps: agent-facing navigation, page-state, action, workflow, API-reference, pitfall, and fallback knowledge for a website. Use after browser exploration discovers durable site context, when a sitemap is stale, or when promoting local site knowledge into the repo |
 | 78 | `opencli-usage` | 168 | Use at the start of any OpenCLI session — this is the top-level map of what `opencli` can do, how to discover adapters, what flags and output formats are universal, and which specialized skill to load next. Point here when an agent asks "what can opencli do?" or "how do I find the right command?" |
-| 79 | `three-layer-project-memory-zh` | 80 | 建立、检索、更新和验收有来源的三层项目记忆，支持规则替代、身份隔离、员工经验复用与跨电脑接班。用于项目记忆、上下文恢复和交接；不以记忆检查替代实验验收。 |
+| 79 | `three-layer-project-memory-zh` | 83 | 建立、检索、更新和验收有来源的三层项目记忆，覆盖已做工作、过程、修订与经验，支持规则替代、身份隔离和跨电脑接班。用于项目记忆、上下文恢复和交接；不以记忆检查替代实验验收。 |
 
 ## Trigger Keywords
 

@@ -10,6 +10,7 @@
 | 索引、关联与维护 | changed / rebuild_index / audit | 索引、缺失关联 |
 | 来源变化、批次完整性 | seal / verify_snapshot | 证据变化、半同步、旧测试失效 |
 | 接班与实验分开验收 | audit / accept_handoff | 绑定测试及独立观察 |
+| 全项目历史覆盖 | history_coverage / manifest.history_units | 漏工作/漏栏目/失效引用阻断，证据缺口显式保留，历史事件默认检索，历史接班案例必需 |
 | 真实 CLI 与旧参数顺序 | main | 单测与实际项目 |
 
 运行：`py -3 -m unittest discover -s skills/engineering/three-layer-project-memory-zh/tests -v`。

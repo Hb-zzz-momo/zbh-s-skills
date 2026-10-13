@@ -21,6 +21,7 @@ SCOPES = {"project", "agent", "user", "machine"}
 AUTHORITY = {"assistant": 0, "external": 1, "runtime": 2, "skill": 3, "teacher": 4, "user": 5}
 EXIT = {"PASS": 0, "CAUTION": 1, "BLOCK": 2, "ERROR": 3}
 ENTRY = "docs/project-entry"
+HISTORY_FACETS = {"requirements", "inputs", "process", "outputs", "revisions", "issues", "lessons", "evidence"}
 ID = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,95}$")
 SECRET = re.compile(r"(?:sk-[A-Za-z0-9_-]{24,}|-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----|(?:password|api[_-]?key|access[_-]?token)\s*[=:]\s*[\"']?[A-Za-z0-9+/=_-]{16,})", re.I)
 AGENTS_BLOCK = """\n\n## 三层项目记忆（v2）
@@ -284,6 +285,53 @@ def dimension(blocks=(), warnings=()):
     return {"status": "BLOCK" if blocks else "CAUTION" if warnings else "PASS", "issues": list(blocks), "warnings": list(warnings)}
 
 
+def history_coverage(root, m, records):
+    """Check declared work coverage, not whether the underlying work was completed."""
+    units = m.get("history_units", [])
+    catalog = m.get("history_catalog")
+    if not units and not catalog:
+        return dict(dimension(), configured=False, meaning="未声明历史范围；不能据此声称历史已全量覆盖")
+    errors, gaps, covered = [], [], []
+    try:
+        if not isinstance(units, list) or not units or any(not isinstance(u, str) or not ID.fullmatch(u) for u in units) or len(set(units)) != len(units):
+            raise ValueError("history_units 须为非空、不重复的工作编号列表")
+        data = read_json(safe_path(root, catalog))
+        if not isinstance(data, dict) or data.get("project_id") != m["project_id"] or not isinstance(data.get("units"), list):
+            raise ValueError("历史目录须声明匹配的 project_id 和 units 列表")
+        by_id = {r["id"]: r for r in records}
+        seen = set()
+        for unit in data["units"]:
+            if not isinstance(unit, dict): raise ValueError("历史工作项必须是对象")
+            uid, facets = unit.get("id"), unit.get("facets", {})
+            if uid not in units or uid in seen: raise ValueError("历史工作编号超出范围或重复: " + str(uid))
+            seen.add(uid)
+            state = unit.get("evidence_status")
+            if state not in {"documented", "evidence_gap"}: errors.append(str(uid) + ": 无效 evidence_status")
+            if not isinstance(facets, dict): raise ValueError("facets 必须是对象")
+            for facet in sorted(HISTORY_FACETS):
+                links = facets.get(facet)
+                if not isinstance(links, list) or not links or any(not isinstance(i, str) for i in links):
+                    errors.append(f"{uid}: 缺少历史栏目 {facet}"); continue
+                for record_id in links:
+                    r = by_id.get(record_id)
+                    if not r or r.get("scope") != "project" or r.get("project_id") != m["project_id"] or not is_current(r):
+                        errors.append(f"{uid}/{facet}: 缺少当前可信历史记录 {record_id}")
+                if state == "documented" and facet in {"process", "lessons"}:
+                    kind = "episode" if facet == "process" else "procedure"
+                    if not any(by_id.get(i, {}).get("kind") == kind for i in links): errors.append(f"{uid}/{facet}: 需 {kind} 记录")
+            if state == "evidence_gap":
+                unknown = unit.get("gaps")
+                if not isinstance(unknown, list) or not unknown or any(not isinstance(g, str) or not g.strip() for g in unknown):
+                    errors.append(str(uid) + ": 证据缺口必须明确说明")
+                else: gaps.append({"id": uid, "gaps": unknown})
+            covered.append(uid)
+        errors.extend("历史工作未覆盖: " + u for u in units if u not in seen)
+    except (ValueError, OSError, KeyError, TypeError) as exc:
+        errors.append(str(exc))
+    return dict(dimension(errors), configured=True, declared=units, covered=covered, evidence_gaps=gaps,
+                meaning="检查历史是否可定位并如实标记缺口；不证明实验完成或所有证据齐全")
+
+
 def audit(root, level="all", ignore_lock=False):
     root = Path(root).resolve()
     dims = {}
@@ -329,7 +377,10 @@ def audit(root, level="all", ignore_lock=False):
                     errors.append(f"{r.get('id')}: {exc}")
             p = entry(root) / "memory-index.json"
             if not p.is_file() or read_json(p) != index_value(root): errors.append("派生索引与记录不一致；运行 reindex")
+            coverage = history_coverage(root, m, records)
+            errors.extend(coverage["issues"])
             dims["content"] = dimension(errors, warnings)
+            dims["content"]["history_coverage"] = coverage
             dims["evidence"] = dimension(evidence_errors, evidence_warnings)
         dims["snapshot"] = verify_snapshot(root, ignore_lock=ignore_lock)
     except (ValueError, OSError, KeyError, TypeError) as exc:
@@ -339,7 +390,7 @@ def audit(root, level="all", ignore_lock=False):
     if p.is_file():
         try:
             r = read_json(p)
-            validate_handoff(r)
+            validate_handoff(r, bool(manifest(root).get("history_units")))
             if r.get("snapshot_id") == dims.get("snapshot", {}).get("snapshot_id") and r.get("status") == "PASS": handoff = dimension()
             else: handoff = dimension(warnings=["接班测试属于旧快照或未通过"])
         except (ValueError, OSError) as exc: handoff = dimension([str(exc)])
@@ -356,6 +407,14 @@ def tokens(text):
         words.extend(run[i:i + 2] for i in range(len(run) - 1))
         if len(run) == 1: words.append(run)
     return words
+
+
+def alias_matches(alias, query):
+    if len(alias.strip()) < 3: return False
+    left = r"(?<![a-z0-9_])" if re.match(r"[a-z0-9_]", alias, re.I) else ""
+    right = r"(?![a-z0-9_])" if re.search(r"[a-z0-9_]$", alias, re.I) else ""
+    if alias[-1] in "零〇一二三四五六七八九十百千万": right = r"(?![零〇一二三四五六七八九十百千万])"
+    return bool(re.search(left + re.escape(alias) + right, query, re.I))
 
 
 def retrieve(root, query, agent_id=None, user_id=None, machine_id=None, at=None, include_history=False, max_chars=10000, limit=8, stores=()):
@@ -401,14 +460,16 @@ def retrieve(root, query, agent_id=None, user_id=None, machine_id=None, at=None,
                 tf = words.count(word)
                 score += math.log(1 + (len(candidates) - df + .5) / (df + .5)) * tf * 2.2 / (tf + 1.2 * (.25 + .75 * len(words) / 80))
         if query.lower() in " ".join([r["summary"]] + r.get("aliases", [])).lower(): score += 3
-        if score > 0: scores.append((score, store, r))
-    scores.sort(key=lambda x: (-x[0], -AUTHORITY[x[2]["authority"]], x[2]["id"]))
+        # Explicit aliases are a separate tier; general word frequency cannot displace them.
+        matched_aliases = sorted({a for a in r.get("aliases", []) if alias_matches(a, query)})
+        if score > 0 or matched_aliases: scores.append((bool(matched_aliases), score, store, r, matched_aliases))
+    scores.sort(key=lambda x: (-x[0], -x[1], -AUTHORITY[x[3]["authority"]], x[3]["id"]))
     selected, chars, budget_skipped = [], 0, 0
-    for score, store, r in scores:
+    for _, score, store, r, matched_aliases in scores:
         if len(selected) >= limit: break
         keys = ("id", "key", "summary", "scope", "status", "authority", "valid_from", "valid_until", "sources", "related_ids")
         payload = {k: r.get(k) for k in keys}
-        payload.update(score=round(score, 4), detail_path=ENTRY + "/records/" + r["id"] + ".json", store=str(store))
+        payload.update(score=round(score, 4), matched_aliases=matched_aliases, detail_path=ENTRY + "/records/" + r["id"] + ".json", store=str(store))
         size = len(json.dumps(payload, ensure_ascii=False))
         if chars + size <= max_chars:
             selected.append(payload); chars += size
@@ -425,6 +486,8 @@ def snapshot_files(root):
              and not {"validation", "__pycache__", ".cache"}.intersection(p.relative_to(entry(root)).parts)]
     paths += [p for p in (Path(root) / "AGENTS.md", Path(root) / "CLAUDE.md") if p.is_file()]
     paths += [safe_path(root, f) for f in manifest(root).get("managed_files", []) if safe_path(root, f).is_file()]
+    catalog = manifest(root).get("history_catalog")
+    if catalog and safe_path(root, catalog).is_file(): paths.append(safe_path(root, catalog))
     for r in load_records(root):
         # Membership is independent of the clock, including all existing provenance.
         for src in r.get("sources", []):
@@ -465,18 +528,19 @@ def verify_snapshot(root, ignore_lock=False):
     except (ValueError, OSError, KeyError, TypeError) as exc: return dimension([str(exc)])
 
 
-def validate_handoff(result):
+def validate_handoff(result, require_project_history=False):
     if not isinstance(result, dict): raise ValueError("接班观察必须为 JSON 对象")
     required = {"task", "current-rule", "history", "identity", "unknown", "sync"}
+    if require_project_history: required.add("project-history")
     cases = result.get("cases", [])
     if not isinstance(cases, list) or any(not isinstance(c, dict) for c in cases): raise ValueError("cases 必须为观察对象列表")
-    if not result.get("evaluator") or not result.get("method") or not required <= {c.get("category") for c in cases}: raise ValueError("需要评价者、方式与六类接班案例")
+    if not result.get("evaluator") or not result.get("method") or not required <= {c.get("category") for c in cases}: raise ValueError("需要评价者、方式与接班案例: " + ", ".join(sorted(required)))
     if any(c.get("passed") is not True or not c.get("observation") for c in cases): raise ValueError("存在失败或缺少观察证据的案例")
 
 
 def accept_handoff(root, result):
     snapshot = verify_snapshot(root)
-    validate_handoff(result)
+    validate_handoff(result, bool(manifest(root).get("history_units")))
     if snapshot["status"] != "PASS" or result.get("snapshot_id") != snapshot.get("snapshot_id"): raise ValueError("测试须对应当前完整快照")
     r = dict(result, status="PASS", recorded_at=now(), note="外部接班观察记录；程序不自行证明语义正确")
     with writer_lock(root):

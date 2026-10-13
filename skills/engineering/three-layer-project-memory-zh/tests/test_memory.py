@@ -332,5 +332,102 @@ class MemoryTests(unittest.TestCase):
         self.assertEqual(memory.verify_snapshot(self.root)["status"],"BLOCK")
 
 
+class HistoryCoverageTests(unittest.TestCase):
+    setUp = MemoryTests.setUp
+    tearDown = MemoryTests.tearDown
+    record = MemoryTests.record
+    put = MemoryTests.put
+    def configure(self, state="documented"):
+        self.put(id="past-process", key="past-process", kind="episode", summary="旧实验的真实过程与失败修订")
+        self.put(id="past-lesson", key="past-lesson", kind="procedure", summary="旧实验经验：内核兼容修复和复验条件")
+        m = memory.manifest(self.root)
+        m.update(history_units=["lab-1"], history_catalog="docs/project-entry/结果/history.json")
+        memory.atomic_json(memory.entry(self.root) / "memory-manifest.json", m)
+        unit = dict(id="lab-1", evidence_status=state, facets={f: ["past-process"] for f in memory.HISTORY_FACETS})
+        unit["facets"]["lessons"] = ["past-lesson"]
+        if state == "evidence_gap": unit["gaps"] = ["未找到独立截图；不能声称 GUI 核验完成"]
+        self.catalog = dict(project_id="demo", units=[unit])
+        self.save_catalog()
+
+    def save_catalog(self):
+        memory.atomic_json(memory.entry(self.root) / "结果/history.json", self.catalog)
+
+    def test_history_missing_unit_blocks_seal(self):
+        self.configure(); self.catalog["units"] = []; self.save_catalog()
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+        with self.assertRaises(ValueError): memory.seal(self.root)
+
+    def test_history_missing_process_blocks(self):
+        self.configure(); del self.catalog["units"][0]["facets"]["process"]; self.save_catalog()
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+
+    def test_history_stale_reference_blocks(self):
+        self.configure(); memory.set_status(self.root, "past-process", "stale", "来源需重核")
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+
+    def test_history_wrong_kind_is_not_experience(self):
+        self.configure(); self.catalog["units"][0]["facets"]["lessons"] = ["past-process"]; self.save_catalog()
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+
+    def test_history_gap_is_explicit_and_not_experiment_completion(self):
+        self.configure("evidence_gap")
+        r = memory.audit(self.root)
+        c = r["dimensions"]["content"]["history_coverage"]
+        self.assertEqual(c["status"], "PASS"); self.assertEqual(c["evidence_gaps"][0]["id"], "lab-1")
+        self.assertFalse(r["can_claim_experiment_complete"])
+
+    def test_history_gap_without_explanation_blocks(self):
+        self.configure("evidence_gap"); self.catalog["units"][0]["gaps"] = []; self.save_catalog()
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+
+    def test_history_duplicate_units_block(self):
+        self.configure(); self.catalog["units"] *= 2; self.save_catalog()
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+
+    def test_history_foreign_project_blocks(self):
+        self.configure(); self.catalog["project_id"] = "foreign"; self.save_catalog()
+        self.assertEqual(memory.audit(self.root)["dimensions"]["content"]["status"], "BLOCK")
+
+    def test_historical_episode_retrieved_without_history_switch(self):
+        self.configure(); memory.seal(self.root)
+        self.assertEqual(memory.retrieve(self.root, "旧实验的真实过程")["records"][0]["id"], "past-process")
+
+    def test_history_handoff_category_required(self):
+        self.configure(); s = memory.seal(self.root)
+        result = dict(evaluator="independent", method="blind read", snapshot_id=s["snapshot_id"],
+                      cases=[dict(category=c, passed=True, observation="实际观察") for c in ("task", "current-rule", "history", "identity", "unknown", "sync")])
+        with self.assertRaises(ValueError): memory.accept_handoff(self.root, result)
+        result["cases"].append(dict(category="project-history", passed=True, observation="从旧实验过程找回失败与经验"))
+        memory.accept_handoff(self.root, result)
+        self.assertTrue(memory.audit(self.root)["can_handoff"])
+
+    def test_external_catalog_in_snapshot(self):
+        self.configure()
+        m = memory.manifest(self.root); m["history_catalog"] = "history.json"
+        memory.atomic_json(memory.entry(self.root)/"memory-manifest.json", m)
+        memory.atomic_json(self.root/"history.json", self.catalog); memory.seal(self.root)
+        self.catalog["units"][0]["facets"]["process"] = []
+        memory.atomic_json(self.root/"history.json", self.catalog)
+        self.assertEqual(memory.verify_snapshot(self.root)["status"], "BLOCK")
+
+    def test_named_work_outranks_generic_history_vocabulary(self):
+        self.put(id="lab2-process", key="lab2-process", kind="episode", summary="修复公式与表格", aliases=["实验2"])
+        self.put(id="lab3-process", key="lab3-process", kind="episode", summary="实验过程 历史 修订 经验 操作 流程", aliases=["实验3"])
+        result = memory.retrieve(self.root, "实验2 过程 修订 经验", limit=1)
+        self.assertEqual(result["records"][0]["id"], "lab2-process")
+
+    def test_similar_work_number_does_not_match_prefix(self):
+        for short, full in [("实验2", "实验20"), ("lab2", "lab20"), ("实验二", "实验二十")]:
+            self.assertFalse(memory.alias_matches(short, full + " 过程 修订"))
+            self.assertTrue(memory.alias_matches(full, full + " 过程 修订"))
+
+    def test_named_work_outranks_arbitrarily_long_generic_query(self):
+        words = "历史 过程 经验 修订 问题 原因 输入 输出 操作 流程 文档 项目 材料 结果 方法 实验 证据 范围 失败 路线"
+        self.put(id="generic88", key="generic88", kind="episode", summary=words, aliases=["generic88"])
+        self.put(id="target99", key="target99", kind="episode", summary="formula table", aliases=["lab99"])
+        r = memory.retrieve(self.root, "lab99 " + words, limit=1)
+        self.assertEqual(r["records"][0]["id"], "target99")
+
+
 if __name__ == "__main__":
     unittest.main()
