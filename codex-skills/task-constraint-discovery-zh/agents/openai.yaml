@@ -1,0 +1,4 @@
+interface:
+  display_name: "任务约束发现"
+  short_description: "主动发现遗漏限制，把理解、执行和交付成本纳入复杂任务方案选择"
+  default_prompt: "请使用 $task-constraint-discovery-zh 检查我的任务遗漏了哪些关键限制，再选择适合我执行和交付的方案。"
