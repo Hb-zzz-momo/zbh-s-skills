@@ -14,7 +14,7 @@ description: 按教师指定或用户选定的实验报告模板编辑Word并执
 
 按 `C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md` §1.1 完整读取当前教程、要求、相关数据及模板；逐页检查PDF/PPT截图、标注、正反例和提交示例，核查影响实验的关联教程。按原编号拆子步骤，记录页码、类型/条件、实际操作、判据、证据位置/批次、报告位置与交付位置。冲突保留各自来源及采用解释，不能只依赖提取文本或概括性检查。
 
-执行者、本人即时交接、排查无解后的询问和最终人工复做差异核对，遵守[执行交接与最终来源核对](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md#03-执行交接与最终来源核对)。每次报告交付默认按[AI声明位置与实际参与核对](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/report-evidence.md#8-ai-report-与真实参与来源)列全声明原文、最终文件摘要、页码与章节/段落/图表，另列实际参与范围；有声明交付独立编号红框预览，最终回复直观展示位置。零声明不等于零参与；保留正式母版，不因去AI味删除披露，缺位置核对不得称报告交付完成。
+执行者、本人即时交接、排查无解后的询问和最终人工复做差异核对，遵守[执行交接与最终来源核对](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md#03-执行交接与最终来源核对)。每次报告交付默认按[AI声明位置与实际参与核对](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/report-evidence.md#8-ai-report-与真实参与来源)列全声明原文、最终文件摘要、页码与章节/段落/图表，另列实际参与范围；有声明交付独立编号红框预览，最终回复直观展示位置。零声明不等于零参与；保留正式母版，不因去AI味删除披露，缺位置核对不得称报告交付完成。正文以实验过程和结果为主，减少反复强调“本人/代理”；恢复目录、操作交接、补绘保存等间接AI参与表述也按上述规则核验，在报告末尾集中披露实际分工及位置索引。
 
 ## 本课模板与讲义完整保留（硬要求）
 
