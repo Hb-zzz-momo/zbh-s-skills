@@ -6,11 +6,13 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import threading
 
 from .engine import require
 
 VERSION = 'pdfium-pages-1.1'
 SUPPORTED = {'.doc', '.docx', '.pdf'}
+_WORD_CONVERSION_LOCK = threading.Lock()
 
 
 def validate_document(path):
@@ -68,18 +70,25 @@ def to_pdf(source, destination, *, timeout=180, structure_docx=None, paragraph_m
     else:
         require(os.name == 'nt', 'Word conversion requires Windows and Microsoft Word; provide PDF on other platforms')
         metadata = destination.with_suffix('.conversion.json')
-        try:
-            completed = subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
-                                        '-File', str(Path(__file__).with_name('word_to_pdf.ps1')),
-                                        '-Source', str(source), '-Destination', str(destination), '-Metadata', str(metadata)]
-                                       + (['-StructureDocx',str(structure_docx),'-ParagraphMap',str(paragraph_map)] if structure_docx else []),
-                                       capture_output=True, timeout=timeout)
-        except subprocess.TimeoutExpired as exc:
-            subprocess.run(['powershell.exe', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass',
-                            '-File', str(Path(__file__).with_name('word_to_pdf.ps1')),
-                            '-Destination', str(destination), '-Cleanup'], capture_output=True, timeout=20)
-            raise ValueError('Word conversion timed out; extraction failed, owned-process cleanup attempted') from exc
-        require(completed.returncode == 0 and destination.exists() and metadata.exists(), 'Word conversion failed; document may be corrupt/encrypted or Word unavailable')
+        command=['powershell.exe','-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass',
+                 '-File',str(Path(__file__).with_name('word_to_pdf.ps1'))]
+        arguments=['-Source',str(source),'-Destination',str(destination),'-Metadata',str(metadata)]
+        if structure_docx:arguments+=['-StructureDocx',str(structure_docx)]
+        if paragraph_map:arguments+=['-ParagraphMap',str(paragraph_map)]
+        def cleanup_owned():
+            try:subprocess.run(command+['-Destination',str(destination),'-Cleanup'],capture_output=True,timeout=20)
+            except (OSError,subprocess.TimeoutExpired):pass
+        # Import inspection and the grading queue share Word automation.
+        with _WORD_CONVERSION_LOCK:
+            try:completed=subprocess.run(command+arguments,capture_output=True,timeout=timeout)
+            except subprocess.TimeoutExpired as exc:
+                cleanup_owned()
+                raise ValueError('Word conversion timed out; extraction failed, owned-process cleanup attempted') from exc
+            if completed.returncode != 0 or not destination.exists() or not metadata.exists():
+                dump_json(destination.with_suffix('.conversion-error.json'),{'returncode':completed.returncode,
+                          'stderr':completed.stderr.decode('utf-8','replace')[-4000:]})
+                cleanup_owned()
+                raise ValueError('Word conversion failed; conversion diagnostics retained, source unchanged')
         info = json.loads(metadata.read_text('utf-8-sig'))
     require(sha256_file(source) == before, 'source changed during conversion')
     return info
@@ -117,6 +126,7 @@ def extract_document(source, output_dir, *, identity_tokens=(), max_pages=80):
     require(0 < len(document) <= max_pages, 'page count empty or exceeds configured limit')
     require('pages' not in conversion or conversion['pages'] == len(document), 'Word/PDF page count mismatch')
     evidence, pages, raw_texts = [], [], []
+    picture=None
     try:
         for index in range(len(document)):
             page = document[index]
@@ -160,18 +170,20 @@ def extract_document(source, output_dir, *, identity_tokens=(), max_pages=80):
                 if top and picture.height-top < 100:
                     break
                 bottom = min(top+tile_height, picture.height)
-                tile = picture.crop((0, top, picture.width, bottom))
                 eid = f'{pid}-image{number}'
                 path = output/(eid+'.jpg')
-                tile.save(path, quality=94)
+                with picture.crop((0,top,picture.width,bottom)) as tile:tile.save(path,quality=94)
                 evidence.append(dict(id=eid, kind='image', origin='student', locator=f'第{index+1}页，像素区域0,{top},{picture.width},{bottom}，父页{pid}',
                                      sha256=sha256_file(path), readable=True, file=path.name,
                                      parent_sha256=sha256_file(page_path), bbox=[0,top,picture.width,bottom]))
                 tile_ids.append(eid)
             pages.append(dict(page=index+1, page_file=page_path.name, sha256=sha256_file(page_path),
                               text_chars=len(raw_text), tiles=tile_ids, masked_text_occurrences=masked, rotation=page.get_rotation()))
+            del painter
+            picture.close();picture=None
             textpage.close(); page.close()
     finally:
+        if picture is not None:picture.close()
         document.close()
     full_text = '\n'.join(raw_texts)
     cover = '\n'.join(raw_texts[:1])

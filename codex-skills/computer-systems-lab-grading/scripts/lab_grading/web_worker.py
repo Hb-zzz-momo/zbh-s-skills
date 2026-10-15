@@ -43,12 +43,18 @@ class TaskWorker:
                 return dict(old)
             r=s.check_report(rid,revision)
             require(r['active'] and r['student_id'],'请先匹配学生并选择报告版本')
+            s.require_scope_idle(r['group_id'],r['student_id'],r['experiment_id'])
+            s.require_unpublished_submission(r)
             backend=s.backend(r['group_id'])
             state=backend.store.job(r['job_id'])['state'] if r['job_id'] else 'received'
             allowed={'prepare':('received','extraction_failed'), 'run':('received','ready','extraction_failed'),
                      'retry':('extraction_failed','retryable_failed','model_failed'), 'recheck':('model_failed','needs_review'),
-                     'recover':('extracting','judging'), 'new-run':('needs_review','ready_for_teacher_review','reviewed','published','model_failed','retryable_failed','ready')}
+                     'recover':('extracting','judging'), 'new-run':('received','needs_review','ready_for_teacher_review','reviewed','model_failed','retryable_failed','extraction_failed','ready')}
             require(state in allowed[action],'当前状态不能执行该动作')
+            if action in ('new-run','recheck'):
+                current=s.describe(r)
+                flag,reason_field=('canRegrade','regradeBlockedReason') if action=='new-run' else ('canRecheck','recheckBlockedReason')
+                require(current[flag],current[reason_field] or '当前状态不能执行该动作')
             if action in ('run','retry','new-run'):
                 config=Configuration(**(backend.store.job(r['job_id'])['configuration'] if r['job_id'] and action!='new-run' else s.settings()['configuration']))
                 try:config.credential()
@@ -71,11 +77,15 @@ class TaskWorker:
         try:
             with s.lock:
                 r=s.store.report(task['report_id']);require(r['active'],'任务所选版本已改变')
+                s.require_unpublished_submission(r)
                 backend=s.backend(r['group_id'])
                 if not r['job_id'] or task['action']=='new-run':
                     job=backend.create_job(r['engine_submission_id'],Configuration(**s.settings()['configuration']))
                     with s.store.connect(True) as db:
                         db.execute('UPDATE reports SET job_id=?,revision=revision+1 WHERE id=?',(job['id'],r['id']))
+                        if task['action']=='new-run':
+                            s.store.event(db,'regrade_started',r['id'],task['actor'],task['reason'],
+                                          {'previous_job_id':r['job_id'],'job_id':job['id'],'task_id':task['id']})
                 else:job=backend.store.job(r['job_id'])
             action=task['action']
             if action=='recover':backend.recover(job['id'],reviewer=task['actor'],reason=task['reason'])
@@ -86,7 +96,7 @@ class TaskWorker:
             state,error='done',None
         except Exception as exc:
             # Transport exceptions contain codes, never credentials. Avoid repr/config dumps.
-            state,error='failed',str(exc)[:600]
+            state,error='failed',(type(exc).__name__+': '+str(exc))[:600]
         with s.lock,s.store.connect(True) as db:
             db.execute('UPDATE tasks SET state=?,error=?,updated_at=? WHERE id=?',(state,error,now(),task['id']))
             db.execute('UPDATE reports SET revision=revision+1 WHERE id=?',(task['report_id'],))

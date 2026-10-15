@@ -42,7 +42,15 @@ DOCX直接读原始正文封面；PDF读首页；旧DOC通过只读Word转换取
 
 ## 接口
 
+重新批阅与失败恢复（2026-10-15）：列表每行及选中工具栏、批阅详情和任务详情直接提供入口。`new-run`创建新任务并重新提取，保留上一轮原件、证据、响应及评分；`recheck`仅重验已存的完整评分/自动复查响应，不发送模型请求。首次任务在job建立前失败亦可明确重开；运行、已发布、已删除、未匹配及历史版本受保护。批量提交读最新修订，逐项继续，明确区分已接收、明确拒绝与回执不明；回执不明只能重放持久保存的同一请求ID/请求体，不能换ID或显示为“未执行”。
+
+模型指纹损坏、整体缺项/重复或无效JSON继续拒绝。单项事实字段/引用错误只能带来源冲突隔离为未知，不补造无矛盾、不猜证据编号；评分非法minor及引用不可读原图时对应项目转unresolved，其余合法项保留，原始响应不改写。新增提示词明确各项允许档位、六字段核对结构和JSON转义；复查仍至多一轮，失败不计零。
+
+同届汇总来源允许增加补充名单分组，原有来源与组类型不删除、不转换；身份、报告及成绩继续复用原班级记录，不复制形成第二套成绩。
+
 - POST /api/imports/inspect：只上传file，返回ticket_id、prediction、reasons/conflicts/warnings。
 - POST /api/imports/{ticket_id}/confirm：group_id、experiment_id、student_id或defer_match、actor和reason。凭证由服务端持有，不接受任意文件路径/客户端指纹。
 - GET /api/reports/{id}：suggestedScore为具体建议；verifiedSuggestedScore和result是严格原结果；recommendation包含推定、重点与提示；reviewScore、publishedScore独立。
+- POST /api/reports/{id}/tasks：action=new-run或recheck；新建重批保留历史，幂等request_id先于修订/状态检查，回执未知时重放原凭证。
+- GET /api/reports/{id}/jobs/{job_id}及其/evidence/{evidence_id}：只读查看同一报告某轮冻结结果和证据，不切换当前job，禁止跨报告引用。
 - POST /api/reports/{id}/review：决策及修订号，accept_estimates=true表示教师明确接受合法推定项目；不能提交自由总分。

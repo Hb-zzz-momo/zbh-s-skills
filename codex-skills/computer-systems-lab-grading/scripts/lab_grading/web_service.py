@@ -8,9 +8,9 @@ import threading
 import uuid
 
 from .documents import sha256_file, validate_document
-from .engine import load_rubric, require
+from .engine import binding as context_binding, load_rubric, require
 from .intake import identity_candidate, new_version_hint
-from .provider import response_problem
+from .provider import parse_response, response_problem
 from .storage import now
 from .transport import Configuration
 from .web_store import CatalogStore, clean, identifier
@@ -21,6 +21,21 @@ STATES = {'received':'received','extracting':'running','ready':'ready','judging'
           'needs_review':'needs_review','ready_for_teacher_review':'scored','reviewed':'reviewed',
           'published':'published','extraction_failed':'error','retryable_failed':'error','model_failed':'error'}
 STATUS_LABELS = {'received':'已接收','ready':'证据就绪','running':'处理中','needs_review':'待复核','scored':'已有建议','reviewed':'已复核','published':'已发布','error':'处理失败','unmatched':'待匹配','superseded':'历史版本','duplicate':'待选版本'}
+
+
+def failure_summary(error):
+    """Explain recorded failures without hiding their original diagnostic text."""
+    if not error:return None
+    if 'MemoryError' in error:return '本机内存不足，未完成处理；请等待其他任务结束后重新批阅。不会记零分。'
+    if 'Word conversion' in error:return 'Word转换未完成；可重新批阅，持续失败时请用Word/WPS另存为.docx后重新导入。'
+    if 'binding' in error or 'stale/cross-report' in error:return '模型返回的报告指纹不一致，结果已拦截；请重新批阅，不会将结果套到其他同学。'
+    if 'minor tier' in error:return '模型使用了本评分项未设置的档位；可先重新校验已有响应，原始判断保留。'
+    if any(x in error for x in ('evidence-check references','evidence check fields','command evidence reference','nonexistent evidence')):
+        return '模型证据记录不规范，未生成有效评分；请重新批阅。'
+    if 'invalid model JSON' in error:return '模型返回的JSON格式有误，未生成评分；请重新批阅。'
+    if 'network_or_timeout' in error:return '模型调用超时或网络中断；请核对调用记录后决定重新批阅。'
+    if error.startswith('http_'):return '模型接口返回错误（'+error+'），请检查系统设置及调用记录后重试。'
+    return error
 
 
 class TeachingService:
@@ -248,6 +263,13 @@ class TeachingService:
             active=db.execute("SELECT 1 FROM tasks t JOIN reports r ON r.id=t.report_id WHERE t.state IN ('queued','running') AND r.group_id=? AND r.student_id=? AND r.experiment_id=?",(group_id,student_id,experiment_id)).fetchone()
         require(not active,'该学生本实验正在处理，请等待任务结束')
 
+    def require_unpublished_submission(self,r):
+        if not r['engine_submission_id']:return
+        with self.backend(r['group_id']).store.connect() as db:
+            released=db.execute('SELECT 1 FROM publications p JOIN jobs j ON j.id=p.job_id WHERE j.submission_id=? LIMIT 1',
+                                (r['engine_submission_id'],)).fetchone()
+        require(not released,'已发布成绩的报告受保护，不能继续或重新批阅')
+
     def check_report(self,rid,revision):
         r=self.store.report(rid)
         require(not r['deleted_at'],'报告已删除，请先恢复后操作')
@@ -344,6 +366,9 @@ class TeachingService:
                 if row:review={**dict(row),'result':json.loads(row['result'])}
                 row=db.execute('SELECT * FROM publications WHERE job_id=? ORDER BY created_at DESC LIMIT 1',(job['id'],)).fetchone()
                 if row:publication=dict(row)
+                published_before=db.execute('SELECT 1 FROM publications p JOIN jobs j ON j.id=p.job_id WHERE j.submission_id=? LIMIT 1',(r['engine_submission_id'],)).fetchone()
+                latest_attempt=db.execute('SELECT metadata FROM attempts WHERE job_id=? ORDER BY created_at DESC LIMIT 1',(job['id'],)).fetchone() if job['state'] in ('model_failed','needs_review') else None
+        else:published_before=latest_attempt=None
         active=self.store.active(r['id'])
         with self.store.connect() as db:
             latest=db.execute('SELECT * FROM tasks WHERE report_id=? ORDER BY created_at DESC LIMIT 1',(r['id'],)).fetchone()
@@ -370,7 +395,7 @@ class TeachingService:
         dto['pages']=(ctx.get('evidence_plan') or {}).get('coverage',{}).get('page_count',len([e for e in ctx.get('evidence',[]) if e['kind']=='image' and (e.get('role')=='page_context' or not e.get('role'))]))
         dto['lastTask']=latest
         delete_blocked=('报告已删除，可在已删除报告中恢复' if r['deleted_at'] else
-                        '已发布成绩的报告不能删除' if publication or status=='published' else
+                         '已发布成绩的报告不能删除' if publication or published_before or status=='published' else
                         '报告正在批阅，请等待任务结束后删除' if active or status=='running' else
                         '该学生本实验的其他版本正在批阅，请等待任务结束' if scope_busy else None)
         dto.update(deletedAt=r['deleted_at'],isNewVersion=bool(self.version_hint(r,student).get('is_new')),
@@ -381,6 +406,33 @@ class TeachingService:
         if recommendation:dto['suggestedScore']=recommendation['score']
         dto['scopeGroupIds']=[r['group_id'],*[g['id'] for g in c['groups'] if r['group_id'] in g['sourceGroupIds']]]
         dto['error']=dto['error'] or (latest['error'] if latest and latest['state'] in ('failed','interrupted') else None)
+        regrade_blocked=('报告已删除，请先恢复' if r['deleted_at'] else
+                         '请先匹配学生' if not student or not r['engine_submission_id'] else
+                         '请先选定该报告为本次使用的版本' if not r['active'] else
+                         '该学生本实验正在处理，请等待任务结束' if active or scope_busy else
+                         '原任务仍处于处理中，请先核对调用记录并恢复中断任务' if job and job['state'] in ('extracting','judging') else
+                         '已发布成绩的报告受保护，不能从此入口重新批阅' if publication or published_before else
+                         '这份报告尚未批阅，请使用开始批阅' if (not job or job['state']=='received') and status!='error' else None)
+        attempt=json.loads(latest_attempt['metadata']) if latest_attempt else {}
+        visible=attempt.get('visible_response')
+        parsed=None
+        try:parsed=parse_response(visible) if visible else None
+        except (ValueError,TypeError,KeyError):pass
+        completed=bool(parsed and ctx and parsed.get('binding')==context_binding(ctx))
+        if completed and attempt.get('stage')=='grade':
+            expected={item['id'] for section in job['rubric']['sections'] for item in section['criteria']}
+            judgments=parsed.get('judgments')
+            completed=bool(set(parsed)=={'binding','judgments'} and isinstance(judgments,list) and
+                           len(judgments)==len(expected) and all(isinstance(item,dict) and isinstance(item.get('criterion_id'),str) for item in judgments) and
+                           {item['criterion_id'] for item in judgments}==expected)
+        elif completed and attempt.get('stage')=='auto_review':
+            completed=set(parsed)=={'binding','packets','checks','judgments'}
+        has_replay=bool(job and completed and ((job['state']=='model_failed' and attempt.get('stage')=='grade') or
+                                             (job['state']=='needs_review' and attempt.get('stage')=='auto_review')))
+        dto.update(canRegrade=regrade_blocked is None,regradeBlockedReason=regrade_blocked,
+                   canRecheck=regrade_blocked is None and has_replay,
+                   recheckBlockedReason=regrade_blocked or (None if has_replay else '没有可离线重新校验的完整评分响应，请重新批阅'),
+                   failureSummary=failure_summary(dto['error']) or ('旧任务没有留下完整异常详情，原件及历史保留，请重新批阅建立新记录。' if status=='error' else None))
         if detail:
             dto['candidateStudent']=identity_candidate(r['filename']) if not student else None
             dto.update(context=ctx,result=result,recommendation=recommendation,review=review,publication=publication,rubric=job['rubric'] if job else load_rubric(r['experiment_id']),history=self.store.events(r['id']))
@@ -391,10 +443,24 @@ class TeachingService:
                 with self.backend(r['group_id']).store.connect() as db:
                     dto['attempts']=[dict(created_at=t[0],metadata=json.loads(t[1])) for t in db.execute('SELECT created_at,metadata FROM attempts WHERE job_id=? ORDER BY created_at',(job['id'],))]
                     dto['responseProblem']=response_problem(dto['attempts'][-1]['metadata'].get('visible_response')) if job['state']=='model_failed' and dto['attempts'] else None
-                    dto['jobs']=[dict(j) for j in db.execute('SELECT id,state,revision,created_at FROM jobs WHERE submission_id=? ORDER BY created_at',(r['engine_submission_id'],))]
+                    dto['jobs']=[dict(j) for j in db.execute('SELECT id,state,revision,created_at,(result IS NOT NULL) AS hasResult FROM jobs WHERE submission_id=? ORDER BY created_at',(r['engine_submission_id'],))]
         return dto
 
     def detail(self,rid):return self.describe(self.store.report(rid),detail=True)
+
+    def history_job(self,rid,jid):
+        """Read a frozen grading round without switching the report's current job."""
+        r=self.store.report(rid);identifier(jid)
+        require(r['engine_submission_id'],'报告尚无批阅任务')
+        job=self.backend(r['group_id']).store.job(jid)
+        require(job['submission_id']==r['engine_submission_id'],'历史任务不属于这份报告')
+        with self.backend(r['group_id']).store.connect() as db:
+            review=db.execute('SELECT * FROM reviews WHERE job_id=? ORDER BY revision DESC LIMIT 1',(jid,)).fetchone()
+            publication=db.execute('SELECT * FROM publications WHERE job_id=? ORDER BY created_at DESC LIMIT 1',(jid,)).fetchone()
+        return {**{key:job[key] for key in ('id','state','revision','created_at','context','result','rubric')},
+                'review':{**dict(review),'result':json.loads(review['result'])} if review else None,
+                'publication':dict(publication) if publication else None,
+                'readOnly':True,'isCurrent':jid==r['job_id']}
 
     def workspace(self):
         c=self.store.catalog()
@@ -427,10 +493,11 @@ class TeachingService:
         require(path.is_file() and sha256_file(path)==r['sha256'],'报告原件缺失或校验失败')
         return path,r['filename']
 
-    def evidence(self,rid,eid):
+    def evidence(self,rid,eid,job_id=None):
         r=self.store.report(rid)
-        require(r['job_id'],'尚未提取证据')
-        backend=self.backend(r['group_id']);ctx=backend.store.job(r['job_id'])['context'] or {}
+        require(job_id or r['job_id'],'尚未提取证据')
+        backend=self.backend(r['group_id'])
+        ctx=(self.history_job(rid,job_id)['context'] if job_id else backend.store.job(r['job_id'])['context']) or {}
         entry=next((e for e in ctx.get('evidence',[]) if e['id']==eid),None)
         require(entry and entry['kind']=='image','图片证据不存在')
         path=backend.store.path(str(Path(ctx['extraction_dir'])/entry['file']))

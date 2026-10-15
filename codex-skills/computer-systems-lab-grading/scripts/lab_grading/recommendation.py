@@ -28,7 +28,9 @@ def proposal(rubric,context,result,source_judgments=None,policy=None):
     packets={p['criterion_id']:p for p in context.get('evidence_plan',{}).get('criteria',[])}
     source={r['criterion_id']:r for r in (source_judgments or result.get('source_judgments',[])) if r.get('criterion_id') in rules}
     policy=review_policy(policy)
-    rows=[];groups={};blockers=list(context.get('blocking_flags',[]));estimates=[]
+    rows=[];groups={};blockers=list(context.get('blocking_flags',[]));estimates=[];required=[]
+    hard_reasons={'guarded_invalid_tiers':'存在未核实的评分档位','guarded_unreadable_claims':'存在不可读的原始证据','guarded_invalid_facts':'存在格式异常的事实记录'}
+    hard={cid for flag in hard_reasons for cid in result.get(flag,[])}
     if not context['extraction_complete']:blockers.append('extraction_incomplete')
     if context['identity_status']!='verified':blockers.append('identity_'+context['identity_status'])
     for original in result['rows']:
@@ -36,6 +38,16 @@ def proposal(rubric,context,result,source_judgments=None,policy=None):
         row['estimated']=False
         if row['verdict']=='unresolved' and rule['evidence_type']=='identity':
             blockers.append('identity_item_unresolved')
+        elif row['verdict']=='unresolved' and cid in hard:
+            # A conservative quarantine must not reappear as full/partial/zero
+            # through the separate convenience proposal layer.
+            required.append(cid);row.update(required_review=True,impact_points=rule['max_points'])
+            blockers.extend(label for flag,label in hard_reasons.items() if cid in result.get(flag,[]))
+            if 'required' not in groups:
+                groups['required']=dict(key='required',title='评分依据必须核对',criterion_ids=[],impact_points=0,max_item_points=0,required=True)
+            group=groups['required'];group['criterion_ids'].append(cid)
+            group['impact_points']=round(group['impact_points']+rule['max_points'],2)
+            group['max_item_points']=max(group['max_item_points'],rule['max_points'])
         elif row['verdict']=='unresolved':
             raw=source.get(cid,{})
             candidates=list(dict.fromkeys([*raw.get('evidence_ids',[]),*row['evidence_ids'],
@@ -70,14 +82,14 @@ def proposal(rubric,context,result,source_judgments=None,policy=None):
             groups[key]['impact_points']=round(groups[key]['impact_points']+impact,2)
             groups[key]['max_item_points']=max(groups[key]['max_item_points'],impact)
         rows.append(row)
-    ordered=sorted(groups.values(),key=lambda g:(-g['impact_points'],g['key']))
-    eligible=[g for g in ordered if g['max_item_points']>=policy['item_points'] or g['impact_points']>=policy['group_points']]
+    ordered=sorted(groups.values(),key=lambda g:(not g.get('required',False),-g['impact_points'],g['key']))
+    eligible=[g for g in ordered if g.get('required') or g['max_item_points']>=policy['item_points'] or g['impact_points']>=policy['group_points']]
     priority=eligible[:policy['max_groups']]
     priority_keys={g['key'] for g in priority}
     advisories=[g for g in ordered if g['key'] not in priority_keys]
     score=round(sum(r['awarded_points'] or 0 for r in rows),2)
     output=dict(binding=binding(context),score=score if all(r['awarded_points'] is not None for r in rows) else None,
-        rows=rows,estimated_items=estimates,has_estimates=bool(estimates),priority_groups=priority,
+        rows=rows,estimated_items=estimates,has_estimates=bool(estimates),required_review_items=required,priority_groups=priority,
         advisory_groups=advisories,advisory_count=sum(len(g['criterion_ids']) for g in advisories),
         priority_count=len(priority),blocking_flags=sorted(set(blockers)),policy=policy,
         method='frozen-rubric-tiers',status='priority_review' if priority or blockers else 'suggested')

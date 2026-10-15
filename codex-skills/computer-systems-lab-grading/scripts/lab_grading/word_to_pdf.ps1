@@ -74,6 +74,15 @@ try {
     $info | ConvertTo-Json | Set-Content -LiteralPath $Metadata -Encoding UTF8
 } finally {
     $closeMode = 0
-    if ($null -ne $doc) { $doc.Close([ref]$closeMode); [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($doc) }
-    if ($null -ne $word) { $word.Quit([ref]$closeMode); [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($word) }
+    try {
+        if ($null -ne $doc) {
+            try { $doc.Close([ref]$closeMode) }
+            finally { [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($doc) }
+        }
+    } finally {
+        if ($null -ne $word) {
+            try { $word.Quit([ref]$closeMode) }
+            finally { [void][Runtime.InteropServices.Marshal]::FinalReleaseComObject($word) }
+        }
+    }
 }

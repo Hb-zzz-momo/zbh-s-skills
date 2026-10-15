@@ -127,7 +127,10 @@ class CatalogStore:
             oldrelations={(r[0],r[1]) for r in db.execute('SELECT group_id,student_id FROM memberships')}
             require(oldg<=gids and set(olds)<=sids and oldrelations<=direct_relations,'deletion requires dedicated archival workflow')
             oldsources=[tuple(r) for r in db.execute('SELECT group_id,source_group_id FROM group_sources')]
-            require(all(set(sources[g])=={s for parent,s in oldsources if parent==g} for g in oldg),'已有分组的类型和汇总来源不可修改，请新建汇总分组')
+            for gid in oldg:
+                previous={s for parent,s in oldsources if parent==gid}
+                require(bool(sources[gid])==bool(previous) and previous<=set(sources[gid]),
+                        '已有分组的类型和已纳入的来源不可移除；汇总分组仅可补充来源班级')
             require(all(s['id'] not in olds or olds[s['id']]==clean(s['number']) for s in students),'student number change requires identity migration')
             for g in groups:
                 db.execute('INSERT INTO groups VALUES(?,?,?,?) ON CONFLICT(id) DO UPDATE SET name=excluded.name,term=excluded.term,assignments=excluded.assignments',
@@ -137,6 +140,10 @@ class CatalogStore:
                            (s['id'],clean(s['number']),clean(s['name']),clean(s['gender']),s['notes']))
             db.executemany('INSERT OR IGNORE INTO memberships VALUES(?,?)',direct_relations)
             db.executemany('INSERT OR IGNORE INTO group_sources VALUES(?,?)',[(g,s) for g,children in sources.items() for s in children])
+            added_sources={(g,s) for g,children in sources.items() for s in children if g in oldg}-set(oldsources)
+            for gid in sorted({g for g,_ in added_sources}):
+                self.event(db,'group_sources_extended',gid,actor,'补充汇总分组来源，保留原有学生和成绩',
+                           {'added_source_group_ids':sorted(s for g,s in added_sources if g==gid)})
             db.execute("UPDATE metadata SET value=? WHERE key='catalog_revision'",(str(revision+1),))
             self.event(db,'catalog_saved',None,actor,'保存名单与分组',{'groups':len(groups),'students':len(students)})
         return self.catalog()

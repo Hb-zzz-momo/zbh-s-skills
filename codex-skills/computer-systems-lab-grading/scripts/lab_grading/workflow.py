@@ -12,7 +12,7 @@ import uuid
 
 from .documents import SUPPORTED, dump_json, extract_document, sha256_file, validate_document
 from .engine import aggregate, binding, fingerprint, load_rubric, require, validate_context
-from .provider import SYSTEM, ROLE_CONFLICT, build_request, parse_response, system_prompt, validate_checks
+from .provider import SYSTEM, ROLE_CONFLICT, FACT_FORMAT_CONFLICT, build_request, parse_response, system_prompt, validate_checks
 from .evidence_plan import prepare_word_evidence, VERSION as WORD_PIPELINE_VERSION
 from .storage import Store, now
 from .transport import Configuration, DeepSeekClient, TransportError
@@ -173,8 +173,14 @@ class Backend:
         self.store.transition(jid,[job['state']],'judging',worker_token=token)
         try:
             folder=self.store.path(context['extraction_dir'])
-            images={e['id']:self.store.path(str(folder.relative_to(self.store.root)/e['file'])).read_bytes()
-                    for e in context['evidence'] if e['kind']=='image' and e['readable']}
+            image_entries=[e for e in context['evidence'] if e['kind']=='image' and e['readable']]
+            require(len(image_entries)<=config.max_images,'split/review required: image count exceeds configured limit')
+            image_paths={e['id']:self.store.path(str(folder.relative_to(self.store.root)/e['file'])) for e in image_entries}
+            sizes=[p.stat().st_size for p in image_paths.values()]
+            # Enforce the existing bounds before allocating all bytes/base64.
+            require(all(size<=8*1024*1024 for size in sizes) and sum(sizes)<=24*1024*1024,
+                    'image packet too large; split/review required before reading images')
+            images={eid:path.read_bytes() for eid,path in image_paths.items()}
             require(context['prompt_sha256']==hashlib.sha256(system_prompt(context).encode()).hexdigest(), 'prompt version changed; prepare a new job for auditable rerun')
             checks=None
             if context.get('evidence_plan'):
@@ -185,13 +191,14 @@ class Backend:
                     attempts=[json.loads(r[0]) for r in db.execute('SELECT metadata FROM attempts WHERE job_id=? ORDER BY created_at DESC',(jid,))]
                 latest=next((a for a in attempts if a.get('stage')=='evidence_check'),None)
                 if latest and latest.get('visible_response'):
-                    try:checks=validate_checks(parse_response(latest['visible_response']),context,job['rubric'],quarantine_roles=True)
+                    try:checks=validate_checks(parse_response(latest['visible_response']),context,job['rubric'],quarantine_roles=True,quarantine_invalid=True)
                     except (ValueError,TypeError,KeyError):checks=None
                 if checks is None:
                     request=build_request(job['rubric'],context,images,model=config.model,max_tokens=config.max_tokens,max_images=config.max_images,stage='evidence_check')
                     request['thinking']={'type':config.thinking}
                     fact_response=DeepSeekClient(config).complete(request,lambda metadata:self.store.attempt(jid,{**metadata,'stage':'evidence_check'}))
-                    checks=validate_checks(parse_response(fact_response),context,job['rubric'],quarantine_roles=True)
+                    del request  # Release the first image packet before allocating the grading packet.
+                    checks=validate_checks(parse_response(fact_response),context,job['rubric'],quarantine_roles=True,quarantine_invalid=True)
                 dump_json(self.store.path(f'jobs/{jid}/checked-facts-{uuid.uuid4().hex}.json'),checks)
             request=build_request(job['rubric'],context,images,model=config.model,max_tokens=config.max_tokens,max_images=config.max_images,checks=checks)
             request['thinking']={'type':config.thinking}
@@ -247,14 +254,27 @@ class Backend:
         guarded=[]
         guarded_context=[]
         guarded_facts=[]
+        guarded_invalid_tiers=[]
+        guarded_unreadable_claims=[]
+        guarded_invalid_facts=[]
         modality_adjustments=[]
         criteria={c['id']:c for s in job['rubric']['sections'] for c in s['criteria']}
         evidence={e['id']:e for e in context['evidence']}
-        if checks is not None:checks=validate_checks(checks,context,job['rubric'],quarantine_roles=True)
+        if checks is not None:checks=validate_checks(checks,context,job['rubric'],quarantine_roles=True,quarantine_invalid=True)
         facts={c['criterion_id']:c for c in checks['checks']} if checks else {}
         requirements={p['criterion_id']:p.get('verification_requirements',{}) for p in context.get('evidence_plan',{}).get('criteria',[])}
         for item in result.get('judgments',[]):
             cid=item.get('criterion_id')
+            if any(x.startswith(FACT_FORMAT_CONFLICT) for x in facts.get(cid,{}).get('contradictions',[])):
+                guarded_invalid_facts.append(cid)
+                item.update(verdict='unresolved',missing=False,reason='事实记录格式或引用异常，本项尚未核实，不能用普通推定代替核对。原理由：'+str(item.get('reason','')))
+            if cid in criteria and item.get('verdict')=='minor' and criteria[cid].get('minor_points') is None:
+                guarded_invalid_tiers.append(cid)
+                item.update(verdict='unresolved',missing=False,reason='模型使用了本项未设置的minor档位，未自动换成满分、部分分或零分；本项待核对。原理由：'+str(item.get('reason','')))
+            refs=item.get('evidence_ids')
+            if item.get('verdict') in ('full','minor','partial','zero') and item.get('missing') is False and isinstance(refs,list) and all(isinstance(r,str) and r in evidence for r in refs) and any(not evidence[r]['readable'] for r in refs):
+                guarded_unreadable_claims.append(cid)
+                item.update(verdict='unresolved',missing=False,reason='所引用原图不可直接核验（可能含裁剪或旋转），本项保留原引用待页面核对，不据此给分或扣零。原理由：'+str(item.get('reason','')))
             if any(x.startswith(ROLE_CONFLICT) for x in facts.get(cid,{}).get('contradictions',[])) and item.get('verdict')!='unresolved':
                 guarded_facts.append(cid)
                 item.update(verdict='unresolved',missing=False,reason='本项命令引用的材料归属未确认，保留本项待复核；其他项目继续批阅。原理由：'+str(item.get('reason','')))
@@ -292,6 +312,7 @@ class Backend:
         scored.update(simulation=job['configuration']['simulation'],model_returned=response.get('model'),response_id=response.get('id'),usage=response.get('usage'),
                       guarded_absence_claims=guarded,guarded_context_claims=guarded_context,source_authenticity='not_verified: screenshots are submitted evidence, not proof of original execution')
         scored.update(guarded_fact_claims=guarded_facts,fact_check_sha256=fingerprint(checks) if checks else None)
+        scored.update(guarded_invalid_tiers=guarded_invalid_tiers,guarded_unreadable_claims=guarded_unreadable_claims,guarded_invalid_facts=guarded_invalid_facts)
         out_dir=self.store.path(f"jobs/{job['id']}/results/{uuid.uuid4().hex}")
         out_dir.mkdir(parents=True)
         dump_json(out_dir/'model-judgments.json',raw)
@@ -311,7 +332,7 @@ class Backend:
                 attempts=[json.loads(r[0]) for r in db.execute('SELECT metadata FROM attempts WHERE job_id=? ORDER BY created_at DESC',(jid,))]
             stages={stage:next((a for a in attempts if a.get('stage')==stage),{}) for stage in ('grade','evidence_check','auto_review')}
             require(all(a.get('visible_response') for a in stages.values()),'没有可重新校验的完整自动复查响应；不会新增模型调用')
-            checks=validate_checks(parse_response(stages['evidence_check']['visible_response']),job['context'],job['rubric'],quarantine_roles=True)
+            checks=validate_checks(parse_response(stages['evidence_check']['visible_response']),job['context'],job['rubric'],quarantine_roles=True,quarantine_invalid=True)
             initial=self._save_response(job,stages['grade']['visible_response'],checks=checks)
             scored=self._automatic_review(job,initial,checks,{},Configuration(**job['configuration'])) if initial['unresolved_items'] else initial
             return self.store.transition(jid,['needs_review'],scored['status'],result=scored)
