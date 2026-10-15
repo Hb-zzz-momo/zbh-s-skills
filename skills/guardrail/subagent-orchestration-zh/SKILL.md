@@ -1,6 +1,6 @@
 ---
 name: subagent-orchestration-zh
-description: "中文子代理编排技能：用于把 Codex subagents、/sub、多代理协调、并行委派、explorer/worker、TOML agent、awesome-codex-subagents 角色库和本地 skills 路由结合起来；约束何时允许真实 spawn 子代理、何时只给委派方案、如何划分父代理/子代理职责、如何避免写范围冲突、如何把科研与工程任务的子代理结果回收到本地审计和验收流程。Use when: subagent, subagents, /sub, 子代理, 多代理, 多代理协调, 并行代理, 并行委派, 委派执行, worker, explorer, spawn_agent, TOML agent, awesome-codex-subagents, Codex-Subagent-Orchestrator, 子代理审计, 子代理调度。不适用于：用户没有明确要求子代理或并行委派的普通深入分析、普通代码修改、普通科研实验；这些任务应继续走本地领域 skill。"
+description: "中文子代理编排：在用户本次明确委派，或质量评价持续授权适用时，调度真实 explorer、worker、reviewer，划分父子职责、写范围、等待和验收回收。Use when: subagent, /sub, 子代理, 多代理, 并行委派, worker, explorer, 独立评价调度。普通深入分析本身不触发；评价标准与独立性由 multi-agent-evaluation-zh 管理，领域工作仍由领域 skill 主导。"
 ---
 
 # 子代理编排
@@ -32,8 +32,8 @@ description: "中文子代理编排技能：用于把 Codex subagents、/sub、�
 
 ## 硬规则
 
-1. 只有用户明确要求 `subagent`、`/sub`、子代理、多代理、并行代理、委派或 worker/explorer 时，才允许真实调度子代理。
-2. “深入分析”“全面分析”“仔细检查”本身不等于授权开子代理。
+1. 用户本次明确要求子代理，或命中用户已持续授权的独立评价范围时，允许真实调度。评价任务默认按 [multi-agent-evaluation-zh](../multi-agent-evaluation-zh/SKILL.md) 执行，无需重复询问；本次禁用优先。
+2. “深入分析”“全面分析”“仔细检查”本身不等于无限委派授权；独立评价授权只覆盖当前任务内的执行/评价分工，不扩大写范围和外部动作权限。
 3. 父代理保留任务解释、skill 路由、写范围裁决、最终集成、验收和论文 claim 边界。
 4. 子代理默认使用只读 explorer/reviewer；当父代理明确给出最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛时，可以使用 worker 修改文件。
 5. 一次默认最多 3 个子代理。超过 3 个必须说明真实并行收益和集成成本。
@@ -53,7 +53,7 @@ description: "中文子代理编排技能：用于把 Codex subagents、/sub、�
 - 下一步动作：只读 explorer、单 worker、串行执行、补授权、父代理本地执行或暂停询问。
 ```
 
-没有明确授权时只能 `BLOCK` 真实调度，但可以给出本地执行方案或只读委派方案。
+既无本次授权又不命中持续授权时，只给本地方案或待执行委派方案，不真实 spawn；只读子代理也需要授权。
 
 ## 路由关系
 
@@ -96,7 +96,7 @@ formal、freeze、论文 claim 必须回到 `decisive-result-audit-zh`。
 ## 调度流程
 
 1. **确认授权**
-   - 用户是否明确要求 subagent 或并行委派。
+   - 用户是否本次明确要求，或任务是否命中独立评价持续授权；记录依据，不重复索要已给授权。
    - 若没有授权，输出本地执行方案，不真实 spawn。
 
 2. **选主 skill**
@@ -106,7 +106,7 @@ formal、freeze、论文 claim 必须回到 `decisive-result-audit-zh`。
 
 3. **拆父子职责**
    - 父代理做关键路径和最终验收。
-   - 子代理只做可并行、边界清晰、不会阻塞父代理下一步的任务。
+   - 子代理任务须边界清晰；可并行的工作并行，最终独立评价可以是关键路径上必要的串行阶段。
 
 4. **确定子代理类型**
    - explorer：只读，回答一个具体问题。
@@ -118,7 +118,7 @@ formal、freeze、论文 claim 必须回到 `decisive-result-audit-zh`。
    - 每个子代理必须有 objective、input context、write scope、expected output、wait rule、integration gate。
 
 6. **执行与等待**
-   - 父代理不能把立即阻塞任务交给子代理后空等。
+   - 可独立推进的工作不空等；下一步确实依赖最终评审时可以等待，不以避免等待为由自行代评。
    - `wait_agent` 只在下一步必须依赖结果时使用。
    - 子代理运行时，父代理做不重叠的本地工作。
 
@@ -221,7 +221,7 @@ Subagent 路由：
 
 ## 收尾自检
 
-- 是否只有明确授权时才真实调度。
+- 是否有本次明确授权或适用的持续授权，并遵从本次禁用。
 - 是否父代理保留最终集成和验收。
 - 是否 worker 写范围互斥。
 - 是否没有用子代理替代本地科研/工程/审计主流程。

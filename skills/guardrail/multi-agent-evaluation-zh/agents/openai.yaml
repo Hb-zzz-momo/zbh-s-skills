@@ -1,0 +1,6 @@
+interface:
+  display_name: "多 agent 独立评价"
+  short_description: "按证据将执行、独立评审与复核分离，覆盖交付、文档和科研评价"
+  default_prompt: "使用 $multi-agent-evaluation-zh 为当前任务确定评价标准，安排真实独立评审并完成修订复验。"
+policy:
+  allow_implicit_invocation: true

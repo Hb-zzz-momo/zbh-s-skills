@@ -36,6 +36,7 @@
 | 参考驱动设计 | Web/PPT/Dashboard/科研图/架构图/Coding Prompt 或 Agent 指令需要动态外部案例、行业标杆与设计转译 | `contextual-reference-router`（领域工作流的阶段性辅助） |
 | 严格计划执行 | 按题面、方案、计划、prompt 文件执行 | `plan-faithful-execution-zh` |
 | 子代理调度 | `/sub`、subagents、子代理、多代理、并行委派、worker/explorer | `subagent-orchestration-zh` |
+| 独立评价 | 项目/模块交付、实验报告、文档、科研思路选择、科研结果验收中的质量评价/比较/评分 | `multi-agent-evaluation-zh`（已持续授权，作为领域流程的评价辅助） |
 | 科研调用流 | 机制创新、新方法构思、算法创新点、多痛点、多假设、多创新点、候选池、文献检索门、Gap Gate、科研 skill 路由 | `research-skill-flow-zh` |
 | 工程调用流 | 复杂工程、多方案实现、技术 spike、工程 Gate、候选实现池 | `engineering-skill-flow-zh` |
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
@@ -79,6 +80,7 @@
 | 性能是目标或存在回归 | `performance-optimization` |
 | 任务会长时间运行 | `agent-wait-monitor-zh` |
 | 用户明确要求 subagent、`/sub`、并行委派或多代理 | `subagent-orchestration-zh` |
+| 需要质量评价、候选比较或交付验收 | `multi-agent-evaluation-zh`；按持续授权真实分离执行与评价，本次禁用优先 |
 | 需要沉淀给下一任 AI | `project-handoff-zh`, `documentation-and-adrs` |
 
 ### 高风险任务统一硬门槛模板
@@ -97,7 +99,7 @@
 判定规则：
 
 - `PASS`：证据足够，允许进入下一阶段，但仍要执行对应 skill 的验证要求。
-- `CAUTION`：只允许低风险下一步，必须降级表述、缩小范围或补验证；不得升级为正式 claim 或最终交付。
+- `CAUTION`：可继续已授权的低风险工作并交付明确限制的产物，必须降级表述、缩小范围或补验证；不得升级为总体 PASS、正式 claim 或可直接提交的声明。
 - `BLOCK`：不得继续该高风险动作，只能补证据、改方案、询问用户或记录为失败/待办。
 
 ### Step 4：声明并执行
@@ -130,7 +132,7 @@
 
 `improve-codebase-architecture`、`codebase-design`
 
-默认执行方式：先按近期热点、领域词汇和 ADR 扫描浅模块，生成候选报告；用户选定候选后再用 `grilling` 澄清决策，并在术语或决策确实变化时追加 `domain-modeling`。未获用户明确授权时由主代理本地探索，不调度子代理。
+默认执行方式：先按近期热点、领域词汇和 ADR 扫描浅模块，生成候选报告；用户选定候选后再用 `grilling` 澄清决策，并在术语或决策确实变化时追加 `domain-modeling`。既无本次明确授权又未命中独立评价持续授权时，由主代理本地探索，不调度子代理。
 
 ### 复杂工程 / 多方案实现
 
@@ -148,7 +150,7 @@
 
 `subagent-orchestration-zh`
 
-默认执行方式：只有用户明确授权 subagent、`/sub`、并行代理、委派、worker/explorer 时才真实调度。父代理保留本地主 skill、写范围、最终集成和验收；子代理默认使用只读 explorer/reviewer。当父代理明确给出最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛时，可以使用 worker 修改文件，且 worker 改动必须由父代理复核、集成、测试和最终验收。
+默认执行方式：依本次明确授权或适用的持续授权真实调度。质量评价、候选比较和交付验收默认接入 `multi-agent-evaluation-zh`，不重复询问；本次禁用优先。父代理保留领域流程、写范围和集成；reviewer 只读被评对象，worker 须有明确最小写范围并由父代理集成验证。独立评审阻断必须凭证据闭环。
 
 ### Web 设计 / Vibe Coding / 前端页面
 
@@ -278,7 +280,7 @@
 - 有论文/报告结论时，默认做证据和结果审计。
 - 有科研机制创新、新方法或算法创新点时，默认先做文献检索门；不得从本地实验直觉直接生成 novelty claim。
 - 命中高风险信号时，必须使用统一硬门槛模板；没有前置证据只能 `CAUTION` 或 `BLOCK`，不能写成 `PASS`。
-- 有子代理请求时，先确认授权和写范围；不要把“深入分析”自动当作授权。
+- 有子代理请求或独立评价需求时，核对本次/持续授权和写范围；不要把“深入分析”当作无限委派授权。
 - 有工具使用建议请求时，按 VS Code 插件、Codex 插件、语言本身安装包/生态依赖、Codex MCP 四层组织答案，并区分“已安装可用”“需要配置”“只是候选建议”。
 - 有用户指定输出目录时，写入指定目录。
 - 不确定时先查 `skills/README.md`，再选择 skill。
