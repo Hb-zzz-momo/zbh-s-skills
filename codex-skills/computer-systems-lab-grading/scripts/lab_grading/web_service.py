@@ -348,6 +348,8 @@ class TeachingService:
         with self.store.connect() as db:
             latest=db.execute('SELECT * FROM tasks WHERE report_id=? ORDER BY created_at DESC LIMIT 1',(r['id'],)).fetchone()
             latest=dict(latest) if latest else None
+            scope_busy=db.execute("SELECT 1 FROM tasks t JOIN reports v ON v.id=t.report_id WHERE t.state IN ('queued','running') AND v.group_id=? AND v.student_id=? AND v.experiment_id=? LIMIT 1",
+                (r['group_id'],r['student_id'],r['experiment_id'])).fetchone() if student else None
             manual=db.execute('''SELECT e.resource_id FROM events e JOIN reports v ON v.id=e.resource_id
                 WHERE e.kind='version_selected' AND v.deleted_at IS NULL AND v.group_id=? AND v.student_id=? AND v.experiment_id=? ORDER BY e.id DESC LIMIT 1''',
                 (r['group_id'],r['student_id'],r['experiment_id'])).fetchone() if student else None
@@ -367,10 +369,14 @@ class TeachingService:
         dto=dict(id=r['id'],groupId=r['group_id'],studentId=r['student_id'],name=student['name'] if student else '未匹配',student=student['number'] if student else '',className=group['name'],exp=r['experiment_id'],filename=r['filename'],size=r['size'],sha256=r['sha256'],status=status,engineState=job['state'] if job else None,revision=r['revision'],jobRevision=job['revision'] if job else None,jobId=r['job_id'],rows=rows(result),reviewRows=rows(review['result']) if review else None,suggestedScore=(result or {}).get('suggested_score'),scoreInterval=(result or {}).get('score_interval'),reviewScore=review['result']['suggested_score'] if review else None,publishedScore=publication['score'] if publication else None,reviewId=review['id'] if review else None,created=r['created_at'],matchReason=r['match_reason'],demo=False,active=bool(r['active']),identityFlag=ctx.get('identity_status','verified')!='verified',blockingFlags=ctx.get('blocking_flags',[]),error=job['error'] if job else None,task=active[0] if active else None,pages=len([e for e in ctx.get('evidence',[]) if e.get('role')=='page_context']),images=len([e for e in ctx.get('evidence',[]) if e['kind']=='image']))
         dto['pages']=(ctx.get('evidence_plan') or {}).get('coverage',{}).get('page_count',len([e for e in ctx.get('evidence',[]) if e['kind']=='image' and (e.get('role')=='page_context' or not e.get('role'))]))
         dto['lastTask']=latest
+        delete_blocked=('报告已删除，可在已删除报告中恢复' if r['deleted_at'] else
+                        '已发布成绩的报告不能删除' if publication or status=='published' else
+                        '报告正在批阅，请等待任务结束后删除' if active or status=='running' else
+                        '该学生本实验的其他版本正在批阅，请等待任务结束' if scope_busy else None)
         dto.update(deletedAt=r['deleted_at'],isNewVersion=bool(self.version_hint(r,student).get('is_new')),
                    versionHint=self.version_hint(r,student),
                    manualFinalReportId=manual[0] if manual else None,
-                   canDelete=not r['deleted_at'] and not active and not publication and status in ('received','error','unmatched','duplicate','superseded'))
+                   canDelete=delete_blocked is None,deleteBlockedReason=delete_blocked)
         dto.update(verifiedSuggestedScore=(result or {}).get('suggested_score'),hasEstimates=bool(recommendation and recommendation['has_estimates']),reviewPriorityCount=recommendation['priority_count'] if recommendation else 0,advisoryCount=recommendation['advisory_count'] if recommendation else 0)
         if recommendation:dto['suggestedScore']=recommendation['score']
         dto['scopeGroupIds']=[r['group_id'],*[g['id'] for g in c['groups'] if r['group_id'] in g['sourceGroupIds']]]
