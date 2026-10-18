@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "scope_id": "example-project/example-task/example-owner",
+  "current_status": "待核验：示例清单，须替换为当前任务真实文件",
+  "last_verified_at": null,
+  "open_issues": ["首次建立地图与核验范围尚未完成"],
+  "external_dependencies": [],
+  "max_age_hours": 24,
+  "files": [
+    {"path": ".context-cache/code-map.md", "kind": "map", "field": "code_map"},
+    {"path": ".context-cache/evidence-index.md", "kind": "map", "field": "evidence_map"}
+  ]
+}

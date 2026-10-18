@@ -1,0 +1,4 @@
+interface:
+  display_name: "保守上下文节省"
+  short_description: "用项目地图、有限哈希和来源检索减少重复读取，保留执行与验收要求"
+  default_prompt: "用 $context-budget-guard-zh 为当前长任务减少重复读取，按需建立地图和状态观察，保持原有执行与验收标准。"
