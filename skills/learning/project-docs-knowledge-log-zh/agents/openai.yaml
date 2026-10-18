@@ -1,4 +1,0 @@
-interface:
-  display_name: "项目知识沉淀"
-  short_description: "把项目问答的关键知识点写入 docs/knowledge。"
-  default_prompt: "Use $project-docs-knowledge-log-zh to save the key reusable knowledge point from this Q&A into the current project docs/knowledge folder."

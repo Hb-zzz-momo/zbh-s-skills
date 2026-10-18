@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
-  <rect width="1200" height="720" rx="40" fill="#F7F4ED"/>
-  <path d="M170 360 C250 110 510 80 650 210 C790 80 1050 110 1100 360 C1050 610 790 640 650 510 C510 640 250 610 170 360Z" fill="none" stroke="#1B7F79" stroke-width="24"/>
-  <circle cx="240" cy="360" r="68" fill="#E05A47"/><circle cx="500" cy="190" r="68" fill="#FFFFFF" stroke="#1B7F79" stroke-width="8"/><circle cx="700" cy="530" r="68" fill="#FFFFFF" stroke="#1B7F79" stroke-width="8"/><circle cx="960" cy="360" r="68" fill="#172033"/>
-  <g font-family="Microsoft YaHei,Arial" font-size="34" font-weight="700" text-anchor="middle"><text x="240" y="372" fill="white">证据</text><text x="500" y="202" fill="#172033">设计</text><text x="700" y="542" fill="#172033">构建</text><text x="960" y="372" fill="white">复验</text></g>
-</svg>

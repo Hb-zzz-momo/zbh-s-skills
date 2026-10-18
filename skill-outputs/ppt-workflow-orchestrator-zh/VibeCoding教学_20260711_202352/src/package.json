@@ -1,9 +1,0 @@
-{
-  "name": "vibe-coding-teaching-deck",
-  "private": true,
-  "version": "1.0.0",
-  "type": "module",
-  "scripts": {"build": "tsx build.ts"},
-  "dependencies": {"pptxgenjs": "^4.0.1"},
-  "devDependencies": {"tsx": "^4.20.3"}
-}

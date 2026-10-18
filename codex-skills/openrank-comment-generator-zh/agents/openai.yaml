@@ -1,4 +1,0 @@
-interface:
-  display_name: "OpenRank Chinese Comments"
-  short_description: "Generate project-style Chinese comments for openrank2."
-  default_prompt: "Use $openrank-comment-generator-zh to add project-style Chinese module and function comments to this OpenRank codebase."

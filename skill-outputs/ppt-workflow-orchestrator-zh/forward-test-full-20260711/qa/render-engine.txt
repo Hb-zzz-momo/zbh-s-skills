@@ -1,6 +1,0 @@
-实际渲染后端：Microsoft PowerPoint COM
-渲染 DPI：144
-最终输入：presentation-v4.pptx
-最终 PDF：qa/pass2/render-final-v4/presentation-v4.pdf
-最终逐页 PNG：qa/pass2/render-final-v4/slides/
-

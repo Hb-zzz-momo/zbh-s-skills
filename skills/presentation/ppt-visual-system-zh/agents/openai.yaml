@@ -1,5 +1,0 @@
-interface:
-  display_name: "PPT视觉系统"
-  short_description: "建立可执行的演示设计契约、布局家族、视觉令牌与三页审美门禁。"
-  default_prompt: "读取当前 slide-spec 与品牌材料，创建 PRESENTATION_DESIGN.md 并执行 Taste Gate。"
-

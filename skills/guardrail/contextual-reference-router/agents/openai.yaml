@@ -1,4 +1,0 @@
-interface:
-  display_name: "上下文参考路由器"
-  short_description: "按任务上下文选择高质量案例来源并形成可执行的设计参考闭环"
-  default_prompt: "Use $contextual-reference-router to research context-appropriate references and produce a traceable Reference Brief before implementation."

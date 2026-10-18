@@ -1,4 +1,0 @@
-interface:
-  display_name: "Agent 后台监控"
-  short_description: "长任务后台托管与独立监控窗口：卡死判定、自动续跑、定时按顺序播报完成度、人工/AI 归属与待人工清单。"
-  default_prompt: "为当前长任务建立后台监控与自动续跑协议，并按需开启独立监控窗口定时播报进度。"

@@ -1,7 +1,0 @@
-interface:
-  display_name: "Lab Report 实验报告"
-  short_description: "Create documents with the Lab Report 实验报告 template"
-  icon_large: "./assets/preview.png"
-  default_prompt: "Use $artifact-template-lab-report to create a document with this template."
-policy:
-  allow_implicit_invocation: true

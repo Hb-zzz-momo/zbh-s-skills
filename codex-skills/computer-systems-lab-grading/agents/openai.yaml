@@ -1,4 +1,0 @@
-interface:
-  display_name: "计算机系统实验批阅"
-  short_description: "按16个实验百分制规则核对报告证据、生成逐项建议分并标记待复核项"
-  default_prompt: "请使用 $computer-systems-lab-grading，依据对应实验评分规则核对报告证据，给出逐项建议分和待复核问题。"
