@@ -1,0 +1,4 @@
+interface:
+  display_name: "SSH 登录与代理排错"
+  short_description: "逐层检查 SSH 登录、免密、端口转发和 VS Code 代理，附小白教学"
+  default_prompt: "请使用 $diagnose-ssh-proxy，先确认本地与远程环境，再逐层排查 SSH 登录和代理问题，并用小白例子解释。"

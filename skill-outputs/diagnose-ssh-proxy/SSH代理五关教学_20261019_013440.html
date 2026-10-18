@@ -1,0 +1,154 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>SSH 与代理五关教学</title><style>
+:root{color-scheme:light;--ink:#18252d;--muted:#556670;--line:#d9e3e6;--accent:#006b63;--paper:#fff;--bg:#f1f5f5}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.85 'Microsoft YaHei','PingFang SC',sans-serif}
+header{background:#123a3c;color:#fff;padding:46px max(5vw,24px) 38px}header .eyebrow{letter-spacing:.12em;color:#9ee3d1;font-size:13px}header h1{font-size:clamp(26px,4vw,42px);line-height:1.4;margin:12px 0}header p{max-width:800px;color:#d7e9e7}
+.layout{display:grid;grid-template-columns:240px minmax(0,920px);gap:32px;max-width:1240px;margin:30px auto;padding:0 24px}aside{align-self:start;position:sticky;top:20px}nav a{display:block;color:var(--muted);text-decoration:none;padding:7px 10px;font-size:14px;border-left:2px solid #d2e0de}nav a:hover{color:var(--accent);border-color:var(--accent)}
+main{min-width:0;background:var(--paper);padding:24px 36px 50px;border:1px solid var(--line);border-radius:14px}main>h1{font-size:27px;line-height:1.5}h2{font-size:23px;line-height:1.6;margin:44px 0 16px;padding-top:20px;border-top:2px solid #d6e6e2;scroll-margin-top:20px}h3{font-size:19px}strong{color:#005f58}p{margin:16px 0}code{font:13px/1.8 Consolas,'Cascadia Code',monospace;background:#edf4f2;padding:2px 5px;border-radius:4px;overflow-wrap:anywhere}pre{overflow:auto;background:#142b34;color:#e6f2ef;padding:18px 20px;margin:0 0 22px;border-radius:0 0 8px 8px;line-height:1.7}pre code{color:inherit;background:none;padding:0;white-space:pre;overflow-wrap:normal}.code-label{background:#22454f;color:#afdbd2;font-size:12px;text-transform:uppercase;padding:5px 16px;border-radius:8px 8px 0 0;letter-spacing:.08em}
+.table-wrap{overflow-x:auto;margin:22px 0}table{border-collapse:collapse;width:100%;font-size:14px}th,td{border:1px solid var(--line);padding:11px 12px;text-align:left;vertical-align:top}th{background:#e9f3f0;color:#154e47}a{color:#006b63;text-underline-offset:3px}.notice{border-left:4px solid #b66b23;background:#fff7e9;padding:16px 20px;margin:18px 0}.notice strong{color:#89501b}.map{background:#f1f7f5;border:1px solid #cde0d8;border-radius:10px;padding:20px;margin:18px 0}.map svg{display:block;width:100%;height:auto}.map p{font-size:14px;color:var(--muted);margin:8px 0 0}.badge{display:inline-block;background:#d4eee6;color:#155d4a;padding:3px 10px;border-radius:99px;font-size:12px;margin-right:7px}footer{padding:20px 24px 40px;max-width:1240px;margin:auto;font-size:13px;color:var(--muted)}
+@media(max-width:850px){.layout{display:block;padding:0 14px}aside{position:static;margin-bottom:22px}nav{display:flex;overflow:auto;gap:8px}nav a{min-width:160px;background:white;border:1px solid var(--line);border-radius:8px}main{padding:18px 20px}header{padding:30px 24px}}
+@media print{body{background:white;font-size:11pt}header{background:white;color:#123a3c;padding:0 0 14px}header p{color:#345}aside{display:none}.layout{display:block;margin:0;padding:0}main{border:0;padding:0}h2{break-before:page}pre,table,.map{break-inside:avoid}pre{white-space:pre-wrap;color:black;background:#f2f4f4}pre code{white-space:pre-wrap;font-size:9pt}.code-label{color:black;background:#eee}footer{padding:16px 0}}
+</style></head><body><header><div class="eyebrow">SSH · REMOTE PROXY · BEGINNER WORKFLOW</div><h1>先开门，再搭通道</h1><p>用“办公室门禁、回家专线、快递窗口”理解 SSH 登录与代理。每关只解决一个问题，看见成功信号后再向下走。</p><span class="badge">五个关卡</span><span class="badge">本地 / 远程分清</span><span class="badge">附故障分支</span></header><div class="layout"><aside><nav aria-label="教学目录"><a href="#section-2">先看懂三件事</a>
+<a href="#section-3">第一关：只检查能不能进服务器</a>
+<a href="#section-4">第二关：按需要配置密钥登录（可选）</a>
+<a href="#section-5">第三关：把服务器10801接回电脑7890</a>
+<a href="#section-6">第四关：把代理地址写进配置，省掉重复 export</a>
+<a href="#section-7">第五关：让 VS Code 和 Codex 使用已验证的通道</a>
+<a href="#section-8">最容易混淆的冲突</a>
+<a href="#section-9">日常只记三件事</a>
+<a href="#section-10">下次如何调用这个 Skill</a></nav></aside><main><div class="notice">公开版本：203.0.113.0/24内的IP均为文档示例地址，请替换为实际服务器地址后执行。</div><div class="notice"><strong>本次进度：</strong>第一台服务器的代理请求已验证通过；server111登录根因仍待日志确认。免密配置可选，认证通过后可直接排查后续通道。文档是教学材料，不代表已执行配置或安装技能。</div><section class="map" aria-label="代理流量示意图">
+<svg viewBox="0 0 760 310" role="img" aria-labelledby="maptitle mapdesc" xmlns="http://www.w3.org/2000/svg">
+<title id="maptitle">远程应用借助 SSH 反向隧道使用电脑代理</title><desc id="mapdesc">左边为远程服务器，应用访问服务器10801。右边为电脑7890代理，经SSH隧道接收请求后访问外网。</desc>
+<defs><marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="#167468"/></marker></defs>
+<rect x="10" y="10" width="340" height="285" rx="16" fill="#e0eee8" stroke="#9dbfb0"/><rect x="410" y="10" width="340" height="285" rx="16" fill="#e2edf4" stroke="#a2bfce"/>
+<g font-family="Microsoft YaHei,PingFang SC,sans-serif" text-anchor="middle" fill="#193b3b"><text x="180" y="43" font-size="19" font-weight="bold">远程服务器</text><text x="580" y="43" font-size="19" font-weight="bold">你的电脑</text>
+<rect x="60" y="64" width="240" height="55" rx="9" fill="white"/><text x="180" y="98" font-size="16">curl / 远程应用</text>
+<path d="M180 120 V154" stroke="#167468" stroke-width="3" marker-end="url(#arrow)"/>
+<rect x="52" y="158" width="256" height="58" rx="9" fill="white"/><text x="180" y="183" font-size="15">远程入口</text><text x="180" y="204" font-size="15">127.0.0.1:10801</text>
+<rect x="452" y="158" width="256" height="58" rx="9" fill="white"/><text x="580" y="183" font-size="15">本地 HTTP 代理</text><text x="580" y="204" font-size="15">127.0.0.1:7890</text>
+<path d="M310 188 H448" stroke="#167468" stroke-width="3" marker-end="url(#arrow)"/><text x="379" y="150" font-size="14">SSH 隧道</text>
+<path d="M580 216 V249" stroke="#167468" stroke-width="3" marker-end="url(#arrow)"/><text x="580" y="276" font-size="16">访问外网服务</text>
+<text x="180" y="266" font-size="13">环境变量告诉应用走10801</text></g></svg>
+<p>先验证登录，再测试这条路径。图中箭头表示远程应用请求的方向；SSH连接由电脑发起。</p></section><h1 id="section-1">小白工作流：先开门，再搭通道，最后让应用走通道</h1>
+<p>目录：场景与比喻；五个关卡；冲突对照；日常使用；撤销；Skill 用法。</p>
+<h2 id="section-2">先看懂三件事</h2>
+<p>把服务器想成外地办公室，把你的电脑想成家里，把家里代理想成能寄国际快递的窗口。</p>
+<div class="table-wrap"><table><tr><th>真实对象</th><th>小白比喻</th><th>职责</th></tr><tr><td>SSH 登录账户与密码 / 密钥</td><td>办公室门禁</td><td>决定能不能进入服务器</td></tr><tr><td>SSH 反向隧道</td><td>办公室到家里的专线</td><td>把远程10801收到的连接送回电脑7890</td></tr><tr><td>http_proxy / https_proxy</td><td>写给应用的寄件地址</td><td>告诉应用去哪个窗口，不负责建设专线</td></tr></table></div>
+<p><strong>127.0.0.1 的意思是“我自己”。</strong> 服务器上的127.0.0.1是服务器；电脑上的127.0.0.1是电脑。同一个数字不代表同一台机器。</p>
+<p>本教程使用 server111 = 203.0.113.88、本地7890、远程10801。实际登录账户尚未确认；下面配置中的 ACTUAL_USER 必须替换。root 和 ubuntu 是不同账户，同一台服务器上不能混用它们的密码与 authorized_keys。SSH22也须核对。</p>
+<p>第一台服务器曾得到 HTTP=200、curl_exit=0，这是成功案例。整理时 server111 的登录失败尚未定位；实际使用时以新日志判断从哪一关开始。若已有 Authenticated to 等认证通过证据，就直接检查后续转发或会话，不要重新猜密码。</p>
+<h2 id="section-3">第一关：只检查能不能进服务器</h2>
+<p><strong>在哪里：你的电脑，Windows PowerShell。</strong></p>
+<div class="code-label">powershell</div><pre><code>ssh -G server111 | Select-String &#x27;^(hostname|user|port|identityfile) &#x27;
+ssh -vv -o ClearAllForwardings=yes server111</code></pre>
+<p>第一条像检查“寄件单”：确认 hostname 为203.0.113.88、user为真实账户、port为真实SSH端口。第二条表示“这次先只开门，暂时不搭通道”。</p>
+<p>如果已有可用的服务器终端，在那里执行 whoami 确认登录名。若完全不能登录，从云控制台核实账户。密码输入时不显示星号很正常。</p>
+<p><strong>成功信号：</strong> 出现远程命令提示符，在里面执行 whoami 得到预期账户。日志中的 Authenticated to 证明认证阶段通过；之后仍可能遇到会话或转发问题。</p>
+<p><strong>失败就停在这里：</strong> Permission denied 查账户与认证；timeout/refused 查地址、端口、网络和SSH服务；Enter passphrase for key 问的是私钥口令。不要先改代理，也不要连续反复输入密码。</p>
+<p><strong>举例：</strong> 门禁卡属于 ubuntu，却尝试进 root 的门，卡本身正确也无法开门。当前问题必须用日志确认，不能直接认定就是这个原因。</p>
+<h2 id="section-4">第二关：按需要配置密钥登录（可选）</h2>
+<p>已经能用密码正常登录时，可以保留密码方式并直接进入第三关。免密用于减少日常输入，不是建立代理隧道的前提。</p>
+<p><strong>比喻：</strong> 公钥是放在办公室门上的锁，私钥是留在电脑里的钥匙。<code>.pub</code> 是公钥，客户端的 IdentityFile 要选无 <code>.pub</code> 的私钥。</p>
+<p><strong>在哪里：电脑 PowerShell。</strong> 文件不存在才生成，避免覆盖旧钥匙：</p>
+<div class="code-label">powershell</div><pre><code>New-Item -ItemType Directory -Path &quot;$env:USERPROFILE\.ssh&quot; -Force | Out-Null
+$keyPath = &quot;$env:USERPROFILE\.ssh\id_ed25519_111&quot;
+if (-not (Test-Path -LiteralPath $keyPath)) {
+    ssh-keygen -t ed25519 -f $keyPath -C &#x27;server111&#x27;
+}
+Get-Content -LiteralPath &quot;${keyPath}.pub&quot;</code></pre>
+<p>若公钥文件不存在而私钥已存在，先停止，不要覆盖；由助手协助导出公钥。保留第一关的可用会话。</p>
+<p><strong>在哪里：服务器终端，真实登录账户下。</strong> 将最后一行占位文本替换成完整公钥再执行：</p>
+<div class="code-label">bash</div><pre><code>mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+touch ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys
+printf &#x27;\n%s\n&#x27; &#x27;替换为完整的 ssh-ed25519 公钥一行&#x27; &gt;&gt; ~/.ssh/authorized_keys</code></pre>
+<p>**在哪里：电脑的 <code>$env:USERPROFILE\.ssh\config</code> 文件。** 编辑前保存备份；保留其他主机。合并为下面两个别名，替换 ACTUAL_USER 和实际SSH端口。不要保留同一目标旧的重复 RemoteForward。</p>
+<div class="code-label">sshconfig</div><pre><code>Host server111 server111-proxy
+    HostName 203.0.113.88
+    User ACTUAL_USER
+    Port 22
+    IdentityFile ~/.ssh/id_ed25519_111
+    IdentitiesOnly yes
+    ServerAliveInterval 30
+    ServerAliveCountMax 3
+
+Host server111-proxy
+    RemoteForward 127.0.0.1:10801 127.0.0.1:7890
+    ExitOnForwardFailure yes</code></pre>
+<p><strong>成功信号：</strong> 在电脑执行下面命令，得到真实用户名：</p>
+<div class="code-label">powershell</div><pre><code>ssh -o ClearAllForwardings=yes server111 &#x27;whoami&#x27;</code></pre>
+<p>私钥如果加了口令，可能仍询问这个口令；它和服务器密码是两回事。加密钥匙由 ssh-agent 解锁管理后才可能完全不提示。若报 bad permissions，参照操作参考只修复真实私钥，不要改整个文件夹。</p>
+<h2 id="section-5">第三关：把服务器10801接回电脑7890</h2>
+<p><strong>比喻：</strong> 在办公室放一个10801号收件箱，专线把箱里的请求送到家里的7890号快递窗口。</p>
+<p><strong>在哪里：电脑。</strong> 先打开代理软件，确认7890是 HTTP 或 mixed 端口。在 PowerShell 单独开一个窗口执行：</p>
+<div class="code-label">powershell</div><pre><code>ssh -NT server111-proxy</code></pre>
+<p>窗口没有输出且一直停在那里通常正常，先保持开启。电脑代理软件也要一直运行。<code>-N</code> 表示不执行远程命令，<code>-T</code> 表示不申请终端。</p>
+<p><strong>在哪里：另一个普通服务器终端。</strong> 可以通过 <code>ssh server111</code> 进入，再执行：</p>
+<div class="code-label">bash</div><pre><code>ss -lntp &#x27;sport = :10801&#x27;
+command curl -q -v -S --noproxy &#x27;&#x27; --proxy http://127.0.0.1:10801 --connect-timeout 5 --max-time 20 --write-out &#x27;\nHTTP=%{http_code}\n&#x27; https://api.ipify.org
+echo &quot;curl_exit=$?&quot;</code></pre>
+<p><strong>成功信号：</strong> 看到一个外网IP、HTTP=200、curl_exit=0。IP不必每次相同，不要求和过去的203.0.113.211一致。该结果只证明这次请求成功。</p>
+<p><strong>失败分支：</strong> remote port forwarding failed 查是否已有隧道占用10801或服务端限制；先确认占用者，不要杀全部sshd。LISTEN存在但curl失败时，检查本地7890和隧道窗口。两台服务器分别用10801不冲突；同一服务器重复绑定才可能冲突。</p>
+<h2 id="section-6">第四关：把代理地址写进配置，省掉重复 export</h2>
+<p><strong>比喻：</strong> 专线已经建好，把收件箱地址贴在办公室墙上，让之后进来的应用看得到。</p>
+<p><strong>在哪里：服务器 Bash 终端。</strong> 先检查是否已有旧的代理 export/source。已有设置应合并，避免不同值互相覆盖。下面方案在新文件中集中保存，并给 bashrc 加一个有标记的加载区块：</p>
+<div class="code-label">bash</div><pre><code>mkdir -p ~/.config/proxy
+if [ -f ~/.bashrc ]; then cp -p ~/.bashrc ~/.bashrc.proxy-backup-$(date +%Y%m%d%H%M%S); fi
+if [ -f ~/.config/proxy/ssh-local.sh ]; then cp -p ~/.config/proxy/ssh-local.sh ~/.config/proxy/ssh-local.sh.backup-$(date +%Y%m%d%H%M%S); fi
+cat &gt; ~/.config/proxy/ssh-local.sh &lt;&lt;&#x27;EOF&#x27;
+export http_proxy=&quot;http://127.0.0.1:10801&quot;
+export https_proxy=&quot;http://127.0.0.1:10801&quot;
+export HTTP_PROXY=&quot;$http_proxy&quot;
+export HTTPS_PROXY=&quot;$https_proxy&quot;
+export no_proxy=&quot;localhost,127.0.0.1,::1&quot;
+export NO_PROXY=&quot;$no_proxy&quot;
+EOF
+touch ~/.bashrc
+if ! grep -qxF &#x27;# BEGIN ssh-local-proxy&#x27; ~/.bashrc; then
+    cat &gt;&gt; ~/.bashrc &lt;&lt;&#x27;EOF&#x27;
+
+# BEGIN ssh-local-proxy
+source ~/.config/proxy/ssh-local.sh
+# END ssh-local-proxy
+EOF
+fi
+source ~/.bashrc</code></pre>
+<p><strong>每行什么意思：</strong> http_proxy给HTTP应用指定代理；https_proxy给HTTPS请求指定代理；大写变量兼容其他程序；<code>$http_proxy</code>表示复用上面值；no_proxy让本机访问绕过代理。<code>http://</code>表示代理本身使用HTTP，访问HTTPS时可以用CONNECT隧道，所以这样写没问题。</p>
+<p><strong>成功信号：</strong> 新开一个普通SSH终端，在服务器执行：</p>
+<div class="code-label">bash</div><pre><code>printf &#x27;https_proxy=%s\n&#x27; &quot;$https_proxy&quot;
+curl -q -sS --connect-timeout 5 --max-time 20 --write-out &#x27;\nHTTP=%{http_code}\n&#x27; https://api.ipify.org
+echo &quot;curl_exit=$?&quot;</code></pre>
+<p>应显示10801代理地址，且请求HTTP200、退出码0。还需确认no_proxy没有排除ipify，否则可能绕过代理。旧进程要重启才获得新环境。bashrc只影响相应Bash加载链，并不会自动配置系统服务、其他账户或容器；电脑断网或隧道关闭时，写好的地址不会自己重建专线。</p>
+<h2 id="section-7">第五关：让 VS Code 和 Codex 使用已验证的通道</h2>
+<p><strong>在哪里：电脑 VS Code。</strong> 日常连接 server111；专用的 server111-proxy 留给隧道。F1打开 User Settings (JSON)，合并下列键，不要覆盖其他设置：</p>
+<div class="code-label">json</div><pre><code>{
+  &quot;http.proxy&quot;: &quot;http://127.0.0.1:7890&quot;,
+  &quot;remote.SSH.httpProxy&quot;: {&quot;server111&quot;: &quot;http://127.0.0.1:10801&quot;},
+  &quot;remote.SSH.httpsProxy&quot;: {&quot;server111&quot;: &quot;http://127.0.0.1:10801&quot;}
+}</code></pre>
+<p>http.proxy是电脑侧地址；两个remote.SSH设置为远程Server安装和启动配置HTTP/HTTPS代理，不是“本地一个、远程一个”。只写端口号不足以表达代理协议与地址。</p>
+<p>若远程扩展复用了错误的本地代理，连接后打开 Remote Settings (JSON)，合并：</p>
+<div class="code-label">json</div><pre><code>{
+  &quot;http.proxy&quot;: &quot;http://127.0.0.1:10801&quot;,
+  &quot;http.useLocalProxyConfiguration&quot;: false
+}</code></pre>
+<p>重连并检查目标扩展日志。不是所有扩展都读取同一设置；以实际请求为准。</p>
+<p><strong>在哪里：服务器。</strong> 核对当前官方安装文档后，Linux可使用：</p>
+<div class="code-label">bash</div><pre><code>curl -fsSL https://chatgpt.com/codex/install.sh | sh</code></pre>
+<p>按安装提示处理PATH或重开终端，然后：</p>
+<div class="code-label">bash</div><pre><code>codex --version
+codex login --device-auth
+codex login status</code></pre>
+<p>在电脑浏览器由你本人打开生成链接、输入设备码；账号或工作区可能需要开启设备码登录。不要发送设备码或认证文件。最后从项目目录运行codex，验证实际请求。Codex不通过pip安装，所以不需要先解决python命令缺失才能使用上述独立安装器。</p>
+<p><strong>成功信号：</strong> 版本号可显示、登录状态正确、目标应用请求成功。curl成功只是第三关成功，不能替代第五关验收。</p>
+<h2 id="section-8">最容易混淆的冲突</h2>
+<div class="table-wrap"><table><tr><th>说法 / 现象</th><th>原理与正确动作</th></tr><tr><td>密码对了却进不去</td><td>先核对账户与日志；认证通过后还可能因转发失败退出</td></tr><tr><td>两个Host一定启动两个SSH</td><td>Host是配置匹配，不是进程启动器；用ssh -G看实际配置</td></tr><tr><td>重复export会抢端口</td><td>export只改变量；后赋值可能覆盖前值，不会占监听端口</td></tr><tr><td>电脑和服务器都写127.0.0.1</td><td>两端各自指自己，靠SSH隧道连接两边</td></tr><tr><td>VS Code Ports里有10801就够了</td><td>Ports普通转发与这里的反向隧道方向不同</td></tr><tr><td>每次登录都要export</td><td>可放入配置文件；要确认新Shell确实加载，隧道仍须在线</td></tr><tr><td>全局配置只写10801</td><td>应写完整http://127.0.0.1:10801；全局的作用范围取决于配置位置</td></tr></table></div>
+<h2 id="section-9">日常只记三件事</h2>
+<p>电脑代理软件开启7890；电脑维持一个 <code>ssh -NT server111-proxy</code> 窗口；VS Code或普通SSH连接server111。电脑重启后，持久环境配置还在，隧道需要重新开启。</p>
+<p>临时取消当前服务器终端代理可执行 <code>unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY no_proxy NO_PROXY</code>。永久撤销时删除bashrc本方案BEGIN/END区块，并检查旧的source/export；仅撤销这次增加的设置，必要时比较备份恢复。不要清空整个配置文件。</p>
+<h2 id="section-10">下次如何调用这个 Skill</h2>
+<p>技能安装可用后，可以说：“使用 $diagnose-ssh-proxy，排查server111正确密码无法登录；先看实际账户与日志，不带转发测试，再逐层检查。”</p>
+<p>文件上传成功不等于技能已注册。只有Skills同步或安装完成后，才可以把上面的名字作为已安装技能调用；本次安装状态以交付说明为准。未安装时，也可以将技能文件交给助手作为参考材料使用。</p><h2 id="sources-section-1">官方来源与核对点</h2>
+<p>整理日期：2026-10-18。以下内容需要随目标软件版本核对；文档访问日期不代表用户已经升级。</p>
+<div class="table-wrap"><table><tr><th>官方来源</th><th>核对点</th></tr><tr><td><a href="https://man.openbsd.org/ssh_config" rel="noreferrer">OpenSSH ssh_config</a></td><td>Host 匹配、配置优先级、IdentityFile、ClearAllForwardings、RemoteForward、ExitOnForwardFailure</td></tr><tr><td><a href="https://man.openbsd.org/ssh" rel="noreferrer">OpenSSH ssh</a></td><td>-R 的监听方向与本地目标，-N/-T/-G/-v 选项</td></tr><tr><td><a href="https://man.openbsd.org/sshd_config" rel="noreferrer">OpenSSH sshd_config</a></td><td>转发策略、监听限制、账户认证策略；在有效配置与日志支持后才修改</td></tr><tr><td><a href="https://code.visualstudio.com/docs/remote/troubleshooting" rel="noreferrer">VS Code SSH 排错</a></td><td>密钥、Windows 权限、Remote SSH 问题定位</td></tr><tr><td><a href="https://github.com/microsoft/vscode-docs/blob/main/remote-release-notes/v1_98.md" rel="noreferrer">VS Code 1.98 Remote 更新</a></td><td>Remote SSH 0.118.0 引入 remote.SSH.httpProxy/httpsProxy；支持别名映射或字符串，为远程 Server 安装及启动导出变量</td></tr><tr><td><a href="https://code.visualstudio.com/docs/remote/wsl" rel="noreferrer">VS Code WSL 远程扩展代理</a></td><td>远程扩展复用本地代理的背景，http.useLocalProxyConfiguration 与远程设置；用于同类运行位置问题时应核对实际版本</td></tr><tr><td><a href="https://code.visualstudio.com/docs/remote/ssh" rel="noreferrer">VS Code Remote SSH</a></td><td>Ports 面板与本地端口映射、远程设置</td></tr><tr><td><a href="https://curl.se/docs/manpage.html" rel="noreferrer">curl 手册</a></td><td>--proxy、--noproxy、-q、write-out、超时及退出码、代理环境变量</td></tr><tr><td><a href="https://www.gnu.org/software/bash/manual/html_node/Bash-Startup-Files.html" rel="noreferrer">GNU Bash 启动文件</a></td><td>交互 Shell、登录 Shell、bashrc 和 profile 的不同加载条件</td></tr><tr><td><a href="https://developers.openai.com/codex/cli" rel="noreferrer">Codex CLI</a></td><td>官方独立安装器及安装后的验证；访问时跳转至 ChatGPT Learn</td></tr><tr><td><a href="https://developers.openai.com/codex/auth" rel="noreferrer">Codex 认证</a></td><td>headless 场景设备码登录、账户或工作区开关、认证缓存保护；访问时跳转至 ChatGPT Learn</td></tr></table></div>
+<p>讲解时用自己的话概括。只引用支持当前结论的来源；本次机器的状态以用户日志或实际执行结果为准，不能由官方文档推断。</p></main></div><footer>整理于2026-10-18 · 基于本次真实排错与官方文档 · 不含密码、私钥内容或认证缓存 · 可离线阅读，也可使用浏览器打印为PDF</footer></body></html>

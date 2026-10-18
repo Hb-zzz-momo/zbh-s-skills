@@ -81,6 +81,7 @@ $agentSkillsAoTrigZh = @{
 }
 
 $scenarioBySkill = @{
+    'diagnose-ssh-proxy' = 'ops'
     'agent-wait-monitor-zh'        = 'ops'
     'artifact-curator-zh'        = 'ops'
     'decisive-result-audit-zh'   = 'research-audit'
@@ -208,7 +209,7 @@ $scenarioLabel = @{
     'course'='课程实验与考试'
     'info'='信息调研与证据链'
     'presentation'='汇报展示与软著'
-    'ops'='长任务与产物管理'
+    'ops'='运维排错与产物管理'
     'learning'='全局学习复盘'
     'agent-skills-ao'='addyosmani / agent-skills 工程工作流'
     'other'='其他'
