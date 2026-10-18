@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_sort_range": {
+      "description": "对Excel选定区域按指定列排序。",
+      "maps_to": "wps_excel_sort_range",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "ascending": {
+            "description": "是否升序，默认true",
+            "type": "boolean"
+          },
+          "column": {
+            "description": "排序依据的列号（从1开始）",
+            "type": "number"
+          },
+          "range": {
+            "description": "要排序的范围，如 A1:D100",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "column"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

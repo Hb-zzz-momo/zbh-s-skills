@@ -1,0 +1,37 @@
+{
+  "tools": {
+    "wps_word_smart_fill_field": {
+      "description": "智能填写Word模板中的字段。自动识别关键字附近的填写模式，在正确位置插入内容并保持原有格式。\n\n使用场景：\n- \"把项目名称填写为'XX信息化项目'\"\n- \"填写建设单位为'XX公司'\"\n- \"模板里的项目编号填上'2026-001'\"\n- 任何需要在模板文档中\"填写\"而非\"替换\"的场景\n\n支持的填写模式（fill_mode，默认auto自动判断）：\n- auto: 自动判断（推荐）\n- underline: 关键字后有下划线___，替换下划线为填写内容\n- afterColon: 关键字后有冒号（：或:），在冒号后插入\n- afterLabel: 关键字是标签，直接在关键字后插入\n- placeholder: 关键字被{}或【】包裹，替换整个占位符\n\n重要：模板填写场景应优先使用此工具，而非find_replace。find_replace会删除关键字本身并可能破坏格式。",
+      "maps_to": "wps_word_smart_fill_field",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "fill_mode": {
+            "description": "填写模式: auto(自动判断), underline(下划线), afterColon(冒号后), afterLabel(标签后), placeholder(占位符)。默认auto",
+            "enum": [
+              "auto",
+              "underline",
+              "afterColon",
+              "afterLabel",
+              "placeholder"
+            ],
+            "type": "string"
+          },
+          "keyword": {
+            "description": "要填写的关键字（如\"项目名称\"、\"建设单位\"）",
+            "type": "string"
+          },
+          "value": {
+            "description": "要填写的值（如\"XX信息化项目\"）",
+            "type": "string"
+          }
+        },
+        "required": [
+          "keyword",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

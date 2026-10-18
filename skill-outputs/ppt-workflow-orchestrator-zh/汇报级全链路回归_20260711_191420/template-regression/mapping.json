@@ -1,0 +1,11 @@
+{
+  "operations": [
+    {
+      "type": "replace_text",
+      "slide": 10,
+      "expected": "从今天起，用可复验链路交付每一份正式 PPT",
+      "replacement": "模板编辑回归：保留结构，只替换目标内容",
+      "expected_hits": 1
+    }
+  ]
+}

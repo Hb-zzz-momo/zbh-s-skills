@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_ppt_get_slide_count": {
+      "description": "获取演示文稿中的幻灯片总数。\n\n使用场景：\n- \"一共有多少页幻灯片\"\n- \"PPT有几页\"\n- \"查看幻灯片数量\"",
+      "maps_to": "wps_ppt_get_slide_count",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

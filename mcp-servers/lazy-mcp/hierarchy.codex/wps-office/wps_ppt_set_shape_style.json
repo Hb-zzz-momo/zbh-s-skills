@@ -1,0 +1,38 @@
+{
+  "tools": {
+    "wps_ppt_set_shape_style": {
+      "description": "设置幻灯片中形状的样式，包括填充颜色、边框颜色和边框粗细。\n\n使用场景：\n- \"把矩形改成红色\"\n- \"设置形状的边框为蓝色\"\n- \"修改形状样式\"",
+      "maps_to": "wps_ppt_set_shape_style",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "fillColor": {
+            "description": "填充颜色，十六进制如 #FF0000",
+            "type": "string"
+          },
+          "lineColor": {
+            "description": "边框颜色，十六进制如 #000000",
+            "type": "string"
+          },
+          "lineWidth": {
+            "description": "边框粗细（磅）",
+            "type": "number"
+          },
+          "name": {
+            "description": "形状名称（通过getSlideInfo获取）",
+            "type": "string"
+          },
+          "shapeIndex": {
+            "description": "形状索引（与name二选一）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始），默认1",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

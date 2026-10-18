@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_ppt_copy_slide": {
+      "description": "复制幻灯片到指定位置。\n\n使用场景：\n- \"复制第2页幻灯片\"\n- \"把这页复制到第5页后面\"\n- \"克隆当前幻灯片\"",
+      "maps_to": "wps_ppt_copy_slide",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "要复制的幻灯片索引（从1开始）",
+            "type": "number"
+          },
+          "targetIndex": {
+            "description": "目标位置索引（从1开始），不填则在原位置后插入",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPT叙事与逐页契约"
+  short_description: "确定听众决策、主张证据、故事线、时间预算并输出结构化逐页契约。"
+  default_prompt: "为当前主题建立 Claim-Evidence Map、故事线、时间预算和 slide-spec.json。"

@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_show_rows": {
+      "description": "显示Excel中已隐藏的行。",
+      "maps_to": "wps_excel_show_rows",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "endRow": {
+            "description": "结束行号（从1开始）",
+            "type": "number"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "startRow": {
+            "description": "起始行号（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "startRow",
+          "endRow"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

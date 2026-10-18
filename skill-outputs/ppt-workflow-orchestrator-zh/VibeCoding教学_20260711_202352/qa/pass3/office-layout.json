@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "backend": "PowerPoint COM",
+  "fonts": [
+    "Consolas",
+    "Microsoft YaHei",
+    "Arial"
+  ],
+  "issues": []
+}

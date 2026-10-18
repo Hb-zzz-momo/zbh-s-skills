@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_ppt_set_ppt_chart_style": {
+      "description": "设置幻灯片中图表的样式属性。\n\n可设置的样式属性（通过 style 对象传入）：\n- colorScheme: 配色方案名称\n- showLegend: 是否显示图例\n- legendPosition: 图例位置（top/bottom/left/right）\n- showDataLabels: 是否显示数据标签\n- fontSize: 字体大小\n- title: 图表标题\n\n使用场景：\n- \"修改图表配色为蓝色系\"\n- \"显示图表的数据标签\"\n- \"把图例移到底部\"",
+      "maps_to": "wps_ppt_set_ppt_chart_style",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "chartIndex": {
+            "description": "图表索引（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "style": {
+            "description": "图表样式配置对象",
+            "type": "object"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "chartIndex",
+          "style"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "科研实验运营"
+  short_description: "算法实验 smoke/formal/消融/对照/结果解析/收口的执行工作流。"
+  default_prompt: "按科研实验运营流程设计、运行或复核本轮算法实验。"

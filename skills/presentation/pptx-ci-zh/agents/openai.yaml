@@ -1,0 +1,3 @@
+interface:
+  display_name: "PPTX CI"
+  short_description: "Automated PPTX regression pipeline"

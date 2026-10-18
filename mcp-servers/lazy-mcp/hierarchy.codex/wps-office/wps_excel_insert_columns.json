@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_excel_insert_columns": {
+      "description": "在Excel中指定位置插入一列或多列。",
+      "maps_to": "wps_excel_insert_columns",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "column": {
+            "description": "在哪一列前插入，如 A、B、C",
+            "type": "string"
+          },
+          "count": {
+            "description": "插入列数，默认1",
+            "type": "number"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "column"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

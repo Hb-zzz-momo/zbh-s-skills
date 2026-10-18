@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_ppt_set_slide_number": {
+      "description": "设置幻灯片页码的显示状态和起始编号。\n\n使用场景：\n- \"显示页码\"\n- \"隐藏幻灯片编号\"\n- \"页码从第2页开始编号\"",
+      "maps_to": "wps_ppt_set_slide_number",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "show": {
+            "description": "是否显示页码",
+            "type": "boolean"
+          },
+          "startFrom": {
+            "description": "页码起始编号，默认为1",
+            "type": "number"
+          }
+        },
+        "required": [
+          "show"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

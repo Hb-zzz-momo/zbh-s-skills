@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_switch_presentation": {
+      "description": "切换到指定名称的演示文稿。\n\n使用场景：\n- \"切换到另一个PPT\"\n- \"打开那个叫xxx的演示文稿\"\n- \"切换演示文稿\"",
+      "maps_to": "wps_ppt_switch_presentation",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "name": {
+            "description": "要切换到的演示文稿名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

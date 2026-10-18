@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_excel_read_range": {
+      "description": "读取Excel指定范围的单元格数据，返回二维数组格式的数据。",
+      "maps_to": "wps_excel_read_range",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "include_header": {
+            "description": "是否将第一行作为表头返回，默认false",
+            "type": "boolean"
+          },
+          "range": {
+            "description": "要读取的范围，如 A1:C10、B2:D5",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

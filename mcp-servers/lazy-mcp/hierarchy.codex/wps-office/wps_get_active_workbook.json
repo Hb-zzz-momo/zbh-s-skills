@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_get_active_workbook": {
+      "description": "获取当前打开的WPS表格工作簿信息",
+      "maps_to": "wps_get_active_workbook",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

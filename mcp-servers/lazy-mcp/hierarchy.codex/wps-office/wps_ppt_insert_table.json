@@ -1,0 +1,39 @@
+{
+  "tools": {
+    "wps_ppt_insert_table": {
+      "description": "在幻灯片中插入表格。\n\n支持指定：\n- 表格行列数\n- 表格位置（左上角坐标）\n\n使用场景：\n- \"在第2页插入一个3行4列的表格\"\n- \"添加一个表格到当前页\"\n- \"插入数据表格\"",
+      "maps_to": "wps_ppt_insert_table",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "cols": {
+            "description": "表格列数",
+            "type": "number"
+          },
+          "left": {
+            "description": "表格左上角X坐标（磅），可选",
+            "type": "number"
+          },
+          "rows": {
+            "description": "表格行数",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "top": {
+            "description": "表格左上角Y坐标（磅），可选",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "rows",
+          "cols"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

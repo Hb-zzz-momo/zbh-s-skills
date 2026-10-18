@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_common_wire_check": {
+      "description": "检查与WPS加载项之间的通信线路状态。\n\n使用场景：\n- \"检查通信状态\"\n- \"诊断连接问题\"\n- \"通信线路是否正常\"\n\n特点：\n- 比ping更详细的通信诊断\n- 返回线路延迟、协议状态等信息",
+      "maps_to": "wps_common_wire_check",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_add_master_element": {
+      "description": "向母版中添加新元素。\n\n支持添加文本框、形状、图片、Logo等母版级元素。\n\n使用场景：\n- \"在母版上添加公司Logo\"\n- \"给母版加个页脚\"\n- \"在母版添加水印\"",
+      "maps_to": "wps_ppt_add_master_element",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "element": {
+            "description": "元素配置对象，如 {type:\"textbox\",text:\"...\",left:0,top:0,width:100,height:50} 或 {type:\"image\",path:\"...\",left:0,top:0}",
+            "type": "object"
+          }
+        },
+        "required": [
+          "element"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "tools": {
+    "wps_excel_paste_range": {
+      "description": "粘贴已复制的内容到指定位置。",
+      "maps_to": "wps_excel_paste_range",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "destination": {
+            "description": "目标位置，如 E1",
+            "type": "string"
+          },
+          "pasteType": {
+            "description": "粘贴类型",
+            "enum": [
+              "all",
+              "values",
+              "formats",
+              "formulas"
+            ],
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "destination"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

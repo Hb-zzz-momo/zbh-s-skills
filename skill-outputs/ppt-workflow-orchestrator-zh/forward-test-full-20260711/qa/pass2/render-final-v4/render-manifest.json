@@ -1,0 +1,16 @@
+{
+  "source": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\presentation-v4.pptx",
+  "pdf": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\presentation-v4.pdf",
+  "backend": "powerpoint-com",
+  "dpi": 144,
+  "rendered_at": "2026-07-11T12:01:20.249999+00:00",
+  "slide_count": 6,
+  "slides": [
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\slides\\slide-1.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\slides\\slide-2.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\slides\\slide-3.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\slides\\slide-4.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\slides\\slide-5.png",
+    "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\forward-test-full-20260711\\qa\\pass2\\render-final-v4\\slides\\slide-6.png"
+  ]
+}

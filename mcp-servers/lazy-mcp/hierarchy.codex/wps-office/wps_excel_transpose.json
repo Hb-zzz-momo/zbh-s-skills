@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_transpose": {
+      "description": "转置数据（行列互换）。",
+      "maps_to": "wps_excel_transpose",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "destination": {
+            "description": "目标位置，如 E1",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称",
+            "type": "string"
+          },
+          "source": {
+            "description": "源范围，如 A1:C3",
+            "type": "string"
+          }
+        },
+        "required": [
+          "source",
+          "destination"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

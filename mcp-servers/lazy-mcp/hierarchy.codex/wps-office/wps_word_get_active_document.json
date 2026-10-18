@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_word_get_active_document": {
+      "description": "获取当前WPS Writer活动文档的基本信息",
+      "maps_to": "wps_word_get_active_document",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

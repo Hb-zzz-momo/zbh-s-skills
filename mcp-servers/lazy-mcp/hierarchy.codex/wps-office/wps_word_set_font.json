@@ -1,0 +1,46 @@
+{
+  "tools": {
+    "wps_word_set_font": {
+      "description": "设置字体格式，包括字体名称、字号、加粗、斜体、颜色等。\n\n使用场景：\n- \"把标题改成微软雅黑24号加粗\"\n- \"把这段文字改成红色\"\n- \"全文字体改成宋体小四\"",
+      "maps_to": "wps_word_set_font",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "bold": {
+            "description": "是否加粗",
+            "type": "boolean"
+          },
+          "color": {
+            "description": "字体颜色，支持颜色名称(red/blue/green)或十六进制(#FF0000)",
+            "type": "string"
+          },
+          "font_name": {
+            "description": "字体名称，如 \"微软雅黑\"、\"宋体\"、\"Arial\"",
+            "type": "string"
+          },
+          "font_size": {
+            "description": "字号，如 12、14、24",
+            "type": "number"
+          },
+          "italic": {
+            "description": "是否斜体",
+            "type": "boolean"
+          },
+          "range": {
+            "description": "应用范围，可选值: \"selection\"(当前选中), \"all\"(全文)。默认selection",
+            "enum": [
+              "selection",
+              "all"
+            ],
+            "type": "string"
+          },
+          "underline": {
+            "description": "是否下划线",
+            "type": "boolean"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "title": "阶段完成度",
+  "chart_type": "column",
+  "categories": [
+    "材料与证据",
+    "叙事契约",
+    "视觉系统",
+    "构建渲染",
+    "修复交付"
+  ],
+  "series": [
+    {
+      "name": "阶段完成度",
+      "values": [
+        22.0,
+        38.0,
+        55.0,
+        79.0,
+        94.0
+      ]
+    }
+  ],
+  "unit": "%",
+  "axis": {
+    "value_format": "0%",
+    "zero_baseline": true
+  },
+  "provenance": {
+    "source_id": "SRC-DATA",
+    "input": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\data\\delivery_metrics.csv",
+    "sha256": "7678d3e5f8d98982dd67b98f7423d7c8e862325b011825ffe919d9ebc86a06c9",
+    "category_field": "stage",
+    "value_field": "value",
+    "series_field": null,
+    "aggregate": "sum",
+    "row_count": 5
+  }
+}

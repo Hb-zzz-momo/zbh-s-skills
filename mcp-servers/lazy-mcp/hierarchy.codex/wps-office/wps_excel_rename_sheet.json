@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_excel_rename_sheet": {
+      "description": "重命名当前工作簿中的指定工作表。",
+      "maps_to": "wps_excel_rename_sheet",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "newName": {
+            "description": "新的工作表名称",
+            "type": "string"
+          },
+          "oldName": {
+            "description": "当前工作表名称",
+            "type": "string"
+          }
+        },
+        "required": [
+          "oldName",
+          "newName"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

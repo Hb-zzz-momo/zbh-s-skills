@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_get_shapes": {
+      "description": "获取幻灯片中所有形状的列表信息。\n\n返回每个形状的类型、位置、大小等属性。\n\n使用场景：\n- \"这页PPT有哪些形状\"\n- \"列出第3页的所有元素\"",
+      "maps_to": "wps_ppt_get_shapes",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

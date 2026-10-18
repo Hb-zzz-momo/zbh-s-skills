@@ -1,0 +1,138 @@
+{
+  "slide_size": {
+    "width": 13.333,
+    "height": 7.5,
+    "margin": 0.55
+  },
+  "source_spec": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\slide-spec.json",
+  "design": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\PRESENTATION_DESIGN.md",
+  "output": "C:\\Users\\zbh\\.agents\\skill-outputs\\ppt-workflow-orchestrator-zh\\汇报级全链路回归_20260711_191420\\slice\\presentation-slice.pptx",
+  "slide_ids": [
+    "S01",
+    "S03",
+    "S04"
+  ],
+  "object_counts": {
+    "svg": 1,
+    "charts": 1
+  },
+  "elements": [
+    {
+      "slide_id": "S01",
+      "component": "motif-bar",
+      "x": 0,
+      "y": 0,
+      "w": 0.22,
+      "h": 7.5,
+      "purpose": "视觉母题"
+    },
+    {
+      "slide_id": "S01",
+      "component": "hero-title",
+      "x": 0.85,
+      "y": 1.45,
+      "w": 8.7,
+      "h": 1.5,
+      "purpose": "核心主张"
+    },
+    {
+      "slide_id": "S01",
+      "component": "body",
+      "x": 0.9,
+      "y": 3.35,
+      "w": 7.5,
+      "h": 1,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S01",
+      "component": "metric",
+      "x": 10,
+      "y": 1.55,
+      "w": 2.35,
+      "h": 1.55,
+      "purpose": "开场"
+    },
+    {
+      "slide_id": "S01",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S03",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S03",
+      "component": "svg",
+      "x": 0.8,
+      "y": 1.45,
+      "w": 8,
+      "h": 5.25,
+      "purpose": "PPT生产闭环"
+    },
+    {
+      "slide_id": "S03",
+      "component": "body",
+      "x": 9.35,
+      "y": 2,
+      "w": 3.05,
+      "h": 2.8,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S03",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    },
+    {
+      "slide_id": "S04",
+      "component": "title",
+      "x": 0.65,
+      "y": 0.45,
+      "w": 12,
+      "h": 0.75,
+      "purpose": "结论标题"
+    },
+    {
+      "slide_id": "S04",
+      "component": "native-chart",
+      "x": 0.82,
+      "y": 1.55,
+      "w": 8.45,
+      "h": 4.9,
+      "purpose": "阶段完成度"
+    },
+    {
+      "slide_id": "S04",
+      "component": "body",
+      "x": 9.65,
+      "y": 2,
+      "w": 2.8,
+      "h": 2.6,
+      "purpose": "正文"
+    },
+    {
+      "slide_id": "S04",
+      "component": "source-footer",
+      "x": 0.65,
+      "y": 7.08,
+      "w": 12,
+      "h": 0.18,
+      "purpose": "来源脚注"
+    }
+  ]
+}

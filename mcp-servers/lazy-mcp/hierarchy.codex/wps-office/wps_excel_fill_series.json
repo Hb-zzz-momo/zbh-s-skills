@@ -1,0 +1,49 @@
+{
+  "tools": {
+    "wps_excel_fill_series": {
+      "description": "自动填充序列数据。",
+      "maps_to": "wps_excel_fill_series",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "direction": {
+            "description": "填充方向",
+            "enum": [
+              "down",
+              "right",
+              "up",
+              "left"
+            ],
+            "type": "string"
+          },
+          "range": {
+            "description": "填充范围，如 A1:A10",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称",
+            "type": "string"
+          },
+          "step": {
+            "description": "步长值",
+            "type": "number"
+          },
+          "type": {
+            "description": "填充类型",
+            "enum": [
+              "linear",
+              "growth",
+              "date",
+              "auto"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "range"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

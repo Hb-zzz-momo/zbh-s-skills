@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_ppt_set_table_style": {
+      "description": "设置PPT表格的整体样式。\n\n支持的样式属性（通过style对象传入）：\n- borderColor: 边框颜色（如 \"#000000\"）\n- borderWidth: 边框宽度（磅）\n- backgroundColor: 背景色（如 \"#FFFFFF\"）\n- fontName: 字体名称（如 \"微软雅黑\"）\n- fontSize: 字体大小（磅）\n- fontColor: 字体颜色（如 \"#333333\"）\n- headerBackground: 表头行背景色\n- alternateRowColor: 隔行变色颜色\n\n使用场景：\n- \"设置表格为蓝色主题\"\n- \"修改表格边框和背景\"\n- \"美化表格样式\"",
+      "maps_to": "wps_ppt_set_table_style",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "style": {
+            "description": "样式配置对象，包含borderColor、borderWidth、backgroundColor、fontName、fontSize、fontColor、headerBackground、alternateRowColor等属性",
+            "type": "object"
+          },
+          "tableIndex": {
+            "description": "表格索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "tableIndex",
+          "style"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

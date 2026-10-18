@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_excel_get_selection": {
+      "description": "获取当前Excel中选中区域的信息，包括范围地址、行列数等。",
+      "maps_to": "wps_excel_get_selection",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

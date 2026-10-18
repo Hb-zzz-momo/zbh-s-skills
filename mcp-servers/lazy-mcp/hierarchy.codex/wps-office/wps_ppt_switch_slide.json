@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_switch_slide": {
+      "description": "切换到指定的幻灯片页面。\n\n使用场景：\n- \"切换到第5页\"\n- \"跳到最后一页\"\n- \"显示第1页\"",
+      "maps_to": "wps_ppt_switch_slide",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "目标幻灯片索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

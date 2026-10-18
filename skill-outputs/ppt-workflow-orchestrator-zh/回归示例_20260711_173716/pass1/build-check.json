@@ -1,0 +1,15 @@
+{
+  "status": "CAUTION",
+  "issues": [
+    {
+      "severity": "WARNING",
+      "slide_id": "S03",
+      "component": "title",
+      "message": "title_budget_exceeded",
+      "actual": 53,
+      "limit": 18
+    }
+  ],
+  "checked_elements": 69,
+  "checked_slides": 10
+}

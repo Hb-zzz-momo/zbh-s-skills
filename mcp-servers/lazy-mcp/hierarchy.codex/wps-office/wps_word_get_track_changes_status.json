@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_word_get_track_changes_status": {
+      "description": "获取当前文档的修订模式状态。\n\n使用场景：\n- \"看看修订模式开了没\"\n- \"当前文档有多少处修订\"\n- \"检查修订状态\"",
+      "maps_to": "wps_word_get_track_changes_status",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

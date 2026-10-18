@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "charts": [
+    {
+      "slide": 4,
+      "shape_id": 3,
+      "series": 1,
+      "categories": 5
+    }
+  ],
+  "issues": []
+}

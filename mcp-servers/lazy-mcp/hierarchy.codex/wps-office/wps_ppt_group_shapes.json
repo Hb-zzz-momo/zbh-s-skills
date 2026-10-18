@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_ppt_group_shapes": {
+      "description": "将幻灯片中的多个形状组合为一个组。\n\n使用场景：\n- \"把这几个形状组合在一起\"\n- \"将第1、2、3个形状编组\"",
+      "maps_to": "wps_ppt_group_shapes",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "shapeIndices": {
+            "description": "要组合的形状索引数组（从1开始，至少2个）",
+            "items": {
+              "type": "number"
+            },
+            "type": "array"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "shapeIndices"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

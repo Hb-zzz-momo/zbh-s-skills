@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_get_slide_title": {
+      "description": "获取指定幻灯片的标题。",
+      "maps_to": "wps_ppt_get_slide_title",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_lock_cells": {
+      "description": "锁定或解锁Excel指定范围的单元格（需配合工作表保护使用）。",
+      "maps_to": "wps_excel_lock_cells",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "locked": {
+            "description": "true为锁定，false为解锁",
+            "type": "boolean"
+          },
+          "range": {
+            "description": "要锁定/解锁的范围，如 A1:D10",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "locked"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

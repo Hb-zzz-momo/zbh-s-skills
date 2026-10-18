@@ -1,0 +1,7 @@
+interface:
+  display_name: "计划忠实执行"
+  short_description: "按参考计划执行，缺口先问，结束审计偏离。"
+  default_prompt: "Use $plan-faithful-execution-zh to follow the reference plan exactly, ask before filling gaps, and audit for unauthorized assumptions at the end."
+
+policy:
+  allow_implicit_invocation: true

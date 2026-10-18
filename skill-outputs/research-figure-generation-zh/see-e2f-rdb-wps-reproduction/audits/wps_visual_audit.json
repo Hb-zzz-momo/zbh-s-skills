@@ -1,0 +1,90 @@
+{
+  "wps_png": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\wps_export_final\\幻灯片1.png",
+  "image_size": [
+    2304,
+    1296
+  ],
+  "expected_aspect": "16:9",
+  "crop_count": 9,
+  "contact_sheet": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\wps_render_contact_sheet.png",
+  "crops": [
+    {
+      "name": "01_full_figure",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\01_full_figure.png",
+      "size": [
+        2304,
+        1296
+      ]
+    },
+    {
+      "name": "02_left_initialization",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\02_left_initialization.png",
+      "size": [
+        641,
+        1181
+      ]
+    },
+    {
+      "name": "03_left_steps_4_5_red_group",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\03_left_steps_4_5_red_group.png",
+      "size": [
+        626,
+        475
+      ]
+    },
+    {
+      "name": "04_middle_population_controller",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\04_middle_population_controller.png",
+      "size": [
+        691,
+        375
+      ]
+    },
+    {
+      "name": "05_middle_offspring_generator",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\05_middle_offspring_generator.png",
+      "size": [
+        403,
+        569
+      ]
+    },
+    {
+      "name": "06_middle_eval_archive_front",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\06_middle_eval_archive_front.png",
+      "size": [
+        663,
+        706
+      ]
+    },
+    {
+      "name": "07_right_final_output",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\07_right_final_output.png",
+      "size": [
+        439,
+        1167
+      ]
+    },
+    {
+      "name": "08_pareto_front_chart",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\08_pareto_front_chart.png",
+      "size": [
+        410,
+        432
+      ]
+    },
+    {
+      "name": "09_bottom_legends",
+      "path": "C:\\Users\\zbh\\.agents\\skill-outputs\\research-figure-generation-zh\\see-e2f-rdb-wps-reproduction\\audits\\crops\\09_bottom_legends.png",
+      "size": [
+        2304,
+        94
+      ]
+    }
+  ],
+  "manual_visual_review": {
+    "text_overflow": "not observed in WPS export",
+    "legend_clipping": "not observed after final pass",
+    "arrow_label_collision": "not observed after final pass",
+    "delivery_status": "PASS with stated L3-ish editable-shape boundary"
+  }
+}

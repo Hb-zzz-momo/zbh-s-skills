@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_ppt_create_gauge": {
+      "description": "在幻灯片中创建仪表盘图表。\n\n用于展示KPI、完成度等数值指标。\n\n使用场景：\n- \"创建一个仪表盘展示得分\"\n- \"添加速度计样式的图表\"\n- \"做一个KPI仪表盘\"",
+      "maps_to": "wps_ppt_create_gauge",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "max": {
+            "description": "最大值，默认100",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "value": {
+            "description": "当前值",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

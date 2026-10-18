@@ -1,0 +1,37 @@
+{
+  "ok": false,
+  "meaning": "structural and consistency checks only",
+  "results": {
+    "package": {
+      "errors": [],
+      "warnings": [],
+      "summary": {
+        "skill_lines": 142,
+        "local_links_checked": 33,
+        "behavior_cases_defined": 16,
+        "behavior_cases_executed_by_this_check": 0
+      }
+    },
+    "register": {
+      "errors": [
+        "R01: required item is not ready for review",
+        "lab_id: replace the template value before review",
+        "attempt_id: replace the template value before review"
+      ],
+      "warnings": [
+        "lab_id still contains the template value",
+        "attempt_id still contains the template value",
+        "file existence and content have not been inspected",
+        "authenticity, technical correctness, course approval and document layout need separate review"
+      ],
+      "summary": {
+        "required_items": 1,
+        "ready_ids": [],
+        "pending_ids": [
+          "R01"
+        ],
+        "evidence_files_checked": 0
+      }
+    }
+  }
+}

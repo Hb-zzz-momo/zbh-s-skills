@@ -1,0 +1,20 @@
+[
+  {
+    "case": "old",
+    "exit_code": 2,
+    "diagnostics_status": "BLOCK",
+    "warning_count": 1,
+    "error_count": 0,
+    "can_claim_full_completion": false,
+    "stderr": ""
+  },
+  {
+    "case": "current",
+    "exit_code": 0,
+    "diagnostics_status": "PASS",
+    "warning_count": 0,
+    "error_count": 0,
+    "can_claim_full_completion": false,
+    "stderr": ""
+  }
+]

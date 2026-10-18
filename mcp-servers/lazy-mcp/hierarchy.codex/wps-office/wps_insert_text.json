@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_insert_text": {
+      "description": "在当前文档中插入文本",
+      "maps_to": "wps_insert_text",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "position": {
+            "description": "插入位置（可选，不指定则在光标处插入）",
+            "type": "number"
+          },
+          "text": {
+            "description": "要插入的文本内容",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

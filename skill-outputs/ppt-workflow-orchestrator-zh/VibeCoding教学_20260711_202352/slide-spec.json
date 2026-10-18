@@ -1,0 +1,50 @@
+{
+  "deck": {
+    "title": "Vibe Coding：从一句想法到可验证产品",
+    "presentation_type": "课程教学",
+    "audience": "AI 编程初学者",
+    "audience_decision": "采用小步可验证的 AI 编程工作流",
+    "duration_minutes": 20,
+    "target_slides": 12,
+    "language": "zh-CN",
+    "aspect_ratio": "16:9"
+  },
+  "slides": [
+    {
+      "slide_id": "S01", "section": "开场", "purpose": "建立课程主题", "audience_takeaway": "Vibe Coding 的目标是更短反馈，不是更少判断", "claim": "VIBE CODING\n从一句想法到可验证产品", "evidence_refs": ["SRC-GH-BEST", "SRC-LOCAL"], "visual_type": "editorial_cover", "layout_family": "cover-black", "dominant_asset": "code-crop", "content_blocks": [{"type": "subtitle", "content": "用 AI 加速构建，用证据守住质量"}, {"type": "tag", "content": "BEGINNER PLAYBOOK"}], "text_budget": {"title": 28, "body": 38, "footer": 24}, "source_footer": ["SRC-GH-BEST"], "speaker_notes": "先问学员：你希望 AI 替你写多少代码，还是希望它帮你更快得到可验证结果？本课选择后者。", "qa_checks": ["黑底封面", "大标题两行", "无多余装饰"]
+    },
+    {
+      "slide_id": "S02", "section": "目录", "purpose": "建立学习地图", "audience_takeaway": "课程从定义走向练习和发布门禁", "claim": "TABLE OF\nCONTENT", "evidence_refs": ["SRC-LOCAL"], "visual_type": "numbered_index", "layout_family": "toc-blue", "dominant_asset": "six-topic-index", "content_blocks": [{"type": "toc", "items": ["01 重新定义", "02 三个常见误区", "03 小步闭环", "04 提示与上下文", "05 质量与安全", "06 十分钟练习"]}], "text_budget": {"title": 22, "body": 72, "footer": 20}, "source_footer": ["SRC-LOCAL"], "speaker_notes": "告诉学员这不是工具功能介绍，而是一套可以迁移到不同 AI 编程工具的工作方法。", "qa_checks": ["蓝底白字", "目录编号清晰", "留白充足"]
+    },
+    {
+      "slide_id": "S03", "section": "定义", "purpose": "给出课程定义", "audience_takeaway": "Vibe Coding 是人与 AI 的高频反馈协作", "claim": "WHAT MAKES\nVIBE CODING DIFFERENT", "evidence_refs": ["SRC-GH-BEST", "SRC-GH-PROMPT"], "visual_type": "three_principles", "layout_family": "unique-white", "dominant_asset": "three-code-crops", "content_blocks": [{"type": "principle", "label": "自然语言起步", "content": "先表达意图，再进入实现细节"}, {"type": "principle", "label": "高频反馈", "content": "生成、运行、观察、修正"}, {"type": "principle", "label": "人类负责", "content": "目标、边界、验证、发布"}], "text_budget": {"title": 34, "body": 62, "footer": 26}, "source_footer": ["SRC-GH-BEST", "SRC-GH-PROMPT"], "speaker_notes": "把它定义为一种交互节奏：自然语言让启动更快，反馈循环让方向不断收敛，人类仍负责判断。", "qa_checks": ["白底大标题", "三项原则非卡片化", "包含黑白代码视觉"]
+    },
+    {
+      "slide_id": "S04", "section": "边界", "purpose": "区分适用和不适用场景", "audience_takeaway": "速度优势只在风险可控、反馈可观察时成立", "claim": "WHERE VIBE CODING\nCREATES VALUE", "evidence_refs": ["SRC-GH-BEST", "SRC-OWASP"], "visual_type": "fit_matrix", "layout_family": "market-blue", "dominant_asset": "fit-boundary", "content_blocks": [{"type": "fit", "content": "原型、内部工具、重复脚本、低风险界面"}, {"type": "caution", "content": "认证、支付、隐私、核心数据、不可逆操作"}], "text_budget": {"title": 34, "body": 62, "footer": 26}, "source_footer": ["SRC-GH-BEST", "SRC-OWASP"], "speaker_notes": "快速反馈适合可观察、可回滚的任务。高风险领域不是不能用 AI，而是必须增加设计审查、安全验证和权限边界。", "qa_checks": ["蓝底", "适用/慎用边界明显", "不做无来源市场数据"]
+    },
+    {
+      "slide_id": "S05", "section": "问题", "purpose": "揭示三个失败模式", "audience_takeaway": "多数失败来自目标、上下文和验证缺失", "claim": "THREE WAYS\nVIBE CODING FAILS", "evidence_refs": ["SRC-GH-BEST", "SRC-GH-PROMPT", "SRC-OWASP"], "visual_type": "numbered_problems", "layout_family": "problem-numbered", "dominant_asset": "01-02-03", "content_blocks": [{"type": "problem", "number": "01", "content": "愿望式提示：只说做什么，不说完成标准"}, {"type": "problem", "number": "02", "content": "上下文断裂：模型不知道项目约定和真实接口"}, {"type": "problem", "number": "03", "content": "跳过验证：能运行就当成可以发布"}], "text_budget": {"title": 30, "body": 90, "footer": 30}, "source_footer": ["SRC-GH-BEST", "SRC-OWASP"], "speaker_notes": "三个问题分别对应目标、上下文、验证。后面的工作流就是逐一补上这三个缺口。", "qa_checks": ["白底", "01/02/03 大号蓝字", "正文不拥挤"]
+    },
+    {
+      "slide_id": "S06", "section": "方法", "purpose": "展示端到端工作流", "audience_takeaway": "每次只推进一个可观察切片", "claim": "THE VIBE CODING\nFEEDBACK LOOP", "evidence_refs": ["SRC-GH-BEST", "SRC-ANTHROPIC", "SRC-LOCAL"], "visual_type": "workflow", "layout_family": "financials-blue", "dominant_asset": "five-step-loop", "content_blocks": [{"type": "step", "number": "01", "content": "定义：写清目标和 Done"}, {"type": "step", "number": "02", "content": "给上下文：文件、接口、约束"}, {"type": "step", "number": "03", "content": "生成：只做一个薄切片"}, {"type": "step", "number": "04", "content": "验证：运行、测试、截图"}, {"type": "step", "number": "05", "content": "修复：回到源文件再复验"}], "text_budget": {"title": 30, "body": 88, "footer": 28}, "source_footer": ["SRC-GH-BEST", "SRC-ANTHROPIC"], "speaker_notes": "强调薄切片：不要让 AI 一次生成整个系统。每一轮都要有可以运行、观察和否定的结果。", "qa_checks": ["蓝底", "五步方向清晰", "箭头和步骤可读"]
+    },
+    {
+      "slide_id": "S07", "section": "提示", "purpose": "教授提示结构", "audience_takeaway": "好提示把模糊愿望变成可执行契约", "claim": "PROMPT LIKE\nA PRODUCT BRIEF", "evidence_refs": ["SRC-GH-PROMPT", "SRC-ANTHROPIC"], "visual_type": "prompt_formula", "layout_family": "business-white", "dominant_asset": "G-C-C-D", "content_blocks": [{"type": "formula", "label": "GOAL", "content": "用户最终能做什么"}, {"type": "formula", "label": "CONTEXT", "content": "现有文件、接口、约定"}, {"type": "formula", "label": "CONSTRAINTS", "content": "不能改什么、技术边界"}, {"type": "formula", "label": "DONE", "content": "如何证明完成"}], "text_budget": {"title": 30, "body": 80, "footer": 28}, "source_footer": ["SRC-GH-PROMPT", "SRC-ANTHROPIC"], "speaker_notes": "这四项是课程归纳框架。示例：为现有待办页增加筛选；复用当前 API；不改数据库；用三条测试和截图证明完成。", "qa_checks": ["白底", "四项层级清晰", "包含完整提示示例"]
+    },
+    {
+      "slide_id": "S08", "section": "演示", "purpose": "展示一次完整对话", "audience_takeaway": "高质量协作是逐轮收窄，而不是一句万能提示", "claim": "FROM VAGUE IDEA\nTO WORKING SLICE", "evidence_refs": ["SRC-GH-PROMPT", "SRC-LOCAL"], "visual_type": "three_screens", "layout_family": "screenshots-blue", "dominant_asset": "prompt-code-test", "content_blocks": [{"type": "screen", "label": "PROMPT", "content": "给待办页增加状态筛选"}, {"type": "screen", "label": "BUILD", "content": "只改组件和查询参数"}, {"type": "screen", "label": "VERIFY", "content": "测试 3 个状态 + 空列表"}], "text_budget": {"title": 34, "body": 62, "footer": 24}, "source_footer": ["SRC-GH-PROMPT", "SRC-LOCAL"], "speaker_notes": "演示三轮：第一轮锁定范围，第二轮生成薄切片，第三轮根据测试失败修复。不要把失败藏起来。", "qa_checks": ["蓝底", "三个黑白界面", "对话顺序明确"]
+    },
+    {
+      "slide_id": "S09", "section": "上下文", "purpose": "解释上下文工程", "audience_takeaway": "项目文件比更长的提示更有复用价值", "claim": "CONTEXT IS\nYOUR REAL LEVERAGE", "evidence_refs": ["SRC-GH-BEST", "SRC-LOCAL"], "visual_type": "context_stack", "layout_family": "team-white", "dominant_asset": "four-context-files", "content_blocks": [{"type": "context", "label": "README", "content": "怎么运行"}, {"type": "context", "label": "AGENTS.md", "content": "怎么协作"}, {"type": "context", "label": "TESTS", "content": "什么叫正确"}, {"type": "context", "label": "EXAMPLES", "content": "项目真实风格"}], "text_budget": {"title": 32, "body": 68, "footer": 28}, "source_footer": ["SRC-GH-BEST", "SRC-LOCAL"], "speaker_notes": "当规则会重复出现时，不要每次重新描述，把它写进项目文件、测试和示例。这就是可复用上下文。", "qa_checks": ["白底", "四个上下文对象", "不使用真人头像"]
+    },
+    {
+      "slide_id": "S10", "section": "质量", "purpose": "给出发布门禁", "audience_takeaway": "AI 输出只有经过验证才是工程产物", "claim": "QUALITY GATES\nBEFORE YOU SHIP", "evidence_refs": ["SRC-GH-BEST", "SRC-OWASP", "SRC-LOCAL"], "visual_type": "definition_of_done", "layout_family": "table-white", "dominant_asset": "four-gates", "content_blocks": [{"type": "gate", "number": "01", "content": "能运行：真实入口可启动"}, {"type": "gate", "number": "02", "content": "有测试：正常和失败路径"}, {"type": "gate", "number": "03", "content": "可审查：Diff 小且可解释"}, {"type": "gate", "number": "04", "content": "守安全：输入、权限、秘密和依赖"}], "text_budget": {"title": 32, "body": 78, "footer": 30}, "source_footer": ["SRC-GH-BEST", "SRC-OWASP"], "speaker_notes": "把模型输出当成未经验证的候选实现。发布决定必须由人负责，尤其是输入、权限、秘密和外部依赖。", "qa_checks": ["白底", "四门禁", "安全表述有来源"]
+    },
+    {
+      "slide_id": "S11", "section": "练习", "purpose": "布置十分钟课堂练习", "audience_takeaway": "练习目标是完成一个小闭环，而不是写最多代码", "claim": "10-MINUTE\nVIBE CODING LAB", "evidence_refs": ["SRC-GH-PROMPT", "SRC-LOCAL"], "visual_type": "exercise", "layout_family": "exercise-blue", "dominant_asset": "timer-and-checklist", "content_blocks": [{"type": "task", "content": "为一个静态待办页增加‘未完成’筛选"}, {"type": "deliverable", "content": "1 段结构化提示 + 1 个可运行切片 + 3 条验证证据"}, {"type": "rule", "content": "一次只改一个行为；失败必须保留并修复"}], "text_budget": {"title": 28, "body": 78, "footer": 26}, "source_footer": ["SRC-GH-PROMPT", "SRC-LOCAL"], "speaker_notes": "让学员两人一组：一人扮演产品负责人，写 Goal/Context/Constraints/Done；另一人操作 AI 并记录每轮证据。", "qa_checks": ["蓝底", "任务清晰", "交付标准可执行"]
+    },
+    {
+      "slide_id": "S12", "section": "收束", "purpose": "形成行动原则", "audience_takeaway": "AI 负责候选实现，人负责方向与证据", "claim": "LET AI MOVE FAST.\nKEEP HUMAN JUDGMENT.", "evidence_refs": ["SRC-GH-BEST", "SRC-OWASP", "SRC-LOCAL"], "visual_type": "closing", "layout_family": "closing-black", "dominant_asset": "human-in-loop", "content_blocks": [{"type": "closing", "content": "下一次编码，从一个可验证的薄切片开始"}, {"type": "roles", "content": "AI：生成候选 / 人：定义目标、审查证据、批准发布"}], "text_budget": {"title": 42, "body": 54, "footer": 28}, "source_footer": ["SRC-GH-BEST", "SRC-OWASP"], "speaker_notes": "最后复述：Vibe Coding 的价值来自更短反馈；它的安全来自人类始终保留目标、边界、验证和发布责任。", "qa_checks": ["黑底", "行动句突出", "收束有力量"]
+    }
+  ]
+}

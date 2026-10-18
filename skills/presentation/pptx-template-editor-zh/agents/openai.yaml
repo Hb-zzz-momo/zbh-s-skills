@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPTX模板编辑"
+  short_description: "先分析模板结构，再保守编辑现有 PPTX 并保留母版、主题、字体与动画能力。"
+  default_prompt: "分析当前 PPTX 模板，建立页面映射后生成不覆盖原稿的新文件。"

@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_word_insert_page_break": {
+      "description": "在文档光标位置插入分页符",
+      "maps_to": "wps_word_insert_page_break",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

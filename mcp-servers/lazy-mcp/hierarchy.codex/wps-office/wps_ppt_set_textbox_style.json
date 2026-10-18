@@ -1,0 +1,31 @@
+{
+  "tools": {
+    "wps_ppt_set_textbox_style": {
+      "description": "设置文本框样式（字体大小、颜色、粗体等）。",
+      "maps_to": "wps_ppt_set_textbox_style",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          },
+          "style": {
+            "description": "样式对象，包含 fontSize/fontColor/bold/italic/align 等",
+            "type": "object"
+          },
+          "textboxIndex": {
+            "description": "文本框索引",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "textboxIndex",
+          "style"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

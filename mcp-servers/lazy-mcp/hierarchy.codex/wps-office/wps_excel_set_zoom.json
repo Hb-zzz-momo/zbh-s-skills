@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_excel_set_zoom": {
+      "description": "设置当前工作表的缩放比例（10-400%）。",
+      "maps_to": "wps_excel_set_zoom",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "percent": {
+            "description": "缩放百分比，范围10-400",
+            "type": "number"
+          }
+        },
+        "required": [
+          "percent"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

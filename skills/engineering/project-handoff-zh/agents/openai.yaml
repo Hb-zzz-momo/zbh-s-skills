@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目接班手册"
+  short_description: "生成接班文档、单文件记忆桥和三层记忆入口。"
+  default_prompt: "Use $project-handoff-zh to update this project's handoff docs and layered memory entry."

@@ -1,0 +1,37 @@
+{
+  "tools": {
+    "wps_ppt_add_slide": {
+      "description": "添加新幻灯片到演示文稿。\n\n支持的布局类型：\n- title: 标题页\n- title_content: 标题+内容（最常用）\n- blank: 空白页\n- two_column: 两栏内容\n- comparison: 对比布局\n\n使用场景：\n- \"新建一页PPT\"\n- \"添加一个标题页\"\n- \"在第3页后面插入一页\"",
+      "maps_to": "wps_ppt_add_slide",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "content": {
+            "description": "幻灯片内容（针对有内容区域的布局）",
+            "type": "string"
+          },
+          "layout": {
+            "description": "幻灯片布局类型",
+            "enum": [
+              "title",
+              "title_content",
+              "blank",
+              "two_column",
+              "comparison"
+            ],
+            "type": "string"
+          },
+          "position": {
+            "description": "插入位置（页码），不填则在末尾添加",
+            "type": "number"
+          },
+          "title": {
+            "description": "幻灯片标题",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "status": "BLOCK",
+  "backend": "PowerPoint COM",
+  "fonts": [],
+  "issues": [
+    {
+      "severity": "ERROR",
+      "message": "PowerPoint COM could not open pass1; the same file was rendered by WPS for visual diagnosis. Negative-height geometry was corrected in the next build."
+    }
+  ]
+}

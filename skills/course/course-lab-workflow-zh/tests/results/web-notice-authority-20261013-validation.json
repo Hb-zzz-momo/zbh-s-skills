@@ -1,0 +1,53 @@
+{
+  "source": "D:\\wps\\1286397831\\WPS云盘\\学习安排\\26\\web应用开发\\实验\\《实验前先阅读》实验注意事项.docx",
+  "sourceSha256": "3a9dc5453d7a36fe54d6c8ebc894ebd8fcfe1aa0f55a7fec2e0911504f2c4a1a",
+  "sameBytesAsLab1Copy": true,
+  "docxParagraphs": 46,
+  "renderedPages": 4,
+  "visualReview": "All four exported page images reviewed",
+  "mappingRows": 23,
+  "ids": [
+    "W-N01",
+    "W-N02",
+    "W-N03",
+    "W-N04",
+    "W-N05a",
+    "W-N05b",
+    "W-N05c",
+    "W-N05d",
+    "W-N05e",
+    "W-N05f",
+    "W-N06",
+    "W-N07",
+    "W-N08",
+    "W-N09",
+    "W-N10",
+    "W-N11",
+    "W-N12",
+    "W-N13",
+    "W-N14",
+    "W-N15",
+    "W-N16",
+    "W-N17",
+    "W-N18"
+  ],
+  "checks": [
+    {
+      "check": "basic",
+      "exitCode": 0,
+      "output": "tests\\results\\web-notice-authority-20261013-basic.txt"
+    },
+    {
+      "check": "structure",
+      "exitCode": 0,
+      "output": "tests\\results\\web-notice-authority-20261013-structure.txt"
+    },
+    {
+      "check": "unit-tests",
+      "exitCode": 0,
+      "output": "tests\\results\\web-notice-authority-20261013-unit-tests.txt"
+    }
+  ],
+  "reviewArtifact": "D:\\wps\\1286397831\\WPS云盘\\学习安排\\26\\web应用开发\\实验\\Web实验注意事项逐条解读与自检清单.md",
+  "limits": "Source and rule mapping review, package structure and existing unit tests; not course execution, a teacher grade or independent model behavior evaluation."
+}

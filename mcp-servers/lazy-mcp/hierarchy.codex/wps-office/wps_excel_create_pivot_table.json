@@ -1,0 +1,85 @@
+{
+  "tools": {
+    "wps_excel_create_pivot_table": {
+      "description": "创建Excel透视表，用于数据汇总和分析。\n\n使用场景：\n- \"帮我按部门统计销售额\" -\u003e 行字段=部门，值字段=销售额(SUM)\n- \"按月份和产品分析数量\" -\u003e 行字段=月份，列字段=产品，值字段=数量(SUM)\n- \"统计各地区的订单数\" -\u003e 行字段=地区，值字段=订单号(COUNT)\n\n注意事项：\n- sourceRange必须包含表头行\n- rowFields、columnFields、valueFields中的field必须是表头中的列名\n- 透视表会从destinationCell开始向右下方扩展",
+      "maps_to": "wps_excel_create_pivot_table",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "columnFields": {
+            "description": "列字段列名列表（可选），如[\"月份\"]。这些字段会作为透视表的列标签",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "destinationCell": {
+            "description": "透视表放置位置（左上角单元格），如\"G1\"、\"H5\"",
+            "type": "string"
+          },
+          "destinationSheet": {
+            "description": "目标工作表名称（可选），透视表将创建在此工作表，不填则使用当前工作表",
+            "type": "string"
+          },
+          "filterFields": {
+            "description": "筛选字段列名列表（可选），这些字段会出现在透视表上方作为筛选器",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "rowFields": {
+            "description": "行字段列名列表，如[\"部门\", \"员工\"]。这些字段会作为透视表的行标签",
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "sourceRange": {
+            "description": "数据源范围，如\"A1:E100\"。必须包含表头行，数据要连续无空行",
+            "type": "string"
+          },
+          "tableName": {
+            "description": "透视表名称（可选），不填则自动生成",
+            "type": "string"
+          },
+          "valueFields": {
+            "description": "值字段配置列表。每项包含field(字段名)和aggregation(聚合方式:SUM/COUNT/AVERAGE/MAX/MIN)",
+            "items": {
+              "properties": {
+                "aggregation": {
+                  "description": "聚合方式：SUM(求和)、COUNT(计数)、AVERAGE(平均)、MAX(最大)、MIN(最小)",
+                  "enum": [
+                    "SUM",
+                    "COUNT",
+                    "AVERAGE",
+                    "MAX",
+                    "MIN"
+                  ],
+                  "type": "string"
+                },
+                "field": {
+                  "description": "字段名/列名",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "field",
+                "aggregation"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "sourceRange",
+          "destinationCell",
+          "rowFields",
+          "valueFields"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

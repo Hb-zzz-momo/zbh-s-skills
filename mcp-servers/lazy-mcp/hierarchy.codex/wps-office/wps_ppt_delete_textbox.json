@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_delete_textbox": {
+      "description": "删除幻灯片上指定的文本框。",
+      "maps_to": "wps_ppt_delete_textbox",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "slideIndex": {
+            "description": "幻灯片索引（从1开始）",
+            "type": "number"
+          },
+          "textboxIndex": {
+            "description": "文本框索引",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "textboxIndex"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

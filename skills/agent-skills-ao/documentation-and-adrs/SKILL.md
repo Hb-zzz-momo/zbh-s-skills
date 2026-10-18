@@ -1,0 +1,398 @@
+---
+name: documentation-and-adrs
+description: Records decision rationale, alternatives, review challenges, change impact, ADRs, and function-level why-comments. Use when making or reviewing non-trivial implementation choices, changing code behavior or public APIs, shipping features, or preserving context that future engineers and agents need to understand why the code was changed this way.
+---
+
+# Documentation and ADRs
+<!-- project-structure-architect:gate:v1:start -->
+## Project structure gate / 文件树结构门禁
+
+只要本工作流将初始化或重组项目，或新建、移动应用、服务、包、模块、页面、API、研究步骤、实验、流水线、测试、文档或多文件产物树，必须先使用 `project-structure-architect`。
+
+1. 开始前：读取适用的 `AGENTS.md`、`PROJECT_STRUCTURE.md`、`.project-structure.yaml` 和现有文件树，锁定项目类型、蓝图及唯一合理路径。
+2. 运行中：每次新增或移动文件前先判断职责、所有者、复用范围和对应测试；禁止同义目录、根目录堆放、跨层混放及无关重组。
+3. 阶段收口：纵向切片或阶段完成后检查结构漂移；新项目或重大重组更新结构文档，最终运行结构审计。出现 `BLOCK` 时停止结构性写入并先修正或询问用户。
+
+纯内容编辑且目标路径已由用户或现有规范唯一确定时，可不重复调用。
+<!-- project-structure-architect:gate:v1:end -->
+
+## Overview
+
+Document decisions, not just code. The most valuable documentation captures the *why* — the context, constraints, and trade-offs that led to a decision. Code shows *what* was built; documentation explains *why it was built this way* and *what alternatives were considered*. This context is essential for future humans and agents working in the codebase.
+
+## Decision-rationale gate
+
+For every non-trivial design or behavior-changing code modification, preserve a traceable chain:
+
+```text
+requirement or problem
+→ candidate options with pros and cons
+→ reviewer challenges and responses
+→ evidence and decision criteria
+→ chosen decision and rejected alternatives
+→ code changes and function-level why-comments
+→ expected and observed impact
+→ verification result
+```
+
+Use `PASS / CAUTION / BLOCK`:
+
+- `PASS`: the chain is complete and the evidence supports the decision.
+- `CAUTION`: the rationale exists, but impact evidence is incomplete or a stated risk remains.
+- `BLOCK`: a required decision, challenge, modification reason, impact, or function-level rationale is missing. Do not describe the change as ready to merge or complete.
+
+Do not reconstruct rationale after implementation merely to justify existing code. If the decision changes during implementation, append a new decision or change entry and explain what new evidence caused the change.
+
+## Required decision record
+
+Use an ADR for expensive-to-reverse choices. For smaller but non-trivial choices, use the same fields in the task record, PR description, or change log already defined by the repository. Do not create a new documentation tree when an existing location is authoritative.
+
+```markdown
+## Decision D-<id>: <decision title>
+
+- Problem and constraints:
+- Decision criteria, in priority order:
+- Evidence consulted:
+
+| Option | Pros | Cons | Risks | Evidence | Verdict |
+|---|---|---|---|---|---|
+| A | | | | | PASS / CAUTION / BLOCK |
+
+### Review challenges
+
+| Challenge or doubt | Raised by | Response | Evidence | Effect on decision |
+|---|---|---|---|---|
+| | | | | unchanged / revised / rejected |
+
+- Decision and rationale:
+- Rejected alternatives and why:
+- Consequences and trade-offs accepted:
+- Reversibility or rollback:
+- Verification needed:
+```
+
+The review challenge table is not a ceremonial approval list. Record concrete objections such as correctness gaps, hidden assumptions, simpler alternatives, compatibility risks, performance costs, and evidence quality. If a challenge is unresolved and could change the choice, the decision remains `BLOCK`.
+
+## Required per-change record
+
+Record every logical modification, including revisions made after review. Group mechanical edits that share one reason; do not create meaningless line-by-line entries.
+
+```markdown
+## Change C-<id>
+
+- Files and functions:
+- Previous behavior or problem:
+- Why this modification is necessary now:
+- Decision ID or requirement source:
+- Chosen change and rejected local alternative:
+- Expected impact: behavior, compatibility, performance, security, operations:
+- Actual observed impact:
+- Verification evidence:
+- Intentionally unaffected scope:
+```
+
+When a later edit changes an earlier implementation, add a new entry that references the prior change and states the trigger: review finding, failed test, new requirement, benchmark, or corrected assumption. Never overwrite the history so that the first choice appears inevitable.
+
+## Function-level why-comments
+
+For every newly added function or function whose behavior changes, add or update an idiomatic docstring/JSDoc/function-header comment that explains the non-obvious rationale at the function boundary. It must answer at least:
+
+```text
+Why: What constraint, failure mode, or requirement requires this function or behavior?
+Trade-off: Why is this approach used instead of the main alternative?
+Impact: What caller-visible behavior, compatibility, performance, or failure-path effect follows?
+Decision: Which decision/change record or source supports it, when one exists?
+```
+
+Example:
+
+```typescript
+/**
+ * Why: Validate here because this is the last trusted boundary before persistence;
+ * validating only in the UI would allow API clients to bypass the invariant.
+ * Trade-off: This duplicates a lightweight client check, but keeps the server authoritative.
+ * Impact: Invalid requests fail with 422 before any database write. Decision: D-004/C-011.
+ */
+function validateTaskInput(input: TaskInput): ValidTaskInput {
+  // ...
+}
+```
+
+Do not write `Why: this function validates input`; that only restates what the code does. Explain the constraint and consequence. Trivial accessors, framework-mandated boilerplate, generated code, and unchanged functions may be exempt, but the per-change record must state the exemption category and why comments would add no decision information.
+
+## When to Use
+
+- Making a significant architectural decision
+- Choosing between competing approaches
+- Adding or changing a public API
+- Shipping a feature that changes user-facing behavior
+- Onboarding new team members (or agents) to the project
+- When you find yourself explaining the same thing repeatedly
+
+**When NOT to use:** Don't document obvious code. Don't add comments that restate what the code already says. Don't write docs for throwaway prototypes.
+
+## Architecture Decision Records (ADRs)
+
+ADRs capture the reasoning behind significant technical decisions. They're the highest-value documentation you can write.
+
+### When to Write an ADR
+
+- Choosing a framework, library, or major dependency
+- Designing a data model or database schema
+- Selecting an authentication strategy
+- Deciding on an API architecture (REST vs. GraphQL vs. tRPC)
+- Choosing between build tools, hosting platforms, or infrastructure
+- Any decision that would be expensive to reverse
+
+### ADR Template
+
+Store ADRs in `docs/decisions/` with sequential numbering:
+
+```markdown
+# ADR-001: Use PostgreSQL for primary database
+
+## Status
+Accepted | Superseded by ADR-XXX | Deprecated
+
+## Date
+2025-01-15
+
+## Context
+We need a primary database for the task management application. Key requirements:
+- Relational data model (users, tasks, teams with relationships)
+- ACID transactions for task state changes
+- Support for full-text search on task content
+- Managed hosting available (for small team, limited ops capacity)
+
+## Decision
+Use PostgreSQL with Prisma ORM.
+
+## Alternatives Considered
+
+### MongoDB
+- Pros: Flexible schema, easy to start with
+- Cons: Our data is inherently relational; would need to manage relationships manually
+- Rejected: Relational data in a document store leads to complex joins or data duplication
+
+### SQLite
+- Pros: Zero configuration, embedded, fast for reads
+- Cons: Limited concurrent write support, no managed hosting for production
+- Rejected: Not suitable for multi-user web application in production
+
+### MySQL
+- Pros: Mature, widely supported
+- Cons: PostgreSQL has better JSON support, full-text search, and ecosystem tooling
+- Rejected: PostgreSQL is the better fit for our feature requirements
+
+## Consequences
+- Prisma provides type-safe database access and migration management
+- We can use PostgreSQL's full-text search instead of adding Elasticsearch
+- Team needs PostgreSQL knowledge (standard skill, low risk)
+- Hosting on managed service (Supabase, Neon, or RDS)
+```
+
+### ADR Lifecycle
+
+```
+PROPOSED → ACCEPTED → (SUPERSEDED or DEPRECATED)
+```
+
+- **Don't delete old ADRs.** They capture historical context.
+- When a decision changes, write a new ADR that references and supersedes the old one.
+
+## Inline Documentation
+
+### When to Comment
+
+Comment the *why*, not the *what*:
+
+```typescript
+// BAD: Restates the code
+// Increment counter by 1
+counter += 1;
+
+// GOOD: Explains non-obvious intent
+// Rate limit uses a sliding window — reset counter at window boundary,
+// not on a fixed schedule, to prevent burst attacks at window edges
+if (now - windowStart > WINDOW_SIZE_MS) {
+  counter = 0;
+  windowStart = now;
+}
+```
+
+### When NOT to Comment
+
+```typescript
+// Don't comment self-explanatory code
+function calculateTotal(items: CartItem[]): number {
+  return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+}
+
+// Don't leave TODO comments for things you should just do now
+// TODO: add error handling  ← Just add it
+
+// Don't leave commented-out code
+// const oldImplementation = () => { ... }  ← Delete it, git has history
+```
+
+### Document Known Gotchas
+
+```typescript
+/**
+ * IMPORTANT: This function must be called before the first render.
+ * If called after hydration, it causes a flash of unstyled content
+ * because the theme context isn't available during SSR.
+ *
+ * See ADR-003 for the full design rationale.
+ */
+export function initializeTheme(theme: Theme): void {
+  // ...
+}
+```
+
+## API Documentation
+
+For public APIs (REST, GraphQL, library interfaces):
+
+### Inline with Types (Preferred for TypeScript)
+
+```typescript
+/**
+ * Creates a new task.
+ *
+ * @param input - Task creation data (title required, description optional)
+ * @returns The created task with server-generated ID and timestamps
+ * @throws {ValidationError} If title is empty or exceeds 200 characters
+ * @throws {AuthenticationError} If the user is not authenticated
+ *
+ * @example
+ * const task = await createTask({ title: 'Buy groceries' });
+ * console.log(task.id); // "task_abc123"
+ */
+export async function createTask(input: CreateTaskInput): Promise<Task> {
+  // ...
+}
+```
+
+### OpenAPI / Swagger for REST APIs
+
+```yaml
+paths:
+  /api/tasks:
+    post:
+      summary: Create a task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskInput'
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
+        '422':
+          description: Validation error
+```
+
+## README Structure
+
+Every project should have a README that covers:
+
+```markdown
+# Project Name
+
+One-paragraph description of what this project does.
+
+## Quick Start
+1. Clone the repo
+2. Install dependencies: `npm install`
+3. Set up environment: `cp .env.example .env`
+4. Run the dev server: `npm run dev`
+
+## Commands
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server |
+| `npm test` | Run tests |
+| `npm run build` | Production build |
+| `npm run lint` | Run linter |
+
+## Architecture
+Brief overview of the project structure and key design decisions.
+Link to ADRs for details.
+
+## Contributing
+How to contribute, coding standards, PR process.
+```
+
+## Changelog Maintenance
+
+For shipped features:
+
+```markdown
+# Changelog
+
+## [1.2.0] - 2025-01-20
+### Added
+- Task sharing: users can share tasks with team members (#123)
+- Email notifications for task assignments (#124)
+
+### Fixed
+- Duplicate tasks appearing when rapidly clicking create button (#125)
+
+### Changed
+- Task list now loads 50 items per page (was 20) for better UX (#126)
+```
+
+## Documentation for Agents
+
+Special consideration for AI agent context:
+
+- **CLAUDE.md / rules files** — Document project conventions so agents follow them
+- **Spec files** — Keep specs updated so agents build the right thing
+- **ADRs** — Help agents understand why past decisions were made (prevents re-deciding)
+- **Inline gotchas** — Prevent agents from falling into known traps
+
+## Common Rationalizations
+
+| Rationalization | Reality |
+|---|---|
+| "The code is self-documenting" | Code shows what. It doesn't show why, what alternatives were rejected, or what constraints apply. |
+| "We'll write docs when the API stabilizes" | APIs stabilize faster when you document them. The doc is the first test of the design. |
+| "Nobody reads docs" | Agents do. Future engineers do. Your 3-months-later self does. |
+| "ADRs are overhead" | A 10-minute ADR prevents a 2-hour debate about the same decision six months later. |
+| "Comments get outdated" | Comments on *why* are stable. Comments on *what* get outdated — that's why you only write the former. |
+
+## Red Flags
+
+- Architectural decisions with no written rationale
+- Public APIs with no documentation or types
+- README that doesn't explain how to run the project
+- Commented-out code instead of deletion
+- TODO comments that have been there for weeks
+- No ADRs in a project with significant architectural choices
+- Documentation that restates the code instead of explaining intent
+- A selected implementation with no explicit pros/cons comparison
+- Review feedback recorded without the actual doubt, response, evidence, and effect on the decision
+- A second or third edit that silently replaces the earlier rationale
+- New or behavior-changing functions whose comments only describe what they do
+
+## Verification
+
+After documenting:
+
+- [ ] ADRs exist for all significant architectural decisions
+- [ ] README covers quick start, commands, and architecture overview
+- [ ] API functions have parameter and return type documentation
+- [ ] Known gotchas are documented inline where they matter
+- [ ] No commented-out code remains
+- [ ] Rules files (CLAUDE.md etc.) are current and accurate
+- [ ] Every non-trivial choice records alternatives, pros, cons, decision criteria, and evidence
+- [ ] Review challenges record the doubt, response, evidence, and whether the decision changed
+- [ ] Every logical modification records its reason, expected impact, observed impact, and verification
+- [ ] Every new or behavior-changing function has a function-level why/trade-off/impact comment, or a justified exemption
+- [ ] Missing rationale evidence is reported as `BLOCK`, not inferred after the fact

@@ -1,0 +1,22 @@
+{
+  "tools": {
+    "wps_convert_to_pdf": {
+      "description": "将当前文档转换为PDF格式。支持Word、Excel、PPT文档。\n\n使用场景：\n- \"把这个Word转成PDF\"\n- \"导出PDF给客户看\"\n- \"把表格保存成PDF格式\"\n- \"PPT转PDF方便打印\"\n\n特点：\n- 自动检测当前打开的文档类型\n- 可以指定输出路径，不指定则使用原文件名.pdf\n- 保持原文档格式和排版",
+      "maps_to": "wps_convert_to_pdf",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "openAfterExport": {
+            "description": "导出后是否自动打开PDF，默认false",
+            "type": "boolean"
+          },
+          "outputPath": {
+            "description": "PDF输出路径（包含文件名），如不指定则使用原文件路径，把扩展名改为.pdf",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

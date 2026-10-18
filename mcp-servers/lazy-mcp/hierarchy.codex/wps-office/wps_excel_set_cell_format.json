@@ -1,0 +1,86 @@
+{
+  "tools": {
+    "wps_excel_set_cell_format": {
+      "description": "设置Excel单元格格式，包括字体、颜色、背景色、粗体、斜体、字号等。",
+      "maps_to": "wps_excel_set_cell_format",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "format": {
+            "description": "格式设置对象，可包含 bold(粗体)、italic(斜体)、fontSize(字号)、fontName(字体名)、fontColor(字体颜色，如#FF0000)、bgColor(背景颜色)、underline(下划线)、strikethrough(删除线)、horizontalAlignment(水平对齐: left/center/right)、verticalAlignment(垂直对齐: top/center/bottom)、wrapText(自动换行)",
+            "properties": {
+              "bgColor": {
+                "description": "背景颜色，十六进制如 #FFFF00",
+                "type": "string"
+              },
+              "bold": {
+                "description": "是否粗体",
+                "type": "boolean"
+              },
+              "fontColor": {
+                "description": "字体颜色，十六进制如 #FF0000",
+                "type": "string"
+              },
+              "fontName": {
+                "description": "字体名称，如 微软雅黑、Arial",
+                "type": "string"
+              },
+              "fontSize": {
+                "description": "字号大小",
+                "type": "number"
+              },
+              "horizontalAlignment": {
+                "description": "水平对齐方式",
+                "enum": [
+                  "left",
+                  "center",
+                  "right"
+                ],
+                "type": "string"
+              },
+              "italic": {
+                "description": "是否斜体",
+                "type": "boolean"
+              },
+              "strikethrough": {
+                "description": "是否删除线",
+                "type": "boolean"
+              },
+              "underline": {
+                "description": "是否下划线",
+                "type": "boolean"
+              },
+              "verticalAlignment": {
+                "description": "垂直对齐方式",
+                "enum": [
+                  "top",
+                  "center",
+                  "bottom"
+                ],
+                "type": "string"
+              },
+              "wrapText": {
+                "description": "是否自动换行",
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "range": {
+            "description": "要设置格式的范围，如 A1:C10、B2:D5",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "format"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

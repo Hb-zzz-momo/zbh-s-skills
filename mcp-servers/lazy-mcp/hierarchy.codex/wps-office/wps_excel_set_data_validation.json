@@ -1,0 +1,35 @@
+{
+  "tools": {
+    "wps_excel_set_data_validation": {
+      "description": "设置Excel单元格的数据验证规则，如下拉列表、数值范围、日期范围等。",
+      "maps_to": "wps_excel_set_data_validation",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "formula": {
+            "description": "验证公式。list类型用逗号分隔值如\"选项1,选项2,选项3\"；数值类型如\"1,100\"表示范围；custom类型为Excel公式",
+            "type": "string"
+          },
+          "range": {
+            "description": "要设置验证的范围，如 A1:A100",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "type": {
+            "description": "验证类型：list(下拉列表)、whole(整数)、decimal(小数)、date(日期)、textLength(文本长度)、custom(自定义)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "range",
+          "type",
+          "formula"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

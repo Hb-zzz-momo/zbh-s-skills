@@ -1,0 +1,2 @@
+# Preserve the exact bytes verified by this skill bundle's manifest.
+codex-skills/computer-systems-lab-grading/** -text

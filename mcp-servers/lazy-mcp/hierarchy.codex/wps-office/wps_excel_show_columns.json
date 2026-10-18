@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_show_columns": {
+      "description": "显示Excel中已隐藏的列。",
+      "maps_to": "wps_excel_show_columns",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "endColumn": {
+            "description": "结束列字母，如 D",
+            "type": "string"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "startColumn": {
+            "description": "起始列字母，如 A",
+            "type": "string"
+          }
+        },
+        "required": [
+          "startColumn",
+          "endColumn"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

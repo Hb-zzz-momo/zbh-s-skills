@@ -1,0 +1,67 @@
+{
+  "status": "BLOCK",
+  "checked_runs": 291,
+  "unresolved_runs": 0,
+  "issues": [
+    {
+      "severity": "ERROR",
+      "slide": 2,
+      "shape_id": 27,
+      "message": "low_text_contrast",
+      "ratio": 4.17,
+      "threshold": 4.5,
+      "font_size": 7.5,
+      "bold": false,
+      "foreground": "C8CDD2",
+      "background": "0B55C8"
+    },
+    {
+      "severity": "ERROR",
+      "slide": 4,
+      "shape_id": 25,
+      "message": "low_text_contrast",
+      "ratio": 4.17,
+      "threshold": 4.5,
+      "font_size": 7.5,
+      "bold": false,
+      "foreground": "C8CDD2",
+      "background": "0B55C8"
+    },
+    {
+      "severity": "ERROR",
+      "slide": 6,
+      "shape_id": 46,
+      "message": "low_text_contrast",
+      "ratio": 4.17,
+      "threshold": 4.5,
+      "font_size": 7.5,
+      "bold": false,
+      "foreground": "C8CDD2",
+      "background": "0B55C8"
+    },
+    {
+      "severity": "ERROR",
+      "slide": 8,
+      "shape_id": 30,
+      "message": "low_text_contrast",
+      "ratio": 4.17,
+      "threshold": 4.5,
+      "font_size": 7.5,
+      "bold": false,
+      "foreground": "C8CDD2",
+      "background": "0B55C8"
+    },
+    {
+      "severity": "ERROR",
+      "slide": 11,
+      "shape_id": 18,
+      "message": "low_text_contrast",
+      "ratio": 4.17,
+      "threshold": 4.5,
+      "font_size": 7.5,
+      "bold": false,
+      "foreground": "C8CDD2",
+      "background": "0B55C8"
+    }
+  ]
+}

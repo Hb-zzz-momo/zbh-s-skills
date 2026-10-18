@@ -1,0 +1,26 @@
+{
+  "tools": {
+    "wps_ppt_replace_ppt_text": {
+      "description": "在演示文稿中查找并替换文本。\n\n批量替换所有匹配的文本内容。\n\n使用场景：\n- \"把PPT中所有的A替换成B\"\n- \"批量替换公司名称\"\n- \"修改所有页面的标题\"",
+      "maps_to": "wps_ppt_replace_ppt_text",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "find": {
+            "description": "要查找的文本",
+            "type": "string"
+          },
+          "replace": {
+            "description": "替换为的文本",
+            "type": "string"
+          }
+        },
+        "required": [
+          "find",
+          "replace"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

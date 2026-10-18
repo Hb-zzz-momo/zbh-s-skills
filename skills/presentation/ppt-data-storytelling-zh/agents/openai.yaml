@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPT数据叙事"
+  short_description: "选择正确图表，建立数据到图表映射，并审计坐标轴与统计结论误导风险。"
+  default_prompt: "为当前数据型演示建立结论先行的图表规格与数据完整性检查。"

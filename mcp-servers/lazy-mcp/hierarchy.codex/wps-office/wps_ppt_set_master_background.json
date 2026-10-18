@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_ppt_set_master_background": {
+      "description": "设置母版背景样式。\n\n支持纯色、渐变、图片等背景类型。\n\n使用场景：\n- \"修改母版背景为蓝色\"\n- \"设置母版背景渐变\"\n- \"给母版换个背景图片\"",
+      "maps_to": "wps_ppt_set_master_background",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "background": {
+            "description": "背景配置对象，支持 {type:\"solid\",color:\"#xxx\"}, {type:\"gradient\",colors:[...]}, {type:\"image\",path:\"...\"}",
+            "type": "object"
+          }
+        },
+        "required": [
+          "background"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

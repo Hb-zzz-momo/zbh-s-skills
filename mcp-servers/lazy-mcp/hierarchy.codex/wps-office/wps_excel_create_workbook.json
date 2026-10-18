@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_excel_create_workbook": {
+      "description": "新建一个空白Excel工作簿。",
+      "maps_to": "wps_excel_create_workbook",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

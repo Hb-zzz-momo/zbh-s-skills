@@ -1,0 +1,12 @@
+{
+  "tools": {
+    "wps_ppt_create_presentation": {
+      "description": "新建空白演示文稿。\n\n使用场景：\n- \"新建一个PPT\"\n- \"创建一个演示文稿\"\n- \"打开一个新的PPT\"",
+      "maps_to": "wps_ppt_create_presentation",
+      "server": "wps-office",
+      "inputSchema": {
+        "type": "object"
+      }
+    }
+  }
+}

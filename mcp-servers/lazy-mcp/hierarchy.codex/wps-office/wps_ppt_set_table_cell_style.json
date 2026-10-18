@@ -1,0 +1,41 @@
+{
+  "tools": {
+    "wps_ppt_set_table_cell_style": {
+      "description": "设置PPT表格中指定单元格的样式。\n\n支持的样式属性（通过style对象传入）：\n- backgroundColor: 单元格背景色\n- fontName: 字体名称\n- fontSize: 字体大小（磅）\n- fontColor: 字体颜色\n- bold: 是否加粗（boolean）\n- italic: 是否斜体（boolean）\n- alignment: 文本对齐方式（left/center/right）\n- verticalAlignment: 垂直对齐方式（top/middle/bottom）\n\n使用场景：\n- \"把表格第1行第1列的背景设为蓝色\"\n- \"加粗标题单元格\"\n- \"设置单元格居中对齐\"",
+      "maps_to": "wps_ppt_set_table_cell_style",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "col": {
+            "description": "列号（从1开始）",
+            "type": "number"
+          },
+          "row": {
+            "description": "行号（从1开始）",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "style": {
+            "description": "样式配置对象，包含backgroundColor、fontName、fontSize、fontColor、bold、italic、alignment、verticalAlignment等属性",
+            "type": "object"
+          },
+          "tableIndex": {
+            "description": "表格索引（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "tableIndex",
+          "row",
+          "col",
+          "style"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

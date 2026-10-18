@@ -1,0 +1,18 @@
+{
+  "tools": {
+    "wps_ppt_beautify_all_slides": {
+      "description": "批量美化演示文稿中的所有幻灯片。\n\n支持的风格：\n- business: 商务风（稳重、专业）\n- tech: 科技风（现代、简约）\n- creative: 创意风（活泼、多彩）\n- minimal: 极简风（留白、克制）\n- academic: 学术风（严谨、规范）\n\n使用场景：\n- \"把整个PPT都美化一下\"\n- \"用科技风格统一美化所有页面\"\n- \"一键优化整个演示文稿\"",
+      "maps_to": "wps_ppt_beautify_all_slides",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "style": {
+            "description": "美化风格，不填则默认使用 business 风格",
+            "type": "string"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

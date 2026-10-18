@@ -1,0 +1,33 @@
+{
+  "tools": {
+    "wps_word_find_in_document": {
+      "description": "在Word文档中查找文本并返回位置信息，不执行替换操作。\n\n使用场景：\n- \"找一下'项目名称'在文档的哪个位置\"\n- \"看看文档里有哪些地方需要填写\"\n- 在使用smart_fill_field之前，先用此工具定位关键字\n\n返回信息包括：匹配文本、字符起止位置、所在段落索引、上下文（前后50字符）。\n与find_replace不同，此工具仅查找不替换，返回位置信息供后续操作使用。",
+      "maps_to": "wps_word_find_in_document",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "find_text": {
+            "description": "要查找的文本",
+            "type": "string"
+          },
+          "match_case": {
+            "description": "是否区分大小写，默认false",
+            "type": "boolean"
+          },
+          "match_whole_word": {
+            "description": "是否全字匹配，默认false",
+            "type": "boolean"
+          },
+          "max_results": {
+            "description": "最大返回结果数，默认20",
+            "type": "number"
+          }
+        },
+        "required": [
+          "find_text"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

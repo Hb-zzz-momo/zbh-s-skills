@@ -1,0 +1,8 @@
+interface:
+  display_name: "Skills 总控路由"
+  short_description: "按任务领域、阶段和风险选择最少必要 skill 组合。"
+  default_prompt: "Use $skill-router-zh to choose the minimal relevant skills for this task, then execute with the selected workflow."
+
+policy:
+  allow_implicit_invocation: true
+

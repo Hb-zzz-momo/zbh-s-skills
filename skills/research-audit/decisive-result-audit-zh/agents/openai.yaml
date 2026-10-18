@@ -1,0 +1,4 @@
+interface:
+  display_name: "决定性结果审计"
+  short_description: "审计 formal/gate/论文主表结果的代码-指标-结果链路。"
+  default_prompt: "对这次决定性结果做代码-指标-结果链路审计，检查 raw 文件、metric 实现、输入来源、配置一致性、样本重算和结论边界。"

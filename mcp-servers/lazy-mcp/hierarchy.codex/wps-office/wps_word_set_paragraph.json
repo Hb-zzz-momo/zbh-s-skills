@@ -1,0 +1,22 @@
+{
+  "tools": {
+    "wps_word_set_paragraph": {
+      "description": "设置当前段落格式（对齐方式、行间距等）",
+      "maps_to": "wps_word_set_paragraph",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "alignment": {
+            "description": "对齐方式: left/center/right/justify",
+            "type": "string"
+          },
+          "lineSpacing": {
+            "description": "行间距倍数，如1.5、2",
+            "type": "number"
+          }
+        },
+        "type": "object"
+      }
+    }
+  }
+}

@@ -1,0 +1,4 @@
+﻿interface:
+  display_name: "信息证据链"
+  short_description: "资料收集、真实性验证、来源链接和证据链表格整理。"
+  default_prompt: "按证据链方式收集、验证和整理资料。"

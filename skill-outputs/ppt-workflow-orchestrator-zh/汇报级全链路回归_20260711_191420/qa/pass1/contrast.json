@@ -1,0 +1,19 @@
+{
+  "status": "BLOCK",
+  "checked_runs": 46,
+  "unresolved_runs": 0,
+  "issues": [
+    {
+      "severity": "ERROR",
+      "slide": 2,
+      "shape_id": 8,
+      "message": "low_text_contrast",
+      "ratio": 4.39,
+      "threshold": 4.5,
+      "font_size": 16.0,
+      "bold": true,
+      "foreground": "1B7F79",
+      "background": "F7F4ED"
+    }
+  ]
+}

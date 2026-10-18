@@ -1,0 +1,29 @@
+{
+  "tools": {
+    "wps_excel_delete_rows": {
+      "description": "删除Excel中指定位置的一行或多行。",
+      "maps_to": "wps_excel_delete_rows",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "count": {
+            "description": "删除行数，默认1",
+            "type": "number"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          },
+          "startRow": {
+            "description": "起始行号（从1开始）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "startRow"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

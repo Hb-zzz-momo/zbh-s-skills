@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_excel_set_row_height": {
+      "description": "设置Excel指定行的行高。",
+      "maps_to": "wps_excel_set_row_height",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "height": {
+            "description": "行高数值（磅为单位），如 20、30",
+            "type": "number"
+          },
+          "row": {
+            "description": "行号，从1开始",
+            "type": "number"
+          },
+          "sheet": {
+            "description": "工作表名称，不填则使用当前活动工作表",
+            "type": "string"
+          }
+        },
+        "required": [
+          "row",
+          "height"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

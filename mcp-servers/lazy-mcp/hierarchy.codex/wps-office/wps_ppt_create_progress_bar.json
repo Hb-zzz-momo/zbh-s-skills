@@ -1,0 +1,30 @@
+{
+  "tools": {
+    "wps_ppt_create_progress_bar": {
+      "description": "在幻灯片中创建进度条。\n\n可以指定进度值和标签文字，生成美观的进度条可视化。\n\n使用场景：\n- \"添加一个80%的进度条\"\n- \"创建项目完成度进度条\"\n- \"做一个进度条展示KPI\"",
+      "maps_to": "wps_ppt_create_progress_bar",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "label": {
+            "description": "可选的标签文字，如 \"项目进度\"、\"完成率\"",
+            "type": "string"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "value": {
+            "description": "进度值（0-100）",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "value"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

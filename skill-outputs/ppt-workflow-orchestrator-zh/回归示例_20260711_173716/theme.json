@@ -1,0 +1,6 @@
+{
+  "colors": {"ink":"172033","muted":"5E6B7A","paper":"F7F4ED","surface":"FFFFFF","accent":"E05A47","accent2":"1B7F79","line":"D7D9DD"},
+  "fonts": {"head":"Microsoft YaHei","body":"Microsoft YaHei","mono":"Consolas"},
+  "sizes": {"hero":30,"title":24,"body":15,"small":10,"metric":28}
+}
+

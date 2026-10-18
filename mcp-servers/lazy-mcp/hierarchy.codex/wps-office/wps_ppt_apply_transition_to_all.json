@@ -1,0 +1,25 @@
+{
+  "tools": {
+    "wps_ppt_apply_transition_to_all": {
+      "description": "为所有幻灯片应用统一的切换效果。\n\n使用场景：\n- \"给所有页面加上淡出切换\"\n- \"统一设置切换效果\"\n- \"所有幻灯片用推入切换\"",
+      "maps_to": "wps_ppt_apply_transition_to_all",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "duration": {
+            "description": "切换持续时间（秒），默认1秒",
+            "type": "number"
+          },
+          "effect": {
+            "description": "切换效果名称，如 \"fade\"、\"push\"、\"wipe\" 等",
+            "type": "string"
+          }
+        },
+        "required": [
+          "effect"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

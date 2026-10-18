@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_get_cached_data": {
+      "description": "从MCP Server获取缓存的数据，用于跨应用数据传递。",
+      "maps_to": "wps_get_cached_data",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "key": {
+            "description": "缓存键名",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

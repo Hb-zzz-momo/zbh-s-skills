@@ -1,0 +1,228 @@
+{
+  "schema_version": "1.0",
+  "rubric_version": "1.1.0-calibration",
+  "experiment_id": "exp01",
+  "title": "Linux与GCC安装",
+  "max_points": 100,
+  "status": "draft_for_calibration",
+  "weight_basis": "根据用户确认按100分新设计；原材料未提供这些分值，不冒充教师原评分标准。",
+  "source": {
+    "path": "实验报告标准答案\\hct+实验1.doc",
+    "sha256": "37ef3e5129dbd116306a1a628be0817dd32b98d58886e4f1eda6ccf546b46dac",
+    "text": "evidence/sources/exp01.txt",
+    "images": "evidence/sources/exp01.files"
+  },
+  "environment": "课程目标环境为 IA-32、32位 int、16位 short、8位 char、IEEE 754 float32/double64、GCC 4.4.7。可接受保持本题目标语义的等价环境；宽度、ABI、优化或编译标准影响结论时，先核对实际环境，不能照抄固定地址。",
+  "scoring": "每项只允许 full/partial/zero/unresolved；partial 为该项明确规定的固定分数。章节部分分为逐项相加，不另扣格式、截图数量或整体印象分。",
+  "sections": [
+    {
+      "title": "虚拟机与 Linux 安装（35分）",
+      "source_anchor": "实验步骤：1—5，虚拟机新建、系统安装及首次启动",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "虚拟机创建成功，操作系统类型与32位实验目标兼容。",
+          "partial_credit": "已新建虚拟机，但系统类型或架构信息不完整。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S01.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "内存及虚拟磁盘配置可见、能满足安装；不要求必须等于推荐2048MB。",
+          "partial_credit": "只展示内存或磁盘之一。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S01.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "安装介质加载、启动进入 CentOS 安装过程。",
+          "partial_credit": "有介质设置但未展示进入安装。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S01.C03",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 8,
+          "full_credit": "安装摘要体现时区、语言、键盘、软件和网络等可用配置；结果能支撑继续实验。",
+          "partial_credit": "已展示安装摘要，但关键配置/安装结果缺少一部分。",
+          "partial_points": 4.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S01.C04",
+          "minor_points": 6.8,
+          "minor_credit": "安装已成功、系统可继续实验；时区、语言、键盘、软件、网络记录仅缺少其中一项非关键配置说明，且没有因此造成安装或使用问题。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 5,
+          "full_credit": "账户配置完成并可登录；不要求展示任何口令。",
+          "partial_credit": "显示账户设置过程，但成功登录未体现。",
+          "partial_points": 2.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S01.C05",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 7,
+          "full_credit": "展示安装完成后的 Linux 桌面或具备同等实验操作能力的会话。",
+          "partial_credit": "已完成安装提示，但未展示可用会话。",
+          "partial_points": 3.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S01.C06",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S01",
+      "max_points": 35
+    },
+    {
+      "title": "GCC 依赖安装（30分）",
+      "source_anchor": "GMP、MPFR、MPC安装步骤",
+      "criteria": [
+        {
+          "max_points": 10,
+          "full_credit": "GMP源码的配置、编译、安装及成功结果可追溯。",
+          "partial_credit": "有配置/编译过程，缺少成功安装证据。",
+          "partial_points": 5.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S02.C01",
+          "minor_points": 8.5,
+          "minor_credit": "GMP成功安装及实际安装位置有可核查记录，配置参数与结果相符；仅缺少完整编译中间日志，不缺成功结果。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 10,
+          "full_credit": "MPFR构建指定正确GMP依赖并成功安装。",
+          "partial_credit": "依赖方向正确但构建或安装结果不完整。",
+          "partial_points": 5.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S02.C02",
+          "minor_points": 8.5,
+          "minor_credit": "MPFR成功安装且使用正确GMP依赖可核查；仅缺少编译过程的中间记录。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 10,
+          "full_credit": "MPC构建使用正确GMP/MPFR依赖并成功安装。",
+          "partial_credit": "依赖配置正确但构建或安装结果不完整。",
+          "partial_points": 5.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S02.C03",
+          "minor_points": 8.5,
+          "minor_credit": "MPC成功安装、GMP和MPFR依赖均正确且可追溯；仅缺少构建的中间记录。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        }
+      ],
+      "id": "S02",
+      "max_points": 30
+    },
+    {
+      "title": "GCC 4.4.7 构建与验证（30分）",
+      "source_anchor": "环境变量、GCC配置编译、符号链接和版本验证",
+      "criteria": [
+        {
+          "max_points": 5,
+          "full_credit": "动态库搜索路径或等价配置包含所需依赖，路径与安装位置一致。",
+          "partial_credit": "设置了相关路径但有遗漏且未验证。",
+          "partial_points": 2.5,
+          "evidence_type": "code",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S03.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 8,
+          "full_credit": "GCC configure 指向实际依赖目录、目标语言包含 C/C++；对出现的 siginfo 等兼容问题作正确修正。无此错误不要求造故障截图。",
+          "partial_credit": "主要配置正确，但一项依赖或兼容处理不完整。",
+          "partial_points": 4.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S03.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 10,
+          "full_credit": "GCC编译和安装成功，命令与结果可追溯。",
+          "partial_credit": "已运行构建但成功结果不完整。",
+          "partial_points": 5.0,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S03.C03",
+          "minor_points": 8.5,
+          "minor_credit": "本次GCC编译安装成功且安装位置可追溯；只有中间构建日志不全，不能用其他预装GCC的版本输出替代本次成功证据。 若现有材料已满足满分条件则仍给满分，不因简短或等价形式降档。"
+        },
+        {
+          "max_points": 7,
+          "full_credit": "调用实际安装的GCC并显示4.4.7版本；别名/符号链接/绝对路径均可。",
+          "partial_credit": "命令路径设置正确但未展示版本，或仅证明另一版本可用。",
+          "partial_points": 3.5,
+          "evidence_type": "execution",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S03.C04",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S03",
+      "max_points": 30
+    },
+    {
+      "title": "实验心得",
+      "source_anchor": "实验心得与体会",
+      "criteria": [
+        {
+          "max_points": 3,
+          "full_credit": "结合本次安装与依赖配置的具体步骤或观察，说明学到的机制。",
+          "partial_credit": "提到本实验知识点，但未联系具体操作或观察。",
+          "partial_points": 1.5,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S04.C01",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        },
+        {
+          "max_points": 2,
+          "full_credit": "给出一条与上述观察相符的原因、改进办法或适用条件。无需虚构故障。",
+          "partial_credit": "给出相关建议但原因或适用条件不清楚。",
+          "partial_points": 1.0,
+          "evidence_type": "answer",
+          "zero_credit": "内容明确错误且未达到部分得分描述，或在完整材料中确认缺答。读不清、材料不完整或题面冲突应为 unresolved。",
+          "id": "exp01.S04.C02",
+          "minor_points": null,
+          "minor_credit": "本项为不可再细分的核心目标、明确测试/白名单/身份条件或已宽容处理的心得，不另设小缺漏档；满足满分给满分，仅部分核心目标完成按原部分档，无法判断保留待复核。"
+        }
+      ],
+      "id": "S04",
+      "max_points": 5
+    }
+  ],
+  "reference_corrections": [
+    "VirtualBox内存大小和桌面外观为建议，不构成额外扣分项；附录宿主机安装教程不重复计分。",
+    "不得要求或记录root密码。不同发行版替代导致后续32位工具链不兼容时，只处理本实验对应目标项。"
+  ],
+  "optional_no_penalty": [],
+  "equivalence_policy": [
+    "代码和解释按语义判断，不按文字相似度；正确等价实现同分。",
+    "截图中命令、关键输入及结果可辨认即可；一张图可支持多个不同评分点。",
+    "题面明确要求截图的结果项接受截图或可定位的原始终端记录；只有文字声称做过不等于运行证据。",
+    "同一根因影响后续推导时，保留正确方法分；不得在本标准之外追加连带扣分。"
+  ],
+  "calibration_status": "待教师标注样本校准；85为良好完成参考，不实施分布强制映射"
+}

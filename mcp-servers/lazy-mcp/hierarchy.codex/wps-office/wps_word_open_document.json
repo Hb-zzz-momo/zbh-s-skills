@@ -1,0 +1,21 @@
+{
+  "tools": {
+    "wps_word_open_document": {
+      "description": "打开指定路径的Word文档。\n\n使用场景：\n- \"打开桌面上的报告.docx\"\n- \"帮我打开这个文件路径的文档\"\n- \"加载指定位置的Word文件\"",
+      "maps_to": "wps_word_open_document",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "filePath": {
+            "description": "要打开的文档文件路径",
+            "type": "string"
+          }
+        },
+        "required": [
+          "filePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

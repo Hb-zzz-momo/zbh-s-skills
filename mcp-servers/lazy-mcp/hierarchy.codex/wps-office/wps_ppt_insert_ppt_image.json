@@ -1,0 +1,42 @@
+{
+  "tools": {
+    "wps_ppt_insert_ppt_image": {
+      "description": "插入图片到幻灯片中。\n\n支持常见图片格式（PNG、JPG、BMP、GIF等）。\n可以指定图片的位置和大小，不指定则使用默认值。\n\n使用场景：\n- \"在第2页插入一张图片\"\n- \"把这张图片放到PPT里\"\n- \"在幻灯片右下角插入logo\"",
+      "maps_to": "wps_ppt_insert_ppt_image",
+      "server": "wps-office",
+      "inputSchema": {
+        "properties": {
+          "filePath": {
+            "description": "图片文件路径",
+            "type": "string"
+          },
+          "height": {
+            "description": "高度（磅），可选，不指定则按原始比例",
+            "type": "number"
+          },
+          "left": {
+            "description": "左边距（磅），可选",
+            "type": "number"
+          },
+          "slideIndex": {
+            "description": "幻灯片页码（从1开始）",
+            "type": "number"
+          },
+          "top": {
+            "description": "上边距（磅），可选",
+            "type": "number"
+          },
+          "width": {
+            "description": "宽度（磅），可选，不指定则按原始比例",
+            "type": "number"
+          }
+        },
+        "required": [
+          "slideIndex",
+          "filePath"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

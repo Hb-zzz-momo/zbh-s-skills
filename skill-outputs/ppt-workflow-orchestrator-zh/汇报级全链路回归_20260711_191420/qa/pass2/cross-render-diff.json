@@ -1,0 +1,12 @@
+{
+  "status": "BLOCK",
+  "rms": 66.80858556278493,
+  "threshold": 15.0,
+  "issues": [
+    {
+      "severity": "ERROR",
+      "message": "visual_regression",
+      "rms": 66.80858556278493
+    }
+  ]
+}

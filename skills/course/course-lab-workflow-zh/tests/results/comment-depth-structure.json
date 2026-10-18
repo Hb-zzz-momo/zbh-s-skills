@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "meaning": "structural and consistency checks only",
+  "results": {
+    "package": {
+      "errors": [],
+      "warnings": [],
+      "summary": {
+        "skill_lines": 190,
+        "local_links_checked": 62,
+        "behavior_cases_defined": 20,
+        "behavior_cases_executed_by_this_check": 0
+      }
+    }
+  }
+}
