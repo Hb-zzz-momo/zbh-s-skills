@@ -36,6 +36,8 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
    - 参考驱动设计：Web/PPT/Dashboard/科研图/架构图/Coding Prompt 或 Agent 指令需要动态外部案例时，在领域工作流的设计前节点条件加载 `contextual-reference-router`；它不是领域主入口。
    - 科研实验：算法实验、smoke/formal、结果审计、论文 claim 边界；若涉及机制创新、新方法构思、算法创新点、科研调用流、多痛点、多假设、多创新点、候选池或 Gap Gate，先走 `research-skill-flow-zh`，不得直接跳到 `research-coach-zh` 编机制。
    - 写作翻译：论文、翻译、报告文字。
+   - 黑客松内容与手册：推文/参赛须知从零准备、参考其他城市手册、官网多材料对齐先走 `hackathon-content-workflow-zh`；页眉/日期等局改走其轻量分支。参赛项目开发和工作人员布场按各自领域分流。
+   - 新媒体传播内容：微推、推文、公众号、海报、易拉宝、活动预告/回顾和结果公示先走 `publicity-content-workflow-zh`；发布、文风、生图再按载体追加对应 skill。
    - 课程任务：考试、实验、实验报告。
    - 调研证据：资料收集、来源核验、证据链。
    - 汇报软著：完整 PPT、路演、答辩、PPTX 生成/修改/模板编辑/渲染验收先走 `ppt-workflow-orchestrator-zh`；只要故事线时走 `ppt-story-design-zh`；真实项目准备度、申请字段、用户手册、源码鉴别材料和已有软著材料审计走 `software-copyright-zh`。
@@ -162,6 +164,14 @@ description: '中文 skills 总控路由技能：用于在 C:\Users\zbh\.agents\
 `research-experiment-ops-zh`、`agent-wait-monitor-zh`、`artifact-curator-zh`
 
 默认执行方式：smoke/dev/formal 分阶段执行；固定计划时触发 `plan-faithful-execution-zh`，formal、冻结版本或论文 claim 时触发 `decisive-result-audit-zh`。
+
+### 新媒体传播内容
+
+黑客松内容优先 `hackathon-content-workflow-zh` 作阶段总控，通用宣传Skill提供事实/编辑能力而非第二主入口。按任务选择推文、手册、重组/校对或局改分支；文档/浏览器/独立评审按阶段调用，既有记忆与反思锚点复用，不循环分流、不强制全部载体。
+
+`publicity-content-workflow-zh`，按载体追加发布/文风/生图 skill。
+
+默认执行方式：先核验并冻结时间、地点、人物、事项、结果等事实，再定内容逻辑、模板、载体适配和版式。关键事实不确定即 `BLOCK`；非关键待确认项必须集中披露。发布前完成合规、真实渲染和独立评价，不能以吸引力或排版优化覆盖事实边界。
 
 ### 论文/报告文字
 

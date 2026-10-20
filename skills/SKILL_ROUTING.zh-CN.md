@@ -42,6 +42,8 @@
 | 科研实验 | 算法实验、smoke/formal、消融、结果收口 | `research-experiment-ops-zh` |
 | 决定性审计 | formal/gate、论文主表、是否支撑 claim | `decisive-result-audit-zh` |
 | 科研迭代复盘 | 判断是不是越改越差、机制是否可写 | `research-iteration-audit-zh` |
+| 黑客松内容与手册 | 黑客松推文/参赛须知从零准备、跨城格式重组、官网多材料校对 | `hackathon-content-workflow-zh`；局改走轻量分支 |
+| 新媒体传播内容 | 微推、推文、公众号、海报、易拉宝、活动预告/回顾、结果公示 | `publicity-content-workflow-zh` |
 | 论文写作 | 期刊稿、案例论文、标题与逻辑重组、摘要、引言、方法、结果、讨论、结论 | `paper-writing-zh` |
 | 论文格式验收 | Word论文排版、期刊模板、通用期刊稿、字体字间距、三线表、图表题注、渲染与逐页复核 | `paper-format-fixer-zh` |
 | 翻译 | 英文学术/技术文本英译中 | `translation-zh` |
@@ -157,6 +159,14 @@
 `web-design-workflow-zh`、`frontend-ui-engineering`、`browser-testing-with-devtools`
 
 默认执行方式：先判断快速原型或正式产品，再按新建、现有改版、图像先行选择分支；需要动态外部案例时，在需求锁定后、`DESIGN.md` 前阶段性调用 `contextual-reference-router` 形成 Reference Brief；生成/修订 `DESIGN.md` 后先做纵向切片，再工程实现和浏览器验收。纯局部组件交互或 UI bug 可直接走 `frontend-ui-engineering`。
+
+### 新媒体传播内容
+
+黑客松推文/参赛须知、参考其他城市手册或官网多材料对齐时，唯一主入口为 `hackathon-content-workflow-zh`：按任务选14阶段，复用 `publicity-content-workflow-zh` 的事实/写作方法，文档、网页、独立评审只在对应阶段加载。仅页眉/日期定点修改不跑完整流程；参赛项目开发、工作人员布场不走内容总控。多阶段任务复用已有三层记忆/反思锚点，交付仍按载体和真实授权。
+
+`publicity-content-workflow-zh`，按载体追加发布、文风或生图 skill。
+
+默认执行方式：交付物清单 → 事实核验与冻结 → 内容逻辑 → 模板/视觉规范 → 载体适配 → 合规与真实渲染 → 独立评价 → 发布冻结。关键事实不确定即 `BLOCK`，非关键待确认项集中披露；不得用模糊措辞制造确定性。
 
 ### 参考驱动设计
 
