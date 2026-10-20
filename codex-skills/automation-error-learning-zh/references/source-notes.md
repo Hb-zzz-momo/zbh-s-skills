@@ -25,3 +25,5 @@ v2.1 的“相关通用/专用 Skill 优先维护，无匹配则创建通用 Ski
 许可证边界：这里只重述设计规律并提供链接，未复制外部代码、脚本或整段提示词。引用不等于拥有再分发其原文件的许可；若未来导入具体资源，需另核对文件级许可与宿主兼容。
 
 v2.2：用户明确要求收尾直接输出经验/流程沉淀总结与可学习要点；这是输出契约，不能仅以文件链接和执行状态替代。定向读取[爱丁堡大学反思工具：What? So what? Now what?](https://reflection.ed.ac.uk/reflectors-toolkit/reflecting-on-experience/what-so-what-now-what)，采用“具体经历→意义→下次具体行动”的组织思路；不要求用户填写全套问题，也不据此宣称学习效果已被本Skill验证。落实在主入口“输出与验证”及T34—T36。
+
+v2.3：用户建议从项目开工持续跟进、有相关Skill就按依据优化，避免只在长上下文结尾回忆。读取[Anthropic上下文工程原文](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)的压缩与结构化笔记部分，采用上下文外的短记录、证据指针与恢复读取；不照搬具体产品记忆工具，不把文本Skill当宿主压缩回调，也不保证零遗漏。主入口增量跟进、接入记录契约和T37—T40承载此改进，前置检索Skill只负责按任务规模路由，避免双份维护方法。
