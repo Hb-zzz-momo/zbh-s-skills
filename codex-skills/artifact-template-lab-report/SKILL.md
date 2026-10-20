@@ -14,7 +14,7 @@ description: 按教师指定或用户选定的实验报告模板编辑Word并执
 
 按 `C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md` §1.1 完整读取当前教程、要求、相关数据及模板；逐页检查PDF/PPT截图、标注、正反例和提交示例，核查影响实验的关联教程。按原编号拆子步骤，记录页码、类型/条件、实际操作、判据、证据位置/批次、报告位置与交付位置。冲突保留各自来源及采用解释，不能只依赖提取文本或概括性检查。
 
-执行者、即时交接、排查无解后的询问和最终人工复做差异核对，遵守[执行交接与最终来源核对](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md#03-执行交接与最终来源核对)。仅对用户明确确认手动复现的对应实验过程，将过时的AI执行归属改为真实自然描述；未确认部分保持真实，确认执行不等于独立撰写。按[报告叙述归属与措辞](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/report-evidence.md#8-报告叙述归属与措辞)第8.3节保留AI参与声明、位置清单与适用的独立标注预览，最终回复集中汇总。详细来源、交接和复做差异留存内部记录；独立agent复核归属、措辞与披露完整。
+执行者、即时交接、排查无解后的询问和最终人工复做差异核对，遵守[执行交接与最终来源核对](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/e2e-lab-workflow.md#03-执行交接与最终来源核对)。仅对用户明确确认手动复现的对应范围，自然化正文、知识点问题及图注中的过时归属和制作话术；已有确认沿用，未确认部分保持真实，确认执行不等于独立撰写。按[报告叙述归属与措辞](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/report-evidence.md#8-报告叙述归属与措辞)第8.3节保留AI参与声明、位置清单与适用的独立标注预览，最终回复集中汇总。详细来源、交接和复做差异留存内部记录；独立agent复核归属、措辞与披露完整。
 
 ## 本课模板与讲义完整保留（硬要求）
 
@@ -41,7 +41,7 @@ Web课程按[全部教师踩分点与注释规则](C:/Users/zbh/.agents/skills/c
 
 每条AI Report都配一张真实GPT对话场景截图，同一张图清楚包含用户提问及已生成的部分回答；保留GPT界面、未经改动原图和完整问答文字。图号与条目一一对应，固定五字段及实际AI参与披露继续保留。不能用终端日志、手绘/HTML仿制界面、拼接问答或仅有提问的画面替代。
 
-优先截取真实原始对话；本次另向GPT核对时，图注及相应字段明确写“补充核对”，不冒充原始排错、原代码生成或实验运行证据。当前界面未显示模型型号就如实说明，不猜测。用户确认手动复现不免除截图与AI披露。按[截图采集与验收细则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/report-evidence.md#84-ai-report真实对话截图每条必备)逐条核对；未取得合格截图时标明缺口，不宣布所有AI Report已补齐。
+优先截取真实原始对话；需要补采时直接提出实际知识疑问，图注只说明知识点，后补来源、采集日期及模型未知等如实写入指定AI字段或披露附件，并在证据台账可追溯。旧图含制作话术须重新真实提问采集，保留旧原图与原问答，不改像素、不拼接、不裁掉关键内容；不冒充原始排错、原代码生成或实验运行证据。用户确认手动复现不免除截图与AI披露。按[截图采集与验收细则](C:/Users/zbh/.agents/skills/course/course-lab-workflow-zh/references/report-evidence.md#84-ai-report真实对话截图每条必备)逐条核对；未取得合格截图时标明缺口，不宣布所有AI Report已补齐。
 
 ## 验收
 

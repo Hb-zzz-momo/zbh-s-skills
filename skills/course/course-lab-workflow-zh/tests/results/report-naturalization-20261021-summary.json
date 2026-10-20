@@ -1,0 +1,49 @@
+{
+  "scope": "Report wording, natural knowledge questions, topic captions and authentic recapture; no change to AI disclosure requirements.",
+  "changed_skills": [
+    "course-lab-workflow-zh",
+    "artifact-template-lab-report"
+  ],
+  "staged_source_blobs": [
+    {
+      "path": "codex-skills/artifact-template-lab-report/SKILL.md",
+      "git_blob": "df4d1efcaf7e5533b8b5930c7c8d95cfca134913"
+    },
+    {
+      "path": "skills/course/course-lab-workflow-zh/references/report-evidence.md",
+      "git_blob": "55527356f2fe196b97d6666cba2a052a7f24b310"
+    },
+    {
+      "path": "skills/course/course-lab-workflow-zh/evals/report-naturalization-cases.json",
+      "git_blob": "56c4d0d024a02a35cb1557ddbf1af22b4c65891f"
+    }
+  ],
+  "format_validation": "Three skill entrypoints passed quick_validate in UTF-8 mode.",
+  "local_and_staged_unit_tests": {
+    "total": 42,
+    "passed": 41,
+    "failed": 1,
+    "known_baseline_failure": "Existing package validator rejects two pre-existing cross-package documentation links; same before and after.",
+    "new_regression_observed": false
+  },
+  "behavior_evidence": {
+    "case_designs": 4,
+    "full_evaluation_harness": "not run",
+    "independent_agent": "/root/skill_naturalization_review",
+    "targeted_demonstrations": [
+      "N01 confirmed scope",
+      "N02 unconfirmed boundary",
+      "N03 supplemental provenance",
+      "N04 authentic recapture instead of image rewriting"
+    ],
+    "initial_cautions_retained": true,
+    "followup": "Three real new and old question/answer screenshots and source records directly inspected; disclosure-location wording ambiguities fixed and rechecked.",
+    "limit": "One targeted independent-agent demonstration and followup artifact inspection, not statistical model reliability or teacher evaluation."
+  },
+  "private_raw_records": {
+    "independent_sha256": "e166bca55a1cc5d59a77e6de0e99c6c57ca7bb0a7f556f1f80c66f68f81a68e3",
+    "static_sha256": "a5032f3131abdbf2803d8d3a73b12786d021e674225d1eda8e3aad211c999857",
+    "publication": "Private course paths, conversation identifiers, exact capture times and raw evidence excluded; original records retained locally."
+  },
+  "unrelated_user_changes": "Preserved; only task-specific hunks and files staged."
+}
