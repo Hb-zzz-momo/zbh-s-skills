@@ -1,0 +1,4 @@
+interface:
+  display_name: "任务前全网检索与技能复用"
+  short_description: "每个新任务先检索资料与现成技能，核验来源后选择可复用的执行路线"
+  default_prompt: "使用 $pre-task-research-zh，先搜索与当前任务相关的 GitHub、Skill、官方文档、博客教程和必要论文，再继续执行。"
