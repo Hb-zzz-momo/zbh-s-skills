@@ -16,7 +16,10 @@
 | [Anthropic Skill 编写教程](https://claude.com/resources/articles/how-to-create-skills-key-steps-limitations-and-examples) | 普通、边界和范围外场景都要测 | 不照搬其他宿主的工具与事件名称 |
 | [Anthropic skill-creator 源码](https://github.com/anthropics/skills/blob/main/skills/skill-creator/SKILL.md) | 改进要对照可观察产物，减少重复规则，避免无区分度的断言 | 只研究其测试方法，不替代本机 skill-creator 和调用环境 |
 | [anthropics/skills Discussion #1521](https://github.com/anthropics/skills/discussions/1521) | 记录验证环境、版本、结果和限制有助于复用 | 社区建议不当作官方统一测试格式 |
+| [Agent Skills 格式规范](https://agentskills.io/specification) | Skill入口含name/description，细节和案例按需引用；新建可发现技能而非独立runbook | 目录惯例不是每个Skill必须生成脚本/资产；格式校验不代表方法有效 |
 
 落实位置：主入口默认同时检查两侧；`workflow-learning.md` 管权威流程、稳定步骤、最小差异和授权；`record-format.md` 增加可选关联，旧卡不迁移；`acceptance-cases.md` 增加联合、成功、无改动、部分授权和部分保存反例；`integration.md` 保持 schema=1 并增加可选绑定。
+
+v2.1 的“相关通用/专用 Skill 优先维护，无匹配则创建通用 Skill，当前项目作为案例”来自用户明确纠正，并非第三方资料强制要求。本机 skill-creator 用于创建和校验；案例不提升为普遍要求。旧独立流程文档转为历史/案例索引，不与 Skill 双份维护。
 
 许可证边界：这里只重述设计规律并提供链接，未复制外部代码、脚本或整段提示词。引用不等于拥有再分发其原文件的许可；若未来导入具体资源，需另核对文件级许可与宿主兼容。
