@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="面向零基础同学的网页入门练习手册：读短课、查知识、做自测。">
+  <title>__SITE_TITLE__ · 网页入门练习手册</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="masthead wrap">
+    <a class="brand" href="#main" aria-label="回到学习手册开头"><span class="brand-mark" aria-hidden="true">学</span> 同学的学习手册</a>
+    <span class="local-note"><span aria-hidden="true">●</span> 离线示例 · 无需登录</span>
+  </header>
+  <main id="main" class="wrap" tabindex="-1">
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">一起把知识变成能动手的小作品</p>
+      <h1 id="page-title">__SITE_TITLE__</h1>
+      <p class="intro-copy">从一个阅读角，认识网页的结构、样式和交互。选一课，读懂一个例子，再亲手改一点。</p>
+      <div class="intro-bottom"><span>网页入门 · 三节短课</span><a href="#quiz">直接做自测 <span aria-hidden="true">↗</span></a></div>
+    </section>
+    <details class="setup-guide">
+      <summary>第一次保存网页？先展开这份完整练习</summary>
+      <h2>从空目录开始：准备你的阅读角网页</h2>
+      <ol><li>新建文件夹，在记事本或编辑器复制下面完整代码。</li><li>另存为 <code>index.html</code>，保存类型选“所有文件”，编码选 UTF-8；确认不是 <code>index.html.txt</code>。</li><li>用浏览器打开。修改代码后先保存，再刷新页面。三课练习都在这一个文件中完成。</li></ol>
+      <p>CSS 写在 <code>head</code> 内的 <code>style</code> 标签中；JavaScript 写在正文后、<code>body</code> 结束前的 <code>script</code> 标签中，不必新建其他文件。</p>
+      <div class="code-example"><pre><code id="practice-source">&lt;!doctype html&gt;
+&lt;html lang="zh-CN"&gt;
+&lt;head&gt;
+  &lt;meta charset="utf-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+  &lt;title&gt;我的阅读角&lt;/title&gt;
+  &lt;style&gt;
+    body { font-family: sans-serif; line-height: 1.8; padding: 24px; }
+    .reading-note { border: 1px solid #16362e; padding: 16px; }
+    .reading-note h2 { font-size: 16px; }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;section class="reading-note"&gt;
+    &lt;h2&gt;周三，一起读十页&lt;/h2&gt;
+    &lt;p&gt;带一本喜欢的书，来图书馆二楼。&lt;/p&gt;
+  &lt;/section&gt;
+  &lt;button id="ready"&gt;准备好了&lt;/button&gt;
+  &lt;p id="message"&gt;等你准备&lt;/p&gt;
+  &lt;script&gt;
+    const button = document.querySelector('#ready');
+    const message = document.querySelector('#message');
+    button.addEventListener('click', () =&gt; {
+      message.textContent = '书已备好，周三见！';
+    });
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre></div>
+      <p><strong>三步检查：</strong>HTML课改标题和地点，保存刷新应看到文字变化；CSS课把上面已有规则的 <code>padding: 16px</code> 改成 <code>padding: 24px</code>；JS课修改已有回调的反馈文字，刷新再点击按钮。不要把同名代码重复添加两次。</p>
+      <p><strong>没有变化时：</strong>检查扩展名与UTF-8；确认保存并刷新；CSS是否在 <code>style</code> 内、类名是否一致；JS选择器是否与唯一id一致，且脚本位于对应元素之后。</p>
+    </details>
+    <noscript><p class="notice">当前浏览器未启用 JavaScript。你仍可阅读第一课与知识条目；切课、筛选、自测和勾选需要启用 JavaScript 后刷新。</p></noscript>
+    <div class="study-layout">
+      <aside class="course-rail" aria-label="学习路线">
+        <p class="eyebrow">从这里开始</p>
+        <h2 class="rail-heading">选择一课</h2>
+        <ol class="course-list">
+          <li><button class="course-button" type="button" data-course="html" aria-pressed="true" aria-controls="lesson-html" disabled><span class="course-number" aria-hidden="true">01</span><span><strong>HTML · 搭好结构</strong><small>内容是什么？</small></span></button></li>
+          <li><button class="course-button" type="button" data-course="css" aria-pressed="false" aria-controls="lesson-css" disabled><span class="course-number" aria-hidden="true">02</span><span><strong>CSS · 整理样式</strong><small>内容怎么摆？</small></span></button></li>
+          <li><button class="course-button" type="button" data-course="js" aria-pressed="false" aria-controls="lesson-js" disabled><span class="course-number" aria-hidden="true">03</span><span><strong>JavaScript · 加点互动</strong><small>点击后会怎样？</small></span></button></li>
+        </ol>
+        <p class="progress-text" id="study-status" aria-live="polite" aria-atomic="true">本页已勾选 0 / 3 课</p>
+        <p class="rail-note">勾选只用于本次阅读，刷新页面即清空，不代表已经掌握。</p>
+        <a class="rail-link" href="#knowledge">翻查知识索引 <span aria-hidden="true">↓</span></a>
+      </aside>
+      <section class="lesson-area" aria-label="课程正文">
+        <p class="sr-only" id="course-status" aria-live="polite" aria-atomic="true"></p>
+        <article class="lesson" id="lesson-html" aria-labelledby="heading-html">
+          <div class="lesson-meta"><span>第 01 课</span><span>HTML / 结构</span></div>
+          <h2 id="heading-html" tabindex="-1">先说清楚，内容是什么。</h2>
+          <p class="lesson-lead">给“校园阅读角”写一条通知。标题和正文都能显示文字，但它们承担的角色不同。</p>
+          <h3><span class="step-label">想一想</span>标题为什么不直接写成一段话？</h3>
+          <p>HTML 用标签描述内容的角色。<code>&lt;h2&gt;</code> 表示章节标题，<code>&lt;p&gt;</code> 表示段落。结构清楚，同学更容易浏览，辅助阅读工具也能识别层次。</p>
+          <figure class="code-example"><figcaption>例子 01 <span>为阅读角写一条通知</span></figcaption><pre><code>&lt;section&gt;
+  &lt;h2&gt;周三，一起读十页&lt;/h2&gt;
+  &lt;p&gt;带一本喜欢的书，来图书馆二楼。&lt;/p&gt;
+&lt;/section&gt;</code></pre></figure>
+          <div class="example-output"><span class="output-label">页面里会看到</span><p class="preview-title">周三，一起读十页</p><p>带一本喜欢的书，来图书馆二楼。</p></div>
+          <div class="practice"><h3>轮到你了 <span aria-hidden="true">↗</span></h3><p>在自己的 HTML 文件中，把通知标题改为“周五，交换一本好书”，再把地点改为“教学楼一层”。保存后刷新，确认两处都变了。</p><p class="practice-check">核对：标题仍在 <code>h2</code> 中，地点仍在 <code>p</code> 中，开始和结束标签成对出现。</p></div>
+          <p class="logic-chain"><strong>这一课的链路</strong> 通知文字 → HTML 标注角色 → 浏览器呈现层次 → 结构帮助读者理解内容。</p>
+          <label class="completion" for="complete-html"><input id="complete-html" type="checkbox" data-complete="html" autocomplete="off" disabled> 我已读完并尝试 HTML 练习</label>
+        </article>
+        <article class="lesson" id="lesson-css" aria-labelledby="heading-css" hidden>
+          <div class="lesson-meta"><span>第 02 课</span><span>CSS / 样式</span></div>
+          <h2 id="heading-css" tabindex="-1">让重要的内容，先被看见。</h2>
+          <p class="lesson-lead">阅读角的通知已经写好。接着给它留出呼吸的空间，让读者一眼找到标题。</p>
+          <h3><span class="step-label">想一想</span>为什么改一个选择器，就能改变一类内容？</h3>
+          <p>CSS 的选择器先找到元素，再用声明设置外观。这里的 <code>.reading-note</code> 找到带这个类名的通知；内边距让文字与边框保持距离。</p>
+          <figure class="code-example"><figcaption>例子 02 <span>给通知留出空间</span></figcaption><pre><code>/* HTML: &lt;section class="reading-note"&gt; */
+.reading-note {
+  padding: 16px;
+  border-left: 3px solid #9a3b10;
+  background: #e6eee5;
+}
+.reading-note h2 {
+  margin-top: 0;
+}</code></pre></figure>
+          <div class="example-output"><span class="output-label">同一份内容，加上样式</span><div class="reading-note"><p class="preview-title">周三，一起读十页</p><p>带一本喜欢的书，来图书馆二楼。</p></div></div>
+          <div class="practice"><h3>轮到你了 <span aria-hidden="true">↗</span></h3><p>先展开页面上方的完整练习并保存。它已给 <code>section</code> 加上 <code>class="reading-note"</code>，CSS已在同一文件 <code>head</code> 内的 <code>style</code> 中。将已有 <code>padding</code> 从 <code>16px</code> 改为 <code>24px</code>，保存刷新，观察文字与边框之间的距离。</p><p class="practice-check">核对：类名拼写一致；CSS 用 <code>.</code> 开头选择类名；每条声明用分号结束；不要重复添加相同规则。</p></div>
+          <p class="logic-chain"><strong>这一课的链路</strong> 元素与类名 → 选择器匹配并应用声明 → 通知外观改变 → 留白和边框帮助阅读。</p>
+          <label class="completion" for="complete-css"><input id="complete-css" type="checkbox" data-complete="css" autocomplete="off" disabled> 我已读完并尝试 CSS 练习</label>
+        </article>
+        <article class="lesson" id="lesson-js" aria-labelledby="heading-js" hidden>
+          <div class="lesson-meta"><span>第 03 课</span><span>JavaScript / 交互</span></div>
+          <h2 id="heading-js" tabindex="-1">给一次点击，一个回应。</h2>
+          <p class="lesson-lead">让阅读角多一个“准备好了”按钮。点下去，页面给出反馈，读者就知道自己的操作已生效。</p>
+          <h3><span class="step-label">想一想</span>按钮怎么知道自己被点击了？</h3>
+          <p>先找到按钮和提示文字，再用 <code>addEventListener</code> 监听点击。当事件发生，回调函数用 <code>textContent</code> 更新文字。</p>
+          <figure class="code-example"><figcaption>例子 03 <span>为按钮添加点击反馈</span></figcaption><pre><code>// HTML 中有 id="ready" 的按钮
+// 和 id="message" 的提示段落
+const button = document.querySelector('#ready');
+const message = document.querySelector('#message');
+
+button.addEventListener('click', () => {
+  message.textContent = '书已备好，周三见！';
+});</code></pre></figure>
+          <div class="example-output"><span class="output-label">亲自点一下这个例子</span><button class="button secondary" id="ready" type="button" disabled>准备好了</button><p class="demo-message" id="message" aria-live="polite" aria-atomic="true">还没点击，等你准备。</p></div>
+          <div class="practice"><h3>轮到你了 <span aria-hidden="true">↗</span></h3><p>页面上方的完整练习已包含按钮、提示段落和位于正文之后的 <code>script</code>。只修改已有回调中 <code>message.textContent</code> 的反馈文字，保存刷新再点击。自行新建时，按钮的 <code>id="ready"</code>、段落的 <code>id="message"</code> 要与选择器一致。</p><p class="practice-check">核对：点击前后文字不同；两个 <code>id</code> 各自唯一；代码在对应元素出现后执行；已有代码不要重复添加。</p></div>
+          <p class="logic-chain"><strong>这一课的链路</strong> 点击按钮 → 事件监听器执行回调 → 提示文字更新 → 用户收到操作反馈。</p>
+          <label class="completion" for="complete-js"><input id="complete-js" type="checkbox" data-complete="js" autocomplete="off" disabled> 我已读完并尝试 JavaScript 练习</label>
+        </article>
+      </section>
+    </div>
+    <section id="knowledge" class="index-section" aria-labelledby="knowledge-title">
+      <div class="section-heading"><div><p class="eyebrow">忘记了？回来翻一翻</p><h2 id="knowledge-title">知识索引</h2></div><span class="section-number" aria-hidden="true">INDEX / 06</span></div>
+      <p class="section-intro">六条小知识，按主题找，也可以搜“标签”“选择器”或“事件”。关键词和主题会一起生效。</p>
+      <form id="search-form" role="search" autocomplete="off">
+        <div class="filter-row"><div class="search-field"><label for="keyword">关键词</label><input type="search" id="keyword" placeholder="例如：标签、留白、点击" disabled></div><div class="topic-field"><label for="topic">主题</label><select id="topic" disabled><option value="all">全部主题</option><option value="html">HTML</option><option value="css">CSS</option><option value="js">JavaScript</option></select></div><button class="button secondary" type="button" id="clear-filters" disabled>清空筛选</button></div>
+      </form>
+      <p class="result-count" id="filter-status" aria-live="polite" aria-atomic="true">显示 6 条知识</p>
+      <div class="knowledge-list" id="knowledge-list">
+        <article class="knowledge-item" data-topic="html"><span class="topic-tag">HTML</span><div><h3>标签为内容命名</h3><p><code>h1</code> 到 <code>h6</code> 描述标题层级，<code>p</code> 描述段落。先选合适的语义，再用 CSS 调整大小。</p></div><span class="index-number" aria-hidden="true">01</span></article>
+        <article class="knowledge-item" data-topic="html"><span class="topic-tag">HTML</span><div><h3>给输入框一个标签</h3><p><code>label</code> 的 <code>for</code> 对应输入框的 <code>id</code>，把说明和控件关联起来。点击标签也能聚焦输入框。</p></div><span class="index-number" aria-hidden="true">02</span></article>
+        <article class="knowledge-item" data-topic="css"><span class="topic-tag">CSS</span><div><h3>选择器决定规则用在哪里</h3><p><code>.reading-note</code> 匹配带该类名的元素。同一个类名可以复用，避免为每一条通知重复写样式。</p></div><span class="index-number" aria-hidden="true">03</span></article>
+        <article class="knowledge-item" data-topic="css"><span class="topic-tag">CSS</span><div><h3>盒模型帮你理解留白</h3><p>内容向外依次是内边距 <code>padding</code>、边框 <code>border</code> 和外边距 <code>margin</code>。一个管框内距离，一个管框外距离。</p></div><span class="index-number" aria-hidden="true">04</span></article>
+        <article class="knowledge-item" data-topic="js"><span class="topic-tag">JavaScript</span><div><h3>事件把操作和反馈连接起来</h3><p><code>addEventListener('click', ...)</code> 在点击发生时执行函数。先监听，再由一次真实操作触发反馈。</p></div><span class="index-number" aria-hidden="true">05</span></article>
+        <article class="knowledge-item" data-topic="js"><span class="topic-tag">JavaScript</span><div><h3>用 textContent 更新纯文字</h3><p>把文字赋给元素的 <code>textContent</code>，它会作为文本显示。适合提示消息，不会把输入文字当作 HTML 标签解析。</p></div><span class="index-number" aria-hidden="true">06</span></article>
+      </div>
+      <div class="empty-state" id="empty-state" hidden><h3>暂时没有匹配的知识</h3><p>试试更短的关键词，或清空筛选后重新查找。</p><button class="button secondary" type="button" id="empty-clear">清空并查看全部知识</button></div>
+    </section>
+    <section id="quiz" class="quiz-section" aria-labelledby="quiz-title">
+      <div class="section-heading"><div><p class="eyebrow">合上笔记，试着回想</p><h2 id="quiz-title">三题小自测</h2></div><span class="section-number" aria-hidden="true">CHECK / 03</span></div>
+      <p class="section-intro">每题选一个答案。提交后看解释，找出需要再读的地方；分数只说明这三道题的作答情况。</p>
+      <form id="quiz-form" autocomplete="off" novalidate>
+        <fieldset data-question="q1"><legend><span class="question-number">01</span> 想标记一段普通正文，哪个标签更合适？</legend><label class="answer-option" for="q1-a"><input type="radio" name="q1" id="q1-a" value="a" disabled><span>A. <code>&lt;p&gt;</code></span></label><label class="answer-option" for="q1-b"><input type="radio" name="q1" id="q1-b" value="b" disabled><span>B. <code>&lt;h1&gt;</code></span></label><label class="answer-option" for="q1-c"><input type="radio" name="q1" id="q1-c" value="c" disabled><span>C. <code>&lt;button&gt;</code></span></label><p class="question-feedback" id="feedback-q1" hidden></p></fieldset>
+        <fieldset data-question="q2"><legend><span class="question-number">02</span> 想增加文字到边框的距离，应调整哪个属性？</legend><label class="answer-option" for="q2-a"><input type="radio" name="q2" id="q2-a" value="a" disabled><span>A. <code>color</code></span></label><label class="answer-option" for="q2-b"><input type="radio" name="q2" id="q2-b" value="b" disabled><span>B. <code>padding</code></span></label><label class="answer-option" for="q2-c"><input type="radio" name="q2" id="q2-c" value="c" disabled><span>C. <code>margin</code></span></label><p class="question-feedback" id="feedback-q2" hidden></p></fieldset>
+        <fieldset data-question="q3"><legend><span class="question-number">03</span> 想在点击按钮时运行一段代码，应该怎么做？</legend><label class="answer-option" for="q3-a"><input type="radio" name="q3" id="q3-a" value="a" disabled><span>A. 只修改按钮的背景色</span></label><label class="answer-option" for="q3-b"><input type="radio" name="q3" id="q3-b" value="b" disabled><span>B. 只给按钮添加类名</span></label><label class="answer-option" for="q3-c"><input type="radio" name="q3" id="q3-c" value="c" disabled><span>C. 用 <code>addEventListener</code> 监听点击事件</span></label><p class="question-feedback" id="feedback-q3" hidden></p></fieldset>
+        <div class="quiz-actions"><button class="button primary" type="submit" id="submit-quiz" disabled>检查答案 <span aria-hidden="true">→</span></button><button class="button text-button" type="reset" id="reset-quiz" disabled>重置再练</button></div>
+        <p class="quiz-result" id="quiz-result" tabindex="-1" aria-live="polite" aria-atomic="true"></p>
+      </form>
+    </section>
+    <section class="source-section" aria-labelledby="sources-title"><h2 id="sources-title">继续学，也记得核对来源。</h2><p>以上是原创入门短例，展示“问题 → 例子 → 练习 → 自测”的学习方法，不能替代完整课程。可让 AI 解释代码或提出练习，再运行代码、查阅文档核对结果。</p><div class="source-links"><a href="https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Getting_started/Your_first_website">MDN · 你的第一个网站 <span aria-hidden="true">↗</span></a><a href="https://www.theodinproject.com/paths/foundations/courses/foundations">The Odin Project · Foundations（英文） <span aria-hidden="true">↗</span></a></div><p class="source-note">页面内容可离线使用；上面的外部参考链接需要联网。本站不保存输入、勾选或自测结果，刷新后清空。</p></section>
+  </main>
+  <footer class="wrap footer"><span>学一点，做一点，再回来看。</span><a href="#main">回到开头 ↑</a></footer>
+</body>
+</html>
