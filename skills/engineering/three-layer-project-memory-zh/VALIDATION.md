@@ -15,3 +15,7 @@
 
 运行：`py -3 -m unittest discover -s skills/engineering/three-layer-project-memory-zh/tests -v`。
 最终结果保存 tests/results/validation.json。项目应用与身份资料只存项目内，不上传公开技能仓库。
+
+## v2.1持续沉淀联动
+
+本批不改脚本或schema；检验入口去重、事件→既有records映射、pending边界、稳定来源及阶段封存，方法见[持续沉淀映射](references/continuous-learning.md)和[联动接班场景](references/handoff-evaluation.md)。保留原单测及CLI门禁，不用文档联动替代真实接班测试。运行结果、真实独立评审和未验证项记录在当前任务的私有交付记录，不将个人材料放入公开Skill。
