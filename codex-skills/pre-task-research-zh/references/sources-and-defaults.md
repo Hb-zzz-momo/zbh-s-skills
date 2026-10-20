@@ -10,7 +10,9 @@
 | [Vercel find-skills 原文件](https://github.com/vercel-labs/skills/blob/main/skills/find-skills/SKILL.md) | 已阅读技能发现流程；可作为搜索候选，但它主要解决找技能，仍需本技能补充跨来源查证和默认前置流程。本次没有安装该外部 Skill |
 | [Vercel skills 仓库说明](https://github.com/vercel-labs/skills/blob/main/README.md) | 核验其具备技能查找/使用能力；本技能不强制安装 CLI，也不运行批量安装或更新 |
 
-本机已有 `info-evidence-chain-zh` 可用于深度证据整理，`skill-router-zh` 可用于领域路由；本技能不复制它们的详细流程，不要求每次全部加载。本次是流程配置任务，技术结论采用原始规范与仓库；未将论文数量作为设计质量证据。
+本机已有 `three-layer-project-memory-zh` 管理项目记录、当前总览和历史经验，`task-constraint-discovery-zh` 处理影响方案的现实约束；本技能在需要背景时显式衔接，操作见 [三层记忆衔接](memory-bridge.md)。`info-evidence-chain-zh` 可用于深度证据整理，`skill-router-zh` 可用于领域路由；不复制它们的详细流程，不要求每次全部加载。
+
+本轮依据现有三层技能与实际脚本核对了 retrieve、状态过滤和项目范围；参考 [Graphiti 原仓库](https://github.com/getzep/graphiti) 的事实时效/来源区分与 [Letta MemFS 文档](https://docs.letta.com/concepts/memfs) 的分层文件读取思路。只采用必要的流程原则，没有安装这些框架，也不宣称实现其能力或论文成绩。
 
 ## 本机默认入口与可移植性
 

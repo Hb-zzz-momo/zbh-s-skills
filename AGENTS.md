@@ -2,7 +2,7 @@
 
 ## 每个新任务先检索资料与 Skill
 
-- 开始每个新任务时，先读取并执行 [pre-task-research-zh](codex-skills/pre-task-research-zh/SKILL.md)，在实质执行前搜索相关网页、GitHub 与现成 Skill，并按任务需要查官方文档、博客教程、论文；核验原始来源后继续完成任务。
+- 开始每个新任务时，先读取并执行 [pre-task-research-zh](codex-skills/pre-task-research-zh/SKILL.md)：先按项目规则衔接三层记忆与相关历史/经验，核对当前材料、状态和约束，再针对缺口及需刷新的事实检索相关网页、GitHub、Skill和适用的官方文档、博客教程、论文；核验来源后继续完成任务。无项目记忆时使用现有材料，不为前置检索自动建库。
 - 小任务做轻量检索，同一任务续做只补查新问题；用户明确不联网、仅用给定材料或跳过调研时遵从。不得虚称穷尽全网，不能把搜索或安装 Skill 当成完成原任务。
 
 ## 每次更新后同步 GitHub
