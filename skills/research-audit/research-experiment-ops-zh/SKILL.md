@@ -68,6 +68,12 @@ description: "科研算法实验运营技能：用于算法改进、对比实验
 - 不要忽略 runtime 和失败率。
 - 不要只报好看的 HV/IGD，不解释 MinError、subset ratio、unique subsets 等任务层指标。
 
+## 实验收尾与存储预算
+
+开工沿用现有目录并登记scratch和checkpoint保留策略，原数据、共享模型与源码保持单一来源。正式比较保留配置/种子、指标、必要raw、失败边界和选中模型的依赖闭包；这不要求保存每epoch大checkpoint、每轮全模型副本或所有版本ZIP。轨迹/消融/恢复需要的文件继续保留，未知用途不凭“落败/旧版本”删除。
+
+完成验收后调用[artifact-curator收尾清理](../../ops/artifact-curator-zh/references/experiment-closeout.md)：结束本轮消费者，清理已登记缓存与有仍保留同字节来源的验证副本，核验collector、最佳结果与复现入口没有失去依赖；索引和删除日志共用小记录。RAM释放由本轮进程结束验证，不把同盘归档或删除文件说成释放内存。
+
 ## 资源
 
 - 迭代规则：`references/algorithm-iteration-rules.md`

@@ -1,6 +1,6 @@
 ---
 name: artifact-curator-zh
-description: "产物归档整理与过时识别技能：扫描 skill-outputs（按 skill 子目录与 legacy-flat）、实验结果、日志等；可选脚本将根目录 legacy 一键迁入 skill 子目录。Use when: skill-outputs 整理、自动按技能分文件夹、legacy 迁移、过时候选、artifact index。"
+description: "产物归档与任务收尾清理：识别重复/过时产物，验收后按精确清单清理本轮临时文件和已核验副本，保留最终交付、复现依赖及关键证据。用于实验结束磁盘瘦身、版本过多、产物索引及 skill-outputs 迁移；不作全盘垃圾清理。"
 ---
 
 # 产物归档整理
@@ -69,6 +69,17 @@ skill-outputs/
    - `artifact_summary.md`
 4. 只把 `stale_action=archive_candidate` 的文件列为待归档候选。
 5. **仅对 `curate_artifacts.py` 的删除/移动建议**：默认需用户确认后再动手。根目录 **legacy → 按 skill 分桶** 请用下方「自动迁移脚本」单独执行，不在本步骤内自动移动。
+
+## 验收后的收尾清理
+
+用户已要求把实验结束清理纳入工作流时，执行[最小留存与清理](references/experiment-closeout.md)。只读扫描候选不是删除授权；本轮已获准的、能证明无用的临时文件和重复副本无需逐项再问，判断不明的保留并说明。不从“旧版本”“失败”“没有被全文搜索命中”推断可删。
+
+- 开始时记录本任务创建的临时目录和子进程；数据、共享模型和源码保持单一权威来源，不为每轮评审复制完整目录。
+- 结束时先冻结最终交付与复现/证据保留集合，确认实际验收完成、没有运行中的消费者，再生成精确文件清单。
+- 用 `scripts/closeout_artifacts.py --plan <plan.json>` 只读预检；同一已授权范围用 `--apply --journal <cleanup.jsonl>` 执行。任一候选不安全时预检整体拒绝；不直接把 `stale_candidates.csv` 喂给删除命令。
+- 执行器只逐文件删除当前任务拥有范围内、指纹未变的重建缓存/视图或与保留者逐字节一致的副本；不递归删除目录，不清全局环境/共享缓存，不调用云端清理API。云盘同步目录中的本地删除可能同步到云端，须按实际项目留存范围处理；不能把它说成只释放本机缓存。计划、验收记录、保留者和审计日志受保护。
+- 磁盘与内存分别收口：清理文件只报告实际删除及逻辑字节；内存靠关闭本任务内核、模型进程与临时浏览器释放，不能杀其他聊天或用户应用，也不能承诺删文件就释放RAM。
+- 用一份小清单记录删除理由、保留者/重建入口、SHA256、实际结果及仍不确定项；不要为清理再制造一套全量备份、多版ZIP或测试输出树。
 
 ## 自动迁移脚本（根目录 legacy-flat → `skill-outputs/<技能名>/`）
 
@@ -189,6 +200,6 @@ python C:\Users\zbh\.agents\skills\ops\artifact-curator-zh\scripts\curate_artifa
 
 ## 使用边界
 
-- 这个技能负责识别、分类、生成整理计划。
+- 这个技能负责识别、分类、生成整理计划，并在已授权且验收完成的任务内执行上述受限清理。
 - 它不负责替代科研结论判断；科研路线是否继续要用 `research-iteration-audit-zh` 或 `research-coach-zh`。
 - 它不负责写论文；论文引用整理后的结果要用 `paper-writing-zh`。

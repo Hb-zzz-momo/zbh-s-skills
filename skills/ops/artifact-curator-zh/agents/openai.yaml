@@ -1,4 +1,4 @@
 interface:
-  display_name: "����鵵����"
-  short_description: "ʶ���ʱ���ﲢ���� skill-outputs������ĵ���ʵ�鱨�档"
-  default_prompt: "ɨ�赱ǰ��Ŀ�� skill-outputs �ͽ���ĵ������ɹ�ʱ�ļ���ѡ�����������������ƻ���"
+  display_name: "产物整理与收尾清理"
+  short_description: "验收后清理重复与临时产物，保留正式交付、复现依赖和关键证据"
+  default_prompt: "使用 $artifact-curator-zh 整理当前任务产物，先核验保留集合和归属，再按已授权范围清理精确列出的临时文件与重复副本。"
