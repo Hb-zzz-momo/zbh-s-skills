@@ -1,0 +1,14 @@
+# Workflow B validation
+
+Validated 2026-10-21. This batch changes generic dispatch and evidence handoff, not database engines, course execution code, memory schema, or experiment requirements.
+
+- User explicitly adopted policy B: research external gaps, changing facts, requested sources, and mandatory domain research. Stable supplied material can proceed directly. Domain testing and independent review remain required.
+- Four changed Skills passed the existing Skill format validator; local linked targets were checked. Existing three-layer memory suite: 65 tests passed. Actual CLI cases retained read-only stores and blocked changed evidence without automatic resealing.
+- An independent agent performed twelve bounded routing scenarios, including real isolated file edits, retrieval, evidence drift, official-source access, and staged-change preservation. These were one-context exercises, not twelve new host sessions.
+- A controlled SQLite borrowing module passed ten tests covering schema/foreign keys, bound parameters, invalid inputs, transactions, injected rollback, returns, persistence, and real two-connection contention. A different agent inspected the code and reran all ten tests in an isolated copy.
+- A controlled four-step SQL report was genuinely executed, authored as DOCX, exported by Word, and rendered to three report pages plus a four-page disclosure preview. Three distinct agents completed five real B-review/C-score/A-response rounds. The first round found inadequate process-log provenance; a fresh subprocess-captured batch closed that issue. Final reports, original outputs, disclosure tables, process records and package members were checked.
+- The report uses a declared test template and synthetic identity. It does not prove real teacher-template inheritance, a compliant GPT screenshot, WPS cloud rendering, platform submission, production migrations, other database dialects, or long-term savings. Original missing log history and failed renderer attempts remain disclosed; later success does not rewrite those attempts.
+- Conditional dispatch detail was moved out of the main router while preserving domain gates. README and its generator retain B after isolated regeneration. Character/line reductions are document-size observations, not measured token or time savings.
+- Publication gate: narrow path review, canonical/mirror equality, credential-pattern/content review, size/gitlink/embedded-repository checks, whitespace checks, reverse-patch check, preservation of unrelated work/index, and remote commit equality. No force push or file reset is authorized by this note.
+
+Evidence and original independent opinions remain in the local implementation audit bundle. No private cases, credentials, dependency runtimes, or temporary indices are published with this validation note. Format checks and this note do not guarantee all future agent behavior.

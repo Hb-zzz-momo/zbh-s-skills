@@ -1,4 +1,4 @@
 interface:
-  display_name: "任务前背景恢复与全网检索"
-  short_description: "先读取项目记忆与经验并核对现状，再检索资料与技能，补齐背景后执行"
-  default_prompt: "使用 $pre-task-research-zh，先衔接三层项目记忆与相关经验、核对当前材料和约束，再针对缺口检索 GitHub、Skill、官方资料及适用论文并继续执行。"
+  display_name: "按需调研与技能复用"
+  short_description: "按信息缺口核对原始来源与可复用技能，返回领域执行"
+  default_prompt: "使用 $pre-task-research-zh，复用主线已核背景，仅针对外部缺口、动态事实或明确检索要求查原始资料与技能；材料足够时直接返回领域执行。"
