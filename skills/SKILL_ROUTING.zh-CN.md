@@ -56,7 +56,8 @@
 | PPT 汇报 | 路演、课程汇报、答辩、生成或修改可编辑 PPTX、模板编辑、渲染验收 | `ppt-workflow-orchestrator-zh` |
 | 软著 | 真实项目准备度、申请字段、用户手册、真实截图、源码鉴别材料、已有材料审计与提交前校验 | `software-copyright-zh` |
 | 长任务 | 后台任务、轮询、卡死恢复、manifest | `agent-wait-monitor-zh` |
-| 产物整理 | skill-outputs、日志、旧产物归档 | `artifact-curator-zh` |
+| 项目/活动结束沉淀 | 整个项目收尾、源码/资料/图片/复盘归档、版本说明、可恢复迁移与验收 | `project-closeout-zh`（用户技能） |
+| 产物整理 | skill-outputs、日志、旧产物盘点与受限清理；整个项目结束整理转上行 | `artifact-curator-zh` |
 | 工作流沉淀 | SOP、流程优化、新 skill 工作流 | `workflow-forge-zh` |
 | 学习复盘 | 任务结束后总结知识点 | `knowledge-digest-zh` |
 

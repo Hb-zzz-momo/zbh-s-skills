@@ -4,6 +4,8 @@ description: "产物归档与任务收尾清理：识别重复/过时产物，�
 ---
 
 # 产物归档整理
+
+若用户要在整个项目或活动结束后整理成“源码、资料、图片、复盘”等沉淀目录，以用户技能 `project-closeout-zh` 为主线；本技能只补盘点、重复候选和验收后的受限清理。不要把只读扫描当成已经整理完成。
 <!-- project-structure-architect:gate:v1:start -->
 ## Project structure gate / 文件树结构门禁
 
