@@ -1,47 +1,12 @@
 # 产物分类策略
 
-## skill-outputs：按 skill 分子文件夹（推荐）
+## 按项目用途归位
 
-与「根目录平铺 `YYYYMMDD_*_skill-zh_主题.md`」以及「skill 子目录里继续重复 skill 名」相比，推荐新产出写入：
+新文档遵从[项目文档路由](../../../engineering/project-structure-architect/references/document-routing.md)。项目根、真实主题和用途决定位置；作者是 AI 或调用了某个 Skill 都不产生独立桶。持续维护文档用稳定主题名；事件报告与冻结版本按日期或版本留存。
 
-```text
-skill-outputs/<skill-name>/中文主题_YYYYMMDD_HHMMSS/
-```
+新盘点清单进入项目评审/报告目录，默认 `docs/reviews/artifact-curation/<timestamp>/`；已有 `reports/` 时复用其下的 artifact-curation。用 `--output` 传入项目特有位置。
 
-或单文件：
-
-```text
-skill-outputs/<skill-name>/中文主题_YYYYMMDD_HHMMSS.md
-```
-
-新产物命名规则：主题在前，日期时间在后；主题优先使用可读中文短语，主题不明确时使用 `结果_YYYYMMDD_HHMMSS`。因为路径中已有 `<skill-name>`，文件/文件夹名不要再重复 skill 名。
-
-**策展脚本**会将 `skill-outputs/` 下第二层符合 `YYYYMMDD_HHMMSS_*` 的旧条目标为 `legacy-flat`；将 `knowledge-digest-zh` 等技能名目录标为该 skill 的 `skill_outputs_bucket`，便于按技能筛选与批量迁入 `_archive`。
-
-迁移平铺旧文件时：优先按**文件名中的技能前缀**（与 `curate_artifacts.py` 中 `SKILL_PREFIX_RE` 一致）归入对应 `<skill-name>/`，迁完更新引用路径。
-
-## 推荐目录视图
-
-不要一上来物理移动文件。优先生成检索视图：
-
-```text
-skill-outputs/_curation/<timestamp>/
-├─ artifact_inventory.csv
-├─ classification_plan.csv
-├─ stale_candidates.csv
-└─ artifact_summary.md
-```
-
-如果后续用户确认要整理，可以采用二级归档：
-
-```text
-skill-outputs/_archive/
-├─ active-reference/
-├─ historical-evidence/
-├─ stale-superseded/
-├─ temporary-logs/
-└─ unknown-review/
-```
+旧 `skill-outputs/` 的 legacy-flat 和技能桶仍用于历史分类；不把历史兼容规则当作新目录建议。旧桶迁移先按实际内容与现行版建立映射，确认引用，不用整个 Skill 桶代替业务归类。
 
 ## 主题 key 规则
 

@@ -25,12 +25,14 @@ metadata:
 
 ## Markdown 交付要求
 
+新文件先确定所属项目和用途，遵从[文档用途路由](../../engineering/project-structure-architect/references/document-routing.md)；用户指定位置和项目既有约定优先，以下仅为缺少约定时的用途位置。
+
 1. 使用本技能完成正式输出时，除聊天中的简要说明外，必须在当前工作区新建一个 Markdown 文档保存完整结果。
-2. 默认保存位置为当前工作区 `skill-outputs/lab-report-coach-zh/`（与 `artifact-curator-zh` 按技能分子目录一致；根目录为 **legacy-flat** 兼容）。若该子目录不存在须先创建。
-3. 默认文件名格式为 `中文主题_YYYYMMDD_HHMMSS.md`（置于上述目录下；文件名不再重复 skill 名）；若主题不明确，使用 `结果_YYYYMMDD_HHMMSS.md`。
+2. 默认保存位置为当前工作区 `docs/reports/labs/`（已有同用途目录时沿用，其他用途先由 `project-structure-architect` 路由）。若该子目录不存在须先创建。
+3. 持续维护文档默认使用 `中文主题.md`；事件报告或快照可用 `中文主题_YYYYMMDD_HHMMSS.md`（置于上述目录下；文件名不再重复 skill 名）；主题须能说明真实用途，不能使用无归属的“结果”文件桶。
 4. Markdown 文档必须包含完整实验步骤、排错记录、截图规划、报告素材与结论。
 5. 若用户明确指定保存路径或文件名，以用户要求为准；若用户明确要求只在对话中回答，可跳过创建文件。
-6. 最终回复中要说明新建的 Markdown 文件路径（须含 `skill-outputs/lab-report-coach-zh/` 前缀），以及文件里包含的主要内容。
+6. 最终回复中要说明新建的 Markdown 文件路径（使用实际项目路径），以及文件里包含的主要内容。
 
 ## 任务模式判定
 

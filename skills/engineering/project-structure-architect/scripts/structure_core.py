@@ -29,7 +29,23 @@ BLUEPRINT_IDS = (
     "machine-learning-pipeline",
     "python-library",
     "microservices",
+    "competition-workspace",
+    "document-workspace",
 )
+
+DOCUMENT_KINDS = {
+    "guide": "guides",
+    "reference": "reference",
+    "research": "research",
+    "plan": "plans",
+    "design": "design",
+    "report": "reports",
+    "review": "reviews",
+    "knowledge": "knowledge",
+    "workflow": "workflows",
+    "handoff": "handoff",
+}
+LEGACY_OUTPUT_NAMES = {"skill-output", "skill-outputs"}
 
 STATUS_EXIT_CODES = {"PASS": 0, "CAUTION": 1, "BLOCK": 2, "ERROR": 3}
 SOURCE_SUFFIXES = {
@@ -345,6 +361,19 @@ def _structure_manifest_schema_errors(manifest: Mapping[str, Any]) -> list[str]:
             not isinstance(item, str) for item in manifest.get(key, [])
         ):
             errors.append(f"{key} must be an array")
+    document_routes = manifest.get("document_routes", {})
+    if not isinstance(document_routes, dict):
+        errors.append("document_routes must be an object")
+    else:
+        for kind, destination in document_routes.items():
+            if kind not in {"default", *DOCUMENT_KINDS}:
+                errors.append(f"document_routes contains an unknown kind: {kind}")
+            try:
+                route = _validate_relative_path(destination, "document route")
+                if any(part.casefold() in LEGACY_OUTPUT_NAMES for part in PurePosixPath(route).parts):
+                    errors.append("document_routes cannot target a legacy skill-output bucket")
+            except StructureError:
+                errors.append(f"document_routes[{kind}] must be a safe project-relative directory")
     return errors
 
 
@@ -919,8 +948,10 @@ def _project_structure_document(
             "suggestion command and document any new architectural boundary."
         ),
         "generated_and_ignored": (
-            "Generated artifacts belong in output/build/checkpoint/report artifact directories and "
-            "must not contain source-of-truth implementation."
+            "Documents belong to the project's purpose-specific documentation boundaries, regardless "
+            "of whether an AI or a person wrote them. Do not create skill-output(s) buckets. "
+            "Machine outputs belong in output/build/checkpoint directories; they must not contain "
+            "source-of-truth implementation."
         ),
         "decisions_and_exceptions": (
             "; ".join(adaptations)
@@ -1154,6 +1185,16 @@ def scaffold_project(
         ".",
         "Apply the documented project tree and route every new file by responsibility and owner.",
     )
+    if blueprint_id in {"competition-workspace", "document-workspace"}:
+        files["README.md"] = (
+            f"# {project_display_name}\n\n"
+            "## 阅读入口\n\n"
+            "- [项目结构与目录职责](PROJECT_STRUCTURE.md)\n"
+            "- [项目规则](AGENTS.md)\n"
+            "- [项目文档](docs/)\n\n"
+            "新资料按用途进入本项目目录，并在这里补充实际阅读链接。"
+            "当前阶段不预设代码技术栈；原始材料、实现仓库和提交包按需增加。\n"
+        )
     for scope in local_rule_roots:
         declared_rules = local_rule_entries[scope]
         if isinstance(declared_rules, list) and declared_rules:
@@ -1516,11 +1557,16 @@ def suggest_path(
     scope: str = "local",
     sequence: int | None = None,
     application: str | None = None,
+    document_kind: str | None = None,
 ) -> dict[str, Any]:
     """Return one responsibility-based path; never create it."""
 
     project_root = _root_path(root)
     artifact_key = str(artifact).strip().casefold()
+    if document_kind is not None and (
+        artifact_key not in {"documentation", "doc"} or document_kind not in DOCUMENT_KINDS
+    ):
+        raise StructureError("document_kind requires documentation and a supported purpose.", "INVALID_DOCUMENT_KIND")
     if scope not in {"local", "shared"}:
         raise StructureError("scope must be 'local' or 'shared'.", "INVALID_SCOPE")
     owner_slug = _slug(owner, label="owner") if owner else None
@@ -1600,6 +1646,7 @@ def suggest_path(
                 "owner": owner_slug,
                 "scope": scope,
                 "application": application,
+                "document_kind": document_kind,
             },
             "outputs": ([path] if path else []) + companion_paths,
             "alternatives": list(alternatives),
@@ -1620,6 +1667,13 @@ def suggest_path(
 
     if artifact_key == "directory":
         directory_name = _validate_file_name(name)
+        if directory_name.casefold() in LEGACY_OUTPUT_NAMES:
+            return routed(
+                status="BLOCK", path=None,
+                responsibility="Keep new documents in their owning project and purpose boundary.",
+                reason="Skill names and AI authorship are not document ownership categories.",
+                rule_id="SKILL_OUTPUT_BUCKET_FORBIDDEN",
+            )
         if directory_name.casefold() in AMBIGUOUS_DIRECTORY_NAMES:
             return routed(
                 status="BLOCK",
@@ -1862,9 +1916,30 @@ def suggest_path(
         responsibility = "Experiment-specific configuration or record."
         reason = "Experiment-specific configuration and records stay under experiments/."
     elif artifact_key in {"documentation", "doc"}:
-        path = _join_relative("docs", file_name)
-        responsibility = "Repository documentation."
-        reason = "Repository documentation belongs in the explicit docs boundary."
+        routes = route_manifest.get("document_routes", {})
+        explicit_route = routes.get(document_kind) if document_kind else routes.get("default")
+        if explicit_route:
+            prefix = explicit_route
+        elif document_kind == "report" and (project_root / "reports").is_dir():
+            prefix = "reports"
+        else:
+            roots = [
+                item for item in ("docs", "doc", "documentation", "文档")
+                if (project_root / item).is_dir()
+            ]
+            if len(roots) > 1 and not routes.get("default"):
+                return routed(
+                    status="BLOCK", path=None,
+                    responsibility="Resolve the existing documentation owner.",
+                    reason="Multiple equivalent documentation roots exist; record document_routes first.",
+                    rule_id="AMBIGUOUS_DOCUMENT_ROOT", alternatives=roots,
+                )
+            base = routes.get("default") or (roots[0] if roots else "docs")
+            prefix = _join_relative(base, DOCUMENT_KINDS[document_kind]) if document_kind else base
+        path = _join_relative(prefix, file_name)
+        _safe_join(project_root, path)
+        responsibility = f"Project-owned {document_kind or 'general'} documentation."
+        reason = "Reuse project conventions and route by reader purpose, not producing skill or AI authorship."
     elif artifact_key == "test":
         path = _join_relative("tests", owner_slug or "unit", file_name)
         responsibility = "Automated correctness or reproducibility test."
@@ -2000,6 +2075,14 @@ def audit_structure(root: str | Path, blueprint_id: str | None = None) -> dict[s
     except OSError as exc:
         raise StructureError(f"Cannot inspect root directory: {exc}", "ROOT_UNREADABLE") from exc
     for child in sorted(root_children, key=lambda item: item.name.casefold()):
+        if child.is_dir() and child.name.casefold() in LEGACY_OUTPUT_NAMES:
+            findings.append(
+                _finding(
+                    "LEGACY_SKILL_OUTPUTS", "CAUTION", child.name,
+                    "Legacy skill-owned output directory remains; do not put new documents here.",
+                    "Review content and references before an authorized move to project-owned locations.",
+                )
+            )
         if child.is_dir() and child.name.casefold() in AMBIGUOUS_DIRECTORY_NAMES:
             findings.append(
                 _finding(
@@ -2056,6 +2139,7 @@ def audit_structure(root: str | Path, blueprint_id: str | None = None) -> dict[s
                 and not child.is_symlink()
                 and not child.name.startswith(".")
                 and child.name.casefold() not in AUDIT_DECLARATION_EXCLUDES
+                and child.name.casefold() not in LEGACY_OUTPUT_NAMES
                 and child.name.casefold() not in declared_roots
             ):
                 findings.append(

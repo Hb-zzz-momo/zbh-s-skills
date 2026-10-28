@@ -1,6 +1,6 @@
 ---
 name: project-structure-architect
-description: "项目文件树架构与持续治理技能：识别 Web、前端、后端、Monorepo、微服务、科研、数据科学、机器学习、Python 库或 CLI 项目，选择并生成标准蓝图，记录目录职责，在新增页面、接口、模型、服务、包、研究步骤、实验、流水线、脚本、数据、产物或文档前给出唯一合理路径，并审计结构漂移。Use when: 新建项目、项目初始化、设计或生成文件树、架构搭建、技术栈或部署边界划分、前后端分离、apps/packages、科研步骤或 pipeline 组织、创建目的地不明确的文件或目录、增加主要模块、重构或迁移目录、现有仓库结构治理、检查同义目录或根目录堆积或源码与产物混放、任何工作流将创建或改变项目结构时。"
+description: "项目与比赛目录规划和持续治理：在启动及新增文件前确定项目归属、目录职责和唯一存放路径，支持文档先行、比赛准备和各类工程蓝图。文档按业务用途归位，保留既有目录并审计结构漂移。用于新建项目、项目初始化、比赛文件夹、AI文档存放、文件路由和结构整理；不因生成文档就强制创建代码工程。"
 ---
 
 # Project Structure Architect
@@ -35,6 +35,16 @@ description: "项目文件树架构与持续治理技能：识别 Web、前端�
 
 ## 核心工作流
 
+### 0. 先确定项目归属与文档用途
+
+- 当前工作区已经是一个项目或比赛根时直接复用；处于多个项目的共同父目录时，先定位真实目标，不能另建同名套娃目录或全局输出桶。
+- **所有新文档都按项目及用途存放**，包括 AI 生成的指南、调研、计划、设计、报告、审计和学习笔记；禁止默认使用 `skill-output/`、`skill-outputs/<skill-name>/`、`AI文档/`。调用了哪个 Skill 不决定文档归属。
+- 用户明确指定路径或文档目标时优先遵从；已有 `文档/`、`reports/`、`paper/` 等约定时沿用，必要时记录 `document_routes`，不机械新建同义 `docs/`。
+- 技术栈尚未确定的比赛选择 `competition-workspace`，其他文档先行项目选择 `document-workspace`；建立根阅读入口和最小文档边界后即可写资料，不必先有源码。
+- 原始赛题、附件与生成说明分开；机器日志/缓存仍按运行职责管理。持续维护的文档使用稳定主题名并更新原件，仅事件记录或提交快照带日期。目录按本轮实际用途创建。
+
+生成文档或修复旧默认路径前，读取[文档用途路由与迁移](references/document-routing.md)。
+
 ### 1. 检测项目
 
 先运行：
@@ -65,6 +75,8 @@ python scripts/detect_project.py <project-root>
 - 模块化 ML/数据流水线：[machine-learning-pipeline](references/blueprints/machine-learning-pipeline.md)
 - Python 库或 Python CLI：[python-library](references/blueprints/python-library.md)
 - 多独立服务：[microservices](references/blueprints/microservices.md)
+- 比赛启动与资料工作区：[competition-workspace](references/blueprints/competition-workspace.md)
+- 文档先行项目：[document-workspace](references/blueprints/document-workspace.md)
 
 默认只使用一个主蓝图。技术栈适配只能调整该蓝图内的条件目录、包名和局部文件；若必须组合多个蓝图，先在 manifest 的 `adaptations` / `exceptions` 中写明原因和边界。
 
@@ -98,6 +110,8 @@ python scripts/audit_structure.py <target>
 ```powershell
 python scripts/suggest_path.py <project-root> --artifact <type> --name <file> --owner <scope-owner>
 ```
+
+文档可使用 `--artifact documentation --document-kind guide --name 赛题入门指南.md`，返回用途路径而不写文件。支持 guide、reference、research、plan、design、report、review、knowledge、workflow、handoff；未指定用途保留一般文档路由。新文件写入后更新真实阅读入口，不能只生成目录树却让用户找不到正文。
 
 Monorepo 有多个可选应用时还必须传 `--application <apps 下的应用名>`；未指定时返回
 `BLOCK` 和候选应用，不得回退到根 `src/`。

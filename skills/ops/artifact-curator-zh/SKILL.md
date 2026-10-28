@@ -25,40 +25,23 @@ description: "产物归档与任务收尾清理：识别重复/过时产物，�
 - 先生成索引（或干跑迁移计划），再视需要执行 `--apply` 迁移；其它归档仍建议留痕。
 - 区分“过时无用”和“历史证据”：失败复盘、红灯审计、证伪记录通常不能删，只能归入历史证据。
 - 对长期科研项目，优先保护能支撑 claim、失败边界、实验口径、接班文档的文件。
-- 对 `skill-outputs/`，优先做分类索引；**新产出推荐按「调用的 skill」分子文件夹**（见下文「推荐目录布局」），便于策展、交接与按技能批量归档。  
+- 所有新文档按项目和用途归位；`skill-outputs/` 仅作历史扫描输入，不再推荐按 Skill 分桶。
 - **物理移动**仍需谨慎：移动或改名前应用全文搜索检查是否被 `AGENTS.md`、接班文档、`~/.agents/.instructions.md`、其它 `skill-outputs`、或聊天外链引用；**既有平铺旧文件**可保留为 `legacy-flat`，渐进迁移即可，不要求一次性大搬家。
 
-## skill-outputs 推荐目录布局（按 skill 分文件夹）
+## 项目用途目录与历史兼容
 
-基于数模等多技能协作项目的归档经验，建议**自本规范起**写入 `skill-outputs` 时采用下列结构：**目录层级以 skill 名为准，文件/文件夹名不再重复 skill 名**。
+新文档依 `project-structure-architect` 的[用途路由](../../engineering/project-structure-architect/references/document-routing.md)进入所属项目。盘点报告写入项目评审/报告目录；已有中文目录或契约映射时通过 `--output` 指定，不创建同义目录。
 
 ```text
-skill-outputs/
-├─ _curation/                    # 本技能脚本生成的只读扫描报告（保持现状）
-│   └─ <timestamp>/
-├─ _archive/                     # [可选] 跨 skill 的集中归档；或各 skill 下自建 _archive
-├─ knowledge-digest-zh/
-│   └─ 中文主题_YYYYMMDD_HHMMSS/
-│       ├─ README.md
-│       └─ …
-├─ workflow-forge-zh/
-│   └─ 工作流提炼_YYYYMMDD_HHMMSS.md
-├─ research-coach-zh/
-├─ project-dev-zh/
-├─ paper-writing-zh/
-└─ …                             # 其它 *-zh / 技能短名
+<project>/
+  docs/guides/             # 入门和操作说明
+  docs/research/           # 资料调研
+  docs/plans/              # 当前计划
+  docs/reviews/            # 盘点、审计与验收；已有 reports/ 时可复用
+  比赛资料/               # 已有官方材料目录，保留原件
 ```
 
-**命名约定**
-
-- **第一层子目录**：与技能 `name` 一致（如 `knowledge-digest-zh`），使用小写、连字符；避免与 `_curation`、`_archive` 冲突。  
-- **第二层**：中文主题 + 日期时间后缀；多文件交付用文件夹 `中文主题_YYYYMMDD_HHMMSS/`，单文件用 `中文主题_YYYYMMDD_HHMMSS.md`，主题不明确时用 `结果_YYYYMMDD_HHMMSS.md`。  
-- **文件名不重复 skill 名**：因为上层目录已经是 `skill-outputs/<技能名>/`，新产物不要再写 `workflow-forge-zh`、`research-coach-zh` 等前缀；只有迁移或识别旧产物时继续兼容旧规则。  
-- **平铺遗留**：`skill-outputs/YYYYMMDD_HHMMSS_project-dev-zh_xxx.md` 仍合法，策展脚本将其标为 `legacy-flat`，便于索引与后续「按文件名前缀」批量迁入对应 skill 子目录。
-
-**与其它技能的协同**
-
-- 各写入类技能的 `SKILL.md` 已默认改为 `skill-outputs/<技能名>/`；若遇旧版 Agent 仍写到根目录，策展按 **legacy-flat** 识别即可。**策展与本索引始终以实际路径为准**。
+历史平铺与技能桶仍能由 `skill_outputs_bucket` 识别，但这只是索引字段，不决定新存放位置。迁移前阅读内容、判定用途和现行版、检查引用，再执行获准范围内的精确移动；不能只按原 Skill 整桶归档。
 
 ## 快速流程
 
@@ -70,7 +53,7 @@ skill-outputs/
    - `classification_plan.csv`
    - `artifact_summary.md`
 4. 只把 `stale_action=archive_candidate` 的文件列为待归档候选。
-5. **仅对 `curate_artifacts.py` 的删除/移动建议**：默认需用户确认后再动手。根目录 **legacy → 按 skill 分桶** 请用下方「自动迁移脚本」单独执行，不在本步骤内自动移动。
+5. 未获准的删除/移动建议先确认范围；已授权的项目整理按精确内容映射执行。不要默认调用旧布局迁移工具。
 
 ## 验收后的收尾清理
 
@@ -83,16 +66,16 @@ skill-outputs/
 - 磁盘与内存分别收口：清理文件只报告实际删除及逻辑字节；内存靠关闭本任务内核、模型进程与临时浏览器释放，不能杀其他聊天或用户应用，也不能承诺删文件就释放RAM。
 - 用一份小清单记录删除理由、保留者/重建入口、SHA256、实际结果及仍不确定项；不要为清理再制造一套全量备份、多版ZIP或测试输出树。
 
-## 自动迁移脚本（根目录 legacy-flat → `skill-outputs/<技能名>/`）
+## 旧布局迁移工具（仅明确要求旧布局时）
 
-用途：把仍平铺在 `skill-outputs/` 根下的 `YYYYMMDD_HHMMSS_<技能名>-zh_…` **文件或整个文件夹**移入对应 `skill-outputs/<技能名>/`，与写入类技能默认路径一致。
+用途：把仍平铺在 `skill-outputs/` 根下的 `YYYYMMDD_HHMMSS_<技能名>-zh_…` **文件或整个文件夹**移入对应 `skill-outputs/<技能名>/`，仅供用户明确要求保留旧技能桶布局时兼容使用，不是新项目规范，也不能代替内容归位。
 
 规则摘要：
 
 - 只扫描 `skill-outputs/` **直接子项**；跳过 `_curation`、`_archive`、`_auto_migrate_manifest*`、已是 `*-zh` 技能桶的目录。
 - **不删除**；若目标路径已存在则跳过该条并记入 manifest。
 - 默认 **干跑**（只打印）；必须加 **`--apply`** 才执行 `shutil.move`。
-- 执行后生成 `skill-outputs/_auto_migrate_manifest_<时间戳>.csv`（`src,dest,status`）。
+- 清单默认复用已有 reports 或文档评审目录，写入其 `artifact-migration/`；`--output <目录>` 可明确指定项目位置（相对路径以项目根解析），文件名为 `_auto_migrate_manifest_<时间戳>.csv`。干跑不写清单。
 
 ```powershell
 # 干跑（默认）
@@ -188,17 +171,9 @@ python C:\Users\zbh\.agents\skills\ops\artifact-curator-zh\scripts\curate_artifa
 
 ## 输出位置
 
-脚本默认输出到：
+有既定项目评审目录时以 `--output` 传入；默认复用已有 `reports/artifact-curation/<timestamp>/`，否则使用已有文档根下的 `reviews/artifact-curation/<timestamp>/`，没有文档根时使用 `docs/`。多个文档根并存时明确传入目标，不默选。无论是否已有旧 skill-outputs，新盘点清单都不写回旧桶。
 
-```text
-<project-root>/skill-outputs/_curation/<timestamp>/
-```
-
-如果项目没有 `skill-outputs/`，输出到：
-
-```text
-<project-root>/_artifact_curation/<timestamp>/
-```
+默认扫描覆盖项目 docs、文档、reports、paper、materials、references、比赛资料及旧 skill-outputs；自定义职责目录用 `--dirs` 补充。跳过历次 artifact-curation 清单，避免自我索引。索引只盘点，不移动源文件。
 
 ## 使用边界
 

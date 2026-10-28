@@ -1,4 +1,4 @@
-﻿# Skills Registry
+# Skills Registry
 
 > Path: `~/.agents/skills/`
 > Layout: one type folder (e.g. `research-audit/`, `agent-skills-ao/`) then the skill dir; shared `references/` stays at repo root.
@@ -42,7 +42,7 @@
 | 9 | `project-dev-zh` | 281 | 项目理解与工程开发技能：覆盖代码阅读理解、逐行代码讲解、语法拆解、项目架构解析、后端链路分析、工程化开发规范 |
 | 10 | `project-handoff-zh` | 118 | 生成和更新中文项目接班与上下文入口文档，用于项目切换 AI、长期科研/工程项目丢失上下文、需要沉淀项目统一认知、AI接班手册、工作流细化、单文件记忆桥、三层记忆入口、总览索引、当前状态补丁、下一步优先级和文档更新规则时使用 |
 | 11 | `project-kickoff-delivery-zh` | 63 | 项目启动交付技能：用于外包、比赛、课程和工程项目从读题、调研、需求拆解、技术选型、团队分工、接口/数据库设计、启动命令到启动记忆入口的交付流程 |
-| 12 | `project-structure-architect` | 175 | 项目文件树架构与持续治理技能：识别 Web、前端、后端、Monorepo、微服务、科研、数据科学、机器学习、Python 库或 CLI 项目，选择并生成标准蓝图，记录目录职责，在新增页面、接口、模型、服务、包、研究步骤、实验、流水线、脚本、数据、产物或文档前给出唯一合理路径，并审计结构漂移 |
+| 12 | `project-structure-architect` | 189 | 项目与比赛目录规划和持续治理：在启动及新增文件前确定项目归属、目录职责和唯一存放路径，支持文档先行、比赛准备和各类工程蓝图。文档按业务用途归位，保留既有目录并审计结构漂移。用于新建项目、项目初始化、比赛文件夹、AI文档存放、文件路由和结构整理；不因生成文档就强制创建代码工程。 |
 | 13 | `web-design-workflow-zh` | 242 | 中文 Web Design 与 Vibe Coding 总控工作流：按新建网站、现有页面改版、图像先行和正式产品交付选择最少必要 skill，执行需求规格化、DESIGN.md、审美批判、纵向切片、工程实现、真实浏览器验收和上线门禁 |
 
 ### 计划约束与迭代守门
@@ -98,7 +98,7 @@
 | # | Skill | Lines | Description |
 |---|-------|-------|-------------|
 | 37 | `agent-wait-monitor-zh` | 85 | Agent 后台监控协议技能：用于长时间任务的后台启动、wait 轮询、进度文件监控、日志监控、卡死判定、自动续跑、失败重试、最终收口和无人值守实验托管 |
-| 38 | `artifact-curator-zh` | 194 | 产物归档整理与过时识别技能：扫描 skill-outputs（按 skill 子目录与 legacy-flat）、实验结果、日志等；可选脚本将根目录 legacy 一键迁入 skill 子目录 |
+| 38 | `artifact-curator-zh` | 182 | 产物归档与任务收尾清理：识别重复/过时产物，验收后按精确清单清理本轮临时文件和已核验副本，保留最终交付、复现依赖及关键证据。用于实验结束磁盘瘦身、版本过多、产物索引及 skill-outputs 迁移；不作全盘垃圾清理。 |
 
 ### 全局学习复盘
 
@@ -188,7 +188,7 @@
 
 ### 长任务与产物管理
 - **后台监控、agent wait、长任务、无人值守、watchdog、自动续跑、卡死恢复、进度轮询、MATLAB长任务、Python长任务、PowerShell后台任务、manifest、checkpoint、结果文件监控** -> `agent-wait-monitor-zh`
-- **skill-outputs 整理、自动按技能分文件夹、legacy 迁移、过时候选、artifact index** -> `artifact-curator-zh`
+- **项目产物整理、历史目录兼容、过时候选、artifact index** -> `artifact-curator-zh`
 
 ### 全局学习复盘
 - **总结知识点、学习总结、知识卡片、帮我学到东西、这次学到了什么、知识提炼。每次任务结束后自动触发（由全局指令驱动），也可在任意工作区手动调用** -> `knowledge-digest-zh`
@@ -225,7 +225,7 @@ All skills support:
 1. **Self-iteration mode** - give feedback after use to trigger optimization
 2. **YAML frontmatter** - standard name / description fields
 3. **Markdown deliverable** - substantial skill outputs must also be written to Markdown file(s) or a dedicated output folder in the current workspace; project-knowledge notes may explicitly target ``docs/knowledge/``
-4. **Skill-output naming** - new outputs go under ``skill-outputs/<skill-name>/`` and use Chinese topic names with the date/time suffix, for example ``阶段审计报告_YYYYMMDD_HHMMSS.md``; do not repeat the skill name in the file or folder name
+4. **Project document ownership** - place documents in their owning project or competition by purpose; reuse established docs/reports/paper conventions, never default to skill-output(s) or producing-skill buckets. Maintain stable topic names and a real reading index.
 5. **Line limit** - every SKILL.md < 500 lines
 
 ## Directory Structure
