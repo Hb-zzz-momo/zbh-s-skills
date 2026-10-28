@@ -1,4 +1,4 @@
 interface:
   display_name: "项目收尾与沉淀整理"
-  short_description: "项目结束后整理源码资料、图片、版本与复盘，核验后安全清理重复文件"
-  default_prompt: "使用 $project-closeout-zh 将已结束项目整理为沉淀目录，核对源码依赖、版本、资料、图片与复盘，并按授权处理验收通过的重复文件。"
+  short_description: "按真实内容和用途整理项目版本，让人看目录名就能找到成品、源稿和复盘"
+  default_prompt: "使用 $project-closeout-zh 读取项目材料，按业务主题、用途和内容版本实际归位，拆开混杂工具输出，分清成品与历史，再做完整性核验和独立盲找。"
