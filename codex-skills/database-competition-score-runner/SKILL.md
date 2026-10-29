@@ -61,3 +61,5 @@ Use this status vocabulary:
 ## Finish
 
 Report the verified score, maximum score, unverified candidates, blocked tracks, and the smallest next action for each gap. Preserve all raw evidence and state clearly when a result is not suitable for an official claim.
+
+<!-- OB-S:rtdiGh_FUQeyPW-yJzdSSQ -->
