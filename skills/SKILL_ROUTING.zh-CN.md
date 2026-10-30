@@ -48,9 +48,10 @@
 | 黑客松内容与手册 | 黑客松推文/参赛须知从零准备、跨城格式重组、官网多材料校对 | `hackathon-content-workflow-zh`；局改走轻量分支 |
 | 新媒体传播内容 | 微推、推文、公众号、海报、易拉宝、活动预告/回顾、结果公示 | `publicity-content-workflow-zh` |
 | 论文写作 | 期刊稿、案例论文、标题与逻辑重组、摘要、引言、方法、结果、讨论、结论 | `paper-writing-zh` |
+| 课程论文与研究提案 | 教师布置的论文、研究计划、定量proposal；区分拟研究与已完成研究 | `paper-writing-zh`，按需读取其课程论文与研究提案分支 |
 | 论文格式验收 | Word论文排版、期刊模板、通用期刊稿、字体字间距、三线表、图表题注、渲染与逐页复核 | `paper-format-fixer-zh` |
 | 翻译 | 英文学术/技术文本英译中 | `translation-zh` |
-| 课程考试 | 选择题、简答题、计算题、作业 | `exam-answer-zh` |
+| 课程考试 | 选择题、简答题、计算题、题目式作业（不含论文/研究提案） | `exam-answer-zh` |
 | 课程实验 | 实验排错、截图规划、实验报告 | 本实验专属skill优先；没有时先课程规则，再由 `course-lab-workflow-zh` / `lab-report-coach-zh` 补缺 |
 | 信息调研 | 查资料、证据链、来源核验 | `info-evidence-chain-zh` |
 | PPT 汇报 | 路演、课程汇报、答辩、生成或修改可编辑 PPTX、模板编辑、渲染验收 | `ppt-workflow-orchestrator-zh` |
@@ -213,6 +214,8 @@
 `paper-writing-zh`、`research-coach-zh`、`research-statistics-reporting-zh`
 
 默认执行方式：围绕研究问题与材料组织稿件；核对方法是否实际执行、数据口径与引用双向对应；区分事实、推理与建议。按研究类型组织，不把算法实验结构套用到案例研究；内容、格式和投稿贡献独立判断。决定性科研 claim 结合 `decisive-result-audit-zh`。
+
+课程论文与研究提案仍以 `paper-writing-zh` 为主，先核教师要求、原稿数据/方法和交付阶段；没有课程同名Skill不等于未分类。提案写拟设计及依据，已完成研究写真实方法与结果；方法路线变更须核已有授权，不能只因要求“定量”就改成问卷或复杂模型。
 
 ### 论文格式修正
 
