@@ -12,3 +12,10 @@ Validated 2026-10-21. This batch changes generic dispatch and evidence handoff, 
 - Publication gate: narrow path review, canonical/mirror equality, credential-pattern/content review, size/gitlink/embedded-repository checks, whitespace checks, reverse-patch check, preservation of unrelated work/index, and remote commit equality. No force push or file reset is authorized by this note.
 
 Evidence and original independent opinions remain in the local implementation audit bundle. No private cases, credentials, dependency runtimes, or temporary indices are published with this validation note. Format checks and this note do not guarantee all future agent behavior.
+
+## Configured experience recall — 2026-10-30
+
+- Version 2.0.1 adds a read-only recall step for substantive project work when the user has already configured and authorized a personal experience store. It reuses the existing local binding and reflection workflow; no private store location or cases are embedded in this public Skill.
+- The Skill format validator passed. A separate real agent started from isolated project directories, resolved the existing local binding, read the index and actual experience records, and selected applicable records for a constrained document edit and a client conversation. This proves the tested, invoked workflow can recall the configured store; it is not a test of all host sessions or long-term automatic behavior.
+- Missing/inaccessible stores, no matches, simple tasks, scope checks, current conditions, and read-versus-write authorization remain explicit. Public text and private configuration/cases are kept separate.
+- The private library's browse entrypoints and historical source-link repairs are recorded locally. Their content and paths are not part of this Skill publication. Remote synchronization status is reported from the actual Git result; local validation or a commit alone does not prove a push.
