@@ -1,0 +1,4 @@
+interface:
+  display_name: "非商用与比赛项目开源底座优先"
+  short_description: "先核实开源底座、许可证与比赛规则，再围绕用户需求增量定制开发"
+  default_prompt: "使用 $open-source-first-zh 为我的非商用或比赛软件评估可复用底座，并按需求完成差异化开发。"

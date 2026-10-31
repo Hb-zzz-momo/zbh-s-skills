@@ -40,6 +40,7 @@ metadata:
 
 | 任务 | 主线与条件细则 |
 |---|---|
+| 自用、非商用、课程或比赛软件的新建选型/底座替换 | `open-source-first-zh` 核实可复用底座与规则，随后回到工程或网站主流程；已有局部修复沿用原方案 |
 | 普通知识问答、数据库/后端常规开发排错 | `project-dev-zh`；代码变化按必要增量、测试与审查；复杂工程/架构/多方案改用 `engineering-skill-flow-zh` |
 | 课程实验、报告 | 本课程本实验专属Skill优先；无专属时课程规则＋`course-lab-workflow-zh`，带练可用 `lab-report-coach-zh`；教师模板、完整原步骤、身份、真实输出/截图、披露、渲染和必选独立评价均保留 |
 | Web新建/改版/视觉方向 | `web-design-workflow-zh`；局部UI交互/bug用 `frontend-ui-engineering`，必要真实浏览器验证 |
