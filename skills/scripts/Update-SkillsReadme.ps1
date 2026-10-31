@@ -106,6 +106,7 @@ $scenarioBySkill = @{
     'ppt-speaker-delivery-zh'   = 'presentation'
     'ppt-reference-library-zh'  = 'presentation'
     'pptx-ci-zh'                = 'presentation'
+    'open-source-first-zh'      = 'engineering'
     'engineering-skill-flow-zh'  = 'engineering'
     'web-design-workflow-zh'     = 'engineering'
     'project-dev-zh'             = 'engineering'

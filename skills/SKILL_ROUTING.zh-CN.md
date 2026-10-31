@@ -31,6 +31,7 @@
 | 领域 | 典型任务 | 首选 skill |
 |---|---|---|
 | 技术知识问答 | 技术概念、术语、ADR、设计决策、为什么这样设计、小白解释 | `project-dev-zh` |
+| 非商用/比赛软件选型 | 自用、非商用、课程或比赛软件优先评估同类开源底座，再按需求定制 | `open-source-first-zh`，选型后回到对应工程/网站流程 |
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
 | GitHub PR CI | GitHub Actions 检查失败、PR checks、Actions 日志定位与修复计划 | `github:gh-fix-ci` |
 | 项目结构 / 文件树 | 新建项目、目录蓝图、前后端或 apps/packages 边界、模块/步骤/实验/产物位置、结构重组与漂移审计 | `project-structure-architect` |
