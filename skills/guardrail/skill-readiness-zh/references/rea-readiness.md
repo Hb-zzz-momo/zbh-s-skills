@@ -20,7 +20,13 @@
 - profile 的运行时检查采用固定只读 `rea --version`、指定 provider 的 doctor、官方 `rea mcp doctor`；后者完成初始化、229 个工具目录与实际 binary_session 请求，验证自有新连接，不等于当前聊天已加载工具。
 - 自建、手工编码的 PE64 DLL（1536 字节）经实际 open_binary → analyze_function → export_evidence_bundle → close_binary 完成静态分析；伪代码恢复减法、最低值和暴击翻倍；8 个本地算术用例也符合参考。此为工具链自检，不是用户游戏的逆向成果。
 - 普通用户打包验证全套尚未执行；本次在当前管理员 token 下验证。Windows P0 平台/NTFS/不可变良性目标等限制保留。6.8.0 未广告 reset_investigation，未调用该工具，证据先导出再关闭自有连接。
-- 本机门禁结果保存在 `.agents/.local/skill-readiness/rea-windows-native-static.json`，profile 可 READY，full_skill_ready 必须 false；全技能其他能力仍待审阅/补齐。当前 Codex 聊天工具目录无 REA，需客户端重新加载后重新查活动会话，不用自有连接证据替代。
+- 首次本机门禁结果保存在 `.agents/.local/skill-readiness/rea-windows-native-static.json`，profile 可 READY，full_skill_ready 必须 false；全技能其他能力仍待审阅/补齐。首次验收时当前聊天未加载 REA，因此保留连接阻断，没有用自有连接证据替代。
+
+## 客户端重连后的最终验收
+
+2026-11-02 重连后，当前聊天实际调用 `mcp__rea__binary_session`，返回 client=`codex-mcp-client`、REA6.8.0、Ghidra12.1.4 available。先以独立任务清单核验 `codex-chat-native` 范围为 READY、full_skill_ready=false，再通过当前聊天的 MCP 入口完成样本打开、反编译、证据导出及关闭，均成功。
+
+本次完整记录在 `D:/CodexToolchains/rea/validation/codex-chat-20261102152540596/`：readiness-check.json、binary-session.json、四步响应和 native-evidence-bundle.json。目标仍为已核 SHA256 的自建良性 PE64 DLL；当前聊天连接阻断已消除，其他分支和版本限制保持。中央默认清单已由另一个任务用于 managed CLI，本次使用独立 manifest，没有覆盖其他任务状态。
 
 ### doctor 的一个易误读点
 

@@ -18,7 +18,7 @@
 | 执行前阻断 | 全局规则、路由及直接入口接入 check；非 READY 非零退出 | 独立直接调用 REA 返回 BLOCKED/exit2并停止；system和插件真实路径UNKNOWN/exit2 |
 | 过期不得沿用 | 每次重算材料指纹、重跑检查；会话证据校验时间和身份 | 内容变化、会话变化、过期快照测试 |
 | 未知不得冒充齐备 | 未审阅清单、未分类外链和未知依赖均阻断 | 未审阅、未知类型、外链未缓存测试 |
-| REA 回归 | 保留 Node、CLI、注册、活动工具和各引擎独立状态 | 修复前全量BLOCKED；修复后所选windows-native-static实时READY，full_skill_ready=false；当前聊天工具仍未加载 |
+| REA 回归 | 保留 Node、CLI、注册、活动工具和各引擎独立状态 | 修复前全量BLOCKED；独立连接所选范围READY；客户端重连后本聊天codex-chat-native检查与静态四步均通过，full_skill_ready=false |
 | 提交推送与独立评价 | 窄暂存、独立评审、核远端提交 | 机制复验、前向测试、独立功能验收完成；本文件不内嵌自身提交号，最终提交及远端核对证据见本轮交付和Git实际状态 |
 
 ## 五个致命痛点
@@ -63,4 +63,16 @@ Windows便携目录为 `D:/CodexToolchains/rea/`。Node24.22.1、Temurin21.0.13+
 
 独立功能验收者 `/root/windows_rea_toolchain` 从实际22字节机器码与反汇编独立推导规则，重算8用例一致，核对open/分析/导出bundle的目标SHA一致、导出记录与分析Evidence深度相等、close成功；未分析用户游戏。原始资料与完整证据在该便携目录 `evidence/` 和 `validation/`，不上传运行环境。
 
-仍有明确边界：本次并非32位溢出边界验证；当前管理员token功能通过不等于官方普通用户P0全套验收；正式包6.8.0与上游Skill59不全对齐，仅使用实际已广告工具；当前聊天工具目录仍无REA，客户端重载后需重新检查活动会话。该缺口不会被“自有MCP成功”消除。全库其余技能保持未审阅、过期或阻断等实际状态，不声称已经全部下载齐备。
+仍有明确边界：本次并非32位溢出边界验证；当前管理员token功能通过不等于官方普通用户P0全套验收；正式包6.8.0与上游Skill59不全对齐，仅使用实际已广告工具。首次验收未将自有MCP成功冒充当前聊天连接；重连后的该项验证见下一节。全库其余技能保持未审阅、过期或阻断等实际状态，不声称已经全部下载齐备。
+
+## 当前 Codex 聊天最终连接验收
+
+2026-11-02 客户端重连后，实际工具目录已出现 REA。当前聊天直接调用 binary_session，返回 `server_identity.client.name=codex-mcp-client`、客户端0.166.0-alpha.5.1、REA6.8.0、Ghidra12.1.4 available，且初始没有打开目标或待清理资源。
+
+在执行分析前，使用独立任务 manifest 重新检查实际 Skill59 包指纹、兼容Node/Java、安装包和运行文件、Windows控制插件、Ghidra桥接、离线资料、注册、当前会话工具与成功健康查询。`codex-chat-native` 范围 READY，full_skill_ready=false。当前包指纹与之前独立审阅的源材料相同；中央默认REA清单已被其他任务更新为 managed CLI，本次没有覆盖，而把当前验收放入独立目录。
+
+随后通过当前聊天的 mcp__rea 工具依次执行 open_binary、analyze_function、export_evidence_bundle、close_binary，全部无错误。仍是1536字节自建PE64 DLL，目标SHA256与前次一致；实际伪代码恢复减防御、最低1、再暴击翻倍，Evidence ID与前次内容寻址结果一致。导出1条记录、22069字节、unknowns=0，关闭响应成功。
+
+原始工具响应、会话证据、门禁清单及结果均在 `D:/CodexToolchains/rea/validation/codex-chat-20261102152540596/`。这次证据来自本聊天实际连接，消除了此前唯一的客户端重连阻断；该结论不扩展为所有技能或所有REA分支已就绪。后续调用仍须重查当前范围，不沿用本次快照当永久许可。
+
+独立验收者 `/root/final_chat_acceptance_review` 只读核验当前client身份、会话/健康记录的SHA256绑定与检查时效、目标四处SHA一致、指令/伪代码和8个用例、导出记录深度相等及关闭响应，结论 PASS（限本聊天所选原生静态范围）。保留版本对齐未知等既有边界，没有将当前连接通过提升为全技能通过。此次还观察到中央默认清单已被另一个项目合法更新，因此在协议中补充跨任务使用独立manifest的规则，避免用一个项目的状态覆盖另一个项目。
