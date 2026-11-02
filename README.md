@@ -1,5 +1,7 @@
 # Skills Registry
 
+> 当前技能入口与数量以 [skills/README.md](skills/README.md) 为准。所有来源的 Skill 在执行前遵循 [就绪检查](skills/guardrail/skill-readiness-zh/SKILL.md)；本机状态表由该技能生成到 `.local/skill-readiness/STATUS.md`，不随仓库上传。下方旧注册表保留兼容阅读。
+
 > Path: `~/.agents/skills/`
 > Layout: one type folder (e.g. `research-audit/`, `agent-skills-ao/`) then the skill dir; shared `references/` stays at repo root.
 > Updated: 2026-07-13

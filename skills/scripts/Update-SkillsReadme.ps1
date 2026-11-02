@@ -119,6 +119,7 @@ $scenarioBySkill = @{
     'research-skill-flow-zh'     = 'research-audit'
     'research-statistics-reporting-zh' = 'research-audit'
     'software-copyright-zh'      = 'presentation'
+    'skill-readiness-zh'         = 'guardrail'
     'skill-router-zh'            = 'guardrail'
     'subagent-orchestration-zh'  = 'guardrail'
     'testgen'                    = 'engineering'
@@ -238,6 +239,7 @@ $L = [System.Collections.ArrayList]::new()
 [void]$L.Add('## Skill Routing Protocol')
 [void]$L.Add('')
 [void]$L.Add('- For any "which skill should I use" or multi-skill orchestration task, start with ``skill-router-zh``.')
+[void]$L.Add('- Before executing any skill, including direct, system and plugin entrypoints, apply [skill-readiness-zh](guardrail/skill-readiness-zh/SKILL.md). Check current tools, compatible versions, materials and active connections; missing, unknown or stale evidence blocks execution. Inventory snapshots are not execution permits.')
 [void]$L.Add('- For course experiments, follow the matching experiment-specific skill first; global skills come second and fill only unspecified requirements. Without an experiment-specific skill, load course rules before the general lab workflow. Current user instructions take precedence; do not override prescribed steps, code, output, or format with general defaults.')
 [void]$L.Add('- Before claiming completion of execution or artifact work, inspect complete raw outputs and warnings; verify correctness, required visual review and final-package versions separately. Unreviewed diagnostics or missing required evidence block full completion. Read [verification and completion rules](course/course-lab-workflow-zh/references/verification-completion.md); a zero exit code or meta-skill tests alone do not establish acceptance.')
 [void]$L.Add('- Before any workflow initializes or restructures a project, or creates/moves applications, services, packages, modules, pages, APIs, research steps, experiments, pipelines, tests, documentation, or multi-file artifact trees, use ``project-structure-architect`` for detection, one justified path, and structural audit. Skip repeated routing only for pure content edits whose path is already uniquely fixed.')

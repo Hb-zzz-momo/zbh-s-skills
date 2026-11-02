@@ -1,0 +1,9 @@
+{
+  "upstream": "https://github.com/morluto/rea",
+  "commit": "2ac6d3efe2d1a37176da3bc811156b37abe51619",
+  "upstream_skill_version": "59",
+  "local_changes": [
+    "User-level readiness policy before execution"
+  ],
+  "pulled_on": "2026-11-02"
+}
