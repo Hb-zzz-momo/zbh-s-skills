@@ -1,14 +1,14 @@
 # 命名规范
 
-新项目采用本规范；现有项目若已有一致、清晰且无冲突的命名，则延续现有规范并在结构清单中记录差异。
+工程新项目采用下列生态命名；普通业务资料使用用户能理解的主题与角色中文名，不强制英文工程风格。现有一致、清晰且无冲突的命名继续沿用；已有结构清单时记录差异。
 
 ## 通用目录
 
 - 使用完整、可检索的职责名：优先 `frontend/`、`backend/`、`infrastructure/`，不要自行缩写为 `front/`、`back/`、`infra/`。若仓库已统一使用缩写则保留。
-- 普通目录使用小写 `kebab-case` 或生态固定形式；同一层不得混用 `snake_case` 与 `kebab-case`。
+- 工程目录使用小写 `kebab-case` 或生态固定形式；同一职责层不得无理由混用 `snake_case` 与 `kebab-case`。
 - Python 包和模块使用 `snake_case`；包名必须是合法导入名。
 - JavaScript/TypeScript 应用与包目录优先 `kebab-case`；React 组件文件遵循仓库既有的 `PascalCase.tsx` 或 `kebab-case.tsx`，不可混用。
-- 目录名表达职责或领域，不表达时间状态。禁止 `new/`、`old/`、`temp/`、`backup/`、`final/`。
+- 目录名表达职责或领域，不用 `new/`、`old/`、`temp/`、`backup/`、`final/` 代替实际用途。普通资料可用语义明确的“编辑稿/发布快照/历史版本/制作与核对记录”；既有工具原生目录及真正独立恢复备份按其职责保留，不擅自改名。
 - 跨平台名称禁止 Windows 保留名、`< > : " | ? *`、控制字符、尾随空格/点及路径穿越；所有目标解析后必须仍位于项目根内。
 
 ## 研究和实验
@@ -31,6 +31,9 @@
 只有在作用域清楚且目的写入局部规则时才允许 `common` 或 `utils`，例如 `src/features/search/utils/query-parser.ts`。根级或无所有者的 `common/`、`utils/`、`misc/`、`others/` 一律拒绝。
 
 ## 文件与配置
+
+- 普通资料编辑稿用稳定主题名；已确认快照与历史文件带可追溯版本标识，如 `活动介绍_2026-11-04_v1.0.pdf`。版本标识不是发布证据，不用“最终最终版”或 mtime 代替采用依据。
+- 并列用途以具体受众/场次/规格命名，见[文档版本与并列用途](document-versions.md)。不为单文件制造全套角色目录或版本表；完整路径预检包含根目录，长度提示不等于 WPS 可打开或云端已同步。
 
 - 使用生态标准清单名，如 `package.json`、`pyproject.toml`、`compose.yaml`；不要创建同义副本。
 - 本 Skill 的结构清单固定为 `.project-structure.yaml`，其内容为 JSON 兼容 YAML，便于零依赖解析。

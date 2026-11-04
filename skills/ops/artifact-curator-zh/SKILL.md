@@ -1,11 +1,15 @@
 ---
 name: artifact-curator-zh
-description: "产物归档与任务收尾清理：识别重复/过时产物，验收后按精确清单清理本轮临时文件和已核验副本，保留最终交付、复现依赖及关键证据。用于实验结束磁盘瘦身、版本过多、产物索引及 skill-outputs 迁移；不作全盘垃圾清理。"
+description: "按主题盘点文件及版本角色，保护编辑稿、发布快照、历史版本、并列用途与独立恢复备份；验收后按精确清单清理本轮临时文件和已核验副本。用于文件盘点、版本过多和实验收尾；不作全盘垃圾清理。"
+metadata:
+  version: "1.2.0"
 ---
 
 # 产物归档整理
 
 若用户要在整个项目或活动结束后整理沉淀，以用户技能 `project-closeout-zh` 为主线，按真实业务主题、用途和内容版本实际归位；不能整桶搬outputs/skill-outputs后只写导航。本技能只补盘点、重复候选和验收后的受限清理；扫描完整不等于内容好找。
+
+新文件遵从[主题与版本角色](../../engineering/project-structure-architect/references/document-versions.md)：主题下按编辑稿、发布快照、历史版本、并列用途实际归位，制作记录也归所属主题；不创建按 Skill 名组织的输出桶。已有工程/科研管线保留依赖路径。
 <!-- project-structure-architect:gate:v1:start -->
 ## Project structure gate / 文件树结构门禁
 
@@ -28,25 +32,27 @@ description: "产物归档与任务收尾清理：识别重复/过时产物，�
 - 所有新文档按项目和用途归位；`skill-outputs/` 仅作历史扫描输入，不再推荐按 Skill 分桶。
 - **物理移动**仍需谨慎：移动或改名前应用全文搜索检查是否被 `AGENTS.md`、接班文档、`~/.agents/.instructions.md`、其它 `skill-outputs`、或聊天外链引用；**既有平铺旧文件**可保留为 `legacy-flat`，渐进迁移即可，不要求一次性大搬家。
 
-## 项目用途目录与历史兼容
+## 主题目录与日常维护
 
-新文档依 `project-structure-architect` 的[用途路由](../../engineering/project-structure-architect/references/document-routing.md)进入所属项目。盘点报告写入项目评审/报告目录；已有中文目录或契约映射时通过 `--output` 指定，不创建同义目录。
+已有主题直接存放，不为每次保存跑完整盘点。需检查时用 `--dirs <新增或变化的主题>` 限定范围，用 `--output` 把清单放到该主题的制作与核对记录；迁移、删除仍核验完整受影响集合及引用。
 
 ```text
 <project>/
-  docs/guides/             # 入门和操作说明
-  docs/research/           # 资料调研
-  docs/plans/              # 当前计划
-  docs/reviews/            # 盘点、审计与验收；已有 reports/ 时可复用
-  比赛资料/               # 已有官方材料目录，保留原件
+  活动宣传/编辑稿/         # 持续修改的当前文件
+  活动宣传/发布快照/       # 已确认交付或发布的固定版本
+  活动宣传/历史版本/       # 已被替代且有保留价值的版本
+  活动宣传/制作与核对记录/ # 本主题制作和检查依据
+  主持稿/并列用途/上午场/  # 不同用途分别管理角色和版本
 ```
 
 历史平铺与技能桶仍能由 `skill_outputs_bucket` 识别，但这只是索引字段，不决定新存放位置。迁移前阅读内容、判定用途和现行版、检查引用，再执行获准范围内的精确移动；不能只按原 Skill 整桶归档。
 
+示意路径不是空模板，有实际文件才建对应分类。PDF发布稿与Word编辑稿角色不同，可以并存；目录声明本身不证明文件真的发布或被采用。
+
 ## 快速流程
 
 1. 确认项目根目录，优先使用当前工作区根。
-2. 运行 `scripts/curate_artifacts.py` 生成只读清单（输出含 `skill_outputs_bucket` 列，区分 `legacy-flat` 与各 skill 子目录）。
+2. 按本次主题运行 `scripts/curate_artifacts.py`，查看 `version_role` 和 `parallel_use`；`skill_outputs_bucket` 仅兼容旧材料。
 3. 阅读输出目录里的四类文件：
    - `artifact_inventory.csv`
    - `stale_candidates.csv`
@@ -60,6 +66,7 @@ description: "产物归档与任务收尾清理：识别重复/过时产物，�
 用户已要求把实验结束清理纳入工作流时，执行[最小留存与清理](references/experiment-closeout.md)。只读扫描候选不是删除授权；本轮已获准的、能证明无用的临时文件和重复副本无需逐项再问，判断不明的保留并说明。不从“旧版本”“失败”“没有被全文搜索命中”推断可删。
 
 - 开始时记录本任务创建的临时目录和子进程；数据、共享模型和源码保持单一权威来源，不为每轮评审复制完整目录。
+- 独立恢复备份排除普通去重；同字节不等于用途重复。任意命名的项目内恢复位置列入计划 `backup_roots` 或 `protected`。执行器拒绝这些位置及 `独立备份/恢复备份/backup/backups` 目录内文件的普通清理；备份轮换另核授权，不改名绕过。当前快照、唯一历史证据与原始数据仍列保留集合。
 - 结束时先冻结最终交付与复现/证据保留集合，确认实际验收完成、没有运行中的消费者，再生成精确文件清单。
 - 用 `scripts/closeout_artifacts.py --plan <plan.json>` 只读预检；同一已授权范围用 `--apply --journal <cleanup.jsonl>` 执行。任一候选不安全时预检整体拒绝；不直接把 `stale_candidates.csv` 喂给删除命令。
 - 执行器只逐文件删除当前任务拥有范围内、指纹未变的重建缓存/视图或与保留者逐字节一致的副本；不递归删除目录，不清全局环境/共享缓存，不调用云端清理API。云盘同步目录中的本地删除可能同步到云端，须按实际项目留存范围处理；不能把它说成只释放本机缓存。计划、验收记录、保留者和审计日志受保护。
@@ -118,6 +125,8 @@ python C:\Users\zbh\.agents\skills\ops\artifact-curator-zh\scripts\curate_artifa
 - `stale-superseded-candidate`：同主题已有更新版本，旧文件大概率只作参考。
 - `temporary-or-log`：临时日志、stderr、ping、watchdog 输出。
 - `unknown-review`：无法可靠判断，需要人工看标题或内容。
+- `versioned-document`：按目录声明为编辑稿、发布快照、历史版本或并列用途的文件，保留原位，不按修改时间猜现行版。
+- `recovery-backup`：恢复副本，保留恢复功能，不进入普通重复候选清理。
 
 ## 过时判断规则
 
@@ -143,6 +152,7 @@ python C:\Users\zbh\.agents\skills\ops\artifact-curator-zh\scripts\curate_artifa
 
 - 每行一个文件。
 - 包含路径、大小、修改时间、扩展名、step、版本号、主题 key、`skill_outputs_bucket`（`legacy-flat`、各 skill 子目录名、或 `_curation` / `_archive`）。
+- `version_role`、`parallel_use` 显示目录声明的角色和用途，不代表发布事实或替代关系已核实。
 
 `classification_plan.csv` 是分类结果：
 
@@ -174,6 +184,8 @@ python C:\Users\zbh\.agents\skills\ops\artifact-curator-zh\scripts\curate_artifa
 有既定项目评审目录时以 `--output` 传入；默认复用已有 `reports/artifact-curation/<timestamp>/`，否则使用已有文档根下的 `reviews/artifact-curation/<timestamp>/`，没有文档根时使用 `docs/`。多个文档根并存时明确传入目标，不默选。无论是否已有旧 skill-outputs，新盘点清单都不写回旧桶。
 
 默认扫描覆盖项目 docs、文档、reports、paper、materials、references、比赛资料及旧 skill-outputs；自定义职责目录用 `--dirs` 补充。跳过历次 artifact-curation 清单，避免自我索引。索引只盘点，不移动源文件。
+
+默认另识别根下含角色目录或“并列用途”的主题及已有“项目沉淀”。这不是任意深度全项目扫描；深层约定用 `--dirs` 明确传入，报告只对实际扫描范围负责。完整路径、实际应用打开、项目云同步、备份恢复分别验证，不把清单生成成功说成全部通过。
 
 ## 使用边界
 

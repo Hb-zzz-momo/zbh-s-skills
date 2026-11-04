@@ -36,7 +36,7 @@
 | 技术知识问答 | 技术概念、术语、ADR、设计决策、为什么这样设计、小白解释 | `project-dev-zh` |
 | 工程开发 | 读代码、改代码、接口、调试、测试、review | `project-dev-zh`, `engineering-skill-flow-zh`, `agent-skills-ao/*` |
 | GitHub PR CI | GitHub Actions 检查失败、PR checks、Actions 日志定位与修复计划 | `github:gh-fix-ci` |
-| 项目结构 / 文件树 | 新建项目、目录蓝图、前后端或 apps/packages 边界、模块/步骤/实验/产物位置、结构重组与漂移审计 | `project-structure-architect` |
+| 项目结构 / 文件树 | 新建项目、主题目录、编辑稿/发布快照/历史版本/并列用途、文件位置、工程边界、结构重组与漂移审计 | `project-structure-architect` |
 | 工具使用建议 | VS Code 插件、Codex 插件、语言包/依赖、Codex MCP、工具选型和安装边界 | `skill-router-zh`, `context-engineering`, `source-driven-development` |
 | Web 设计 / Vibe Coding / 页面改版 | 网站、Landing Page、Portfolio、产品页、image-to-code、页面高级感、页面太丑、生成 DESIGN.md | `web-design-workflow-zh` |
 | 参考驱动设计 | Web/PPT/Dashboard/科研图/架构图/Coding Prompt 或 Agent 指令需要动态外部案例、行业标杆与设计转译 | `contextual-reference-router`（领域工作流的阶段性辅助） |
@@ -61,7 +61,7 @@
 | 软著 | 真实项目准备度、申请字段、用户手册、真实截图、源码鉴别材料、已有材料审计与提交前校验 | `software-copyright-zh` |
 | 长任务 | 后台任务、轮询、卡死恢复、manifest | `agent-wait-monitor-zh` |
 | 项目/活动结束沉淀 | 按真实业务内容和用途整理成品/源稿/历史，裁定版本差异，可恢复迁移与独立盲找；不能只换outputs位置 | `project-closeout-zh`（用户技能） |
-| 产物整理 | skill-outputs、日志、旧产物盘点与受限清理；整个项目结束整理转上行 | `artifact-curator-zh` |
+| 产物整理 | 按主题盘点版本角色、保护独立恢复备份、日志与旧产物受限清理；旧 skill-outputs 仅兼容读取，整个项目结束整理转上行 | `artifact-curator-zh` |
 | 工作流沉淀 | SOP、流程优化、新 skill 工作流 | `workflow-forge-zh` |
 | 学习复盘 | 任务结束后总结知识点 | `knowledge-digest-zh` |
 

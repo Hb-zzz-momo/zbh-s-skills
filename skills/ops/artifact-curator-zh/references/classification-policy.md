@@ -4,6 +4,10 @@
 
 新文档遵从[项目文档路由](../../../engineering/project-structure-architect/references/document-routing.md)。项目根、真实主题和用途决定位置；作者是 AI 或调用了某个 Skill 都不产生独立桶。持续维护文档用稳定主题名；事件报告与冻结版本按日期或版本留存。
 
+物理分类遵从[主题与版本角色](../../../engineering/project-structure-architect/references/document-versions.md)。先看主题、并列用途和编辑稿/发布快照/历史版本角色，再看格式和版本标识。`version_role`、`parallel_use` 是目录声明；发布、验收和替代关系须核实原件。不得跨用途或角色凭修改时间互相替代。
+
+上述版本角色与并列用途不因年龄、日志后缀或同字节而进入自动旧文件候选。独立恢复副本另标 `recovery-backup` 并保留；备份轮换另按授权和留存策略处理。
+
 新盘点清单进入项目评审/报告目录，默认 `docs/reviews/artifact-curation/<timestamp>/`；已有 `reports/` 时复用其下的 artifact-curation。用 `--output` 传入项目特有位置。
 
 旧 `skill-outputs/` 的 legacy-flat 和技能桶仍用于历史分类；不把历史兼容规则当作新目录建议。旧桶迁移先按实际内容与现行版建立映射，确认引用，不用整个 Skill 桶代替业务归类。

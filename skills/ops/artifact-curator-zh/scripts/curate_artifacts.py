@@ -26,6 +26,8 @@ SKILL_PREFIX_RE = re.compile(
 LEGACY_FLAT_FIRST = re.compile(r"^\d{8}_\d{6}_")
 DATE_PREFIX_RE = re.compile(r"^\d{8}_\d{6}_")
 DATE_SUFFIX_RE = re.compile(r"[_-]\d{8}_\d{6}$")
+VERSION_ROLE_FOLDERS = {"编辑稿", "发布快照", "历史版本", "制作与核对记录"}
+RECOVERY_BACKUP_FOLDERS = {"独立备份", "恢复备份", "backup", "backups"}
 
 
 def parse_args() -> argparse.Namespace:
@@ -72,11 +74,19 @@ def default_scan_dirs(root: Path, include_logs: bool, include_data_step: bool) -
         root / "materials",
         root / "references",
         root / "比赛资料",
+        root / "项目沉淀",
         root / "skill-outputs",
         root / "资料" / "exp_start" / "steps",
         root / "资料" / "exp_start" / "results",
         root / "资料" / "exp_start" / "Tracing",
     ]
+    # Discover the topic-first layout without traversing every code/data tree.
+    for child in root.iterdir():
+        if child.is_dir() and not child.is_symlink() and (
+            child.name in VERSION_ROLE_FOLDERS | {"并列用途"}
+            or any((child / marker).is_dir() for marker in VERSION_ROLE_FOLDERS | {"并列用途"})
+        ):
+            candidates.append(child)
     if include_data_step:
         platemo = root / "PlatEMO-master" / "PlatEMO"
         if platemo.exists():
@@ -114,7 +124,8 @@ def read_head(path: Path, max_bytes: int) -> str:
     if path.suffix.lower() not in TEXT_EXTS:
         return ""
     try:
-        data = path.read_bytes()[:max_bytes]
+        with path.open("rb") as stream:
+            data = stream.read(max_bytes)
         return data.decode("utf-8", errors="ignore").lower()
     except OSError:
         return ""
@@ -126,12 +137,26 @@ def detect_step(text: str) -> str:
 
 
 def detect_version(text: str) -> str:
-    patterns = [r"\bG(\d+)\b", r"\bv(\d+[a-z]?)\b", r"\bround\s*([A-Za-z0-9]+)\b"]
+    patterns = [r"\bG(\d+)\b", r"(?<![A-Za-z0-9])v\d+(?:\.\d+)*(?:[_-]\d+)?(?![A-Za-z0-9])", r"\bround\s*([A-Za-z0-9]+)\b"]
     for pattern in patterns:
         match = re.search(pattern, text, flags=re.IGNORECASE)
         if match:
             return match.group(0)
     return ""
+
+
+def version_context(relative: str) -> dict[str, str]:
+    """Read declared folder roles, never infer approval or supersession from time."""
+    parts = relative.replace("\\", "/").split("/")[:-1]
+    role, parallel_use = "", ""
+    for index, part in enumerate(parts):
+        if part.casefold() in RECOVERY_BACKUP_FOLDERS:
+            return {"version_role": "独立备份", "parallel_use": ""}
+        if part in VERSION_ROLE_FOLDERS:
+            role = part
+        if part == "并列用途" and index + 1 < len(parts):
+            parallel_use = parts[index + 1]
+    return {"version_role": role, "parallel_use": parallel_use}
 
 
 def topic_key(path: Path) -> str:
@@ -252,8 +277,17 @@ def classify(records: list[dict], stale_days: int) -> None:
         latest = latest_by_topic[record["topic_key"]]
         name = record["name"].lower()
         head = record.get("text_head", "")
+        role = record.get("version_role", "")
 
-        if record["referenced"]:
+        if role == "独立备份":
+            curation_class = "recovery-backup"
+            action = "keep_recovery_copy"
+            reasons.append("independent_recovery_copy_requires_separate_retention_decision")
+        elif role in {"编辑稿", "发布快照", "历史版本"} or record.get("parallel_use"):
+            curation_class = "versioned-document"
+            action = "keep_in_place"
+            reasons.append("preserve_declared_role_and_use; folder_name_is_not_approval_evidence")
+        elif record["referenced"]:
             curation_class = "active-reference"
             action = "keep"
             reasons.append("referenced_by_key_docs")
@@ -361,7 +395,8 @@ def main() -> int:
         except OSError:
             continue
         rel = relpath(path, root)
-        head = read_head(path, args.max_text_bytes)
+        context = version_context(rel)
+        head = "" if context["version_role"] == "独立备份" else read_head(path, args.max_text_bytes)
         record = {
             "path": rel,
             "name": path.name,
@@ -377,6 +412,7 @@ def main() -> int:
             "topic_key": delivery_topic_key(path, rel),
             "referenced": is_referenced(rel, path, ref_text),
             "text_head": head,
+            **context,
         }
         records.append(record)
 
@@ -396,6 +432,8 @@ def main() -> int:
         "mtime",
         "step",
         "version",
+        "version_role",
+        "parallel_use",
         "skill_outputs_bucket",
         "topic_key",
         "referenced",

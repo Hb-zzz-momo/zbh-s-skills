@@ -4,9 +4,11 @@
 
 ## 计划
 
-执行器只验证和执行显式路径映射，不理解业务内容。先按SKILL正文完成内容/用途/版本裁定，moves才能落盘；不能把扫描到的outputs或skill-outputs整桶移动，当作已经做完内容整理。真正的工程、运行包与资产依赖单元仍保原生结构。
+执行器只验证和执行显式路径映射，不理解业务内容。先按SKILL正文与已安装 `project-structure-architect/references/document-versions.md` 完成主题、用途、角色和当前入口裁定，moves才能落盘；不能把扫描到的outputs或skill-outputs整桶移动，当作已经做完内容整理。真正的工程、运行包与资产依赖单元仍保原生结构。
 
-扫描清单放在项目外临时位置，避免把自己扫描进去；准备好后可复制这一份小清单到归档记录。不要复制完整项目作备份。
+本节用于迁移/删除，须核全部受影响集合与引用。日常新增或编辑只核所属主题、同用途当前入口、目标碰撞和受影响导航；不强制每次扫描整个项目或新建版本表，已有契约及领域验证仍有效。
+
+扫描清单放在项目外临时位置，避免把自己扫描进去；准备好后可复制这一份小清单到归档记录。单主题制作记录归主题，跨主题迁移账本可用项目既有 `99_归档记录`。不要复制完整项目作备份；独立恢复备份不进入工作目录自动去重，轮换另按真实授权。
 
 ```text
 python <skill>/scripts/archive_project.py scan --root <原项目> --out <临时位置>/inventory.json
@@ -22,13 +24,15 @@ python <skill>/scripts/archive_project.py scan --root <原项目> --out <临时�
   "inventory": "D:/example/project/项目沉淀/99_归档记录/inventory.json",
   "inventory_sha256": "真实清单文件的64位SHA256",
   "moves": [
-    {"source": "game-project", "destination": "02_源码与工程/game-project"},
-    {"source": "photos", "destination": "04_图片与设计/photos"}
+    {"source": "game-project", "destination": "参赛项目与试玩/game-project"},
+    {"source": "photos", "destination": "活动照片与复盘/活动照片"}
   ]
 }
 ```
 
 source 相对 root；destination 相对归档根。目录整件移动；选择目录后不能再选择其子项。同名目标不覆盖，不以添加(2)静默解决。扫描失败或重解析路径先补证，不强行搬。
+
+计划还须人工/独立预检完整目标路径（含根目录）、Windows UTF-16 长度和真实打开入口；`>=240` 仅作保守提示，不是 WPS 官方限制。执行器内部长路径IO可用不等于 WPS 能打开，更不等于云同步完成；两者按实际需要分别验证和报告。发布快照与历史目标都不能覆盖；快照更正另留版本，保留原交付事实与替代关系。
 
 ## 执行
 

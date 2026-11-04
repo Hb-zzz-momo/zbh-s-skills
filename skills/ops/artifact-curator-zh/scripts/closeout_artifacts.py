@@ -17,6 +17,7 @@ import stat
 
 TEMPORARY_SUFFIXES = frozenset({".pyc", ".pyo", ".tmp", ".part", ".png", ".jpg", ".jpeg", ".svg", ".pdf"})
 PASS_STATUSES = {"PASS", "PASS_WITH_NONBLOCKING_CAUTIONS"}
+RECOVERY_BACKUP_FOLDERS = frozenset({"独立备份", "恢复备份", "backup", "backups"})
 
 
 def require(condition, message):
@@ -135,6 +136,8 @@ def check_context(context):
 def check_item(context, item):
     path = item["absolute_path"]
     require(any(path.is_relative_to(owned) for owned in context["owned"]), "candidate is not task-owned")
+    require(not any(part.casefold() in RECOVERY_BACKUP_FOLDERS for part in path.parts[:-1]),
+            "recovery backups are outside ordinary duplicate cleanup; use a separately authorized retention workflow")
     for protected in context["protected"] + context["keepers"]:
         require(path != protected and not path.is_relative_to(protected), "candidate is protected: " + str(path))
     require(fingerprint(path) == item["fingerprint"], "candidate fingerprint changed: " + str(path))
@@ -160,6 +163,9 @@ def preflight(plan_path, journal_path, apply):
     require(isinstance(protected_values, list) and bool(protected_values), "protected must be nonempty")
     owned = [relative_path(root, value) for value in owned_values]
     protected = [relative_path(root, value) for value in protected_values]
+    backup_values = plan.get("backup_roots", [])
+    require(isinstance(backup_values, list), "backup_roots must be a list of protected recovery locations")
+    protected.extend(relative_path(root, value) for value in backup_values)
     validation = plan.get("validation")
     require(isinstance(validation, dict), "validation record required")
     validation_path = relative_path(root, validation.get("path"))

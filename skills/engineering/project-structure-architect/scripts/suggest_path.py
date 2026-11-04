@@ -6,7 +6,7 @@ import argparse
 import json
 from typing import Sequence
 
-from structure_core import DOCUMENT_KINDS, configure_utf8_stdio, error_payload, status_exit_code, suggest_path
+from structure_core import DOCUMENT_KINDS, DOCUMENT_ROLES, configure_utf8_stdio, error_payload, status_exit_code, suggest_path
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -18,6 +18,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--name", required=True, help="File, directory, or research-step name.")
     parser.add_argument("--owner", help="Feature, domain, package, or test owner.")
     parser.add_argument("--document-kind", choices=tuple(DOCUMENT_KINDS), help="Reader purpose for documentation artifacts.")
+    parser.add_argument("--topic", help="Explicit project-relative business topic; does not create a folder.")
+    parser.add_argument("--document-role", choices=tuple(DOCUMENT_ROLES), help="Draft, frozen snapshot, history or production record; defaults to draft with --topic.")
+    parser.add_argument("--variant", help="A concrete parallel use, such as morning session; never a newer/older version.")
+    parser.add_argument("--revision", help="Required snapshot/history revision, for example 2026-11-04_v1.0.")
     parser.add_argument(
         "--application",
         help="Owning app name under apps/ when a monorepo has multiple candidates.",
@@ -40,6 +44,10 @@ def main(argv: Sequence[str] | None = None) -> int:
             sequence=args.sequence,
             application=args.application,
             document_kind=args.document_kind,
+            topic=args.topic,
+            document_role=args.document_role,
+            variant=args.variant,
+            revision=args.revision,
         )
     except Exception as exc:
         payload = error_payload(exc)

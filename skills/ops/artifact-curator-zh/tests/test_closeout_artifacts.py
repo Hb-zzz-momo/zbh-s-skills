@@ -78,6 +78,29 @@ class CloseoutTests(unittest.TestCase):
         self.assertTrue((self.root / "owned/cache.tmp").exists())
         self.assertFalse(self.journal.exists())
 
+    def test_independent_backup_is_not_deleted_as_a_byte_identical_duplicate(self):
+        self.write("owned/独立备份/model.pt", b"weights")
+        self.plan["items"] = [self.item("owned/独立备份/model.pt", "duplicate", keeper="protected/model.pt")]
+        self.assert_rejected()
+
+    def test_explicit_recovery_root_is_protected_even_with_an_arbitrary_name(self):
+        self.write("owned/recovery-store/model.pt", b"weights")
+        self.plan["backup_roots"] = ["owned/recovery-store"]
+        self.plan["items"] = [self.item("owned/recovery-store/model.pt", "duplicate", keeper="protected/model.pt")]
+        self.assert_rejected()
+
+    def test_recovery_protection_cannot_be_bypassed_by_changing_task_root(self):
+        self.write("独立备份/owned/model.pt", b"weights")
+        self.write("独立备份/protected/model.pt", b"weights")
+        self.write("独立备份/validation.json", b'{"status":"PASS"}')
+        self.root = self.root / "独立备份"
+        self.plan_path = self.root / "plan.json"
+        self.journal = self.root / "cleanup.jsonl"
+        self.plan["root"] = str(self.root)
+        self.plan["validation"]["sha256"] = self.digest("validation.json")
+        self.plan["items"] = [self.item("owned/model.pt", "duplicate", keeper="protected/model.pt")]
+        self.assert_rejected()
+
     def test_apply_deletes_only_exact_candidates_and_durable_journal(self):
         self.plan["items"].append(self.item("owned/model.pt", "duplicate", keeper="protected/model.pt"))
         result, out = self.run_cli(apply=True)

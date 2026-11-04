@@ -46,6 +46,12 @@ DOCUMENT_KINDS = {
     "handoff": "handoff",
 }
 LEGACY_OUTPUT_NAMES = {"skill-output", "skill-outputs"}
+DOCUMENT_ROLES = {
+    "draft": "编辑稿",
+    "snapshot": "发布快照",
+    "history": "历史版本",
+    "records": "制作与核对记录",
+}
 
 STATUS_EXIT_CODES = {"PASS": 0, "CAUTION": 1, "BLOCK": 2, "ERROR": 3}
 SOURCE_SUFFIXES = {
@@ -767,11 +773,13 @@ def _validate_relative_path(value: str, label: str = "path") -> str:
 
 
 def _validate_file_name(name: str) -> str:
+    if not isinstance(name, str) or name in {"", ".", ".."} or "/" in name or "\\" in name:
+        raise StructureError(f"Invalid file name: {name}", "UNSAFE_FILE_NAME")
     try:
         normalized = _validate_relative_path(name, "file name")
     except StructureError as exc:
         raise StructureError(f"Invalid file name: {name}", "UNSAFE_FILE_NAME") from exc
-    if "/" in normalized:
+    if normalized == "." or "/" in normalized:
         raise StructureError(f"Invalid file name: {name}", "UNSAFE_FILE_NAME")
     return normalized
 
@@ -1558,6 +1566,10 @@ def suggest_path(
     sequence: int | None = None,
     application: str | None = None,
     document_kind: str | None = None,
+    topic: str | None = None,
+    document_role: str | None = None,
+    variant: str | None = None,
+    revision: str | None = None,
 ) -> dict[str, Any]:
     """Return one responsibility-based path; never create it."""
 
@@ -1619,7 +1631,23 @@ def suggest_path(
                 rule_id = "UNDECLARED_TARGET_BOUNDARY"
         existing_equivalent_directories: list[str] = []
         inferred_owner = owner_slug
+        path_checks: dict[str, Any] = {}
         if path:
+            target = _safe_join(project_root, path)
+            path_units = len(str(target).encode("utf-16-le")) // 2
+            path_checks = {
+                "full_path_utf16_units": path_units,
+                "warning_threshold_utf16_units": 240,
+                "application_open_verified": False,
+                "cloud_sync_verified": False,
+                "warnings": [],
+            }
+            if path_units >= 240:
+                path_checks["warnings"].append("Conservative path warning, not a WPS limit; shorten the path and verify in the actual application.")
+                if status == "PASS":
+                    status = "CAUTION"
+                    rule_id = "FULL_PATH_REQUIRES_APPLICATION_CHECK"
+                    reason += " The full path reaches the conservative 240 UTF-16-unit warning threshold."
             pure_path = PurePosixPath(path)
             if inferred_owner is None and pure_path.parts:
                 owner_parts = pure_path.parts[:2] if pure_path.parts[0] in {"data", "outputs"} else pure_path.parts[:1]
@@ -1647,6 +1675,10 @@ def suggest_path(
                 "scope": scope,
                 "application": application,
                 "document_kind": document_kind,
+                "topic": topic,
+                "document_role": document_role,
+                "variant": variant,
+                "revision": revision,
             },
             "outputs": ([path] if path else []) + companion_paths,
             "alternatives": list(alternatives),
@@ -1654,6 +1686,7 @@ def suggest_path(
             "rule_id": rule_id,
             "companion_paths": companion_paths,
             "needs_confirmation": status != "PASS",
+            "path_checks": path_checks,
         }
 
     if route_manifest_error is not None:
@@ -1664,6 +1697,11 @@ def suggest_path(
             reason=str(route_manifest_error),
             rule_id=route_manifest_error.code,
         )
+
+    if any(value is not None for value in (topic, document_role, variant, revision)) and artifact_key not in {"doc", "documentation"}:
+        return routed(status="BLOCK", path=None, responsibility="Keep version roles within document routing.",
+                      reason="Topic, role, variant and revision require a documentation artifact.",
+                      rule_id="DOCUMENT_ROLE_REQUIRES_DOCUMENT")
 
     if artifact_key == "directory":
         directory_name = _validate_file_name(name)
@@ -1916,6 +1954,62 @@ def suggest_path(
         responsibility = "Experiment-specific configuration or record."
         reason = "Experiment-specific configuration and records stay under experiments/."
     elif artifact_key in {"documentation", "doc"}:
+        if any(value is not None for value in (topic, document_role, variant, revision)):
+            role = document_role or "draft"
+            if not topic or role not in DOCUMENT_ROLES:
+                return routed(status="BLOCK", path=None, responsibility="Resolve the topic and document role.",
+                              reason="An explicit project-relative topic and supported role are required.",
+                              rule_id="DOCUMENT_TOPIC_OR_ROLE_REQUIRED")
+            if role in {"snapshot", "history"} and not revision:
+                return routed(status="BLOCK", path=None, responsibility="Identify the frozen version.",
+                              reason="Snapshots and historical files require an explicit revision; publication is not inferred.",
+                              rule_id="DOCUMENT_REVISION_REQUIRED")
+            if revision and role in {"draft", "records"}:
+                return routed(status="BLOCK", path=None, responsibility="Keep the maintained document's stable name.",
+                              reason="Revision suffixes are for snapshots or history, not a second maintained draft.",
+                              rule_id="DOCUMENT_REVISION_ROLE_CONFLICT")
+            try:
+                if any(part in {"", ".", ".."} for part in topic.replace("\\", "/").split("/")):
+                    raise StructureError("A topic must be a concrete directory, not a root alias or dot path.", "INVALID_DOCUMENT_TOPIC")
+                topic_path = _validate_relative_path(topic, "document topic")
+                if any(part.casefold() in LEGACY_OUTPUT_NAMES for part in PurePosixPath(topic_path).parts):
+                    raise StructureError("A document topic cannot contain a skill-output bucket.", "SKILL_OUTPUT_BUCKET_FORBIDDEN")
+                reserved_dimensions = set(DOCUMENT_ROLES.values()) | {"并列用途"}
+                if any(part in reserved_dimensions for part in PurePosixPath(topic_path).parts):
+                    raise StructureError("A topic cannot include a role or parallel-use container; select those dimensions separately.", "DOCUMENT_DIMENSION_COLLISION")
+                parts = [topic_path]
+                if variant is not None:
+                    variant_name = _validate_file_name(variant)
+                    if variant_name.casefold() in LEGACY_OUTPUT_NAMES:
+                        raise StructureError("A parallel use cannot be a skill bucket.", "SKILL_OUTPUT_BUCKET_FORBIDDEN")
+                    if variant_name in reserved_dimensions:
+                        raise StructureError("A parallel use must describe a real audience, session or specification, not a version role.", "DOCUMENT_DIMENSION_COLLISION")
+                    parts.extend(["并列用途", variant_name])
+                parts.append(DOCUMENT_ROLES[role])
+                versioned_name = file_name
+                if revision:
+                    revision_name = _validate_file_name(revision)
+                    original = PurePosixPath(file_name)
+                    stem = original.stem
+                    suffix = "_" + revision_name
+                    if stem.casefold().endswith(suffix.casefold()):
+                        stem = stem[:-len(suffix)]
+                    if variant and variant_name.casefold() not in stem.casefold():
+                        stem += "_" + variant_name
+                    versioned_name = f"{stem}_{revision_name}{original.suffix}"
+                    _validate_file_name(versioned_name)
+                path = _join_relative(*parts, versioned_name)
+                target = _safe_join(project_root, path)
+            except StructureError as exc:
+                return routed(status="BLOCK", path=None, responsibility="Resolve a safe topic and version path.",
+                              reason=str(exc), rule_id=exc.code)
+            if target.exists() and (role in {"snapshot", "history"} or not target.is_file()):
+                return routed(status="BLOCK", path=None, responsibility="Preserve existing frozen versions and directories.",
+                              reason="The target already exists; do not overwrite a snapshot/history file or replace a directory.",
+                              rule_id="DOCUMENT_TARGET_EXISTS")
+            return routed(status="PASS", path=path, responsibility=f"Topic-owned {DOCUMENT_ROLES[role]} document.",
+                          reason="Route by business topic, parallel use and file role; only draft files may be updated in place.",
+                          rule_id="TOPIC_VERSION_ROUTED")
         routes = route_manifest.get("document_routes", {})
         explicit_route = routes.get(document_kind) if document_kind else routes.get("default")
         if explicit_route:

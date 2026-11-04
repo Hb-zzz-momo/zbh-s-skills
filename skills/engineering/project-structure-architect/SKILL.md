@@ -1,11 +1,11 @@
 ---
 name: project-structure-architect
-description: "项目与比赛目录规划和持续治理：在启动及新增文件前确定项目归属、目录职责和唯一存放路径，支持文档先行、比赛准备和各类工程蓝图。文档按业务用途归位，保留既有目录并审计结构漂移。用于新建项目、项目初始化、比赛文件夹、AI文档存放、文件路由和结构整理；不因生成文档就强制创建代码工程。"
+description: "项目与比赛目录规划和持续治理：确定真实项目、主题及唯一存放路径，分清编辑稿、发布快照、历史版本和并列用途，保留既有工程结构并审计漂移。用于新建项目、普通资料分类、比赛文件夹、版本目录、文件路由和结构整理；不因生成文档就强制创建代码工程。"
 ---
 
 # Project Structure Architect
 
-把项目需求转换为可维护的目录蓝图，并在后续开发中持续回答“这个文件为什么应当放在这里”。核心闭环是：检测、选蓝图、脚手架、文件路由、结构审计；Git 提交检查只属于外围验证。
+把项目需求转换为可维护的目录蓝图，并在后续开发中持续回答“这个文件为什么应当放在这里”。工程闭环是检测、选蓝图、脚手架、路由和审计；普通资料先定主题、用途、角色与当前入口，清晰的小目录不强制脚手架或 manifest。Git 提交检查只属于外围验证。
 
 ## 不可跳过的结构门禁
 
@@ -40,14 +40,16 @@ description: "项目与比赛目录规划和持续治理：在启动及新增文
 - 当前工作区已经是一个项目或比赛根时直接复用；处于多个项目的共同父目录时，先定位真实目标，不能另建同名套娃目录或全局输出桶。
 - **所有新文档都按项目及用途存放**，包括 AI 生成的指南、调研、计划、设计、报告、审计和学习笔记；禁止默认使用 `skill-output/`、`skill-outputs/<skill-name>/`、`AI文档/`。调用了哪个 Skill 不决定文档归属。
 - 用户明确指定路径或文档目标时优先遵从；已有 `文档/`、`reports/`、`paper/` 等约定时沿用，必要时记录 `document_routes`，不机械新建同义 `docs/`。
-- 技术栈尚未确定的比赛选择 `competition-workspace`，其他文档先行项目选择 `document-workspace`；建立根阅读入口和最小文档边界后即可写资料，不必先有源码。
-- 原始赛题、附件与生成说明分开；机器日志/缓存仍按运行职责管理。持续维护的文档使用稳定主题名并更新原件，仅事件记录或提交快照带日期。目录按本轮实际用途创建。
+- 普通资料按真实主题组织；需要区分时使用主题内的“编辑稿/发布快照/历史版本/制作与核对记录”。真实并列受众或场次放“并列用途/<具体用途>/<角色>”，不能当新旧版互相替代。所有制作记录也归所服务主题，不新建 Skill 输出桶。
+- 每个主题、用途和文件角色有一个明确当前入口；源稿、阅读成品和签发凭证可并存。发布快照须有确认交付/外发/提交证据，冻结具体版本，更正另存；未确认稿按事实标待确认。细则见[文档版本与并列用途](references/document-versions.md)。
+- 技术栈尚未确定且确需项目脚手架的比赛选择 `competition-workspace`，其他文档先行项目可选 `document-workspace`。普通小文档复用已有 README 足够，不强制生成工程契约；已有 manifest 仍须遵守，工程/课程/科研门禁不减。
+- 原始赛题、附件与生成说明分开；机器日志/缓存仍按运行职责管理。编辑稿用稳定主题名维护原件；事件记录、发布快照与历史版本用可追溯标识。目录有内容才创建，不为单文件预建角色全套或版本表。
 
 生成文档或修复旧默认路径前，读取[文档用途路由与迁移](references/document-routing.md)。
 
 ### 1. 检测项目
 
-先运行：
+需要识别工程项目或选择脚手架时运行；路径已唯一的普通资料新增/更新只核受影响主题和入口：
 
 ```powershell
 python scripts/detect_project.py <project-root>
@@ -94,7 +96,7 @@ python scripts/audit_structure.py <target>
 `--technology React --technology FastAPI`。蓝图条件目录只能通过显式
 `--enable-option <name>` 启用；先从所选蓝图读取支持的 condition 名称，未知选项必须失败。
 
-脚手架必须生成或渲染：
+采用脚手架时必须生成或渲染：
 
 - 选中蓝图的目录树。
 - `.project-structure.yaml` 机器契约。
@@ -113,10 +115,19 @@ python scripts/suggest_path.py <project-root> --artifact <type> --name <file> --
 
 文档可使用 `--artifact documentation --document-kind guide --name 赛题入门指南.md`，返回用途路径而不写文件。支持 guide、reference、research、plan、design、report、review、knowledge、workflow、handoff；未指定用途保留一般文档路由。新文件写入后更新真实阅读入口，不能只生成目录树却让用户找不到正文。
 
+普通资料显式指定项目相对主题，避免按格式或 Skill 猜归属：
+
+```powershell
+python scripts/suggest_path.py <project-root> --artifact documentation --topic 活动宣传 --name 活动介绍.docx
+python scripts/suggest_path.py <project-root> --artifact documentation --topic 活动宣传 --variant 选手版 --document-role snapshot --revision 2026-11-04_v1.0 --name 参赛提醒.pdf
+```
+
+`--document-role` 支持 `draft/snapshot/history/records`；指定主题时默认 `draft`。`snapshot/history` 必须给 `--revision`，追加到文件名；已存在的目标必须 `BLOCK`，不能覆盖快照或历史。`draft` 可按当前入口原位维护。`--variant` 仅接收一段具体用途；`--topic` 可为安全项目相对路径，不能包含旧工具桶。脚本只建议路径，不写文件、不证明已发布；返回完整路径 UTF-16 长度，`>=240` 是保守提醒，不是 WPS 官方上限或可打开/已同步的证明。
+
 Monorepo 有多个可选应用时还必须传 `--application <apps 下的应用名>`；未指定时返回
 `BLOCK` 和候选应用，不得回退到根 `src/`。
 
-每次决策至少回答：职责、所有者、复用范围、文件类别、既有等价目录、输入/输出，以及同置测试或文档。只接受一个 `path`；返回 `alternatives` 或 `needs_confirmation` 时不得创建文件。
+工程决策至少回答：职责、所有者、复用范围、文件类别、既有等价目录、输入/输出，以及同置测试或文档；普通资料核主题、用途、角色与当前入口即可。只接受一个 `path`；返回 `alternatives` 或 `needs_confirmation` 时不得创建文件。
 
 前端 API 的确定性分流是：单一 feature 私有调用放 `features/<feature>/api/`；跨 feature 的共享客户端放 `services/`。`common` / `utils` 仅在父级已经给出清晰 owner 时允许，例如 `components/common` 或 `src/<package>/utils`；根级无范围目录为 `BLOCK`。完整规则见[文件放置规则](references/file-placement-rules.md)和[命名规范](references/naming-conventions.md)。
 
@@ -124,7 +135,7 @@ Monorepo 有多个可选应用时还必须传 `--application <apps 下的应用�
 
 ### 5. 治理现有项目
 
-先只读渲染和审计：
+工程结构治理先只读渲染和审计；普通资料日常维护只复核受影响主题、当前入口、链接与碰撞。迁移/删除仍须核全部受影响集合与依赖，不以增量维护豁免：
 
 ```powershell
 python scripts/render_tree.py <project-root> --max-depth 4
@@ -153,11 +164,12 @@ python scripts/audit_structure.py <project-root>
 - 需要判定蓝图、adaptation 与 combination 边界时，读取[结构决策矩阵](references/structure-decision-matrix.md)。
 - 需要新增具体文件、目录或伴随测试时，读取[文件放置规则](references/file-placement-rules.md)。
 - 需要目录/文件/step/experiment/notebook 命名时，读取[命名规范](references/naming-conventions.md)。
+- 需要区分编辑稿、已确认快照、历史与并列用途时，读取[文档版本与并列用途](references/document-versions.md)。
 - 需要核查高星来源、许可证、commit 和借鉴边界时，读取[来源追踪](references/source-provenance.md)。
 
 ## 完成输出
 
-每次完成结构工作时报告：
+工程结构工作报告下列内容；普通资料新增/更新只报告实际落点、当前入口变化、核验与限制，不套工程报告：
 
 - 检测到的项目类型、技术栈、部署和仓库模式。
 - 选中蓝图及其证据、适配与例外。
@@ -177,6 +189,8 @@ python scripts/audit_structure.py <project-root>
 | “smoke 能跑，所以结构合格” | 必须同时验证搭建期和运行期，并注入漂移验证失败门禁。 |
 
 ## 验证清单
+
+下列清单用于本 Skill 的工程能力维护验收；不要求每次普通资料新增都运行全部工程样例。资料结构改版另按真实存放/找文件任务验证，不减少迁移、课程、科研的必要检查。
 
 - [ ] 新项目完成 `detect/选择 → scaffold → 文档/manifest → audit PASS`。
 - [ ] 运行期完成 `suggest → 创建 → audit PASS`。
