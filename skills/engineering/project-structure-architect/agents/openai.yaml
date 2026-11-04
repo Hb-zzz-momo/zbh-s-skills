@@ -1,4 +1,4 @@
 interface:
   display_name: "项目结构架构师"
-  short_description: "识别项目类型，生成标准目录树，并持续路由文件与审计结构漂移。"
-  default_prompt: "使用 $project-structure-architect 为当前项目选择目录蓝图、生成结构并验证后续文件放置。"
+  short_description: "规划项目与比赛目录，按用途归位文档和实现，检查结构漂移。"
+  default_prompt: "使用 $project-structure-architect 确定当前项目或比赛根、最小目录与文档用途路径，复用既有约定并验证文件归位。"

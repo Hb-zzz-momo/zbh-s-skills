@@ -178,7 +178,7 @@ subagent-runs/<run-id>/
 若任务属于 skill 输出，也可放入：
 
 ```text
-skill-outputs/subagent-orchestration-zh/<中文主题_YYYYMMDD_HHMMSS>/
+docs/reviews/agent-runs/<run-id>/
 ```
 
 ## 退化策略

@@ -34,6 +34,8 @@ EXPECTED_BLUEPRINTS = {
     "machine-learning-pipeline",
     "python-library",
     "microservices",
+    "competition-workspace",
+    "document-workspace",
 }
 
 

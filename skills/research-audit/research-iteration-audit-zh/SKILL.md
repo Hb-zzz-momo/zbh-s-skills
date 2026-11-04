@@ -43,12 +43,14 @@ metadata:
 
 ## Markdown 交付要求
 
+新文件先确定所属项目和用途，遵从[文档用途路由](../../engineering/project-structure-architect/references/document-routing.md)；用户指定位置和项目既有约定优先，以下仅为缺少约定时的用途位置。
+
 1. 使用本技能完成审计时，除聊天中的判定结论外，必须在当前工作区新建 Markdown 审计报告。
-2. 默认保存位置：当前工作区 `skill-outputs/research-iteration-audit-zh/`（与 `artifact-curator-zh` 按技能分子目录一致；根目录为 **legacy-flat** 兼容）。若该子目录不存在须先创建。
+2. 默认保存位置：当前工作区 `docs/reviews/`（已有同用途目录时沿用，其他用途先由 `project-structure-architect` 路由）。若该子目录不存在须先创建。
 3. 文件名格式：`中文迭代标签_YYYYMMDD_HHMMSS.md`（置于上述目录下；文件名不再重复 skill 名），迭代标签缺失用 `审计_YYYYMMDD_HHMMSS.md`。
 4. 报告必须包含：7 个维度的实测值 vs 阈值、三灯总判定、下一步建议、硬性禁令是否触发；维度 2 必须单列机制论文可读性结论。
 5. 若用户明确要求只在对话中回答或指定路径，以用户要求为准。
-6. 最终回复要说明报告路径（须含 `skill-outputs/research-iteration-audit-zh/` 前缀）和主要结论。
+6. 最终回复要说明报告路径（使用实际项目路径）和主要结论。
 
 ---
 
@@ -282,7 +284,7 @@ metadata:
 
 ---
 
-## 审计报告模板（写入 `skill-outputs/research-iteration-audit-zh/`）
+## 审计报告模板（写入 `docs/reviews/`）
 
 ```markdown
 # 迭代自审报告 — <迭代标签>
@@ -344,7 +346,7 @@ metadata:
 3. **三灯判定**：按阈值打三灯
 4. **红灯原因追溯**：每个红灯必须写清根因和证据
 5. **下一步建议**：按"立即 / 本周 / 本月"分级
-6. **落盘 + 回写 Tracing**：生成 Markdown 报告，同步更新项目 `Tracing/` 或 `skill-outputs/research-iteration-audit-zh/`（根目录 legacy-flat 兼容）
+6. **落盘 + 回写 Tracing**：生成 Markdown 报告，同步更新项目 `Tracing/` 或 `docs/reviews/`
 
 缺失数据处理：
 - 若某指标无法采集（如从未做过联合消融），**标记"未采集"并自动降一级判定**（绿 → 黄，黄 → 红）

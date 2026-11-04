@@ -119,6 +119,7 @@ $scenarioBySkill = @{
     'research-skill-flow-zh'     = 'research-audit'
     'research-statistics-reporting-zh' = 'research-audit'
     'software-copyright-zh'      = 'presentation'
+    'skill-readiness-zh'         = 'guardrail'
     'skill-router-zh'            = 'guardrail'
     'subagent-orchestration-zh'  = 'guardrail'
     'testgen'                    = 'engineering'
@@ -238,6 +239,7 @@ $L = [System.Collections.ArrayList]::new()
 [void]$L.Add('## Skill Routing Protocol')
 [void]$L.Add('')
 [void]$L.Add('- For any "which skill should I use" or multi-skill orchestration task, start with ``skill-router-zh``.')
+[void]$L.Add('- Before executing any skill, including direct, system and plugin entrypoints, apply [skill-readiness-zh](guardrail/skill-readiness-zh/SKILL.md). Check current tools, compatible versions, materials and active connections; missing, unknown or stale evidence blocks execution. Inventory snapshots are not execution permits.')
 [void]$L.Add('- For course experiments, follow the matching experiment-specific skill first; global skills come second and fill only unspecified requirements. Without an experiment-specific skill, load course rules before the general lab workflow. Current user instructions take precedence; do not override prescribed steps, code, output, or format with general defaults.')
 [void]$L.Add('- Before claiming completion of execution or artifact work, inspect complete raw outputs and warnings; verify correctness, required visual review and final-package versions separately. Unreviewed diagnostics or missing required evidence block full completion. Read [verification and completion rules](course/course-lab-workflow-zh/references/verification-completion.md); a zero exit code or meta-skill tests alone do not establish acceptance.')
 [void]$L.Add('- Before any workflow initializes or restructures a project, or creates/moves applications, services, packages, modules, pages, APIs, research steps, experiments, pipelines, tests, documentation, or multi-file artifact trees, use ``project-structure-architect`` for detection, one justified path, and structural audit. Skip repeated routing only for pure content edits whose path is already uniquely fixed.')
@@ -290,7 +292,7 @@ foreach ($scenario in $scenarioOrder) {
 [void]$L.Add('1. **Self-iteration mode** - give feedback after use to trigger optimization')
 [void]$L.Add('2. **YAML frontmatter** - standard name / description fields')
 [void]$L.Add('3. **Markdown deliverable** - substantial skill outputs must also be written to Markdown file(s) or a dedicated output folder in the current workspace; project-knowledge notes may explicitly target ``docs/knowledge/``')
-[void]$L.Add('4. **Skill-output naming** - new outputs go under ``skill-outputs/<skill-name>/`` and use Chinese topic names with the date/time suffix, for example ``阶段审计报告_YYYYMMDD_HHMMSS.md``; do not repeat the skill name in the file or folder name')
+[void]$L.Add('4. **Project document ownership** - place documents in their owning project or competition by purpose; reuse established docs/reports/paper conventions, never default to skill-output(s) or producing-skill buckets. Maintain stable topic names and a real reading index.')
 [void]$L.Add('5. **Line limit** - every SKILL.md < 500 lines')
 [void]$L.Add('')
 

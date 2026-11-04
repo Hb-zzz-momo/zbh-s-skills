@@ -18,6 +18,8 @@ import shutil
 from datetime import datetime
 from pathlib import Path
 
+from curate_artifacts import review_output_root
+
 
 RESERVED = {"_curation", "_archive", ".git"}
 MANIFEST_PREFIX = "_auto_migrate_manifest"
@@ -90,6 +92,7 @@ def main() -> int:
     parser.add_argument("--root", type=Path, default=Path("."), help="Project root")
     parser.add_argument("--dry-run", action="store_true", help="Print planned moves only (default if neither flag)")
     parser.add_argument("--apply", action="store_true", help="Execute moves immediately (no交互确认)")
+    parser.add_argument("--output", type=Path, help="Directory for the new migration manifest; relative to the project root.")
     parser.add_argument(
         "--no-rewrite-md",
         action="store_true",
@@ -128,7 +131,12 @@ def main() -> int:
 
     # --apply
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
-    manifest = skill_root / f"{MANIFEST_PREFIX}_{ts}.csv"
+    if args.output:
+        output_dir = (args.output if args.output.is_absolute() else root / args.output).resolve()
+    else:
+        output_dir = review_output_root(root) / "artifact-migration"
+    manifest = output_dir / f"{MANIFEST_PREFIX}_{ts}.csv"
+    manifest.parent.mkdir(parents=True, exist_ok=True)
     for src, dest, skill in moves:
         dest.parent.mkdir(parents=True, exist_ok=True)
         if dest.exists():

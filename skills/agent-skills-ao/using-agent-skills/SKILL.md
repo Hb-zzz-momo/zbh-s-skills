@@ -4,6 +4,8 @@ description: Discovers and invokes agent skills. Use when starting a session or 
 ---
 
 # Using Agent Skills
+
+Before executing any selected skill (including direct requests, helpers, system or plugin skills), apply [the user-level readiness gate](../../guardrail/skill-readiness-zh/SKILL.md) to its actual path. Missing, unknown, unreviewed or stale tools/materials block execution. Reading instructions and preparing dependency checks is allowed; installed instructions are not proof of operational readiness.
 <!-- project-structure-architect:gate:v1:start -->
 ## Project structure gate / 文件树结构门禁
 

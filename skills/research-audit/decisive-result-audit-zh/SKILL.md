@@ -85,7 +85,7 @@ description: '决定性结果审计技能：用于审计 formal/gate、冻结版
 
 ## 输出格式
 
-正式使用时，在当前工作区输出 Markdown 审计报告。建议保存到 `skill-outputs/decisive-result-audit-zh/`。
+正式使用时，在当前工作区输出 Markdown 审计报告。建议保存到 `docs/reviews/`。
 
 报告必须包含：
 

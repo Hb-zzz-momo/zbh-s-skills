@@ -74,6 +74,15 @@ EXEMPTIONS = {
     "git-workflow-and-versioning",
 }
 PROVIDER = "project-structure-architect"
+DIRECT_INTEGRATIONS = {
+    "skill-router-zh": (
+        "新建或重组持久化文件树", "先核规则、职责和唯一位置", "必要时结构审计",
+    ),
+    "software-copyright-zh": (
+        "初始化、补建或重组", "必须先使用 `project-structure-architect`",
+        "结构门禁未 `PASS` 前不得执行 `--initialize`", "纯只读审计且不创建、移动文件",
+    ),
+}
 
 
 def skill_files() -> dict[str, Path]:
@@ -88,16 +97,20 @@ def skill_files() -> dict[str, Path]:
     return result
 
 
-def test_every_workflow_is_classified_required_exempt_or_provider() -> None:
+def test_required_integrations_are_present_without_freezing_the_whole_skill_catalog() -> None:
     names = set(skill_files())
-    assert names == REQUIRED | EXEMPTIONS | {PROVIDER}
-    assert len(REQUIRED) == 57
+    assert REQUIRED | EXEMPTIONS | {PROVIDER} <= names
 
 
-def test_required_workflows_have_exactly_one_gate_after_h1() -> None:
+def test_required_workflows_declare_the_structure_gate() -> None:
     files = skill_files()
     for name in sorted(REQUIRED):
         content = files[name].read_text(encoding="utf-8-sig")
+        if name in DIRECT_INTEGRATIONS and START not in content:
+            # Only these verified upstream integrations replace the legacy marked gate.
+            for obligation in DIRECT_INTEGRATIONS[name]:
+                assert obligation in content, (name, obligation)
+            continue
         assert content.count(START) == 1, (name, "start")
         assert content.count(END) == 1, (name, "end")
         h1 = re.search(r"(?m)^# .+$", content)

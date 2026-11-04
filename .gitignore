@@ -22,6 +22,7 @@ Thumbs.db
 # runtime / model output
 .tmp/
 .runtime/
+.local/
 outputs/
 uploads/
 mcp-workspaces/

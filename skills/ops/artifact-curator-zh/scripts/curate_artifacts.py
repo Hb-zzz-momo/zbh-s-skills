@@ -32,7 +32,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Scan project artifacts and report stale candidates.")
     parser.add_argument("--root", default=".", help="Project root to scan.")
     parser.add_argument("--dirs", nargs="*", default=None, help="Relative directories to scan.")
-    parser.add_argument("--output", default=None, help="Output directory. Defaults to skill-outputs/_curation/<timestamp>.")
+    parser.add_argument("--output", default=None, help="Output directory. Defaults to the project's review/report boundary.")
     parser.add_argument("--stale-days", type=int, default=45, help="Age threshold for log/temp stale candidates.")
     parser.add_argument("--include-logs", action="store_true", help="Include common root-level logs.")
     parser.add_argument("--include-data-step", action="store_true", help="Include PlatEMO Data_step* directories in inventory.")
@@ -47,8 +47,31 @@ def relpath(path: Path, root: Path) -> str:
         return str(path).replace("\\", "/")
 
 
+def review_output_root(root: Path) -> Path:
+    """Reuse the project's known report/review owner without creating directories."""
+    if (root / "reports").is_dir():
+        return root / "reports"
+    document_roots = [name for name in ("docs", "doc", "documentation", "文档") if (root / name).is_dir()]
+    if len(document_roots) > 1:
+        raise SystemExit("Multiple documentation roots exist; select the review directory with --output.")
+    document_root = root / (document_roots[0] if document_roots else "docs")
+    review_roots = [document_root / name for name in ("reviews", "评审") if (document_root / name).is_dir()]
+    if len(review_roots) > 1:
+        raise SystemExit("Multiple review roots exist; select one with --output.")
+    return review_roots[0] if review_roots else document_root / "reviews"
+
+
 def default_scan_dirs(root: Path, include_logs: bool, include_data_step: bool) -> list[Path]:
     candidates = [
+        root / "docs",
+        root / "doc",
+        root / "documentation",
+        root / "文档",
+        root / "reports",
+        root / "paper",
+        root / "materials",
+        root / "references",
+        root / "比赛资料",
         root / "skill-outputs",
         root / "资料" / "exp_start" / "steps",
         root / "资料" / "exp_start" / "results",
@@ -203,7 +226,7 @@ def collect_files(root: Path, scan_dirs: list[Path], include_logs: bool) -> list
         else:
             iterator = (p for p in base.rglob("*") if p.is_file())
         for path in iterator:
-            if any(part in {".git", "__pycache__", ".venv", "node_modules", "_curation", "_archive"} for part in path.parts):
+            if any(part in {".git", "__pycache__", ".venv", "node_modules", "_curation", "_archive", "artifact-curation"} for part in path.parts):
                 continue
             resolved = path.resolve()
             if resolved not in seen:
@@ -323,10 +346,8 @@ def main() -> int:
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     if args.output:
         out_dir = Path(args.output).resolve()
-    elif (root / "skill-outputs").exists():
-        out_dir = root / "skill-outputs" / "_curation" / timestamp
     else:
-        out_dir = root / "_artifact_curation" / timestamp
+        out_dir = review_output_root(root) / "artifact-curation" / timestamp
     out_dir.mkdir(parents=True, exist_ok=True)
 
     scan_dirs = [root / d for d in args.dirs] if args.dirs else default_scan_dirs(root, args.include_logs, args.include_data_step)

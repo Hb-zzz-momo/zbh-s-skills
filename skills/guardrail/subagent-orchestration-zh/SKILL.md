@@ -150,7 +150,7 @@ worker 改动必须由父代理复核、集成、测试和最终验收；子代�
 substantial 子代理运行可以写入：
 
 ```text
-skill-outputs/subagent-orchestration-zh/<中文主题_YYYYMMDD_HHMMSS>/
+docs/reviews/agent-runs/<run-id>/
 ```
 
 或任务工作区：
@@ -183,7 +183,7 @@ acceptance.md
 | 权限冲突 | 默认使用只读 explorer/reviewer；worker 可写必须有最小任务、唯一写范围、禁止越界规则、验证命令和回收门槛 |
 | 记忆冲突 | 不替代科研六段式记忆或项目 handoff |
 | 审计冲突 | 不绕过 `decisive-result-audit-zh`、`research-iteration-audit-zh`、`code-review-and-quality` |
-| 输出冲突 | 不破坏 `skill-outputs/<skill-name>/` 和任务工作区产物结构 |
+| 输出冲突 | 文档按项目用途进入评审/计划等目录，机器运行证据沿用任务工作区；不新建技能输出桶 |
 | 许可证冲突 | 记录来源、许可证、版权、是否可再分发 |
 
 运行只读审计：

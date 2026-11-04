@@ -15,6 +15,8 @@
 | 模块化训练/数据 Pipeline | `machine-learning-pipeline` | `src/<package>/pipelines + experiments + checkpoints` | 节点依赖与可复用流水线是核心 |
 | 可发布 Python 包 | `python-library` | `src/<package> + tests + docs` | 导入包和发布边界清晰 |
 | 多个独立服务 | `microservices` | `services + packages + infra` | 每个服务独立构建、测试、部署 |
+| 尚未确定实现栈的比赛 | `competition-workspace` | `docs + 根阅读入口`，其他边界按需 | 用户已明确比赛归属，先读题/准备材料 |
+| 文档先行项目 | `document-workspace` | `docs + 根阅读入口` | 当前以调研、说明和计划为主，无现成工程树 |
 
 ## 容易混淆的边界
 

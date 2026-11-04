@@ -39,7 +39,7 @@ description: '项目 docs 知识点沉淀技能：在完成有复用价值的项
 - 如果项目没有 `docs/` 但满足项目特征，创建 `docs/knowledge/`
 - 如果用户指定了别的文档目录，以用户指定为准
 
-不要把本技能的项目知识文档写到 `skill-outputs/`。`skill-outputs/` 仍留给一次性总结、报告或其他技能产物。
+本技能的知识文档写入所属项目 `docs/knowledge/` 或已有同职责目录；其他新文档也应按业务用途归位，不再使用 skill-outputs 桶。
 
 ## 选择知识点
 
