@@ -57,8 +57,8 @@
 | 16 | `contextual-reference-router` | 130 | Research and synthesize context-appropriate references before creating or redesigning websites, landing pages, Web/UI flows, dashboards, presentations, coding-agent prompts and skills, data visualizations, scientific or architecture diagrams, templates, or color/type/icon/illustration systems. Do not trigger for routine bug fixes, pure algorithms, factual questions, translation, one-line code edits, non-design coding, explicit no-network requests, or strict local edits against a complete supplied reference where no exploration is wanted |
 | 17 | `iteration-reflection-guard-zh` | 184 | 中文迭代反思守门技能：用于科研、算法、工程、方案设计等任何“继续迭代/提出计划/改进方法/复盘经验/避免重复历史错误/保证创新性/列出致命痛点/自我迭代”的场景 |
 | 18 | `plan-faithful-execution-zh` | 165 | 中文工程执行防自我衍生技能：用于严格按照参考计划文档、题面、方案书、AGENTS.md、任务书、实验计划或用户指定边界执行工程、建模、代码、实验和报告任务；禁止 AI 自作主张扩展参数范围、目标函数、约束条件、文件结构、实验口径、输出格式或结论表述；遇到计划缺失、冲突、不确定或需要新增假设时，必须先提出具体问题并等待用户解答；任务结束时主动检查是否存在自我衍生、越权实现、未授权假设和计划偏离 |
-| 19 | `skill-readiness-zh` | 57 | Skill 调用前的依赖就绪检查与全库状态盘点，分别核验工具、版本、资料、账号服务和活动 MCP；缺失、未知、过期均阻断执行。用于调用前检查、工具资料补齐、Skill 状态、环境是否安装齐全；不把技能可读当作功能可用 |
-| 20 | `skill-router-zh` | 57 | 中文任务唯一通用分流入口：按领域、阶段、背景依赖和风险选择一个主Skill及必要辅助；方案B按信息缺口调研，保留课程专属、真实验证与独立验收要求。用于新任务分流、技能选择和工作流优化；续做只补变化，不重开全套流程 |
+| 19 | `skill-readiness-zh` | 58 | Skill 调用前的依赖就绪检查与全库状态盘点，分别核验工具、版本、资料、账号服务和活动 MCP；缺失、未知、过期均阻断执行。用于调用前检查、工具资料补齐、Skill 状态、环境是否安装齐全；不把技能可读当作功能可用 |
+| 20 | `skill-router-zh` | 79 | 中文任务唯一通用分流入口：按领域、阶段、背景依赖和风险选择一个主Skill及必要辅助；方案B按信息缺口调研，保留课程专属、真实验证与独立验收要求。用于新任务分流、技能选择和工作流优化；续做只补变化，不重开全套流程 |
 | 21 | `subagent-orchestration-zh` | 228 | 中文子代理编排：在用户本次明确委派，或质量评价持续授权适用时，调度真实 explorer、worker、reviewer，划分父子职责、写范围、等待和验收回收 |
 | 22 | `workflow-forge-zh` | 290 | 工作流提炼与生成技能：从零散经验/多轮对话/已有流程中提炼出结构化、可复用的工作流，或为新任务设计工作流 |
 
@@ -130,7 +130,7 @@
 | 54 | `documentation-and-adrs` | 398 | 记录方案优缺点、评审质疑、决策依据、逐次修改原因与影响、函数级为什么注释及 ADR，形成可复验的决策链。 |
 | 55 | `doubt-driven-development` | 243 | 对非平凡决策进行怀疑式复核，适用于高风险代码、陌生系统、生产关键路径和需要反证审查的方案。 |
 | 56 | `frontend-ui-engineering` | 339 | 构建生产级前端界面，适用于组件、布局、状态、交互、响应式设计和用户可感知体验实现。 |
-| 57 | `git-workflow-and-versioning` | 312 | 规范 Git 工作流与版本管理，适用于分支、提交、变更组织、冲突处理、发布版本和协作流程。 |
+| 57 | `git-workflow-and-versioning` | 321 | 规范 Git 工作流与版本管理，适用于分支、提交、变更组织、冲突处理、发布版本和协作流程。 |
 | 58 | `idea-refine` | 189 | 通过发散与收敛思考迭代打磨想法，适用于创意澄清、方案压力测试、MVP 范围收敛和一页纸产出。 |
 | 59 | `incremental-implementation` | 256 | 按小步可验证方式交付改动，适用于多文件功能、较大重构、风险分阶段落地和持续验证。 |
 | 60 | `interview-me` | 225 | 在计划或编码前逐问澄清真实需求，适用于目标、受众、成功标准或关键约束缺失的任务。 |
