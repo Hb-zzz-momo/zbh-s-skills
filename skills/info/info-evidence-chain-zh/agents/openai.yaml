@@ -1,4 +1,4 @@
 ﻿interface:
   display_name: "信息证据链"
-  short_description: "资料收集、真实性验证、来源链接和证据链表格整理。"
-  default_prompt: "按证据链方式收集、验证和整理资料。"
+  short_description: "按真实需求搜索资料、核对原始证据并说明方案筛选的取舍与验证边界。"
+  default_prompt: "使用 $info-evidence-chain-zh，先确认研究对象与已有条件，再搜索原始资料；需要选型时比较主要路线，说明推荐、淘汰和待验证理由。"
