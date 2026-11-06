@@ -18,6 +18,7 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
 import tomllib
 from urllib.parse import unquote, urlparse
 
@@ -47,12 +48,32 @@ def read_json(path):
     return json.loads(Path(path).read_text(encoding="utf-8-sig"))
 
 
+def writable_destination(path):
+    """Resolve existing junctions before any output directory is created."""
+    destination = Path(path).resolve()
+    if os.name == "nt" and destination.drive.upper().removeprefix("\\\\?\\") != "D:":
+        raise ValueError("Readiness output must resolve to D:, not C: or another volume (resolved: " + str(destination) + ")")
+    # Do not recreate a missing D drive as a relative directory or fall back to C.
+    if os.name == "nt" and not Path(destination.anchor).is_dir():
+        raise ValueError("Output drive is unavailable: " + destination.anchor)
+    return destination
+
+
 def write_json(path, value):
-    destination = Path(path)
+    destination = writable_destination(path)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    pending = destination.with_suffix(destination.suffix + ".pending")
-    pending.write_text(json.dumps(value, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    pending.replace(destination)
+    pending = None
+    try:
+        # Exclusive random creation in the resolved D directory avoids following
+        # a pre-existing predictable .pending symlink (including one aimed at C).
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", dir=destination.parent,
+                                         prefix="." + destination.name + ".", suffix=".pending", delete=False) as stream:
+            pending = Path(stream.name)
+            stream.write(json.dumps(value, ensure_ascii=False, indent=2) + "\n")
+        pending.replace(destination)
+    finally:
+        if pending is not None and pending.exists():
+            pending.unlink()
 
 
 def metadata(text):
@@ -416,6 +437,18 @@ def manifest_name(path):
     return hashlib.sha256(str(Path(path).resolve()).encode()).hexdigest() + ".json"
 
 
+def default_state_dir():
+    return Path("D:/CodexData/skill-readiness") if os.name == "nt" else Path.home() / ".agents/.local/skill-readiness"
+
+
+def find_manifest(skill, state_dir=None):
+    candidates = [Path(skill) / "readiness.json",
+                  Path(state_dir if state_dir is not None else default_state_dir()) / "manifests" / manifest_name(skill),
+                  Path.home() / ".agents/.local/skill-readiness/manifests" / manifest_name(skill)]
+    # Legacy state is read-only compatibility, never a destination for new state.
+    return next((path for path in candidates if path.is_file()), candidates[1])
+
+
 def inventory(roots, state_dir, context):
     errors, entries = [], []
     for label, root in roots.items():
@@ -437,9 +470,7 @@ def inventory(roots, state_dir, context):
                 continue
             skill = Path(current)
             identity = label + ":" + skill.relative_to(root).as_posix()
-            manifest = skill / "readiness.json"
-            if not manifest.is_file() and state_dir:
-                manifest = Path(state_dir) / "manifests" / manifest_name(skill)
+            manifest = find_manifest(skill, state_dir)
             try:
                 report = check(skill, manifest, context=context)
                 if manifest.is_file():
@@ -498,10 +529,15 @@ def main():
             p.add_argument("--scope-reason")
         if operation == "inventory":
             p.add_argument("--root", action="append", help="label=absolute-path; repeat for all intended roots")
-            p.add_argument("--state-dir", type=Path, default=Path.home() / ".agents/.local/skill-readiness")
+            p.add_argument("--state-dir", type=Path, default=default_state_dir())
             p.add_argument("--markdown", type=Path)
     args = parser.parse_args()
     try:
+        # Validate all requested outputs up front, so a rejected second output
+        # cannot leave a partially written report from the first destination.
+        for attribute in ("output", "markdown"):
+            if getattr(args, attribute, None):
+                setattr(args, attribute, writable_destination(getattr(args, attribute)))
         context = {"session_tools": getattr(args, "session_tools", None), "session_id": getattr(args, "session_id", None)}
         if args.operation == "definition-digest":
             result, code = {"definition_sha256": definition_digest(read_json(args.manifest))}, 0
@@ -510,9 +546,7 @@ def main():
         elif args.operation == "check":
             if args.manifest and not args.manifest.is_file():
                 raise ValueError("Explicit manifest does not exist: " + str(args.manifest))
-            manifest = args.manifest or args.skill / "readiness.json"
-            if not args.manifest and not manifest.is_file():
-                manifest = Path.home() / ".agents/.local/skill-readiness/manifests" / manifest_name(args.skill)
+            manifest = args.manifest or find_manifest(args.skill)
             result = check(args.skill, manifest, args.profile, args.scope_reason, context)
             code = 0 if result["status"] == "READY" else 2
         else:

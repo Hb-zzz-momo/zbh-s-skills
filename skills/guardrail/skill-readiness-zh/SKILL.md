@@ -2,12 +2,14 @@
 name: skill-readiness-zh
 description: Skill 调用前的依赖就绪检查与全库状态盘点，分别核验工具、版本、资料、账号服务和活动 MCP；缺失、未知、过期均阻断执行。用于调用前检查、工具资料补齐、Skill 状态、环境是否安装齐全；不把技能可读当作功能可用。
 metadata:
-  version: "1.0.2"
+  version: "1.0.3"
 ---
 
 # Skill 状态与执行前检查
 
 本技能是用户要求的全局执行门禁，覆盖直接点名、主技能、辅助技能、跨技能跳转，以及 `.agents`、`.codex`（含 `.system`）和插件来源。安装说明、下载缓存、MCP 注册、工具出现在列表、实际功能验证是不同证据。
+
+本机除必要配置外禁止新增或增长 C 盘文件。Windows 下本技能状态默认位于 `D:\CodexData\skill-readiness`，旧 C 盘状态仅兼容读取；模型/运行环境复用 `D:\CodexToolchains`，不再安装进 C 盘 `.local`。准备检查、修复和领域执行前都须核实最终存储及缓存/临时目录、目录联接和 D 盘空间；D 不可用不得回退 C。脚本的 JSON/Markdown 输出在 Windows 必须实际解析到 D 盘，但不拦截其他工具或宿主写入。
 
 ## 引导边界
 
@@ -23,7 +25,7 @@ metadata:
 
 ```powershell
 # 脚本路径相对于本技能目录；本地状态不得提交 Git。
-python scripts/skill_readiness.py inventory --output "$env:USERPROFILE/.agents/.local/skill-readiness/STATUS.json" --markdown "$env:USERPROFILE/.agents/.local/skill-readiness/STATUS.md"
+python scripts/skill_readiness.py inventory --output "D:/CodexData/skill-readiness/STATUS.json" --markdown "D:/CodexData/skill-readiness/STATUS.md"
 python scripts/skill_readiness.py draft --skill "<实际技能绝对路径>" --output "<外置清单绝对路径>"
 python scripts/skill_readiness.py check --skill "<实际技能绝对路径>" --manifest "<已审阅清单绝对路径>"
 ```
@@ -45,7 +47,7 @@ check 仅 READY 返回 0；其他状态返回非零。inventory 返回 0 仅表�
 ## 清单维护与修复
 
 - 原生组件故障时，按 [开源替代规则](../skill-router-zh/SKILL.md#原生组件故障的开源替代) 主动查找插件/MCP；沿用当前授权和工具约束，对所选替代路径重新核查依赖、连接与真实目标。外置客户端可用和当前聊天已连接分别登记，不沿用原组件或其他会话的 READY。
-- 软件/依赖和运行状态留本机 `.agents/.local/skill-readiness/`；可迁移的检查程序、协议、经核实依赖定义与回归测试纳入技能仓库。
+- 软件/依赖用本机 D 盘工具目录，运行状态/外置清单用 `D:\CodexData\skill-readiness\`；旧 `.agents/.local/skill-readiness/` 仅兼容读取，不自动搬删。可迁移的检查程序、协议、经核实依赖定义与回归测试纳入技能仓库；其他操作系统沿用其本地状态目录，不声称存在 D 盘。
 - `.system` 和供应商插件缓存不批量改写，使用外置清单；全局规则和直接入口同样约束它们。清单文件名由实际技能绝对路径 SHA-256 决定，防同名误用。
 - 修改既有 Skill 前先按 [远程闭环](../../agent-skills-ao/git-workflow-and-versioning/SKILL.md#skill-修改的远程闭环) 拉取并安全合入实际路径，完成修改与校验后提交推送。新建/更新后重盘点，读取其全包并修订清单，不能只重新计算摘要后照抄旧审阅标志。
 - 缺项先找已安装路径和已有运行时；给出来源、兼容版本、体积/授权/平台限制与验证方式，再在已授权范围修复。不得为检查自动安装无关引擎、购买许可证、改授权或泄露配置。

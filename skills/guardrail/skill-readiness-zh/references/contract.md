@@ -2,7 +2,7 @@
 
 ## 位置与身份
 
-源文件 `SKILL.md` 与完整包材料只读检查；不写供应商缓存。清单可放技能目录 `readiness.json`（适合维护者声明），或本机 `.agents/.local/skill-readiness/manifests/<实际技能绝对路径的sha256>.json`。`check --manifest` 可指定明确文件。全库盘点会自动寻找前两种位置。
+源文件 `SKILL.md` 与完整包材料只读检查；不写供应商缓存。维护者依赖声明可放技能目录 `readiness.json`。Windows 的本机外置清单默认放 `D:/CodexData/skill-readiness/manifests/<实际技能绝对路径的sha256>.json`，其他系统沿用 `~/.agents/.local/skill-readiness/manifests/`；`check --manifest` 可指定明确文件。默认读取顺序是包内声明、新状态目录、旧用户目录清单；旧 C 盘内容只读兼容，不自动迁移或删除。Windows 的 JSON/Markdown 输出在创建父目录前解析路径，必须实际位于 D 盘（D→C 联接、其他卷和 UNC 均拒绝），盘符不可用直接报错，不回退 C；JSON 暂存文件在已解析的目标目录独占随机创建，不沿用现有 `.pending` 文件或链接。此限制只覆盖本脚本输出，不代表系统级写保护；启动者仍须把 Python 临时文件等子进程写入路径放 D 盘。
 
 同一 Skill 被多个项目或任务使用时，任务专属目标、会话证据和依赖选择使用各自验证目录的独立 manifest，并显式传 `--manifest`；不要覆盖中央默认清单中其他任务的已审范围。中央表是全库快照，任务验收记录另保留范围、版本与时间，不能用某个任务 READY 替代全技能状态。
 

@@ -20,8 +20,17 @@ def definitions_digest(contract):
 
 
 class GateTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.storage_temp_root = None
+        if os.name == 'nt':
+            cls.storage_temp_root = Path('D:/CodexData/tmp').resolve()
+            if cls.storage_temp_root.drive.upper().removeprefix('\\\\?\\') == 'C:' or not Path(cls.storage_temp_root.anchor).is_dir():
+                raise RuntimeError('Tests require an available non-C D: temporary directory')
+            cls.storage_temp_root.mkdir(parents=True, exist_ok=True)
+
     def setUp(self):
-        self.tmp = tempfile.TemporaryDirectory()
+        self.tmp = tempfile.TemporaryDirectory(dir=self.storage_temp_root)
         self.addCleanup(self.tmp.cleanup)
         self.root = Path(self.tmp.name)
         self.skill = self.root / "skills" / "example"
@@ -38,6 +47,94 @@ class GateTests(unittest.TestCase):
                                 capture_output=True, text=True, encoding="utf-8")
         self.assertTrue(result.stdout, result.stderr)
         return result.returncode, json.loads(result.stdout)
+
+    def load_gate(self):
+        spec = importlib.util.spec_from_file_location('storage_gate_test', SCRIPT)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return module
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows C-drive storage policy')
+    def test_windows_default_state_is_on_d(self):
+        self.assertEqual(self.load_gate().default_state_dir(), Path('D:/CodexData/skill-readiness'))
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows C-drive storage policy')
+    def test_c_output_is_rejected_before_parent_is_created(self):
+        target = Path.home() / '.agents/.local/blocked-storage-test' / self.root.name / 'result.json'
+        code, result = self.run_cli('draft', '--skill', self.skill, '--output', target)
+        self.assertEqual(code, 3)
+        self.assertIn('C:', result['reason'])
+        self.assertFalse(target.parent.exists())
+
+    def test_allowed_output_is_actually_written(self):
+        target = self.root / 'reports' / 'draft.json'
+        code, result = self.run_cli('draft', '--skill', self.skill, '--output', target)
+        self.assertEqual(code, 0)
+        self.assertEqual(json.loads(target.read_text(encoding='utf-8')), result)
+
+    def test_existing_pending_link_cannot_redirect_internal_write(self):
+        target = self.root / 'report.json'
+        outside = self.root / 'outside.json'
+        outside.write_text('must remain unchanged', encoding='utf-8')
+        pending = target.with_suffix('.json.pending')
+        try:
+            pending.symlink_to(outside)
+        except OSError as error:
+            self.skipTest('File symlink creation unavailable: ' + str(error))
+        self.load_gate().write_json(target, {'status': 'test'})
+        self.assertEqual(outside.read_text(encoding='utf-8'), 'must remain unchanged')
+        self.assertTrue(pending.is_symlink())
+        self.assertEqual(json.loads(target.read_text(encoding='utf-8')), {'status': 'test'})
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows D-only storage policy')
+    def test_unc_and_other_drive_outputs_are_rejected(self):
+        gate = self.load_gate()
+        for target in (r'\\localhost\C$\blocked-report.json', 'E:/blocked-report.json'):
+            # No network request or drive mutation is required to check a
+            # resolved non-D path; the ordinary C/D junction tests use real FS.
+            with self.subTest(target=target), mock.patch.object(gate.Path, 'resolve', return_value=Path(target)):
+                with self.assertRaises(ValueError):
+                    gate.writable_destination(target)
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows C-drive storage policy')
+    def test_invalid_markdown_destination_leaves_no_json_output(self):
+        target = self.root / 'report.json'
+        code, result = self.run_cli('inventory', '--root', 'test=' + str(self.skill),
+                                    '--output', target, '--markdown', Path.home() / '.agents/.local/blocked-report.md')
+        self.assertEqual(code, 3)
+        self.assertFalse(target.exists())
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows drive availability')
+    def test_missing_drive_never_falls_back(self):
+        missing = next((Path(letter + ':/') for letter in 'ZYXWVUTSRQPONMLKJIHGFE' if not Path(letter + ':/').exists()), None)
+        if missing is None:
+            self.skipTest('No unavailable drive letter')
+        with self.assertRaises(ValueError):
+            self.load_gate().writable_destination(missing / 'readiness' / 'report.json')
+
+    @unittest.skipUnless(os.name == 'nt', 'Windows junction resolution')
+    def test_d_alias_to_c_is_rejected(self):
+        alias = self.root / 'c-alias'
+        # A D-side junction points at an existing C directory; no C file is written.
+        result = subprocess.run(['cmd', '/c', 'mklink', '/J', str(alias), str(Path.home())], capture_output=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.addCleanup(lambda: os.rmdir(alias))
+        with self.assertRaises(ValueError):
+            self.load_gate().writable_destination(alias / 'blocked-storage-test' / 'result.json')
+
+    def test_readonly_legacy_manifest_is_still_discovered(self):
+        gate = self.load_gate()
+        legacy_home = self.root / 'legacy-home'
+        state = self.root / 'new-state'
+        legacy = legacy_home / '.agents/.local/skill-readiness/manifests' / gate.manifest_name(self.skill)
+        legacy.parent.mkdir(parents=True)
+        legacy.write_text('{}', encoding='utf-8')
+        with mock.patch.object(gate.Path, 'home', return_value=legacy_home):
+            self.assertEqual(gate.find_manifest(self.skill, state), legacy)
+            preferred = state / 'manifests' / gate.manifest_name(self.skill)
+            preferred.parent.mkdir(parents=True)
+            preferred.write_text('{}', encoding='utf-8')
+            self.assertEqual(gate.find_manifest(self.skill, state), preferred)
 
     def contract(self, requirements=None, **changes):
         code, draft = self.run_cli("draft", "--skill", self.skill)
