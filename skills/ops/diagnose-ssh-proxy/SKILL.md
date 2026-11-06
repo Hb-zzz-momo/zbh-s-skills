@@ -11,6 +11,8 @@ description: "排查 Windows 到 Linux 的 SSH 登录失败、正确密码无法
 
 ## 先读取相关材料
 
+生成/修订教程或沉淀SOP前先读取[小白文档写法](../../learning/knowledge-digest-zh/references/beginner-documents.md)：正常步骤也逐步解释，不只解释错误；同等效果下优先打开配置文件编辑或短命令，持久配置不换成每次临时设置。详解可收纳，必做配置与成功信号保持可见。
+
 - 配置或修复时，读取 [操作参考](references/operations.md)。按当前层选择命令，避免一次执行整套修改。
 - 解释原理或教学时，读取 [小白工作流](references/beginner-workflow.md)。使用五个关卡及生活例子。
 - 延续本次问题时，读取 [本次案例记录](references/incident.md)。将“已验证、推断、未解决”分别对待。

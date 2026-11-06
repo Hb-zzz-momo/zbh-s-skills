@@ -72,6 +72,8 @@ docs/knowledge/<topic-slug>.md
 
 ## 文档模板
 
+生成或修订前读取[小白文档写法](../knowledge-digest-zh/references/beginner-documents.md)。下方结构保留主题职责，但每个实质模块与“实战做法”的各步骤都要附对应解析；不能仅靠独立“小白例子”一节覆盖全文。操作优先等效可点击配置或短命令，详细原理可就近收纳。
+
 新建文档时使用以下固定结构：
 
 ```markdown
