@@ -13,6 +13,7 @@ Classify both the document type and the primary reader before Stage 1. Load only
 
 | Content type | Primary audience | Required reference |
 | --- | --- | --- |
+| 学习手册、操作指南、知识库经验、确有流程的SOP或交接阅读说明 | 首次学习或执行任务的读者 | Read [小白文档写法](../../learning/knowledge-digest-zh/references/beginner-documents.md) before drafting/editing: complete task chain at the beginning and end, full-chain position/contribution/handoff in each substantive module, nearby beginner explanations. Preserve its exclusions for short answers, reference tables and fixed formal templates. |
 | 策划案、赛事方案、活动方案、合作提案 | 高校、赞助方、资金或场地支持单位、协办方 | Read [Partner-facing proposals](references/proposals-partner-facing.md) completely before drafting, editing, or analyzing. |
 
 Use the core workflow when no specialized route matches. Never copy dates, budgets, organization names, rules, or commitments from an example into a new document without user evidence.
@@ -251,10 +252,10 @@ Ask if ready to move to Reader Testing, or if they want to refine anything else.
 
 ## Stage 3: Reader Testing
 
-**Goal:** Test the document with a fresh Claude (no context bleed) to verify it works for readers.
+**Goal:** Use a fresh agent without author context to find ambiguity, hidden prerequisites and broken handoffs in the document. This is a content walk-through, not a measurement of real readers' first-pass understanding or reading time.
 
 **Instructions to user:**
-Explain that testing will now occur to see if the document actually works for readers. This catches blind spots - things that make sense to the authors but might confuse others.
+Explain that an independent agent will check the document for ambiguity, hidden prerequisites and broken handoffs. This does not measure real readers' understanding, execution or reading time.
 
 ### Testing Approach
 
@@ -338,7 +339,7 @@ Loop back to refinement for any problematic sections.
 
 ### Exit Condition (Both Approaches)
 
-When Reader Claude consistently answers questions correctly and doesn't surface new gaps or ambiguities, the doc is ready.
+When the independent agent consistently answers questions from the document and no unresolved gaps remain, the agent-based content check passes. Report that scope; real reader understanding, execution and timing need their own evidence and remain unmeasured if no such test occurred.
 
 ## Final Review
 
