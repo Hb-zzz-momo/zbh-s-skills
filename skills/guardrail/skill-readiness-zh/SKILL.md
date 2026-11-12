@@ -2,7 +2,7 @@
 name: skill-readiness-zh
 description: Skill 调用前的依赖就绪检查与全库状态盘点，分别核验工具、版本、资料、账号服务和活动 MCP；缺失、未知、过期均阻断执行。用于调用前检查、工具资料补齐、Skill 状态、环境是否安装齐全；不把技能可读当作功能可用。
 metadata:
-  version: "1.0.3"
+  version: "1.0.4"
 ---
 
 # Skill 状态与执行前检查

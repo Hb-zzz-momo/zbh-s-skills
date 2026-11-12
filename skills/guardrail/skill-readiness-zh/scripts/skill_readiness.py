@@ -84,6 +84,35 @@ def metadata(text):
             "version": version.group(1).strip() if version else None}
 
 
+def markdown_link_text(body):
+    """Exclude closed fenced examples from link syntax, not dependency review.
+
+    Raw URLs and declared requirements are still audited separately. Preserve
+    an unclosed block so malformed fences cannot silently hide real materials.
+    """
+    # This is deliberately not a CommonMark parser. Preserve ambiguous HTML,
+    # indented fences and container fences instead of risking hidden resources.
+    if re.search(r"(?m)^ {0,3}<[A-Za-z!/?]|^[ \t]+(?:`{3,}|~{3,})|"
+                 r"^ {0,3}(?:>[ \t]*|[-+*][ \t]+|\d+[.)][ \t]+)(?:`{3,}|~{3,})", body):
+        return body
+    output, buffered, marker = [], [], None
+    for line in body.splitlines(keepends=True):
+        if marker is None:
+            opening = re.match(r"^(`{3,}|~{3,})(.*)$", line.rstrip("\r\n"))
+            if opening and not (opening[1][0] == "`" and "`" in opening[2]):
+                marker = opening[1]
+                buffered = [line]
+            else:
+                output.append(line)
+        else:
+            buffered.append(line)
+            if re.fullmatch(re.escape(marker[0]) + "{" + str(len(marker)) + r",}[ \t]*", line.rstrip("\r\n")):
+                output.extend("\n" for _ in buffered)
+                marker, buffered = None, []
+    output.extend(buffered)
+    return "".join(output)
+
+
 def bundle(skill):
     """Hash all bundled files and referenced local materials; report missing links.
 
@@ -128,8 +157,9 @@ def bundle(skill):
         try:
             body = p.read_text(encoding="utf-8-sig")
             remote.update(URL.findall(body))
-            links = LINK.findall(body) + REFERENCE.findall(body)
-            tags = HTML_TAG.findall(body)
+            link_text = markdown_link_text(body)
+            links = LINK.findall(link_text) + REFERENCE.findall(link_text)
+            tags = HTML_TAG.findall(link_text)
             links += [next(value for value in values if value) for tag in tags for values in HTML_RESOURCE.findall(tag)]
             if any(re.search(r"\bsrcset\s*=", tag, re.I) for tag in tags):
                 errors.append({"path": str(p), "status": "UNKNOWN", "reason": "srcset resources need an explicit audit"})

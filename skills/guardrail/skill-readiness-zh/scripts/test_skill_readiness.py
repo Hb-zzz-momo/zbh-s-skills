@@ -181,6 +181,55 @@ class GateTests(unittest.TestCase):
         self.assertEqual(result["status"], "BLOCKED")
         self.assertTrue(any(x["status"] == "MISSING" for x in result["resources"]))
 
+    def test_fenced_markdown_examples_are_not_material_links(self):
+        entry = self.skill / 'SKILL.md'
+        with entry.open('a', encoding='utf-8') as stream:
+            stream.write('\n```markdown\n[example](references/not-a-real-file.md)\n```\n'
+                         '\n~~~~markdown\n[example2](references/also-example.md)\n~~~~\n')
+        self.contract()
+        code, result = self.check()
+        self.assertEqual(code, 0, result)
+
+    def test_shorter_or_different_fence_does_not_hide_real_link_after_close(self):
+        entry = self.skill / 'SKILL.md'
+        with entry.open('a', encoding='utf-8') as stream:
+            stream.write('\n````markdown\n```\n~~~\n[example](references/example.md)\n````\n'
+                         '[required](references/real-missing.md)\n')
+        self.contract()
+        code, result = self.check()
+        self.assertEqual(code, 2, result)
+        missing = [Path(x['path']).name for x in result['resources'] if x['status'] == 'MISSING']
+        self.assertEqual(missing, ['real-missing.md'])
+
+    def test_unclosed_fence_and_declared_dependencies_remain_fail_closed(self):
+        entry = self.skill / 'SKILL.md'
+        with entry.open('a', encoding='utf-8') as stream:
+            stream.write('\n```markdown\n[required](references/still-missing.md)\n')
+        self.contract([{'id': 'declared-file', 'kind': 'file',
+                        'path': str(self.root / 'declared-missing.bin')}])
+        code, result = self.check()
+        self.assertEqual(code, 2, result)
+        self.assertTrue(any(x['status'] == 'MISSING' for x in result['resources']))
+        self.assertEqual(result['requirements'][0]['status'], 'MISSING')
+
+    def test_ambiguous_html_and_container_fences_do_not_hide_dependencies(self):
+        examples = [
+            '<!--\n```\n-->\n[required](references/real-missing.md)\n```\n',
+            '<div>\n```\n<a href="references/real-missing.md">required</a>\n```\n</div>\n',
+            '- ```markdown\n  ```\n[required](references/real-missing.md)\n```\n',
+            ' ```markdown\n```\n[required](references/real-missing.md)\n```\n',
+        ]
+        entry = self.skill / 'SKILL.md'
+        original = entry.read_text(encoding='utf-8')
+        for example in examples:
+            with self.subTest(example=example):
+                entry.write_text(original + '\n' + example, encoding='utf-8')
+                self.contract()
+                code, result = self.check()
+                self.assertEqual(code, 2, result)
+                self.assertTrue(any(x['status'] == 'MISSING' and Path(x['path']).name == 'real-missing.md'
+                                    for x in result['resources']), result)
+
     def test_resource_change_invalidates_review(self):
         self.contract()
         (self.skill / "references/guide.md").write_text("New requirements", encoding="utf-8")
