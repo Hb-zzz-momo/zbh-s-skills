@@ -1,5 +1,12 @@
 # Workflow B validation
 
+## Related-issue search and reuse — 2026-11-13
+
+- Router 2.3.2 triggers a bounded related-issue check before repair closure; reflection 2.4.0 owns historical-solution lookup, mechanism/alias search, dependency propagation, confirmed-cause classification and scope-aware repair. Lightweight checks do not start a complete logging workflow. Concurrent upstream documentation guidance was preserved during integration.
+- Independent agent `related_issue_review` actually searched a seven-file isolated document project after one unit-conversion error was reported. It corrected the shared template, dependent summary and current guide, while preserving the measured-result exception, frozen quotation, original definition and historical issue record. Parent checks independently confirmed three corrected locations and those four unchanged files.
+- The historical record was from version 2.0 and the current version was unspecified: the executor reused and independently checked the conversion method, without claiming a matching version or inventing a copy lineage. The final instruction patch was independently reviewed PASS. Format validation passed for both modified Skills.
+- Explicit single-location authorization was checked as a counterfactual only; inaccessible-index handling was not actually replayed. This test demonstrates one invoked, bounded file repair; it does not prove automatic host routing, exhaustive project coverage or long-term recurrence reduction. Private dialogue and local raw evidence are not published.
+
 Validated 2026-10-21. This batch changes generic dispatch and evidence handoff, not database engines, course execution code, memory schema, or experiment requirements.
 
 - User explicitly adopted policy B: research external gaps, changing facts, requested sources, and mandatory domain research. Stable supplied material can proceed directly. Domain testing and independent review remain required.
