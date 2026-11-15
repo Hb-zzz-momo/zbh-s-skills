@@ -72,6 +72,9 @@ py -3 <skill>/scripts/three_layer_memory.py verify-sync --project .
 
 project_id 不随盘符/目录改变；aliases 可记录 -c/-g 入口。项目背景可共享，机器路径、内核、字体、进程状态要重新核对。
 
+
+确认事实或操作路径变化时，在更新总览与阶段 check 之间，按[文档联动](references/document-consistency.md)核对直接和间接受影响的现行文档、逐份写入/回读及业务验证；复用已有事件/阶段记录，未完成项显式交接。既有 CLI/schema、五维检查和封存顺序不变，哈希不证明业务一致；无变化不额外扫描，只读不写，无 manifest 不自动建库。
+
 ## 核验与同步
 
 check --level 支持 structure/content/evidence/snapshot/handoff/all；PASS=0、CAUTION=1、BLOCK=2，参数错误=2。输出始终带维度。
