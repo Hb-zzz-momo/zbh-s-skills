@@ -2,7 +2,7 @@
 name: three-layer-project-memory-zh
 description: "建立、检索、更新和验收有来源的三层项目记忆，覆盖工作、过程、修订与经验；多阶段任务接入持续反思、阶段提炼和相关Skill优化，支持规则替代、身份隔离与跨电脑接班。用于项目记忆、上下文恢复、过程跟进和交接；只读恢复不自动写入，不以记忆检查替代实验验收。"
 metadata:
-  version: "2.1.1"
+  version: "2.1.2"
 ---
 
 # 三层项目记忆 v2.1
@@ -71,6 +71,9 @@ py -3 <skill>/scripts/three_layer_memory.py verify-sync --project .
 用户已指定外部员工存储时，在该存储初始化并写有来源经验；retrieve --store <root> --agent-id <id> 可跨项目调用该员工经验，仍排除其他项目事实。不要自行创建全局员工库或将同学身份、实验授权推广为经验。
 
 project_id 不随盘符/目录改变；aliases 可记录 -c/-g 入口。项目背景可共享，机器路径、内核、字体、进程状态要重新核对。
+
+
+确认事实或操作路径变化时，在更新总览与阶段 check 之间，按[文档联动](references/document-consistency.md)核对直接和间接受影响的现行文档、逐份写入/回读及业务验证；复用已有事件/阶段记录，未完成项显式交接。既有 CLI/schema、五维检查和封存顺序不变，哈希不证明业务一致；无变化不额外扫描，只读不写，无 manifest 不自动建库。
 
 ## 核验与同步
 
