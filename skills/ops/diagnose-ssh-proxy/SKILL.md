@@ -1,6 +1,6 @@
 ---
 name: diagnose-ssh-proxy
-description: "排查 Windows 到 Linux 的 SSH 登录失败、正确密码无法登录、私钥选择或权限错误、VS Code Remote SSH 连接异常、反向转发冲突，以及远程 Codex CLI 的代理和登录问题。用于远程 10801 经 SSH 接入本地 7890 的配置、修复、验证和小白工作流教学。 Use when: SSH登录失败、免密配置、远程10801转发本地7890、VS Code代理、Codex远程安装和小白排错教学。"
+description: "排查 Windows/Linux 的 SSH 服务安装与校验、登录失败、正确密码无法登录、私钥选择或权限错误、VS Code Remote SSH 连接异常、反向转发冲突，以及远程 Codex CLI 的代理和登录问题。用于 OpenSSH Server 安装、Windows 管理员公钥、22端口校验、远程10801接入本地7890和小白工作流教学。 Use when: SSH服务安装、sshd校验、Windows OpenSSH、Linux OpenSSH、SSH登录失败、免密配置、22端口、远程10801转发本地7890、VS Code代理和小白排错教学。"
 ---
 
 # SSH 登录与代理排错
@@ -8,6 +8,8 @@ description: "排查 Windows 到 Linux 的 SSH 登录失败、正确密码无法
 按证据逐层定位故障，每次只调整当前失败的一层。用中文说明“在哪台机器执行、预期结果、失败后走哪条分支”。将操作限制在用户授权的主机、账户与配置文件内。
 
 面向用户解释错误时，每个失败环节都附小白举例，并把例子接回“为什么查这里”：沿用办公室门禁、窗口和专线的同一场景，明确哪台机器、哪一步受阻。排错表逐行对应，不能只给总比喻或换一种术语复述错误；可能原因仍需日志或测试区分，例子不充当根因证据。
+
+安装或核对 SSH 服务时，必须同时给出**点击链路**和**命令行**两条独立可执行路径：Windows 先给设置、服务管理器、资源管理器的点击路径，再给 PowerShell；Linux 没有统一图形界面时明确说明，并给发行版命令。不要把“22端口可连接”写成“SSH服务正常”，也不要把只有公钥文件写成“可以登录”。
 
 ## 先读取相关材料
 
@@ -26,7 +28,19 @@ description: "排查 Windows 到 Linux 的 SSH 登录失败、正确密码无法
 
 若有执行能力，先只读检查已授权目标；若工具自身报 Permission denied 或 app-server 缺失，记录为执行环境限制，不能据此断定用户服务器认证失败，不能声称已修改配置。
 
-## 2. 隔离并修复 SSH 登录
+## 2. 安装并校验 SSH 服务（需要时）
+
+当用户说目标机还没有 SSH、22端口没有 banner、连接后被关闭，或怀疑 `sshd` 未安装时，先走本层；不要直接配密钥或改代理。
+
+Windows 的目标是 OpenSSH Server，不是客户端。点击链路：设置 → 应用 → 可选功能 → 添加功能 → `OpenSSH Server` → 安装；`Win+R` → `services.msc` → `OpenSSH SSH Server` → 启动类型自动 → 启动。命令行可用 `Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0`，再 `Set-Service sshd -StartupType Automatic`、`Start-Service sshd`。
+
+Windows 管理员公钥默认放在 `C:\ProgramData\ssh\administrators_authorized_keys`，不是 `C:\Users\Administrator\.ssh\authorized_keys`；该文件安装时不会自动生成，需要手动创建。点击链路为：`Win+R` 输入 `%ProgramData%\ssh` → 新建文件 → 粘贴一行公钥 → 属性 → 安全 → 高级 → 禁用并移除继承 → 只保留 `Administrators` 和 `SYSTEM` 完全控制。命令行对应 `notepad`、`icacls` 和 `Restart-Service sshd`；完整命令与 ACL 放在[操作参考](references/operations.md)。
+
+Linux 没有统一图形安装路径。Ubuntu/Debian 使用 `openssh-server` 和 `ssh.service`，RHEL/Rocky/Alma 使用 `openssh-server` 和 `sshd.service`，按[操作参考](references/operations.md)的发行版命令安装、设置开机启动、检查 `sshd -t`、监听端口和防火墙。Linux 的图形软件中心只能作为可选辅助，不能替代可验证命令。
+
+**成功信号：** 服务已安装且运行、22端口确实由 `sshd` 监听、`sshd -t` 无错误、客户端能看到 SSH banner；这些仍然不等于账户认证成功。认证成功还要单独验证 `whoami` 或实际命令。
+
+## 3. 隔离并修复 SSH 登录
 
 先检查实际生效配置，再关闭转发进行单独登录测试：
 
@@ -47,13 +61,13 @@ ssh -vv -o ClearAllForwardings=yes server111
 
 不要直接开放 root 密码登录、关闭认证保护、关闭主机密钥校验或清空 known_hosts。若登录后立即断开，检查远程命令、shell、会话策略和日志，不能只归为密码错误。
 
-## 3. 配置并验证免密
+## 4. 配置并验证免密
 
 先保留一个可用登录会话。生成新密钥前检查文件是否存在，禁止覆盖现有私钥。将公钥安装到实际登录账户的 authorized_keys；把无 .pub 后缀的私钥交给客户端。只有日志指向私钥权限不安全时才修复该私钥的 ACL。
 
 验证时使用 ClearAllForwardings；区分服务器密码、私钥口令和 ssh-agent 缓存。BatchMode 失败可能是加密私钥未解锁，不能单凭该结果认定公钥未安装。
 
-## 4. 建立唯一的反向代理通道
+## 5. 建立唯一的反向代理通道
 
 推荐将普通登录别名与代理别名分开：server111 负责交互连接，server111-proxy 独占 RemoteForward。先验证本地 7890 HTTP 代理，再开启一次反向隧道，最后从远程显式指定 10801 测试。
 
@@ -61,7 +75,7 @@ ssh -vv -o ClearAllForwardings=yes server111
 
 遇到绑定失败，核对远程监听、已有隧道以及转发策略。不要盲目 kill sshd、重启 SSH 服务或删除 VS Code Ports 条目。两个 Host 区块不会自动启动两个进程；多个匹配区块可能累积转发，须以 ssh -G 和实际连接为准。
 
-## 5. 持久化、接入应用并分层验收
+## 6. 持久化、接入应用并分层验收
 
 隧道验证成功后，再写入远程 shell 代理环境文件，按标记加载到 bashrc，保留备份、避免重复行，并提供撤销方式。不要宣称 bashrc 覆盖所有服务或所有用户。环境变量声明代理地址，不会创建监听或隧道。
 
@@ -73,7 +87,7 @@ Codex CLI 使用官方安装方式，远程无浏览器时优先核对 device-au
 
 ## 验收门槛
 
-1. 不带转发能登录正确账户。
+1. 若目标机原本没有 SSH 服务，服务已安装、运行、监听且配置校验通过；再验证无转发能登录正确账户。
 2. 公钥认证可用，或明确保留用户选定的认证方式。
 3. 本地代理、远程监听及显式代理请求均通过。
 4. 新 Shell 的环境代理请求通过；目标应用单独验证。

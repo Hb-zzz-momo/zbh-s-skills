@@ -8,6 +8,16 @@
 
 小白理解：普通连接负责进办公室；专用隧道负责把办公室的10801收件窗口接到家里代理7890。进办公室和寄快递是两件事；同一服务器不用为每个开发窗口重开收件窗口。
 
+## 第0步：目标机没有 SSH 服务时，先安装并验证服务
+
+位置：目标主机本身（Windows用远程桌面/物理控制台，Linux用控制台或云终端）。客户端22端口能连上、但拿不到SSH banner时，先走这一步；不要先换密钥。Windows点击链路和PowerShell命令、Linux发行版命令、管理员公钥路径和ACL细节见[操作参考的服务安装章节](operations.md#ssh-服务安装与校验windowslinux-双路径)。
+
+Windows最短点击链路：设置 → 应用 → 可选功能 → 添加功能 → 安装`OpenSSH Server`；`services.msc` → `OpenSSH SSH Server` → 自动 → 启动。管理员公钥文件在`C:\ProgramData\ssh\administrators_authorized_keys`，需手动创建，不是用户目录里的`authorized_keys`。
+
+小白理解：22端口像办公楼门口有人应门，不等于里面真的开了办事窗口；先确认`sshd`这个窗口存在并正常应答，再谈钥匙能不能进门。
+
+**成功信号：** 服务运行、22端口由`sshd`监听、`sshd -t`无错误、`ssh -vvv`能看到服务端banner。此时才进入第1步验证账户登录。
+
 ## 第1步：先只验证能登录正确账户
 
 位置：Windows PowerShell。新机器尚无别名时直接登录：

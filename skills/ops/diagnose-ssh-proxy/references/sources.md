@@ -9,6 +9,9 @@
 | [OpenSSH ssh_config](https://man.openbsd.org/ssh_config) | Host 匹配、配置优先级、IdentityFile、ClearAllForwardings、RemoteForward、ExitOnForwardFailure |
 | [OpenSSH ssh](https://man.openbsd.org/ssh) | -R 的监听方向与本地目标，-N/-T/-G/-v 选项 |
 | [OpenSSH sshd_config](https://man.openbsd.org/sshd_config) | 转发策略、监听限制、账户认证策略；在有效配置与日志支持后才修改 |
+| [Microsoft：Windows OpenSSH 安装](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_install_firstuse) | Windows可选功能、服务启动、22端口与基础校验 |
+| [Microsoft：Windows OpenSSH 密钥](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_keymanagement) | 管理员账户的`administrators_authorized_keys`、ACL和公钥认证 |
+| [Microsoft：Windows OpenSSH 服务配置](https://learn.microsoft.com/en-us/windows-server/administration/openssh/openssh_server_configuration) | `sshd_config`、服务管理和日志入口 |
 | [VS Code SSH 排错](https://code.visualstudio.com/docs/remote/troubleshooting) | 密钥、Windows 权限、Remote SSH 问题定位 |
 | [VS Code 1.98 Remote 更新](https://github.com/microsoft/vscode-docs/blob/main/remote-release-notes/v1_98.md) | Remote SSH 0.118.0 引入 remote.SSH.httpProxy/httpsProxy；支持别名映射或字符串，为远程 Server 安装及启动导出变量 |
 | [VS Code WSL 远程扩展代理](https://code.visualstudio.com/docs/remote/wsl) | 远程扩展复用本地代理的背景，http.useLocalProxyConfiguration 与远程设置；用于同类运行位置问题时应核对实际版本 |

@@ -17,6 +17,107 @@
 | VS Code 本地设置 | Preferences: Open User Settings (JSON) |
 | VS Code 远程设置 | 连接后 Preferences: Open Remote Settings (JSON) |
 
+## SSH 服务安装与校验：Windows/Linux 双路径
+
+先分清“SSH客户端能发起连接”和“目标机有正常sshd”是两件事。客户端TCP能连上22不代表服务正常；没有banner、连接立即关闭或`kex_exchange_identification: Connection closed by remote host`都说明应先检查服务端、端口归属和防火墙，而不是继续换密钥。
+
+### Windows：点击链路
+
+1. 安装服务端：打开**设置 → 应用 → 可选功能 → 添加功能**，搜索`OpenSSH Server`并安装。Windows 10/11和Windows Server是否提供该能力取决于版本；没有时改用微软Win32-OpenSSH安装包。
+2. 启动服务：按`Win+R`输入`services.msc`，打开**OpenSSH SSH Server**，启动类型设为**自动**，点击**启动**。
+3. 打开配置目录：按`Win+R`输入`%ProgramData%\ssh`。`%ProgramData%`通常展开为`C:\ProgramData`，即使它默认隐藏也可以用这个入口直接打开。
+4. 管理员公钥：在`C:\ProgramData\ssh`空白处右键**新建 → 文本文档**，把文件命名为`administrators_authorized_keys`，确认没有`.txt`后缀；打开后粘贴完整的一行公钥并保存。该文件不会由安装程序自动生成，`ssh.pid`只是运行时进程文件，不是公钥文件。
+5. 修权限：右键该文件 → **属性 → 安全 → 高级** → **禁用继承** → **删除所有继承权限** → 添加`Administrators`和`SYSTEM`，都设为**完全控制** → 删除其他用户/组 → 应用。
+6. 重启服务：回到`services.msc`，对**OpenSSH SSH Server**选择**重新启动**。
+
+Windows管理员账户默认读取`C:\ProgramData\ssh\administrators_authorized_keys`，不是`C:\Users\Administrator\.ssh\authorized_keys`。默认`sshd_config`通常包含`Match Group administrators`和`__PROGRAMDATA__/ssh/administrators_authorized_keys`；不要删除该匹配块。匹配依据是管理员组，不只是用户名`Administrator`。
+
+### Windows：命令行对应
+
+管理员PowerShell：
+
+```powershell
+Get-WindowsCapability -Online | Where-Object Name -like 'OpenSSH*'
+Add-WindowsCapability -Online -Name OpenSSH.Server~~~~0.0.1.0
+Set-Service -Name sshd -StartupType Automatic
+Start-Service sshd
+
+$f = "$env:ProgramData\ssh\administrators_authorized_keys"
+notepad $f
+```
+
+粘贴公钥并保存后：
+
+```powershell
+icacls $f /inheritance:r /grant '*S-1-5-32-544:F' /grant '*S-1-5-18:F'
+Restart-Service sshd
+Get-Service sshd
+sshd -t
+Get-NetTCPConnection -LocalPort 22 -State Listen
+```
+
+如果文件存在但仍无法登录，检查有效配置、ACL和事件日志；不要删除`ssh.pid`或重装服务来清空证据：
+
+```powershell
+Select-String -Path "$env:ProgramData\ssh\sshd_config" -Pattern 'AuthorizedKeysFile','Match Group administrators'
+Get-WinEvent -LogName 'OpenSSH/Operational' -MaxEvents 20
+```
+
+### Linux：安装与校验
+
+Linux发行版和桌面环境没有统一“点击安装”路径。Ubuntu Software可能能搜索到软件包，但服务器环境以包管理器为准；不要把某个桌面软件的按钮写成通用步骤。
+
+Ubuntu/Debian：
+
+```bash
+sudo apt update
+sudo apt install -y openssh-server
+sudo systemctl enable --now ssh
+sudo systemctl status ssh --no-pager
+sudo /usr/sbin/sshd -t
+sudo ss -ltnp 'sport = :22'
+sudo ufw allow OpenSSH  # 仅在启用UFW时
+```
+
+RHEL/Rocky/Alma/Fedora：
+
+```bash
+sudo dnf install -y openssh-server
+sudo systemctl enable --now sshd
+sudo systemctl status sshd --no-pager
+sudo /usr/sbin/sshd -t
+sudo ss -ltnp 'sport = :22'
+sudo firewall-cmd --permanent --add-service=ssh  # 仅在启用firewalld时
+sudo firewall-cmd --reload
+```
+
+Arch Linux：
+
+```bash
+sudo pacman -S openssh
+sudo systemctl enable --now sshd
+sudo systemctl status sshd --no-pager
+sudo /usr/sbin/sshd -t
+```
+
+普通用户公钥放在`~/.ssh/authorized_keys`，并确保目录和文件属于实际登录用户：
+
+```bash
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/authorized_keys
+```
+
+只有SELinux日志指向SSH文件上下文时再运行`restorecon -R -v ~/.ssh`；不要用关闭SELinux或降低全局权限替代诊断。
+
+### 共同验收链
+
+1. **服务层：** 服务已安装且处于运行状态。
+2. **监听层：** 22端口处于Listen，且所属进程确实是`sshd`。
+3. **配置层：** `sshd -t`无错误；修改配置后已重启服务。
+4. **握手层：** 客户端`ssh -vvv`能看到服务端SSH版本和认证方法，而不是连接被立即关闭。
+5. **认证层：** 密码或公钥认证成功，远端`whoami`返回预期账户。
+6. **业务层：** 实际命令或目标应用完成；前三层成功不能推出业务成功。
+
 ## 登录诊断：本地 PowerShell
 
 ```powershell
