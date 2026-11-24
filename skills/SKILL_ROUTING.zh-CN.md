@@ -62,6 +62,7 @@
 | 长任务 | 后台任务、轮询、卡死恢复、manifest | `agent-wait-monitor-zh` |
 | 项目/活动结束沉淀 | 按真实业务内容和用途整理成品/源稿/历史，裁定版本差异，可恢复迁移与独立盲找；不能只换outputs位置 | `project-closeout-zh`（用户技能） |
 | 产物整理 | 按主题盘点版本角色、保护独立恢复备份、日志与旧产物受限清理；旧 skill-outputs 仅兼容读取，整个项目结束整理转上行 | `artifact-curator-zh` |
+| 磁盘空间清理与迁移 | 磁盘实占盘点、系统与应用缓存、软件卸载、跨盘或服务器迁移、验证本机用法和释放量 | `storage-cleanup-zh` |
 | 工作流沉淀 | SOP、流程优化、新 skill 工作流 | `workflow-forge-zh` |
 | 学习复盘 | 任务结束后总结知识点 | `knowledge-digest-zh` |
 

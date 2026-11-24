@@ -1,0 +1,4 @@
+interface:
+  display_name: "清存储"
+  short_description: "先测实占，再给出可清理、可卸载和可迁移清单，按授权执行并复测空间"
+  default_prompt: "使用 $storage-cleanup-zh 只读盘点 C 盘，列出可清理、可卸载和可迁移且保留本机用法的项目。"
